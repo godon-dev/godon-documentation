@@ -22,7 +22,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ### Overview
 
-![Components](https://raw.githubusercontent.com/cherusk/godon/master/docs_content/drawings/architecture.drawio.svg?sanitize=true)
+![Components](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/drawings/architecture.drawio.svg?sanitize=true)
 
-![FLow_Outline](https://raw.githubusercontent.com/cherusk/godon/master/docs_content/drawings/flow_outline.drawio.svg?sanitize=true)
+![FLow_Outline](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/drawings/flow_outline.drawio.svg?sanitize=true)
 
