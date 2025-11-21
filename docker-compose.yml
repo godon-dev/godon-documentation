@@ -21,9 +21,10 @@ services:
   mkdocs:
     container_name: mkdocs
     image: squidfunk/mkdocs-material:9
+    command: serve --dev-addr=0.0.0.0:8000 --config-file /material/mkdocs.yml
     restart: always
     ports:
       - "9800:8000"
     volumes:
-      - ./material:/mkdocs
+      - ./material:/material
       - ./docs:/site/
