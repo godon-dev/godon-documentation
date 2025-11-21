@@ -1,10 +1,18 @@
 site_name: godon
 site_description: 'Project around Paralellized Metaheuristics driven Infrastructure Optimization'
 site_author: 'Matthias Tafelmeier'
-repo_url: https://github.com/cherusk/godon
+repo_url: https://github.com/godon-dev/godon
 repo_name: GitHub
+copyright: "Copyright &copy; 2019 - Today; Matthias Tafelmeier"
 theme:
   name: "material"
+  features:
+    - navigation.footer
+  palette:
+    # Dark mode palette
+    - scheme: slate
+      primary: teal
+      accent: cyan
 nav:
     - Home: index.md
     - Technical:
