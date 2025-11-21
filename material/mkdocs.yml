@@ -4,7 +4,7 @@ site_author: 'Matthias Tafelmeier'
 repo_url: https://github.com/cherusk/godon
 repo_name: GitHub
 theme:
-  name: "windmill"
+  name: "material"
 nav:
     - Home: index.md
     - Technical:

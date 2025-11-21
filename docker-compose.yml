@@ -20,15 +20,10 @@ version: '3.4'
 services:
   mkdocs:
     container_name: mkdocs
-    image: polinux/mkdocs:1.2.3
+    image: squidfunk/mkdocs-material:9
     restart: always
     ports:
       - "9800:8000"
     volumes:
       - ./material:/mkdocs
       - ./docs:/site/
-    environment:
-      LIVE_RELOAD_SUPPORT: 'true'
-      ADD_MODULES: 'mkdocs-windmill'
-      DOCS_DIRECTORY: '/mkdocs'
-      AUTO_UPDATE: 'false'
