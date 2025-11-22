@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#summary" class="md-skip">
           Skip to content
         </a>
       
@@ -396,10 +396,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Summary
       
     </span>
   </a>
@@ -407,22 +407,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
+  <a href="#conception" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objective
+        Conception
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Objective">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities and Caveats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Capabilities and Caveats">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#it-is" class="md-nav__link">
+  <a href="#what-godon-is" class="md-nav__link">
     <span class="md-ellipsis">
       
-        It is
+        What godon is
       
     </span>
   </a>
@@ -430,10 +441,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#it-is-not" class="md-nav__link">
+  <a href="#what-godon-is-not" class="md-nav__link">
     <span class="md-ellipsis">
       
-        It is not
+        What godon is not
       
     </span>
   </a>
@@ -591,10 +602,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Introduction
+        Summary
       
     </span>
   </a>
@@ -602,22 +613,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#objective" class="md-nav__link">
+  <a href="#conception" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objective
+        Conception
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Objective">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities and Caveats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Capabilities and Caveats">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#it-is" class="md-nav__link">
+  <a href="#what-godon-is" class="md-nav__link">
     <span class="md-ellipsis">
       
-        It is
+        What godon is
       
     </span>
   </a>
@@ -625,10 +647,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#it-is-not" class="md-nav__link">
+  <a href="#what-godon-is-not" class="md-nav__link">
     <span class="md-ellipsis">
       
-        It is not
+        What godon is not
       
     </span>
   </a>
@@ -681,48 +703,124 @@ You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<h2 id="introduction">Introduction</h2>
-<hr />
-<p>This project approaches the problem of optimizing infrastructure technologies 
-as a continuous multi objective combinatorial optimization problem in a dynamic environment</p>
-<p>Meta-Heuristics, e.g. Evolutionary Algorithms (EA), have been found operating well in
-such optimization problem fields.</p>
-<p>Technologies throughout the stack are targeted. A focus is put on open technologies first.</p>
-<p>Overall optimizing, rearranging, calibrating of technology settings throughout the life-cycle of an instance
-of a technology are what is seeked to address with godon.</p>
-<h2 id="objective">Objective</h2>
-<hr />
-<h3 id="it-is">It is</h3>
-<hr />
+<h2 id="summary">Summary</h2>
+<p>Godon addresses the complex challenge of <strong>continuous dinfrastructure
+optimization</strong> in dynamic environments through <strong>multi-objective combinatorial
+optimization</strong> with an emphasis on meta-heuristic algorithms. It augments human
+operators by mechanizing performance tuning, optimizing, rearranging,
+calibrating of technology settings across stacks The overall focus is on open
+technologies first.</p>
+<h2 id="conception">Conception</h2>
+<p>Modern infrastructure operations—whether <strong>on-premise, cloud-native, or
+hybrid</strong>—face an inherently dynamic environment where traffic patterns change,
+loads are volatile, and service interactions evolve rapidly. This complexity is
+especially pronounced in <strong>cloud environments</strong> where:</p>
 <ul>
-<li>augmenting human operation engineers at bringing about performance improvements<ul>
-<li>it simplifies the process through standardization and industrialization</li>
-<li>reduces prior knowledge needed about configuration changes and implications</li>
-<li>less toil in terms of engineering hours spent</li>
+<li><strong>Elastic scaling</strong> creates constantly changing optimization targets</li>
+<li><strong>Multi-cloud deployments</strong> introduce heterogeneous infrastructure challenges</li>
+<li><strong>Managed services</strong> limit configuration visibility while requiring optimization</li>
+<li><strong>Cost-performance tradeoffs</strong> become more critical with pay-as-you-go models</li>
 </ul>
-</li>
-<li>tackles the wide spread neglection of broader performance tuning</li>
-<li>pragmatic operations engineering complementing instrument</li>
-<li>focussed on open technologies first</li>
-<li>approximating an optimal state in a dynamic environment changing over time</li>
-<li>leveraging metaheuristics algorithms of all kinds to explore combinatorial configuration spaces</li>
-<li>betting on parallelization and acceleration of metaheuristics</li>
-</ul>
-<h3 id="it-is-not">It is not</h3>
+<p>Godon approaches this as a <strong>continuous multi-objective combinatorial optimization problem</strong> that spans all infrastructure environments:
+- <strong>On-premise systems</strong> requiring traditional performance tuning
+- <strong>Cloud deployments</strong> with elastic, distributed architectures
+- <strong>Hybrid setups</strong> bridging local and cloud resources
+- <strong>Meta-heuristics</strong> (e.g. Evolutionary Algorithms) excel in such optimization problem fields
+- <strong>Optimization</strong> spans the entire <strong>lifecycle</strong> of technology instances</p>
+<h2 id="capabilities-and-caveats">Capabilities and Caveats</h2>
 <hr />
-<ul>
-<li>fully off-hands automation as human setup, supervision and planning is required</li>
-<li>a machine learning or data analysis oriented technology<ul>
-<li>kept to a minimum</li>
-<li>ideally only used if needed in the implementation details of a metaheuristic</li>
-</ul>
-</li>
-<li>guaranteeing a global optimum in the search space of configurations<ul>
-<li>rather approximating a better than untouched state</li>
-</ul>
-</li>
-<li>a metaheuristics framework</li>
-</ul>
+<h3 id="what-godon-is">What godon is</h3>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Human Augmentation</strong></td>
+<td>Augments human operators in achieving performance improvements through standardization and industrialization</td>
+</tr>
+<tr>
+<td><strong>Knowledge Reduction</strong></td>
+<td>Reduces prior knowledge needed about configuration changes and their implications</td>
+</tr>
+<tr>
+<td><strong>Toil Reduction</strong></td>
+<td>Decreases engineering hours spent on manual tuning</td>
+</tr>
+<tr>
+<td><strong>Neglect Solution</strong></td>
+<td>Addresses the widespread neglect of broader performance tuning</td>
+</tr>
+<tr>
+<td><strong>Pragmatic Tool</strong></td>
+<td>Serves as a practical operations engineering complement</td>
+</tr>
+<tr>
+<td><strong>Open-Source Focus</strong></td>
+<td>Prioritizes open technologies first</td>
+</tr>
+<tr>
+<td><strong>Continuous Optimization</strong></td>
+<td>Approximates optimal state in dynamic, changing environments</td>
+</tr>
+<tr>
+<td><strong>Algorithm Agnostic</strong></td>
+<td>Leverages metaheuristics of all kinds to explore combinatorial spaces</td>
+</tr>
+<tr>
+<td><strong>Performance Accelerated</strong></td>
+<td>Utilizes parallelization and acceleration of metaheuristics</td>
+</tr>
+<tr>
+<td><strong>Environment Agnostic</strong></td>
+<td>Optimizes across on-premise, cloud, hybrid, and multi-cloud deployments</td>
+</tr>
+<tr>
+<td><strong>Cost-Aware</strong></td>
+<td>Balances performance against cloud spending and on-premise TCO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-godon-is-not">What godon is not</h3>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Human Supervision</strong></td>
+<td>Requires human setup, supervision, and strategic planning</td>
+</tr>
+<tr>
+<td><strong>ML-Light Approach</strong></td>
+<td>Machine learning is kept to minimum, used only when needed in implementation details</td>
+</tr>
+<tr>
+<td><strong>Approximate Solutions</strong></td>
+<td>Approximates better-than-untouched states rather than guaranteeing global optimum</td>
+</tr>
+<tr>
+<td><strong>Not a Framework</strong></td>
+<td>Not a metaheuristics framework itself, but an application of them</td>
+</tr>
+<tr>
+<td><strong>Infrastructure Access</strong></td>
+<td>Requires appropriate permissions to monitor and modify configurations</td>
+</tr>
+<tr>
+<td><strong>Observability Integration</strong></td>
+<td>Needs metrics and monitoring data to inform optimization decisions</td>
+</tr>
+</tbody>
+</table>
 
 
 
