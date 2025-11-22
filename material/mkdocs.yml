@@ -18,7 +18,7 @@ theme:
   logo: assets/logo_small.png
 nav:
     - Landing: index.md
+    - Purpose: purpose.md
     - Documentation:
-        - Introduction: introduction.md
         - Architecture: architecture.md
         - Usage: usage.md
