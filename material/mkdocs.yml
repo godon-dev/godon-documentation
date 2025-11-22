@@ -16,7 +16,7 @@ theme:
   favicon: assets/icon.png
   logo: assets/logo_small.png
 nav:
-    - Home: index.md
+    - '': index.md
     - Technical:
         - Architecture: architecture.md
         - Usage: usage.md
