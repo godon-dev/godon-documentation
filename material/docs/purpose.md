@@ -18,44 +18,63 @@ You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-## Introduction
+
+## Summary
+
+Godon addresses the complex challenge of **continuous dinfrastructure
+optimization** in dynamic environments through **multi-objective combinatorial
+optimization** with an emphasis on meta-heuristic algorithms. It augments human
+operators by mechanizing performance tuning, optimizing, rearranging,
+calibrating of technology settings across stacks The overall focus is on open
+technologies first.
+
+## Conception
+
+Modern infrastructure operations—whether **on-premise, cloud-native, or
+hybrid**—face an inherently dynamic environment where traffic patterns change,
+loads are volatile, and service interactions evolve rapidly. This complexity is
+especially pronounced in **cloud environments** where:
+
+- **Elastic scaling** creates constantly changing optimization targets
+- **Multi-cloud deployments** introduce heterogeneous infrastructure challenges
+- **Managed services** limit configuration visibility while requiring optimization
+- **Cost-performance tradeoffs** become more critical with pay-as-you-go models
+
+Godon approaches this as a **continuous multi-objective combinatorial optimization problem** that spans all infrastructure environments:
+- **On-premise systems** requiring traditional performance tuning
+- **Cloud deployments** with elastic, distributed architectures
+- **Hybrid setups** bridging local and cloud resources
+- **Meta-heuristics** (e.g. Evolutionary Algorithms) excel in such optimization problem fields
+- **Optimization** spans the entire **lifecycle** of technology instances
+
+## Capabilities and Caveats
 -------------
 
-This project approaches the problem of optimizing infrastructure technologies 
-as a continuous multi objective combinatorial optimization problem in a dynamic environment
-
-Meta-Heuristics, e.g. Evolutionary Algorithms (EA), have been found operating well in
-such optimization problem fields.
-
-Technologies throughout the stack are targeted. A focus is put on open technologies first.
-
-Overall optimizing, rearranging, calibrating of technology settings throughout the life-cycle of an instance
-of a technology are what is seeked to address with godon.
-
-## Objective
+### What godon is
 -------------
 
-### It is
+| Capability | Description |
+|------------|-------------|
+| **Human Augmentation** | Augments human operators in achieving performance improvements through standardization and industrialization |
+| **Knowledge Reduction** | Reduces prior knowledge needed about configuration changes and their implications |
+| **Toil Reduction** | Decreases engineering hours spent on manual tuning |
+| **Neglect Solution** | Addresses the widespread neglect of broader performance tuning |
+| **Pragmatic Tool** | Serves as a practical operations engineering complement |
+| **Open-Source Focus** | Prioritizes open technologies first |
+| **Continuous Optimization** | Approximates optimal state in dynamic, changing environments |
+| **Algorithm Agnostic** | Leverages metaheuristics of all kinds to explore combinatorial spaces |
+| **Performance Accelerated** | Utilizes parallelization and acceleration of metaheuristics |
+| **Environment Agnostic** | Optimizes across on-premise, cloud, hybrid, and multi-cloud deployments |
+| **Cost-Aware** | Balances performance against cloud spending and on-premise TCO |
+
+### What godon is not
 -------------
 
-* augmenting human operation engineers at bringing about performance improvements
-    * it simplifies the process through standardization and industrialization
-    * reduces prior knowledge needed about configuration changes and implications
-    * less toil in terms of engineering hours spent
-* tackles the wide spread neglection of broader performance tuning
-* pragmatic operations engineering complementing instrument
-* focussed on open technologies first
-* approximating an optimal state in a dynamic environment changing over time
-* leveraging metaheuristics algorithms of all kinds to explore combinatorial configuration spaces
-* betting on parallelization and acceleration of metaheuristics
-
-### It is not
--------------
-
-* fully off-hands automation as human setup, supervision and planning is required
-* a machine learning or data analysis oriented technology
-    * kept to a minimum
-    * ideally only used if needed in the implementation details of a metaheuristic
-* guaranteeing a global optimum in the search space of configurations
-    * rather approximating a better than untouched state
-* a metaheuristics framework
+| Requirement | Description |
+|-------------|-------------|
+| **Human Supervision** | Requires human setup, supervision, and strategic planning |
+| **ML-Light Approach** | Machine learning is kept to minimum, used only when needed in implementation details |
+| **Approximate Solutions** | Approximates better-than-untouched states rather than guaranteeing global optimum |
+| **Not a Framework** | Not a metaheuristics framework itself, but an application of them |
+| **Infrastructure Access** | Requires appropriate permissions to monitor and modify configurations |
+| **Observability Integration** | Needs metrics and monitoring data to inform optimization decisions |
