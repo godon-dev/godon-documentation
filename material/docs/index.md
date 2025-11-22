@@ -19,14 +19,12 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg?sanitize=true)
 
----
-title: Landing
----
 
 ## Sponsors
 -------------
 
 ![OSUOSL_LOGO](https://osuosl.org/images/osllogo-white_0.png#center-white)
+
 [OSU Open Source Lab](https://osuosl.org)
 Greatest esteem for bestowing generously with resources on their openstack infrastructure.
 
