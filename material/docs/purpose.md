@@ -32,19 +32,29 @@ technologies first.
 
 Modern infrastructure operations—whether **on-premise, cloud-native, or
 hybrid**—face an inherently dynamic environment where traffic patterns change,
-loads are volatile, and service interactions evolve rapidly. This complexity is
-especially pronounced in **cloud environments** where:
+loads are volatile, and service interactions evolve rapidly.
+
+This complexity often leads to **neglected performance tuning** due to:
+
+- Intractable complexity as the main challenge
+- Lacking resources in terms of engineering knowledge or capacity
+
+This complexity is not less pronounced in **cloud environments** despite its
+managed nature because there:
 
 - **Elastic scaling** creates constantly changing optimization targets
 - **Multi-cloud deployments** introduce heterogeneous infrastructure challenges
 - **Managed services** limit configuration visibility while requiring optimization
 - **Cost-performance tradeoffs** become more critical with pay-as-you-go models
 
-Godon approaches this as a **continuous multi-objective combinatorial optimization problem** that spans all infrastructure environments:
+Godon approaches this as a **continuous multi-objective combinatorial
+optimization problem** that spans all infrastructure environments:
 - **On-premise systems** requiring traditional performance tuning
 - **Cloud deployments** with elastic, distributed architectures
 - **Hybrid setups** bridging local and cloud resources
-- **Meta-heuristics** (e.g. Evolutionary Algorithms) excel in such optimization problem fields
+
+Further Godon makes stand out that:
+- **Meta-heuristics** (e.g. Evolutionary Algorithms) excel in such complex optimization problem fields
 - **Optimization** spans the entire **lifecycle** of technology instances
 
 ## Capabilities and Caveats
