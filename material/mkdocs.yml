@@ -22,3 +22,4 @@ nav:
     - Documentation:
         - Architecture: architecture.md
         - Usage: usage.md
+        - References: references.md
