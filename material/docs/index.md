@@ -37,10 +37,3 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 [OSU Open Source Lab](https://osuosl.org)
 Greatest esteem for bestowing generously with resources on their openstack infrastructure.
 
-## References 
--------------
-
-[1] Inspiring POC work for the project;[Autonomous_Configuration_of_Network_Parameters_in_Operating_Systems_using_Evolutionary_Algorithms](https://www.researchgate.net/publication/327392488_Autonomous_Configuration_of_Network_Parameters_in_Operating_Systems_using_Evolutionary_Algorithms)
-
-[2] Underpinning the potential to accelerate metaheurstics by parallelization;[A unified view of parallel multi-objective evolutionary
-algorithms](https://hal.archives-ouvertes.fr/hal-02304734/document)
