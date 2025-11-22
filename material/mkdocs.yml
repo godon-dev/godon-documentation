@@ -16,6 +16,8 @@ theme:
       accent: cyan
   favicon: assets/icon.png
   logo: assets/logo_small.png
+markdown_extensions:
+  - admonition
 nav:
     - Landing: index.md
     - Purpose: purpose.md
