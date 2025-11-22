@@ -1,3 +1,10 @@
+---
+hide:
+  - toc
+  - navigation
+  - path
+---  
+
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
 
@@ -16,6 +23,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
+
+# 
 
 ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg?sanitize=true)
 
