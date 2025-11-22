@@ -60,30 +60,30 @@ Further Godon makes stand out that:
 ## Capabilities and Caveats
 -------------
 
-### What godon is
+### What godon is - Capabilities
 -------------
 
 | Capability | Description |
 |------------|-------------|
-| **Human Augmentation** | Augments human operators in achieving performance improvements through standardization and industrialization |
-| **Knowledge Reduction** | Reduces prior knowledge needed about configuration changes and their implications |
-| **Toil Reduction** | Decreases engineering hours spent on manual tuning |
-| **Neglect Solution** | Addresses the widespread neglect of broader performance tuning |
-| **Pragmatic Tool** | Serves as a practical operations engineering complement |
-| **Open-Source Focus** | Prioritizes open technologies first |
-| **Continuous Optimization** | Approximates optimal state in dynamic, changing environments |
-| **Algorithm Agnostic** | Leverages metaheuristics of all kinds to explore combinatorial spaces |
-| **Performance Accelerated** | Utilizes parallelization and acceleration of metaheuristics |
-| **Environment Agnostic** | Optimizes across on-premise, cloud, hybrid, and multi-cloud deployments |
+| **Human Augmentation** | Augments operations engineers in achieving performance improvements through standardization and industrialization |
+| **Knowledge Simplification** | Reduces prior knowledge needed about configuration changes and their implications |
+| **Toil Reduction** | Decreases engineering hours spent on manual tuning tasks |
+| **Performance Optimization** | Addresses the widespread neglect of broader performance tuning initiatives |
+| **Operational Complement** | Serves as a pragmatic operations engineering complementing instrument |
+| **Open Technology Focus** | Prioritizes open technologies in optimization approaches |
+| **Dynamic Adaptation** | Approximates optimal states in continuously changing environments |
+| **Algorithm Exploration** | Leverages metaheuristics algorithms of all kinds to explore combinatorial configuration spaces |
+| **Performance Acceleration** | Utilizes parallelization and acceleration techniques for metaheuristics |
 
-### What godon is not
+### What godon is not - Caveats
 -------------
 
-| Requirement | Description |
-|-------------|-------------|
-| **Human Supervision** | Requires human setup, supervision, and strategic planning |
-| **ML-Light Approach** | Machine learning is kept to minimum, used only when needed in implementation details |
-| **Approximate Solutions** | Approximates better-than-untouched states rather than guaranteeing global optimum |
-| **Not a Framework** | Not a metaheuristics framework itself, but an application of them |
-| **Infrastructure Access** | Requires appropriate permissions to monitor and modify configurations |
-| **Observability Integration** | Needs metrics and monitoring data to inform optimization decisions |
+| Caveat | Description |
+|--------|-------------|
+| **Human Supervision Required** | Not fully hands-off automation - requires human setup, supervision, and planning |
+| **ML-Light Approach** | Not primarily a machine learning or data analysis oriented technology |
+| **Minimal ML Usage** | Machine learning components kept to minimum |
+| **Targeted ML Implementation** | ML ideally only used when needed in metaheuristic implementation details |
+| **No Global Optimum Guarantee** | Does not guarantee finding global optimum in configuration search space |
+| **Approximate Solutions** | Focuses on approximating better-than-untouched states rather than perfect optimization |
+| **Application, Not Framework** | Functions as an application of metaheuristics rather than providing a metaheuristics framework |
