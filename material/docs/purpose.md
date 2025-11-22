@@ -49,11 +49,13 @@ managed nature because there:
 
 Godon approaches this as a **continuous multi-objective combinatorial
 optimization problem** that spans all infrastructure environments:
+
 - **On-premise systems** requiring traditional performance tuning
 - **Cloud deployments** with elastic, distributed architectures
 - **Hybrid setups** bridging local and cloud resources
 
 Further Godon makes stand out that:
+
 - **Meta-heuristics** (e.g. Evolutionary Algorithms) excel in such complex optimization problem fields
 - **Optimization** spans the entire **lifecycle** of technology instances
 
