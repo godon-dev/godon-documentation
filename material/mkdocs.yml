@@ -1,4 +1,4 @@
-site_name: godon
+site_name: 'godon'
 site_description: 'Project around Paralellized Metaheuristics driven Infrastructure Optimization'
 site_author: 'Matthias Tafelmeier'
 repo_url: https://github.com/godon-dev/godon
@@ -17,6 +17,7 @@ theme:
   logo: assets/logo_small.png
 nav:
     - '': index.md
-    - Technical:
+    - Documentation:
+        - Introduction: introduction.md
         - Architecture: architecture.md
         - Usage: usage.md
