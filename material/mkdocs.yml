@@ -14,6 +14,7 @@ theme:
       primary: teal
       accent: cyan
   favicon: assets/icon.png
+  logo: assets/logo_small.png
 nav:
     - Home: index.md
     - Technical:
