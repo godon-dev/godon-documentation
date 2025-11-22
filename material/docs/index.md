@@ -1,3 +1,10 @@
+---
+hide:
+  - toc
+  - navigation
+  - path
+---  
+
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
 
@@ -17,57 +24,18 @@ You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
+# 
+
 ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg?sanitize=true)
 
-
-## Introduction
--------------
-
-This project approaches the problem of optimizing infrastructure technologies 
-as a continuous multi objective combinatorial optimization problem in a dynamic environment
-
-Meta-Heuristics, e.g. Evolutionary Algorithms (EA), have been found operating well in
-such optimization problem fields.
-
-Technologies throughout the stack are targeted. A focus is put on open technologies first.
-
-Overall optimizing, rearranging, calibrating of technology settings throughout the life-cycle of an instance
-of a technology are what is seeked to address with godon.
-
-## Objective
--------------
-
-### It is
--------------
-
-* augmenting human operation engineers at bringing about performance improvements
-    * it simplifies the process through standardization and industrialization
-    * reduces prior knowledge needed about configuration changes and implications
-    * less toil in terms of engineering hours spent
-* tackles the wide spread neglection of broader performance tuning
-* pragmatic operations engineering complementing instrument
-* focussed on open technologies first
-* approximating an optimal state in a dynamic environment changing over time
-* leveraging metaheuristics algorithms of all kinds to explore combinatorial configuration spaces
-* betting on parallelization and acceleration of metaheuristics
-
-### It is not
--------------
-
-* fully off-hands automation as human setup, supervision and planning is required
-* a machine learning or data analysis oriented technology
-    * kept to a minimum
-    * ideally only used if needed in the implementation details of a metaheuristic
-* guaranteeing a global optimum in the search space of configurations
-    * rather approximating a better than untouched state
-* a metaheuristics framework
 
 ## Sponsors
 -------------
 
-Greatest esteem to:
+![OSUOSL_LOGO](https://osuosl.org/images/osllogo-white_0.png#center-white)
 
-* OSU Open Source Lab (https://osuosl.org) for bestowing generously with resources on their openstack infrastructure
+[OSU Open Source Lab](https://osuosl.org)
+Greatest esteem for bestowing generously with resources on their openstack infrastructure.
 
 ## References 
 -------------
