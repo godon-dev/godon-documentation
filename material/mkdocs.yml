@@ -13,6 +13,7 @@ theme:
     - scheme: slate
       primary: teal
       accent: cyan
+  favicon: assets/icon.png
 nav:
     - Home: index.md
     - Technical:
