@@ -65,7 +65,6 @@ Godon approaches this as a **continuous multi-objective combinatorial optimizati
 | **Algorithm Agnostic** | Leverages metaheuristics of all kinds to explore combinatorial spaces |
 | **Performance Accelerated** | Utilizes parallelization and acceleration of metaheuristics |
 | **Environment Agnostic** | Optimizes across on-premise, cloud, hybrid, and multi-cloud deployments |
-| **Cost-Aware** | Balances performance against cloud spending and on-premise TCO |
 
 ### What godon is not
 -------------
