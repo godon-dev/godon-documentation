@@ -76,6 +76,8 @@ Further Godon makes stand out that:
 | **Dynamic Adaptation** | Approximates optimal states in continuously changing environments |
 | **Algorithm Exploration** | Leverages metaheuristics algorithms of all kinds to explore combinatorial configuration spaces |
 | **Performance Acceleration** | Utilizes parallelization and acceleration techniques for metaheuristics |
+| **Acceleration Hardware Optionality** | Acceleration Hardware like GPUs might be leveraged for acceleration, but are not a mandatory requirement, unlike many ML or generative ML approaches |
+
 
 ### What godon is not - Caveats
 -------------
