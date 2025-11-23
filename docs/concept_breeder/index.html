@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage - godon</title>
+        <title>Breeder - godon</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#use-cases" class="md-skip">
+        <a href="#godon-breeder-explained" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage
+              Breeder
             
           </span>
         </div>
@@ -451,6 +451,58 @@
   
   
   
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -464,7 +516,7 @@
   <span class="md-ellipsis">
     
   
-    Usage
+    Breeder
   
 
     
@@ -482,7 +534,7 @@
   <span class="md-ellipsis">
     
   
-    Usage
+    Breeder
   
 
     
@@ -506,10 +558,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
+  <a href="#godon-breeder-explained" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use cases
+        Godon Breeder Explained
       
     </span>
   </a>
@@ -519,6 +571,14 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -585,10 +645,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
+  <a href="#godon-breeder-explained" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use cases
+        Godon Breeder Explained
       
     </span>
   </a>
@@ -615,52 +675,9 @@
   
 
 
-  <h1>Usage</h1>
+  <h1>Breeder</h1>
 
-<!--
-Copyright (c) 2019 Matthias Tafelmeier.
-
-This file is part of godon
-
-godon is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-godon is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this godon. If not, see <http://www.gnu.org/licenses/>.
--->
-
-<h2 id="use-cases">Use cases</h2>
-<p>Idea is to run a continuous or periodic optimization cycle. Ideally, there
-should be a breeding sub landscape, where the GEAs can do their optimiziation
-part in a safe, non-invasive or even disruptive way. Replicating load or
-traffic patterns in such a replicate might appear challenging, but may not be
-necessary. A proper enough approximation might suffice for the larger fraction
-of practical use cases.</p>
-<p>The optimizer core is working on DEAP workers parallelized with help of a shim
-layer over commonplace distributed system orchestrator solutions. Further, the
-feed-back control loop is driven in jobs, perceiving aggregated telemetry and
-data of similar character gathered from the targeted objects. Also direct
-inspection of the breeding status has to be foreseen. After running the
-optimization via parallelized GEAs, the outcome will be applied on the breeder.
-This cycle will run until a customer defined acceptance or approximation
-epsilon has been reached or an another, maybe time-bound termination kicks in.</p>
-<p>Eventual outcome shall be a configuration perceived sufficiently optimal.  It
-must be handed in structured way to the consumer, allowing him to apply the
-breeding result at higher criticality or the actual optimization target at his
-or her arbitration in the way most desired or applicable.</p>
-<p><img alt="Outline_online" src="https://raw.githubusercontent.com/cherusk/godon-documentation/main/docs_content/drawings/staged_structure.svg?sanitize=true" /></p>
-<p>Alternatively, customers will not be hampered from doing all the previously
-outlined directly on productive stacks.  If the targeted sub-components are not
-of utmost criticallity, that could be a frequent scenario to expect also.</p>
-<p>It's a special case of the previously described anyways.</p>
-<p><img alt="Outline_staged" src="https://raw.githubusercontent.com/cherusk/godon-documentation/main/docs_content/drawings/online_structure.svg?sanitize=true" /></p>
+<h2 id="godon-breeder-explained">Godon Breeder Explained</h2>
 
 
 

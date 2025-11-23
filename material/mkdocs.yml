@@ -23,4 +23,6 @@ nav:
     - Purpose: purpose.md
     - Documentation:
         - Architecture: architecture.md
+        - Core Concepts:
+          - Breeder: concept_breeder.md
         - References: references.md
