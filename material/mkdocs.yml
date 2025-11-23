@@ -26,3 +26,4 @@ nav:
         - Core Concepts:
           - Breeder: concept_breeder.md
         - References: references.md
+    - OpenAPI: api.md
