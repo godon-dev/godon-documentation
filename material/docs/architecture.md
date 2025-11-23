@@ -24,5 +24,3 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ![Components](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/drawings/architecture.drawio.svg?sanitize=true)
 
-![FLow_Outline](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/drawings/flow_outline.drawio.svg?sanitize=true)
-
