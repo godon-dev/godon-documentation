@@ -22,5 +22,7 @@ nav:
     - Landing: index.md
     - Purpose: purpose.md
     - Documentation:
+        - Core Concepts:
+          - Breeder: concept_breeder.md
         - Architecture: architecture.md
         - References: references.md
