@@ -24,10 +24,22 @@ You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-# 
-
 ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg?sanitize=true)
 
+**Systematic optimization where AI reasoning meets reality!**
+
+Godon is the search and validation layer for human + AI mind co-pilots —
+empirically testing configurations against live systems through meta-heuristic algorithms.
+
+---
+
+### Why Godon?
+
+- **Empirical validation** — Transform AI Mind - suggested optimization charters into tested, measured outcomes
+- **Infrastructure-first, network-extensible** — Tune anything reachable via network
+- **Training-free, GPU-optional** — No models to train, no heavy hardware required
+
+---
 
 ## Sponsors
 -------------
@@ -35,5 +47,5 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 ![OSUOSL_LOGO](https://osuosl.org/images/osllogo-white_0.png#center-white)
 
 [OSU Open Source Lab](https://osuosl.org)
-Greatest esteem for bestowing generously with resources on their openstack infrastructure.
 
+Greatest esteem for bestowing generously with resources on their openstack infrastructure.
