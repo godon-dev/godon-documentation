@@ -18,6 +18,8 @@ theme:
   logo: assets/logo_small.png
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
 nav:
     - Landing: index.md
     - Purpose: purpose.md
