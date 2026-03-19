@@ -16,12 +16,18 @@
 ## You should have received a copy of the GNU Affero General Public License
 ## along with this godon. If not, see <http://www.gnu.org/licenses/>.
 ##
-version: '3.4'
 services:
-  mkdocs:
-    container_name: mkdocs
+  build:
     image: squidfunk/mkdocs-material:9
     command: build --config-file /material/mkdocs.yml --site-dir /site
     volumes:
       - ./material:/material
       - ./docs:/site
+
+  serve:
+    image: squidfunk/mkdocs-material:9
+    ports:
+      - "9000:8000"
+    command: serve --config-file /material/mkdocs.yml --dev-addr 0.0.0.0:8000
+    volumes:
+      - ./material:/material

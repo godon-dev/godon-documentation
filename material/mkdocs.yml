@@ -24,6 +24,7 @@ nav:
     - Landing: index.md
     - Purpose: purpose.md
     - Documentation:
+        - Setup: setup.md
         - Architecture: architecture.md
         - Core Concepts:
           - Breeder: concept_breeder.md
