@@ -643,6 +643,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -903,89 +914,6 @@
     <span class="md-ellipsis">
       
         Feature Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integration-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration Patterns
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-choose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Choose
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="When to Choose">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#choose-godon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Godon
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-optunaray-tune" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Optuna/Ray Tune
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-akamasstormforge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Akamas/StormForge
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-aiops-datadogdynatrace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose AIOps (Datadog/Dynatrace)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
       
     </span>
   </a>
@@ -1090,6 +1018,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1356,89 +1295,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#integration-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration Patterns
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#when-to-choose" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Choose
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="When to Choose">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#choose-godon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Godon
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-optunaray-tune" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Optuna/Ray Tune
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-akamasstormforge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose Akamas/StormForge
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#choose-aiops-datadogdynatrace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose AIOps (Datadog/Dynatrace)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1479,6 +1335,30 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <h1 id="comparison-competitors">Comparison &amp; Competitors</h1>
+<h2 id="positioning">Positioning</h2>
+<p>Godon is an <strong>optimization application</strong> for live operational systems. It sits at a different layer than most tools in this space:</p>
+<p><strong>Libraries</strong> (Optuna, Hyperopt, Nevergrad) provide algorithm primitives — you build the application around them.</p>
+<p><strong>Frameworks</strong> (Ray Tune, Ax) provide orchestration for ML workloads — you adapt to their model.</p>
+<p><strong>SaaS Platforms</strong> (Akamas, StormForge) provide managed optimization — you subscribe and cede control.</p>
+<p>Godon provides a complete, self-hosted optimization application: algorithms wrapped in plumbing (effectuation, reconnaissance, coordination) and ops safety (guardrails, rollback, failure handling). It leverages open optimization frameworks internally — currently Optuna, with potential for custom samplers.</p>
+<p>The primary differentiator: Godon optimizes <strong>live systems</strong>, not simulations or offline models. This requires safety mechanisms that pure optimization libraries don't provide.</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                         GODON                                    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    Plumbing Layer                        │    │
+│  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │    │
+│  │  Trial coordination              │  Worker management    │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    Ops Safety Layer                      │    │
+│  │  Guardrails  │  Rollback  │  Consecutive failure handling│   │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │              Optimization Core                           │    │
+│  │  (Optuna: TPE, NSGA-II/III, QMC  →  custom samplers)    │    │
+│  └─────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
 <h2 id="overview">Overview</h2>
 <table>
 <thead>
@@ -1898,9 +1778,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Free</td>
 <td>Subscription</td>
 </tr>
+<tr>
+<td><strong>Vendor Lock-in</strong></td>
+<td>None</td>
+<td>High</td>
+</tr>
 </tbody>
 </table>
-<p>| <strong>Vendor Lock-in</strong> | None | High |</p>
 <h3 id="stormforge">StormForge</h3>
 <h3 id="turbonomic-ibm">Turbonomic (IBM)</h3>
 <table>
@@ -2158,96 +2042,6 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tr>
 </tbody>
 </table>
-<h2 id="integration-patterns">Integration Patterns</h2>
-<table>
-<thead>
-<tr>
-<th>Tool</th>
-<th>Relationship</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Optuna</td>
-<td>Internal dependency (Godon wraps it)</td>
-</tr>
-<tr>
-<td>Prometheus</td>
-<td>Reconnaissance (metric source)</td>
-</tr>
-<tr>
-<td>Kubernetes</td>
-<td>Deployment platform</td>
-</tr>
-<tr>
-<td>KEDA/HPA</td>
-<td>Complementary (Godon can tune autoscaler params)</td>
-</tr>
-<tr>
-<td>Ansible/Terraform</td>
-<td>Godon discovers values; these apply them</td>
-</tr>
-<tr>
-<td>LLMs</td>
-<td>Reasoning layer → Godon validates empirically</td>
-</tr>
-</tbody>
-</table>
-<h2 id="when-to-choose">When to Choose</h2>
-<h3 id="choose-godon">Choose Godon</h3>
-<ul>
-<li>Live system optimization required (not simulations)</li>
-<li>Multi-objective optimization</li>
-<li>Safety mechanisms needed (guardrails, rollback)</li>
-<li>Open source requirement</li>
-<li>Self-hosted infrastructure</li>
-<li>Parallel optimization with algorithm diversity</li>
-</ul>
-<h3 id="choose-optunaray-tune">Choose Optuna/Ray Tune</h3>
-<ul>
-<li>Building custom optimization application</li>
-<li>ML hyperparameter tuning primary use case</li>
-<li>Fine-grained control over all components</li>
-<li>No production system integration needed</li>
-</ul>
-<h3 id="choose-akamasstormforge">Choose Akamas/StormForge</h3>
-<ul>
-<li>Want managed service</li>
-<li>Kubernetes-only focus</li>
-<li>Budget for subscription</li>
-<li>Don't need to own optimization data</li>
-</ul>
-<h3 id="choose-aiops-datadogdynatrace">Choose AIOps (Datadog/Dynatrace)</h3>
-<ul>
-<li>Anomaly detection primary need</li>
-<li>Reactive incident response</li>
-<li>Recommendations sufficient (no automated changes)</li>
-</ul>
-<h2 id="references">References</h2>
-<div class="admonition quote">
-<p class="admonition-title">[1] <a href="https://optuna.org/">Optuna: A Next-generation Hyperparameter Optimization Framework</a></p>
-<p>Akiba, T. et al. (2019). The optimization library used internally by Godon.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">[2] <a href="https://docs.ray.io/en/latest/tune/">Ray Tune: Scalable Hyperparameter Tuning</a></p>
-<p>Ray team. Framework for distributed ML optimization.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">[3] <a href="https://ax.dev/">Ax: Adaptive Experimentation Platform</a></p>
-<p>Meta. Bayesian optimization framework with service layer.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">[4] <a href="https://facebookresearch.github.io/nevergrad/">Nevergrad: Derivative-free Optimization</a></p>
-<p>Facebook Research. Alternative derivative-free optimization library.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">[5] <a href="https://www.researchgate.net/publication/327392488_Autonomous_Configuration_of_Network_Parameters_in_Operating_Systems_using_Evolutionary_Algorithms">Autonomous Configuration of Network Parameters using Evolutionary Algorithms</a></p>
-<p>Foundational research for meta-heuristic infrastructure optimization.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">[6] <a href="https://hal.archives-ouvertes.fr/hal-02304734/document">A unified view of parallel multi-objective evolutionary algorithms</a></p>
-<p>Algorithmic foundations for parallel optimization.</p>
-</div>
 
 
 
