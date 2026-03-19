@@ -21,12 +21,13 @@ markdown_extensions:
   - attr_list
   - md_in_html
 nav:
-    - Landing: index.md
-    - Purpose: purpose.md
-    - Documentation:
-        - Setup: setup.md
-        - Architecture: architecture.md
-        - Core Concepts:
-          - Breeder: concept_breeder.md
-        - References: references.md
-    - OpenAPI: api.md
+     - Landing: index.md
+     - Purpose: purpose.md
+     - Documentation:
+         - Setup: setup.md
+         - Architecture: architecture.md
+         - Core Concepts:
+           - Breeder: concept_breeder.md
+         - Comparison: comparison.md
+         - References: references.md
+     - OpenAPI: api.md
