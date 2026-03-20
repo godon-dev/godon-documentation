@@ -92,6 +92,7 @@ The effectuator is a plugin — same algorithm can tune different targets.
 #### Pluggable Reconnaissance
 
 How the breeder observes results:
+
 | Source | What it provides |
 |--------|------------------|
 | Prometheus | Time-series metrics |
@@ -214,6 +215,7 @@ Guardrails are **safety limits** that protect production systems during optimiza
 └─────────────────────────────────────────────────────────────┘
 ```
 **How guardrails work:**
+
 | Stage | Action |
 |-------|--------|
 | **Configure** | Define hard limits for critical metrics (e.g., `cpu_usage < 90%`) |
@@ -221,6 +223,7 @@ Guardrails are **safety limits** that protect production systems during optimiza
 | **Violated** | Mark trial as failed, increment failure counter, potentially trigger rollback |
 | **OK** | Accept trial results, continue optimization |
 **Guardrails vs Objectives:**
+
 | Aspect | Objectives | Guardrails |
 |--------|------------|------------|
 | **Purpose** | What to optimize | What to avoid |
@@ -261,6 +264,7 @@ When consecutive guardrail violations occur, breeders can automatically **rollba
 └─────────────────────────────────────────────────────────────┘
 ```
 **Rollback strategies:**
+
 | Strategy | What it restores | Use case |
 |----------|------------------|----------|
 | `previous` | Last successful trial's params | Conservative, safe |
@@ -308,6 +312,7 @@ Multiple workers can collaborate by **sharing successful trials** across the opt
            └───────────────────────────────────────────────────────────────┘
 ```
 **Sharing strategies:**
+
 | Strategy | What gets shared | Benefit |
 |----------|------------------|---------|
 | `probabilistic` | Random trials with probability P | Simple, fast convergence |
@@ -345,6 +350,7 @@ When running multiple parallel workers, breeders can assign **different algorith
 └─────────────────────────────────────────────────────────────┘
 ```
 **Assigned samplers:**
+
 | Workers | Samplers assigned |
 |---------|-------------------|
 | 1 | TPE (default) |
