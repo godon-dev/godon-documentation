@@ -631,29 +631,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Data Flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-a-breeder" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating a Breeder
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optimization-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -661,11 +638,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1157,29 +1129,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Data Flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-a-breeder" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating a Breeder
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optimization-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1187,11 +1136,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1511,53 +1455,84 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </table>
 <p>Pushes to Prometheus Push Gateway for aggregation.</p>
 <hr />
-<h3 id="data-flow">Data Flow</h3>
-<h4 id="creating-a-breeder">Creating a Breeder</h4>
-<pre><code>User                API              Windmill          Controller Worker
-  │                  │                   │                    │
-  │ POST /breeders   │                   │                    │
-  │─────────────────▶│                   │                    │
-  │                  │ Create job        │                    │
-  │                  │──────────────────▶│                    │
-  │                  │                   │ Dispatch           │
-  │                  │                   │───────────────────▶│
-  │                  │                   │                    │ Init breeder
-  │                  │                   │                    │ Write to Metadata DB
-  │                  │                   │                    │ Spawn breeder workers
-  │                  │                   │◀───────────────────│
-  │                  │◀──────────────────│                    │
-  │◀─────────────────│                   │                    │
-  │ 201 Created      │                   │                    │
+<h3 id="optimization-loop">Optimization Loop</h3>
+<p>The core cycle that each breeder worker executes:</p>
+<pre><code>┌──────────────────────────────────────────────────────────────────────────┐
+│                        Breeder Worker Loop                                   │
+│                                                                              │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌──────────┐  │
+│  │   Sample   │───▶│  Effectuate │───▶│Reconnoiter │───▶│  Update  │  │
+│  │  (algorithm)│    │ (apply)     │    │ (observe)  │    │ (fitness) │  │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └──────────┘  │
+│         │                  │                  │                  │           │
+│         │                  ▼                  │                  │           │
+│         │         ┌──────────────────────────────────┐        │           │
+│         │         │         Target System              │        │           │
+│         │         │  ┌────────┐  ┌────────────┐     │        │           │
+│         └─────────▶│  SSH   │  │ Kubernetes │─────▶        │           │
+│                   │  HTTP   │  │   API      │     │        │           │
+│                   └────────┘  └────────────┘     │        │           │
+│                                            │                  │           │
+│                                            ▼                  │           │
+│                              ┌──────────────────────────┐        │           │
+│                              │   Prometheus / Metrics    │        │           │
+│                              └────────────┬─────────────┘        │           │
+│                                           │                                │           │
+│                                           ▼                                │           │
+│                              ┌──────────────────────────┐        │           │
+│                              │  Guardrails? Fitness?    │        │           │
+│                              └────────────┬─────────────┘        │           │
+│                                           │                                │           │
+│                              ┌────────────┴─────────────┐        │           │
+│                              ▼                           ▼        │           │
+│                         ┌──────────┐              ┌──────────┐  │           │
+│                         │  Share   │              │  Next    │  │           │
+│                         │  (opt)   │              │  Sample  │  │           │
+│                         └──────────┘              └──────────┘  │           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────┘
 </code></pre>
-<h4 id="optimization-loop">Optimization Loop</h4>
-<pre><code>Breeder Worker      Effectuator        Target System      Reconnaissance
-      │                 │                   │                    │
-      │ Sample params   │                   │                    │
-      │ from algorithm  │                   │                    │
-      │                 │                   │                    │
-      │ Apply config    │                   │                    │
-      │────────────────▶│                   │                    │
-      │                 │ SSH/HTTP/K8s      │                    │
-      │                 │──────────────────▶│                    │
-      │                 │                   │ Config applied     │
-      │                 │◀──────────────────│                    │
-      │◀────────────────│                   │                    │
-      │                 │                   │                    │
-      │ Wait for steady state               │                    │
-      │                 │                   │                    │
-      │ Collect metrics │                   │                    │
-      │─────────────────────────────────────│───────────────────▶│
-      │                 │                   │     Prometheus/HTTP│
-      │◀────────────────────────────────────│────────────────────│
-      │ Metrics         │                   │                    │
-      │                 │                   │                    │
-      │ Check guardrails│                   │                    │
-      │ Compute fitness │                   │                    │
-      │ Update algorithm│                   │                    │
-      │ Share to Archive DB                 │                    │
-      │                 │                   │                    │
-      │ ◀── Loop ──▶    │                   │                    │
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Action</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sample</strong></td>
+<td>Algorithm suggests next parameters</td>
+<td>Milliseconds</td>
+</tr>
+<tr>
+<td><strong>Effectuate</strong></td>
+<td>Apply config to target system</td>
+<td>Seconds to minutes</td>
+</tr>
+<tr>
+<td><strong>Reconnoiter</strong></td>
+<td>Wait for steady state, collect metrics</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td>Check guardrails, compute fitness, update algorithm</td>
+<td>Milliseconds</td>
+</tr>
+<tr>
+<td><strong>Communicate</strong> (optional)</td>
+<td>Publish trial to Archive DB for cooperation</td>
+<td>Milliseconds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key properties:</strong>
+- Effectuation is idempotent — safe to retry
+- Reconnaissance waits for steady state before collecting
+- Guardrail violations short-circuit the loop, mark trial failed
+- Archive DB write is async, doesn't block next sample</p>
 <hr />
 <h3 id="technology-choices">Technology Choices</h3>
 <table>
@@ -1572,7 +1547,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tr>
 <td><strong>Windmill</strong></td>
 <td>Workflow orchestration</td>
-<td>Mature scheduler, Python-native, handles retry/dependency logic</td>
+<td>Most mature and best performing open source workflow engine, abstracts Kubernetes complexity</td>
 </tr>
 <tr>
 <td><strong>PostgreSQL</strong></td>
@@ -1598,7 +1573,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </table>
 <p><strong>Design principles:</strong></p>
 <ul>
-<li><strong>Buy, don't build</strong> — Windmill handles scheduling so godon doesn't have to</li>
+<li><strong>Open source stack</strong> — Built entirely on open source components, no vendor lock-in</li>
 <li><strong>Separate concerns</strong> — Metadata (operational) vs Archive (optimization) have different scaling needs</li>
 <li><strong>PostgreSQL ecosystem</strong> — Both databases speak PostgreSQL, reducing cognitive load</li>
 <li><strong>Kubernetes-native</strong> — Helm charts, Pod Disruption Budgets, standard deployment patterns</li>
