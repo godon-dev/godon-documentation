@@ -100,6 +100,7 @@ How the breeder observes results:
 | HTTP endpoints | Health checks, stats |
 
 The observer is a plugin — measure what matters for your objective.
+
 ---
 
 ### Worker Collaboration
