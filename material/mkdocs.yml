@@ -28,6 +28,11 @@ nav:
          - Architecture: architecture.md
          - Core Concepts:
            - Breeder: concept_breeder.md
+           - Search_Space: concept_search_space.md
+           - Objective: concept_objective.md
+           - Effectuator: concept_effectuator.md
+           - Reconnaissance: concept_reconnaissance.md
+           - Guardrails: concept_guardrails.md
          - Comparison: comparison.md
          - References: references.md
      - OpenAPI: api.md
