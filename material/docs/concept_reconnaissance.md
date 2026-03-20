@@ -268,5 +268,5 @@ Objective: minimize latency_p99  ──▶  fitness = 45
 ### See Also
 
 - [Effectuator](concept_effectuator.md) — What reconnaissance observes
-- [Objective](concept_objective.md) — How metrics become fitness
 - [Guardrails](concept_guardrails.md) — Check reconnaissance data against limits
+- [Breeder](concept_breeder.md) — Orchestrates the optimization loop
