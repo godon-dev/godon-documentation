@@ -1,7 +1,7 @@
 
 ## Configuration Guide
 
-This guide walks through godon's configuration structure using examples from the [godon repository](https://github.com/godon-dev/godon/tree/main/examples).
+This guide walks through godon's configuration structure using examples from the [godon repository](https://github.com/godon-dev/godon/tree/master/examples).
 
 ### Configuration Overview
 
@@ -24,7 +24,7 @@ A godon configuration defines an optimization run — what to tune, how to apply
 
 ### Example Configurations
 
-Example configurations are available in the [godon examples directory](https://github.com/godon-dev/godon/tree/main/examples).
+Example configurations are available in the [godon examples directory](https://github.com/godon-dev/godon/tree/master/examples).
 
 These examples cover common scenarios:
 
@@ -114,7 +114,7 @@ guardrails:
 
 ### Full Example
 
-See the [examples directory](https://github.com/godon-dev/godon/tree/main/examples) for complete, runnable configurations.
+See the [examples directory](https://github.com/godon-dev/godon/tree/master/examples) for complete, runnable configurations.
 
 ---
 
