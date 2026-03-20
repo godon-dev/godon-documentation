@@ -1297,12 +1297,29 @@
 </table>
 <p>The effectuator is a plugin — same algorithm can tune different targets.</p>
 <h4 id="pluggable-reconnaissance">Pluggable Reconnaissance</h4>
-<p>How the breeder observes results:
-| Source | What it provides |
-|--------|------------------|
-| Prometheus | Time-series metrics |
-| Custom scripts | Arbitrary observations |
-| HTTP endpoints | Health checks, stats |</p>
+<p>How the breeder observes results:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prometheus</td>
+<td>Time-series metrics</td>
+</tr>
+<tr>
+<td>Custom scripts</td>
+<td>Arbitrary observations</td>
+</tr>
+<tr>
+<td>HTTP endpoints</td>
+<td>Health checks, stats</td>
+</tr>
+</tbody>
+</table>
 <h2 id="the-observer-is-a-plugin-measure-what-matters-for-your-objective">The observer is a plugin — measure what matters for your objective.</h2>
 <h3 id="worker-collaboration">Worker Collaboration</h3>
 <p>Breeders can run with multiple parallel workers:</p>
@@ -1421,20 +1438,68 @@
 │                    Trigger rollback       Update best        │ │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>How guardrails work:</strong>
-| Stage | Action |
-|-------|--------|
-| <strong>Configure</strong> | Define hard limits for critical metrics (e.g., <code>cpu_usage &lt; 90%</code>) |
-| <strong>Check</strong> | After each reconnaissance, compare collected metrics against limits |
-| <strong>Violated</strong> | Mark trial as failed, increment failure counter, potentially trigger rollback |
-| <strong>OK</strong> | Accept trial results, continue optimization |
-<strong>Guardrails vs Objectives:</strong>
-| Aspect | Objectives | Guardrails |
-|--------|------------|------------|
-| <strong>Purpose</strong> | What to optimize | What to avoid |
-| <strong>Example</strong> | Minimize latency | CPU must not exceed 90% |
-| <strong>Behavior</strong> | Guides search direction | Binary pass/fail |
-| <strong>Failure</strong> | Suboptimal result | Trial rejected |</p>
+<p><strong>How guardrails work:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Configure</strong></td>
+<td>Define hard limits for critical metrics (e.g., <code>cpu_usage &lt; 90%</code>)</td>
+</tr>
+<tr>
+<td><strong>Check</strong></td>
+<td>After each reconnaissance, compare collected metrics against limits</td>
+</tr>
+<tr>
+<td><strong>Violated</strong></td>
+<td>Mark trial as failed, increment failure counter, potentially trigger rollback</td>
+</tr>
+<tr>
+<td><strong>OK</strong></td>
+<td>Accept trial results, continue optimization</td>
+</tr>
+<tr>
+<td><strong>Guardrails vs Objectives:</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Objectives</th>
+<th>Guardrails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>What to optimize</td>
+<td>What to avoid</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Minimize latency</td>
+<td>CPU must not exceed 90%</td>
+</tr>
+<tr>
+<td><strong>Behavior</strong></td>
+<td>Guides search direction</td>
+<td>Binary pass/fail</td>
+</tr>
+<tr>
+<td><strong>Failure</strong></td>
+<td>Suboptimal result</td>
+<td>Trial rejected</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h3 id="rollback">Rollback</h3>
 <p>When consecutive guardrail violations occur, breeders can automatically <strong>rollback</strong> to a known-good configuration.</p>
@@ -1465,13 +1530,38 @@
 │                                    Continue trials            │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Rollback strategies:</strong>
-| Strategy | What it restores | Use case |
-|----------|------------------|----------|
-| <code>previous</code> | Last successful trial's params | Conservative, safe |
-| <code>best</code> | Best Pareto-optimal trial | Aggressive, assumes best is stable |
-| <code>baseline</code> | Original/untuned configuration | Fallback to known defaults |
-<strong>Configuration:</strong></p>
+<p><strong>Rollback strategies:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>What it restores</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>previous</code></td>
+<td>Last successful trial's params</td>
+<td>Conservative, safe</td>
+</tr>
+<tr>
+<td><code>best</code></td>
+<td>Best Pareto-optimal trial</td>
+<td>Aggressive, assumes best is stable</td>
+</tr>
+<tr>
+<td><code>baseline</code></td>
+<td>Original/untuned configuration</td>
+<td>Fallback to known defaults</td>
+</tr>
+<tr>
+<td><strong>Configuration:</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <pre><code class="language-yaml">rollback:
   enabled: true
   strategy: standard
@@ -1509,20 +1599,73 @@ rollback_strategies:
            │         All breeders learn from shared trials          │
            └───────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Sharing strategies:</strong>
-| Strategy | What gets shared | Benefit |
-|----------|------------------|---------|
-| <code>probabilistic</code> | Random trials with probability P | Simple, fast convergence |
-| <code>best</code> | Top percentile performers | Focus on good solutions |
-| <code>worst</code> | Bottom percentile performers | Learn what to avoid |
-| <code>extremes</code> | Both best and worst | Diverse learning signal |
-<strong>How it works:</strong>
-1. Worker completes a successful trial
-2. Strategy determines if trial should be shared
-3. If yes, trial is added to cooperating studies via shared database
-4. Other workers' algorithms learn from shared trials
-5. Faster convergence through collective intelligence</p>
-<hr />
+<p><strong>Sharing strategies:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>What gets shared</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>probabilistic</code></td>
+<td>Random trials with probability P</td>
+<td>Simple, fast convergence</td>
+</tr>
+<tr>
+<td><code>best</code></td>
+<td>Top percentile performers</td>
+<td>Focus on good solutions</td>
+</tr>
+<tr>
+<td><code>worst</code></td>
+<td>Bottom percentile performers</td>
+<td>Learn what to avoid</td>
+</tr>
+<tr>
+<td><code>extremes</code></td>
+<td>Both best and worst</td>
+<td>Diverse learning signal</td>
+</tr>
+<tr>
+<td><strong>How it works:</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1. Worker completes a successful trial</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2. Strategy determines if trial should be shared</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3. If yes, trial is added to cooperating studies via shared database</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4. Other workers' algorithms learn from shared trials</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5. Faster convergence through collective intelligence</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h3 id="algorithm-diversity">Algorithm Diversity</h3>
 <p>When running multiple parallel workers, breeders can assign <strong>different algorithms</strong> to each worker for better search space coverage.</p>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
@@ -1544,20 +1687,61 @@ rollback_strategies:
 │  Each sampler explores differently, sharing discoveries      │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Assigned samplers:</strong>
-| Workers | Samplers assigned |
-|---------|-------------------|
-| 1 | TPE (default) |
-| 2 | TPE, NSGA-II |
-| 3 | TPE, NSGA-II, Random |
-| 4 | TPE, NSGA-II, Random, NSGA-III |
-| 5+ | TPE, NSGA-II, Random, NSGA-III, QMC |
-<strong>Benefits:</strong>
-- <strong>Diverse exploration</strong>: Different algorithms search differently
-- <strong>Robustness</strong>: If one algorithm gets stuck, others continue
-- <strong>Cross-pollination</strong>: Workers share findings via cooperation
-- <strong>Hyperheuristic potential</strong>: Future automatic algorithm selection</p>
-<hr />
+<p><strong>Assigned samplers:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Workers</th>
+<th>Samplers assigned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>TPE (default)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TPE, NSGA-II</td>
+</tr>
+<tr>
+<td>3</td>
+<td>TPE, NSGA-II, Random</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TPE, NSGA-II, Random, NSGA-III</td>
+</tr>
+<tr>
+<td>5+</td>
+<td>TPE, NSGA-II, Random, NSGA-III, QMC</td>
+</tr>
+<tr>
+<td><strong>Benefits:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Diverse exploration</strong>: Different algorithms search differently</td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Robustness</strong>: If one algorithm gets stuck, others continue</td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Cross-pollination</strong>: Workers share findings via cooperation</td>
+<td></td>
+</tr>
+<tr>
+<td>- <strong>Hyperheuristic potential</strong>: Future automatic algorithm selection</td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
