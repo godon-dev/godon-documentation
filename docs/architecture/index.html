@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Project around Paralellized Metaheuristics driven Infrastructure Optimization">
+        <meta name="description" content="Project around Parallelized Metaheuristics driven Live System Optimization">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -537,10 +537,187 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#high-level-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        High-Level Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#godon-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windmill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windmill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worker-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worker Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-db-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadata DB (PostgreSQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archive-db-yugabytedb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archive DB (YugabyteDB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-breeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Breeder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Choices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -886,10 +1063,187 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#high-level-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        High-Level Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#godon-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windmill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windmill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worker-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worker Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-db-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadata DB (PostgreSQL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archive-db-yugabytedb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archive DB (YugabyteDB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-breeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Breeder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Choices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -943,9 +1297,423 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <h2 id="architecture">Architecture</h2>
+<p>godon is a distributed system for live system optimization. It coordinates metaheuristic search algorithms with real-world effectuation and observation, running continuously against production systems.</p>
 <hr />
-<h3 id="overview">Overview</h3>
-<p><img alt="Components" src="https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/drawings/architecture.drawio.svg?sanitize=true" /></p>
+<h3 id="high-level-overview">High-Level Overview</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                           Control Plane                                  │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                  │
+│  │  Godon API  │───▶│  Windmill   │───▶│   Workers   │                  │
+│  │  (extern)   │    │ (scheduler) │    │ (execute)   │                  │
+│  └─────────────┘    └─────────────┘    └─────────────┘                  │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           Storage Layer                                  │
+│  ┌──────────────────┐              ┌──────────────────┐                 │
+│  │   Metadata DB    │              │    Archive DB    │                 │
+│  │   (PostgreSQL)   │              │   (YugabyteDB)   │                 │
+│  │                  │              │                  │                 │
+│  │  Component state │              │  Trial history   │                 │
+│  │  Job tracking    │              │  Cooperation     │                 │
+│  └──────────────────┘              └──────────────────┘                 │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         Execution Layer                                  │
+│                                                                          │
+│    ┌──────────┐         ┌──────────────┐         ┌──────────────┐       │
+│    │ Breeder  │────────▶│  Effectuator │────────▶│    Target    │       │
+│    │ (driver) │         │   (apply)    │         │   System     │       │
+│    └──────────┘         └──────────────┘         └──────────────┘       │
+│         │                                                │               │
+│         │                                                ▼               │
+│         │         ┌──────────────┐         ┌──────────────┐             │
+│         └─────────│Reconnaissance│◀────────│   Metrics    │             │
+│                   │  (observe)   │         │   Sources    │             │
+│                   └──────────────┘         └──────────────┘             │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h3 id="components">Components</h3>
+<h4 id="godon-api">Godon API</h4>
+<p>The external interface for managing optimization runs.</p>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Breeder lifecycle</td>
+<td>Create, start, stop, delete breeders</td>
+</tr>
+<tr>
+<td>Status queries</td>
+<td>Check breeder and trial status</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Submit optimization configs</td>
+</tr>
+<tr>
+<td>Results</td>
+<td>Retrieve best configurations</td>
+</tr>
+</tbody>
+</table>
+<p>The API is stateless — it delegates to Windmill for orchestration.</p>
+<h4 id="windmill">Windmill</h4>
+<p>Workflow orchestration engine that schedules and executes godon jobs.</p>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Job scheduling</td>
+<td>Queue and dispatch work to workers</td>
+</tr>
+<tr>
+<td>Worker management</td>
+<td>Maintain worker pools by group</td>
+</tr>
+<tr>
+<td>Retry handling</td>
+<td>Recover from transient failures</td>
+</tr>
+<tr>
+<td>Dependency resolution</td>
+<td>Coordinate multi-step workflows</td>
+</tr>
+</tbody>
+</table>
+<p>Windmill provides the execution backbone without godon needing to implement scheduling logic.</p>
+<h4 id="worker-groups">Worker Groups</h4>
+<p>Workers are organized by job type:</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Replicas</th>
+<th>Timeout</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>controller</strong></td>
+<td>3</td>
+<td>2 minutes</td>
+<td>Fast operations: preflight, breeder create, status checks</td>
+</tr>
+<tr>
+<td><strong>breeder</strong></td>
+<td>5</td>
+<td>None</td>
+<td>Long-running optimization loops</td>
+</tr>
+<tr>
+<td><strong>default</strong></td>
+<td>2</td>
+<td>Default</td>
+<td>General operations, dependency resolution</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why separate groups:</strong>
+- Controller jobs are fast but frequent — need quick response
+- Breeder jobs run continuously — no timeout, crash recovery via Optuna DB
+- Default handles everything else without blocking specialized groups</p>
+<h4 id="metadata-db-postgresql">Metadata DB (PostgreSQL)</h4>
+<p>Stores godon's operational state.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Breeder definitions</td>
+<td>Configurations submitted via API</td>
+</tr>
+<tr>
+<td>Job state</td>
+<td>Windmill job tracking</td>
+</tr>
+<tr>
+<td>Component metadata</td>
+<td>Internal godon state</td>
+</tr>
+</tbody>
+</table>
+<p>PostgreSQL is sufficient here — moderate write volume, strong consistency needs.</p>
+<h4 id="archive-db-yugabytedb">Archive DB (YugabyteDB)</h4>
+<p>Stores trial history for optimization and cooperation.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trial records</td>
+<td>Parameters, metrics, fitness</td>
+</tr>
+<tr>
+<td>Pareto fronts</td>
+<td>Best configurations found</td>
+</tr>
+<tr>
+<td>Cooperation data</td>
+<td>Shared trials between breeders</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why YugabyteDB:</strong>
+- <strong>Horizontal scalability</strong> — Many concurrent breeders writing trials
+- <strong>PostgreSQL compatibility</strong> — Uses YSQL, same queries as Optuna expects
+- <strong>Distribution</strong> — Cooperative breeders need shared storage</p>
+<h4 id="metrics-exporter">Metrics Exporter</h4>
+<p>Exposes godon metrics for observability.</p>
+<table>
+<thead>
+<tr>
+<th>Metric Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trials</td>
+<td>Total, successful, failed</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>Effectuation time, reconnaissance time</td>
+</tr>
+<tr>
+<td>Breeder</td>
+<td>Active count, worker utilization</td>
+</tr>
+</tbody>
+</table>
+<p>Pushes to Prometheus Push Gateway for aggregation.</p>
+<hr />
+<h3 id="data-flow">Data Flow</h3>
+<h4 id="creating-a-breeder">Creating a Breeder</h4>
+<pre><code>User                API              Windmill          Controller Worker
+  │                  │                   │                    │
+  │ POST /breeders   │                   │                    │
+  │─────────────────▶│                   │                    │
+  │                  │ Create job        │                    │
+  │                  │──────────────────▶│                    │
+  │                  │                   │ Dispatch           │
+  │                  │                   │───────────────────▶│
+  │                  │                   │                    │ Init breeder
+  │                  │                   │                    │ Write to Metadata DB
+  │                  │                   │                    │ Spawn breeder workers
+  │                  │                   │◀───────────────────│
+  │                  │◀──────────────────│                    │
+  │◀─────────────────│                   │                    │
+  │ 201 Created      │                   │                    │
+</code></pre>
+<h4 id="optimization-loop">Optimization Loop</h4>
+<pre><code>Breeder Worker      Effectuator        Target System      Reconnaissance
+      │                 │                   │                    │
+      │ Sample params   │                   │                    │
+      │ from algorithm  │                   │                    │
+      │                 │                   │                    │
+      │ Apply config    │                   │                    │
+      │────────────────▶│                   │                    │
+      │                 │ SSH/HTTP/K8s      │                    │
+      │                 │──────────────────▶│                    │
+      │                 │                   │ Config applied     │
+      │                 │◀──────────────────│                    │
+      │◀────────────────│                   │                    │
+      │                 │                   │                    │
+      │ Wait for steady state               │                    │
+      │                 │                   │                    │
+      │ Collect metrics │                   │                    │
+      │─────────────────────────────────────│───────────────────▶│
+      │                 │                   │     Prometheus/HTTP│
+      │◀────────────────────────────────────│────────────────────│
+      │ Metrics         │                   │                    │
+      │                 │                   │                    │
+      │ Check guardrails│                   │                    │
+      │ Compute fitness │                   │                    │
+      │ Update algorithm│                   │                    │
+      │ Share to Archive DB                 │                    │
+      │                 │                   │                    │
+      │ ◀── Loop ──▶    │                   │                    │
+</code></pre>
+<hr />
+<h3 id="technology-choices">Technology Choices</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Role</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windmill</strong></td>
+<td>Workflow orchestration</td>
+<td>Mature scheduler, Python-native, handles retry/dependency logic</td>
+</tr>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>Metadata storage</td>
+<td>Reliable, well-understood, sufficient for component state</td>
+</tr>
+<tr>
+<td><strong>YugabyteDB</strong></td>
+<td>Trial archive</td>
+<td>PostgreSQL-compatible, horizontally scalable, enables cooperation</td>
+</tr>
+<tr>
+<td><strong>Kubernetes</strong></td>
+<td>Deployment platform</td>
+<td>Container orchestration, Helm for config, standard in cloud-native</td>
+</tr>
+<tr>
+<td><strong>Prometheus</strong></td>
+<td>Metrics</td>
+<td>Industry standard, Push Gateway for batch job metrics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Design principles:</strong></p>
+<ul>
+<li><strong>Buy, don't build</strong> — Windmill handles scheduling so godon doesn't have to</li>
+<li><strong>Separate concerns</strong> — Metadata (operational) vs Archive (optimization) have different scaling needs</li>
+<li><strong>PostgreSQL ecosystem</strong> — Both databases speak PostgreSQL, reducing cognitive load</li>
+<li><strong>Kubernetes-native</strong> — Helm charts, Pod Disruption Budgets, standard deployment patterns</li>
+</ul>
+<hr />
+<h3 id="deployment">Deployment</h3>
+<p>godon is deployed via Helm chart to Kubernetes.</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    Kubernetes Cluster                        │
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │  godon-api  │  │  windmill   │  │  workers    │          │
+│  │  (pod)      │  │  (pods)     │  │  (pods)     │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │ metadata-db │  │ archive-db  │  │ pushgateway │          │
+│  │ (postgres)  │  │ (yugabyte)  │  │ (prometheus)│          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Deployment characteristics:</strong></p>
+<ul>
+<li><strong>Stateless API</strong> — Can scale horizontally, rolling updates without downtime</li>
+<li><strong>Stateful databases</strong> — YugabyteDB handles its own replication</li>
+<li><strong>Worker pools</strong> — Scale independently based on load</li>
+<li><strong>Helm-managed</strong> — Single chart installs the full stack</li>
+</ul>
+<hr />
+<h3 id="failure-modes">Failure Modes</h3>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Impact</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API pod dies</td>
+<td>No new requests</td>
+<td>Kubernetes restarts, stateless</td>
+</tr>
+<tr>
+<td>Worker dies</td>
+<td>In-flight trial lost</td>
+<td>Optuna DB enables resume, algorithm continues</td>
+</tr>
+<tr>
+<td>Metadata DB down</td>
+<td>No new breeders</td>
+<td>Existing breeders continue (state already dispatched)</td>
+</tr>
+<tr>
+<td>Archive DB down</td>
+<td>No cooperation, no persistence</td>
+<td>Breeders continue locally, no cross-learning</td>
+</tr>
+<tr>
+<td>Target system unreachable</td>
+<td>Trial fails</td>
+<td>Marked failed, algorithm learns to avoid</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Crash safety:</strong>
+- Breeder workers have no timeout — they run until completion or crash
+- Optuna stores trial state in Archive DB — restart resumes from last known state
+- No half-applied configs — effectuation is idempotent</p>
+<hr />
+<h3 id="scaling">Scaling</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Scale by</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td>Replicas</td>
+<td>Stateless, scale freely</td>
+</tr>
+<tr>
+<td>Workers</td>
+<td>Group replicas</td>
+<td>More workers = more parallel trials</td>
+</tr>
+<tr>
+<td>Metadata DB</td>
+<td>Vertical</td>
+<td>Single PostgreSQL instance</td>
+</tr>
+<tr>
+<td>Archive DB</td>
+<td>Horizontal</td>
+<td>YugabyteDB distributes across nodes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cooperation scaling:</strong>
+- Multiple breeders share Archive DB
+- Each learns from others' trials
+- Diminishing returns after ~10 cooperating breeders (search space coverage)</p>
+<hr />
+<h3 id="see-also">See Also</h3>
+<ul>
+<li><a href="../concept_breeder/">Core Concepts</a> — Breeder, Effectuator, Reconnaissance, Guardrails</li>
+<li><a href="../config_guide/">Configuration Guide</a> — How to configure optimization runs</li>
+<li><a href="../setup/">Setup</a> — Installation instructions</li>
+</ul>
 
 
 
