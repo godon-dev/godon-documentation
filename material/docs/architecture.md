@@ -149,59 +149,60 @@ Pushes to Prometheus Push Gateway for aggregation.
 
 ---
 
-### Data Flow
+### Optimization Loop
 
-#### Creating a Breeder
-
-```
-User                API              Windmill          Controller Worker
-  │                  │                   │                    │
-  │ POST /breeders   │                   │                    │
-  │─────────────────▶│                   │                    │
-  │                  │ Create job        │                    │
-  │                  │──────────────────▶│                    │
-  │                  │                   │ Dispatch           │
-  │                  │                   │───────────────────▶│
-  │                  │                   │                    │ Init breeder
-  │                  │                   │                    │ Write to Metadata DB
-  │                  │                   │                    │ Spawn breeder workers
-  │                  │                   │◀───────────────────│
-  │                  │◀──────────────────│                    │
-  │◀─────────────────│                   │                    │
-  │ 201 Created      │                   │                    │
-```
-
-#### Optimization Loop
+The core cycle that each breeder worker executes:
 
 ```
-Breeder Worker      Effectuator        Target System      Reconnaissance
-      │                 │                   │                    │
-      │ Sample params   │                   │                    │
-      │ from algorithm  │                   │                    │
-      │                 │                   │                    │
-      │ Apply config    │                   │                    │
-      │────────────────▶│                   │                    │
-      │                 │ SSH/HTTP/K8s      │                    │
-      │                 │──────────────────▶│                    │
-      │                 │                   │ Config applied     │
-      │                 │◀──────────────────│                    │
-      │◀────────────────│                   │                    │
-      │                 │                   │                    │
-      │ Wait for steady state               │                    │
-      │                 │                   │                    │
-      │ Collect metrics │                   │                    │
-      │─────────────────────────────────────│───────────────────▶│
-      │                 │                   │     Prometheus/HTTP│
-      │◀────────────────────────────────────│────────────────────│
-      │ Metrics         │                   │                    │
-      │                 │                   │                    │
-      │ Check guardrails│                   │                    │
-      │ Compute fitness │                   │                    │
-      │ Update algorithm│                   │                    │
-      │ Share to Archive DB                 │                    │
-      │                 │                   │                    │
-      │ ◀── Loop ──▶    │                   │                    │
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        Breeder Worker Loop                                   │
+│                                                                              │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌──────────┐  │
+│  │   Sample   │───▶│  Effectuate │───▶│Reconnoiter │───▶│  Update  │  │
+│  │  (algorithm)│    │ (apply)     │    │ (observe)  │    │ (fitness) │  │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └──────────┘  │
+│         │                  │                  │                  │           │
+│         │                  ▼                  │                  │           │
+│         │         ┌──────────────────────────────────┐        │           │
+│         │         │         Target System              │        │           │
+│         │         │  ┌────────┐  ┌────────────┐     │        │           │
+│         └─────────▶│  SSH   │  │ Kubernetes │─────▶        │           │
+│                   │  HTTP   │  │   API      │     │        │           │
+│                   └────────┘  └────────────┘     │        │           │
+│                                            │                  │           │
+│                                            ▼                  │           │
+│                              ┌──────────────────────────┐        │           │
+│                              │   Prometheus / Metrics    │        │           │
+│                              └────────────┬─────────────┘        │           │
+│                                           │                                │           │
+│                                           ▼                                │           │
+│                              ┌──────────────────────────┐        │           │
+│                              │  Guardrails? Fitness?    │        │           │
+│                              └────────────┬─────────────┘        │           │
+│                                           │                                │           │
+│                              ┌────────────┴─────────────┐        │           │
+│                              ▼                           ▼        │           │
+│                         ┌──────────┐              ┌──────────┐  │           │
+│                         │  Share   │              │  Next    │  │           │
+│                         │  (opt)   │              │  Sample  │  │           │
+│                         └──────────┘              └──────────┘  │           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
+
+| Phase | Action | Duration |
+|-------|--------|----------|
+| **Sample** | Algorithm suggests next parameters | Milliseconds |
+| **Effectuate** | Apply config to target system | Seconds to minutes |
+| **Reconnoiter** | Wait for steady state, collect metrics | Seconds |
+| **Update** | Check guardrails, compute fitness, update algorithm | Milliseconds |
+| **Communicate** (optional) | Publish trial to Archive DB for cooperation | Milliseconds |
+
+**Key properties:**
+- Effectuation is idempotent — safe to retry
+- Reconnaissance waits for steady state before collecting
+- Guardrail violations short-circuit the loop, mark trial failed
+- Archive DB write is async, doesn't block next sample
 
 ---
 
@@ -209,7 +210,7 @@ Breeder Worker      Effectuator        Target System      Reconnaissance
 
 | Technology | Role | Why |
 |------------|------|-----|
-| **Windmill** | Workflow orchestration | Mature scheduler, Python-native, handles retry/dependency logic |
+| **Windmill** | Workflow orchestration | Most mature and best performing open source workflow engine, abstracts Kubernetes complexity |
 | **PostgreSQL** | Metadata storage | Reliable, well-understood, sufficient for component state |
 | **YugabyteDB** | Trial archive | PostgreSQL-compatible, horizontally scalable, enables cooperation |
 | **Kubernetes** | Deployment platform | Container orchestration, Helm for config, standard in cloud-native |
@@ -217,7 +218,7 @@ Breeder Worker      Effectuator        Target System      Reconnaissance
 
 **Design principles:**
 
-- **Buy, don't build** — Windmill handles scheduling so godon doesn't have to
+- **Open source stack** — Built entirely on open source components, no vendor lock-in
 - **Separate concerns** — Metadata (operational) vs Archive (optimization) have different scaling needs
 - **PostgreSQL ecosystem** — Both databases speak PostgreSQL, reducing cognitive load
 - **Kubernetes-native** — Helm charts, Pod Disruption Budgets, standard deployment patterns
