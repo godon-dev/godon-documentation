@@ -293,7 +293,6 @@ The effective Pareto front excludes guardrail-violating trials.
 
 ### See Also
 
-- [Objective](concept_objective.md) — What to optimize (vs what to avoid)
 - [Reconnaissance](concept_reconnaissance.md) — Provides metrics for guardrail checks
 - [Effectuator](concept_effectuator.md) — May execute rollback
 - [Breeder](concept_breeder.md) — Configures and enforces guardrails
