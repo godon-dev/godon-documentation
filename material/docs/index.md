@@ -40,7 +40,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 ### Why Godon?
 
 - :fontawesome-solid-flask: **Empirical validation** — Transform AI Mind - suggested optimization charters into tested, measured outcomes
-- :fontawesome-solid-puzzle-piece: **Skeleton for AI reasoning** — Give structure and grounding to AI-generated ideas, anchoring abstract suggestions in real-world results
+- :fontawesome-solid-diagram-project: **Skeleton for AI reasoning** — Give structure and grounding to AI-generated ideas, anchoring abstract suggestions in real-world results
 - :fontawesome-solid-network-wired: **Infrastructure-first, network-extensible** — Tune anything reachable via network
 - :fontawesome-solid-microchip: **Training-free, GPU-optional** — No models to train, no heavy hardware required
 
