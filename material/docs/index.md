@@ -28,7 +28,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 -   ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg){ width="200" }
 
--   ### Open Source Optimization Engine for AI Pilots and Humans
+-   ### :fontawesome-solid-dna: Open Source Optimization Engine for AI Pilots and Humans
 
     Godon is the search and validation layer for :fontawesome-solid-user: Human + :fontawesome-solid-brain: AI Mind co-pilots —
     empirically testing configurations against live systems through meta-heuristic algorithms.
