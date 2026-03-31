@@ -1,3 +1,6 @@
+---
+description: "godon purpose and positioning — a systematic optimization engine for live infrastructure, bridging AI suggestions with empirical validation in cloud-native and on-premise environments."
+---
 
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.

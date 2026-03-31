@@ -1,0 +1,41 @@
+# godon
+
+> Open Source Optimization Engine for AI Pilots and Humans
+
+godon is a parallelized metaheuristics-driven live system optimization engine.
+It optimizes real infrastructure and platform configurations using empirical validation
+through meta-heuristic algorithms (TPE, NSGA-II, NSGA-III, QMC).
+
+godon acts as the empirical validation layer between AI/LLM-generated configuration
+suggestions and real-world system verification.
+
+## Key Features
+
+- Empirical validation of AI-suggested configurations against live systems
+- Infrastructure-first, network-extensible (SSH, HTTP, Kubernetes API)
+- Training-free, GPU-optional — no models to train
+- Built-in guardrails, rollback, and safety mechanisms
+- Multi-objective optimization with cooperative parallel workers
+- Kubernetes-native deployment via Helm chart
+
+## Documentation
+
+- [Purpose](purpose/) — Problem statement, AI-era positioning, capabilities and caveats
+- [Setup](setup/) — Helm chart deployment guide (local kind + existing cluster)
+- [Architecture](architecture/) — System design, components, optimization loop, scaling
+- [Breeder](concept_breeder/) — Optimization driver: pluggable algorithms, worker collaboration, guardrails, rollback, cooperation
+- [Effectuator](concept_effectuator/) — Configuration application: SSH, HTTP, Kubernetes channels, idempotency
+- [Reconnaissance](concept_reconnaissance/) — Observation layer: Prometheus, HTTP, script sources, timing, aggregation
+- [Guardrails](concept_guardrails/) — Safety limits: soft/hard guardrails, rollback strategies, multi-objective interaction
+- [Configuration Guide](config_guide/) — YAML configuration: search space, objectives, effectuator, recon, guardrails
+- [Comparison](comparison/) — vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA
+- [API Reference](api/) — OpenAPI spec for breeder management endpoints
+
+## Links
+
+- Source Code: https://github.com/godon-dev/godon
+- Helm Charts: https://github.com/godon-dev/godon-charts
+- Container Images: https://github.com/godon-dev/godon-images
+- Discord: https://discord.com/invite/JZHSBpVr
+- License: GNU AGPL v3
+- Sponsor: OSU Open Source Lab (https://osuosl.org)

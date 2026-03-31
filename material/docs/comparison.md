@@ -1,3 +1,7 @@
+---
+description: "godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — positioning as optimization application for live operational systems."
+---
+
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
 

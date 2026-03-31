@@ -1,3 +1,6 @@
+---
+description: "godon Reconnaissance concept — observes target systems after effectuation using Prometheus, HTTP, and script sources. Timing, aggregation, and noise handling."
+---
 
 ## Reconnaissance
 

@@ -1,3 +1,7 @@
+---
+description: "godon setup guide — deploy godon via Helm chart to Kubernetes. Local kind cluster and existing cluster deployment modes, prerequisites, and verification steps."
+---
+
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
 

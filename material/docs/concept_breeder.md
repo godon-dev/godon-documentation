@@ -1,3 +1,6 @@
+---
+description: "godon Breeder concept — pluggable optimization driver coordinating algorithms, effectuation, and reconnaissance. Worker collaboration, guardrails, rollback, and cooperation."
+---
 
 ## Breeder
 

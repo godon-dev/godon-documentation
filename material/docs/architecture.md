@@ -1,3 +1,7 @@
+---
+description: "godon architecture — distributed system design with control plane, storage layer, execution layer. Optimization loop, technology choices, failure modes, and scaling."
+---
+
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
 

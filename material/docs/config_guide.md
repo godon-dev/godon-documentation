@@ -1,3 +1,6 @@
+---
+description: "godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails."
+---
 
 ## Configuration Guide
 
