@@ -1,6 +1,7 @@
 site_name: 'godon'
-site_description: 'Project around Parallelized Metaheuristics driven Live System Optimization'
+site_description: 'Open Source Optimization Engine for Live Systems — Parallelized Metaheuristics driven Infrastructure and Platform Tuning'
 site_author: 'Matthias Tafelmeier'
+site_url: https://godon-dev.github.io/godon-documentation
 repo_url: https://github.com/godon-dev/godon
 repo_name: GitHub
 copyright: "Copyright &copy; 2019 - Today; Matthias Tafelmeier"
@@ -15,7 +16,6 @@ theme:
     - navigation.footer
     - navigation.tabs
   palette:
-    # Dark mode palette
     - scheme: slate
       primary: teal
       accent: cyan
@@ -30,6 +30,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+plugins:
+  - social
 nav:
      - Landing: index.md
      - Purpose: purpose.md

@@ -1,3 +1,6 @@
+---
+description: "godon science references — academic papers on evolutionary algorithms for autonomous network configuration and parallel multi-objective evolutionary algorithms."
+---
 
 # Science References 
 -------------

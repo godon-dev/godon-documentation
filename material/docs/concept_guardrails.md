@@ -1,3 +1,6 @@
+---
+description: "godon Guardrails concept — safety limits protecting production systems during optimization. Soft and hard guardrails, rollback strategies, multi-objective constraints."
+---
 
 ## Guardrails
 

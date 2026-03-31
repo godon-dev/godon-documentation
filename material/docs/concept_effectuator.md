@@ -1,3 +1,6 @@
+---
+description: "godon Effectuator concept — applies configurations to target systems via SSH, HTTP, and Kubernetes API channels. Idempotent operations, timing, and rollback support."
+---
 
 ## Effectuator
 

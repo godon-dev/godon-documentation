@@ -1,4 +1,5 @@
 ---
+description: "godon — Open Source Optimization Engine for AI Pilots and Humans. Empirical validation of configurations on live systems through meta-heuristic algorithms."
 hide:
   - toc
   - navigation
