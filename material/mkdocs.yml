@@ -36,14 +36,15 @@ nav:
      - Landing: index.md
      - Purpose: purpose.md
      - Documentation:
-         - Setup: setup.md
-         - Architecture: architecture.md
-         - Core Concepts:
-           - Breeder: concept_breeder.md
-           - Effectuator: concept_effectuator.md
-           - Reconnaissance: concept_reconnaissance.md
-           - Guardrails: concept_guardrails.md
-         - Configuration_Guide: config_guide.md
-         - Comparison: comparison.md
-         - References: references.md
+          - Setup: setup.md
+          - Architecture: architecture.md
+          - Core Concepts:
+            - Breeder: concept_breeder.md
+            - Effectuator: concept_effectuator.md
+            - Reconnaissance: concept_reconnaissance.md
+            - Guardrails: concept_guardrails.md
+          - Configuration_Guide: config_guide.md
+          - Comparison: comparison.md
+          - MCP_Interface: mcp.md
+          - References: references.md
      - OpenAPI: api.md
