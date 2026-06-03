@@ -91,13 +91,47 @@ The detection was validated on a microgrid optimization scenario with two breede
 
 **Non-invasive**: The watermark amplitudes are small perturbations within the optimizer's parameter space. They don't alter the optimization's convergence behavior — they're embedded in the existing search process.
 
-### What Comes Next
+### Outlook
 
-Interference detection is the sensing layer. The next steps build toward making multi-optimizer systems work reliably:
+Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably. The detection result (present/absent) opens the door to a much richer understanding of how optimizers interact through shared systems.
 
-- **Intensity measurement**: quantifying interference strength from spectral power, not just detecting presence/absence
-- **Topology mapping**: identifying which optimizers interfere, through which shared resources, and along which parameter paths
-- **Automatic decoupling**: using interference information to guide optimizer decisions away from interfering regions of the search space
+#### Intensity Measurement
+
+Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric. An optimizer running against a power grid at 10% interference and one at 90% interference face fundamentally different problems. Intensity measurement gives operators the information to decide whether to act.
+
+#### Interference Topology
+
+With three or more optimizers, the question becomes: who interferes with whom, through what? The pairwise detection results between all breeders form an interference graph — a directed, weighted graph where nodes are optimizers, edges are interference channels, and weights are intensity. This topology reveals the structure of the system: clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference.
+
+```
+    ┌──────────┐  0.7  ┌──────────┐
+    │ Breeder A │──────▶│ Breeder B │
+    └──────────┘       └──────────┘
+         │                  │
+      0.2│               0.1│
+         ▼                  ▼
+    ┌──────────┐  0.0  ┌──────────┐
+    │ Breeder C │──────▶│ Breeder D │
+    └──────────┘       └──────────┘
+```
+
+In this example, A heavily interferes with B through shared infrastructure, while C and D are essentially independent. The topology tells you where to focus decoupling efforts.
+
+#### Per-Parameter Tracing
+
+Not all parameters contribute equally to interference. By watermarking individual parameters and analyzing which ones propagate through the coupling channel, the detection can trace interference to specific configuration seams — the exact points where one optimizer's decisions leak into another's domain. This enables targeted decoupling: instead of isolating entire optimizers, you can adjust specific parameters or add constraints at the seams.
+
+#### Permeating Configuration
+
+As interference understanding deepens, the configuration of the optimization system itself can be adapted. If the interference topology shows that two optimizers conflict through a specific resource, that resource's configuration can be partitioned, scheduled, or isolated. The detection doesn't just observe the problem — it informs the system's architecture. Optimization becomes aware of its own multi-agent context and reconfigures at the seams.
+
+#### Temporal Dynamics
+
+Interference isn't static. As optimizers converge, their interference patterns shift. A resource that was heavily contested early in optimization may become stable later. Temporal tracking of interference intensity reveals these dynamics, enabling adaptive strategies: coordinate during high-interference phases, run independently during low-interference phases.
+
+#### Cross-Scenario Generalization
+
+The detection framework is scenario-agnostic — the watermark encoding and spectral analysis make no assumptions about what's being optimized. Validating across diverse scenarios (power grids, data centers, supply chains, chemical plants) establishes the generality of the approach and reveals which interference patterns are universal vs. domain-specific.
 
 ### Further Reading
 
