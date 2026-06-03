@@ -129,6 +129,10 @@ As interference understanding deepens, the configuration of the optimization sys
 
 Interference isn't static. As optimizers converge, their interference patterns shift. A resource that was heavily contested early in optimization may become stable later. Temporal tracking of interference intensity reveals these dynamics, enabling adaptive strategies: coordinate during high-interference phases, run independently during low-interference phases.
 
+#### Alternative Encoding Schemes
+
+The current approach uses sinusoidal watermarks detected via FFT — but this is one point in a larger design space. Other encoding and detection schemes may offer advantages in different scenarios: spread-spectrum codes for noise resilience, chirp signals for time-varying channels, or wavelet-based encodings for non-stationary interference. The optimal scheme depends on the coupling channel's characteristics, the number of optimizers, and the available trial budget. Studying alternative encodings is an open research direction.
+
 #### Cross-Scenario Generalization
 
 The detection framework is scenario-agnostic — the watermark encoding and spectral analysis make no assumptions about what's being optimized. Validating across diverse scenarios (power grids, data centers, supply chains, chemical plants) establishes the generality of the approach and reveals which interference patterns are universal vs. domain-specific.
