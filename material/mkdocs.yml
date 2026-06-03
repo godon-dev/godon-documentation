@@ -36,6 +36,7 @@ nav:
      - Landing: index.md
      - Purpose: purpose.md
      - Documentation:
+          - Getting Started: getting_started.md
           - Setup: setup.md
           - Architecture: architecture.md
           - Core Concepts:
