@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario.">
+        <meta name="description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -64,7 +64,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Getting Started - godon" />
-<meta property="og:description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario." />
+<meta property="og:description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario." />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -72,7 +72,7 @@
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/getting_started/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Getting Started - godon" />
-<meta property="twitter:description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario." />
+<meta property="twitter:description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario." />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 </head>
   
@@ -495,10 +495,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-run-the-coupled-bench" class="md-nav__link">
+  <a href="#step-1-start-the-microgrid-simulators" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Run the Coupled Bench
+        Step 1: Start the Microgrid Simulators
       
     </span>
   </a>
@@ -506,10 +506,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-watch-the-breeders" class="md-nav__link">
+  <a href="#step-2-port-forward-the-godon-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Watch the Breeders
+        Step 2: Port-Forward the Godon API
       
     </span>
   </a>
@@ -517,10 +517,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-run-detection" class="md-nav__link">
+  <a href="#step-3-create-targets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Run Detection
+        Step 3: Create Targets
       
     </span>
   </a>
@@ -528,10 +528,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-verify-with-no-coupling" class="md-nav__link">
+  <a href="#step-4-create-breeders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify with No Coupling
+        Step 4: Create Breeders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-watch-optimization-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Watch Optimization Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-run-interference-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run Interference Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verify-with-no-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Verify with No Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Clean Up
       
     </span>
   </a>
@@ -1033,10 +1077,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-run-the-coupled-bench" class="md-nav__link">
+  <a href="#step-1-start-the-microgrid-simulators" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Run the Coupled Bench
+        Step 1: Start the Microgrid Simulators
       
     </span>
   </a>
@@ -1044,10 +1088,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-watch-the-breeders" class="md-nav__link">
+  <a href="#step-2-port-forward-the-godon-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Watch the Breeders
+        Step 2: Port-Forward the Godon API
       
     </span>
   </a>
@@ -1055,10 +1099,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-run-detection" class="md-nav__link">
+  <a href="#step-3-create-targets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Run Detection
+        Step 3: Create Targets
       
     </span>
   </a>
@@ -1066,10 +1110,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-verify-with-no-coupling" class="md-nav__link">
+  <a href="#step-4-create-breeders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify with No Coupling
+        Step 4: Create Breeders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-watch-optimization-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Watch Optimization Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-run-interference-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run Interference Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verify-with-no-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Verify with No Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Clean Up
       
     </span>
   </a>
@@ -1137,30 +1225,114 @@
   <h1>Getting Started</h1>
 
 <h2 id="getting-started">Getting Started</h2>
-<p>This guide walks you through running a complete interference detection bench — no scenario design needed. You'll trigger two optimizers on a shared microgrid simulation, watch them collect trials, and see the observer detect interference between them.</p>
+<p>This guide walks you through running a complete interference detection bench on your local godon stack. No scenario design needed — you'll start two coupled microgrid simulators, create two optimizers, and watch the observer detect interference between them.</p>
 <p>The whole process takes about 30 minutes.</p>
 <h3 id="prerequisites">Prerequisites</h3>
-<p>A running godon stack with:</p>
+<p>A running godon stack. If you haven't set it up yet, see <a href="../setup/">Setup</a>. You'll need:</p>
 <ul>
-<li>Observer (collects trial data, runs detection)</li>
-<li>Two or more breeders (optimization drivers)</li>
-<li>Access to the bench workflow (GitHub Actions)</li>
+<li>KinD cluster with the godon helm chart deployed</li>
+<li><code>kubectl</code> configured with the KinD kubeconfig</li>
+<li>Docker (for the microgrid simulators and godon-cli)</li>
+<li><code>jq</code> (for parsing API responses)</li>
 </ul>
-<p>If you haven't set up the stack yet, see <a href="../setup/">Setup</a>.</p>
-<h3 id="step-1-run-the-coupled-bench">Step 1: Run the Coupled Bench</h3>
-<p>Trigger the microgrid bench with strong coupling. From the godon repository, run:</p>
-<pre><code class="language-bash">gh workflow run bench-scenario-microgrid.yml \
-  --ref main \
-  -f min_trials=300 \
-  -f max_wait_minutes=90 \
-  -f coupling_factor=0.9
+<h3 id="step-1-start-the-microgrid-simulators">Step 1: Start the Microgrid Simulators</h3>
+<p>The bench uses two coupled microgrid simulators — lightweight HTTP services that model a power grid with configurable coupling between instances.</p>
+<p>From the godon repository root:</p>
+<pre><code class="language-bash"># Start with 90% coupling (strong interference)
+export COUPLING_FACTOR=0.9
+docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg up -d
 </code></pre>
-<p>This creates two breeders optimizing a shared microgrid simulation with 90% coupling — one optimizer's decisions strongly affect the other's outcomes.</p>
-<p>Monitor progress:</p>
-<pre><code class="language-bash">gh run watch --exit-status
+<p>Wait for both simulators to be healthy:</p>
+<pre><code class="language-bash">for port in 8090 8091; do
+  until curl -s -f http://127.0.0.1:${port}/health; do sleep 2; done
+  echo &quot;Port ${port}: healthy&quot;
+done
 </code></pre>
-<h3 id="step-2-watch-the-breeders">Step 2: Watch the Breeders</h3>
-<p>While the bench runs, check the breeders' progress through the observer API:</p>
+<p>If your godon stack runs in KinD, connect the simulators to the kind network:</p>
+<pre><code class="language-bash">MG1_CID=$(docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg ps -q microgrid-1)
+MG2_CID=$(docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg ps -q microgrid-2)
+
+docker network connect kind $MG1_CID 2&gt;/dev/null || true
+docker network connect kind $MG2_CID 2&gt;/dev/null || true
+
+MG1_IP=$(docker inspect $MG1_CID -f '{{.NetworkSettings.Networks.kind.IPAddress}}')
+MG2_IP=$(docker inspect $MG2_CID -f '{{.NetworkSettings.Networks.kind.IPAddress}}')
+echo &quot;MG1: ${MG1_IP}:8090, MG2: ${MG2_IP}:8090&quot;
+</code></pre>
+<h3 id="step-2-port-forward-the-godon-api">Step 2: Port-Forward the Godon API</h3>
+<p>Make the godon API accessible from your host:</p>
+<pre><code class="language-bash">export KUBECONFIG=/tmp/kind_kubeconfig.yaml
+API_POD=$(kubectl get pods -n godon -l component=api -o jsonpath='{.items[0].metadata.name}')
+kubectl port-forward -n godon --address 127.0.0.3 &quot;${API_POD}&quot; 9090:8080 &amp;
+sleep 3
+</code></pre>
+<p>Verify:</p>
+<pre><code class="language-bash">curl -s http://127.0.0.3:9090/health
+</code></pre>
+<h3 id="step-3-create-targets">Step 3: Create Targets</h3>
+<p>Targets represent the systems being optimized. Create one for each microgrid:</p>
+<pre><code class="language-bash">CLI_IMAGE=&quot;ghcr.io/godon-dev/godon-cli:latest&quot;
+API_HOST=&quot;127.0.0.3&quot;
+API_PORT=&quot;9090&quot;
+
+# Create target for microgrid-1
+cat examples/bench/scenario-microgrid/targets/microgrid-1.yaml | \
+  sed -e 's/TARGET_NAME/bench-mg-1/' -e &quot;s|TARGET_URL|http://${MG1_IP}:8090|&quot; &gt; /tmp/target-mg1.yaml
+
+docker run --rm --network host \
+  -v /tmp:/work:ro -w /work \
+  &quot;${CLI_IMAGE}&quot; --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  target create --file=/work/target-mg1.yaml
+
+# Create target for microgrid-2
+cat examples/bench/scenario-microgrid/targets/microgrid-2.yaml | \
+  sed -e 's/TARGET_NAME/bench-mg-2/' -e &quot;s|TARGET_URL|http://${MG2_IP}:8090|&quot; &gt; /tmp/target-mg2.yaml
+
+docker run --rm --network host \
+  -v /tmp:/work:ro -w /work \
+  &quot;${CLI_IMAGE}&quot; --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  target create --file=/work/target-mg2.yaml
+</code></pre>
+<p>Get the target IDs:</p>
+<pre><code class="language-bash">TARGET_1_ID=$(curl -s http://${API_HOST}:${API_PORT}/targets | jq -r '.[] | select(.name==&quot;bench-mg-1&quot;) | .id')
+TARGET_2_ID=$(curl -s http://${API_HOST}:${API_PORT}/targets | jq -r '.[] | select(.name==&quot;bench-mg-2&quot;) | .id')
+echo &quot;Target 1: ${TARGET_1_ID}&quot;
+echo &quot;Target 2: ${TARGET_2_ID}&quot;
+</code></pre>
+<h3 id="step-4-create-breeders">Step 4: Create Breeders</h3>
+<p>Breeders are the optimization drivers. Each one runs a search against one microgrid, with watermark injection enabled for interference detection:</p>
+<pre><code class="language-bash"># Prepare breeder-1 config (points to microgrid-1)
+cat examples/bench/scenario-microgrid/breeders/breeder-1.yml | \
+  sed -e &quot;s/\&quot;microgrid-1\&quot;/\&quot;${TARGET_1_ID}\&quot;/&quot; \
+      -e &quot;s/\&quot;microgrid-2\&quot;/\&quot;${TARGET_1_ID}\&quot;/&quot; \
+      -e &quot;s|http://microgrid-1:8090|http://${MG1_IP}:8090|&quot; \
+      -e &quot;s|http://microgrid-2:8090|http://${MG1_IP}:8090|&quot; &gt; /tmp/breeder-mg1.yaml
+
+docker run --rm --network host \
+  -v /tmp:/work -w /work \
+  &quot;${CLI_IMAGE}&quot; --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder create --name=bench-mg-1 --file=/work/breeder-mg1.yaml
+
+# Prepare breeder-2 config (points to microgrid-2)
+cat examples/bench/scenario-microgrid/breeders/breeder-2.yml | \
+  sed -e &quot;s/\&quot;microgrid-1\&quot;/\&quot;${TARGET_2_ID}\&quot;/&quot; \
+      -e &quot;s/\&quot;microgrid-2\&quot;/\&quot;${TARGET_2_ID}\&quot;/&quot; \
+      -e &quot;s|http://microgrid-1:8090|http://${MG2_IP}:8090|&quot; \
+      -e &quot;s|http://microgrid-2:8090|http://${MG2_IP}:8090|&quot; &gt; /tmp/breeder-mg2.yaml
+
+docker run --rm --network host \
+  -v /tmp:/work -w /work \
+  &quot;${CLI_IMAGE}&quot; --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder create --name=bench-mg-2 --file=/work/breeder-mg2.yaml
+</code></pre>
+<p>Get the breeder IDs:</p>
+<pre><code class="language-bash">BREEDER_1_UUID=$(curl -s http://${API_HOST}:${API_PORT}/breeders | jq -r '.[] | select(.name==&quot;bench-mg-1&quot;) | .id')
+BREEDER_2_UUID=$(curl -s http://${API_HOST}:${API_PORT}/breeders | jq -r '.[] | select(.name==&quot;bench-mg-2&quot;) | .id')
+echo &quot;Breeder 1: ${BREEDER_1_UUID}&quot;
+echo &quot;Breeder 2: ${BREEDER_2_UUID}&quot;
+</code></pre>
+<h3 id="step-5-watch-optimization-progress">Step 5: Watch Optimization Progress</h3>
+<p>The breeders are now running. Check progress through the observer:</p>
 <pre><code class="language-bash">kubectl exec -n godon deploy/godon-godon-observer -- \
   wget -qO- 'http://localhost:8089/api/breeders'
 </code></pre>
@@ -1170,44 +1342,60 @@
   {&quot;name&quot;: &quot;bench-mg-2&quot;, &quot;status&quot;: &quot;active&quot;, &quot;total_trials&quot;: 138}
 ]
 </code></pre>
-<p>Both breeders are running and collecting trials. Each trial is one optimization step — parameter values proposed, simulator evaluated, objectives recorded.</p>
-<h3 id="step-3-run-detection">Step 3: Run Detection</h3>
-<p>Once both breeders have 100+ trials, run interference detection. You need the breeder UUIDs from the previous step:</p>
+<p>Wait until both breeders have 100+ trials before running detection. Each trial takes a few seconds — expect 15-20 minutes to reach 200+ trials.</p>
+<h3 id="step-6-run-interference-detection">Step 6: Run Interference Detection</h3>
+<p>Query the observer to detect interference between the two breeders:</p>
 <pre><code class="language-bash">kubectl exec -n godon deploy/godon-godon-observer -- \
-  wget -qO- 'http://localhost:8089/api/watermark-detection/{SENDER_UUID}/{RECEIVER_UUID}'
+  wget -qO- &quot;http://localhost:8089/api/watermark-detection/${BREEDER_1_UUID}/${BREEDER_2_UUID}&quot;
 </code></pre>
 <p>The response shows detection results per objective:</p>
 <pre><code class="language-json">{
   &quot;detected&quot;: true,
   &quot;per_objective&quot;: [
-    {&quot;objective_index&quot;: 0, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0004}},
-    {&quot;objective_index&quot;: 1, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
-    {&quot;objective_index&quot;: 2, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
+    {&quot;objective_index&quot;: 0, &quot;detected&quot;: true,  &quot;fft&quot;: {&quot;p_value&quot;: 0.0004}},
+    {&quot;objective_index&quot;: 1, &quot;detected&quot;: true,  &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
+    {&quot;objective_index&quot;: 2, &quot;detected&quot;: true,  &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
     {&quot;objective_index&quot;: 3, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.88}}
   ]
 }
 </code></pre>
-<p><strong>What this means:</strong> Objectives 0-2 show detected interference (p &lt; 0.05). Objective 3 (energy cost) is clean — this objective is not affected by the coupling channel. The observer detected that Optimizer A's watermark appears in Optimizer B's objectives 0-2, proving interference through the shared microgrid.</p>
-<h3 id="step-4-verify-with-no-coupling">Step 4: Verify with No Coupling</h3>
-<p>To confirm the detection is real (not false positives), run the same bench with zero coupling:</p>
-<pre><code class="language-bash">gh workflow run bench-scenario-microgrid.yml \
-  --ref main \
-  -f min_trials=300 \
-  -f max_wait_minutes=90 \
-  -f coupling_factor=0.0
+<p>Objectives 0-2 show interference (p &lt; 0.05). Objective 3 (energy cost) is clean — it's not affected by the coupling channel in this scenario. The observer detected Breeder 1's watermark in Breeder 2's outcomes, proving interference through the shared microgrid.</p>
+<h3 id="step-7-verify-with-no-coupling">Step 7: Verify with No Coupling</h3>
+<p>Confirm the detection is real by running with zero coupling. First, clean up the existing breeders:</p>
+<pre><code class="language-bash">docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder purge --force --id=&quot;${BREEDER_1_UUID}&quot;
+
+docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder purge --force --id=&quot;${BREEDER_2_UUID}&quot;
 </code></pre>
-<p>After 100+ trials, run detection again. This time you should see:</p>
-<pre><code class="language-json">{
-  &quot;detected&quot;: false,
-  &quot;per_objective&quot;: [
-    {&quot;objective_index&quot;: 0, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.90}},
-    {&quot;objective_index&quot;: 1, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 1.00}},
-    {&quot;objective_index&quot;: 2, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.27}},
-    {&quot;objective_index&quot;: 3, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.99}}
-  ]
-}
+<p>Restart the microgrids without coupling:</p>
+<pre><code class="language-bash">docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg down -v
+export COUPLING_FACTOR=0.0
+docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg up -d
 </code></pre>
-<p><strong>No interference detected.</strong> All p-values well above 0.05. This confirms the detection is discriminating — it fires when coupling exists and stays quiet when it doesn't.</p>
+<p>Then repeat Steps 1 (network reconnect), 4 (create breeders), 5 (wait for trials), and 6 (run detection). This time you should see all objectives clean — no interference detected.</p>
+<h3 id="step-8-clean-up">Step 8: Clean Up</h3>
+<p>When done, tear everything down:</p>
+<pre><code class="language-bash"># Delete breeders and targets
+docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder purge --force --id=&quot;${BREEDER_1_UUID}&quot;
+docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  breeder purge --force --id=&quot;${BREEDER_2_UUID}&quot;
+
+docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  target delete --id=&quot;${TARGET_1_ID}&quot;
+docker run --rm --network host &quot;${CLI_IMAGE}&quot; \
+  --hostname=${API_HOST} --port=${API_PORT} --insecure \
+  target delete --id=&quot;${TARGET_2_ID}&quot;
+
+# Stop simulators
+docker compose -f examples/bench/scenario-microgrid/docker-compose.yml -p bench-mg down -v
+</code></pre>
 <h3 id="understanding-the-results">Understanding the Results</h3>
 <table>
 <thead>
@@ -1239,9 +1427,9 @@
 </tr>
 </tbody>
 </table>
-<p>The detection uses FFT (Fast Fourier Transform) to measure spectral power at the sender's known watermark frequencies, then compares against 5000 random shuffles to determine statistical significance. See <a href="../concept_interference_detection/">Interference Detection</a> for the full methodology.</p>
+<p>The detection uses FFT to measure spectral power at the sender's known watermark frequencies, then compares against 5000 random shuffles. See <a href="../concept_interference_detection/">Interference Detection</a> for the full methodology.</p>
 <h3 id="varying-coupling-strength">Varying Coupling Strength</h3>
-<p>The coupling_factor parameter lets you explore the detection's sensitivity:</p>
+<p>The <code>COUPLING_FACTOR</code> environment variable controls interference strength:</p>
 <table>
 <thead>
 <tr>
@@ -1268,11 +1456,11 @@
 </tr>
 </tbody>
 </table>
-<p>Try different values and observe how the p-values and detection results change.</p>
+<p>Try different values and observe how p-values change.</p>
 <h3 id="next-steps">Next Steps</h3>
 <ul>
-<li>Read the <a href="../concept_interference_detection/">Interference Detection</a> concept page for the methodology</li>
-<li>Explore the <a href="../concept_breeder/">Breeder</a> configuration for watermark parameters</li>
+<li>Read the <a href="../concept_interference_detection/">Interference Detection</a> concept page for methodology and validation data</li>
+<li>Explore the <a href="../concept_breeder/">Breeder</a> configuration for watermark and optimization parameters</li>
 <li>Check <a href="../architecture/">Architecture</a> for system component details</li>
 </ul>
 
