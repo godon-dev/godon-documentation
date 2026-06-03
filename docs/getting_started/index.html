@@ -6,19 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon Effectuator concept — applies configurations to target systems via SSH, HTTP, and Kubernetes API channels. Idempotent operations, timing, and rollback support.">
+        <meta name="description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
       
       
-        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/concept_effectuator/">
+        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/getting_started/">
       
       
-        <link rel="prev" href="../concept_breeder/">
+        <link rel="prev" href="../purpose/">
       
       
-        <link rel="next" href="../concept_reconnaissance/">
+        <link rel="next" href="../setup/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Effectuator - godon</title>
+        <title>Getting Started - godon</title>
       
     
     
@@ -63,17 +63,17 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Effectuator - godon" />
-<meta property="og:description" content="godon Effectuator concept — applies configurations to target systems via SSH, HTTP, and Kubernetes API channels. Idempotent operations, timing, and rollback support." />
-<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/concept_effectuator.png" />
+<meta property="og:title" content="Getting Started - godon" />
+<meta property="og:description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario." />
+<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/concept_effectuator/" />
+<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/getting_started/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Effectuator - godon" />
-<meta property="twitter:description" content="godon Effectuator concept — applies configurations to target systems via SSH, HTTP, and Kubernetes API channels. Idempotent operations, timing, and rollback support." />
-<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/concept_effectuator.png" />
+<meta property="twitter:title" content="Getting Started - godon" />
+<meta property="twitter:description" content="godon Getting Started — run your first interference detection bench and see the system detect optimizer interference in a microgrid scenario." />
+<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 </head>
   
   
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#effectuator" class="md-skip">
+        <a href="#getting-started" class="md-skip">
           Skip to content
         </a>
       
@@ -126,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Effectuator
+              Getting Started
             
           </span>
         </div>
@@ -225,7 +225,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../getting_started/" class="md-tabs__link">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -413,10 +413,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../getting_started/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -432,6 +457,129 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-run-the-coupled-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Run the Coupled Bench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-watch-the-breeders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Watch the Breeders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Run Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-with-no-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify with No Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varying-coupling-strength" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varying Coupling Strength
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -497,8 +645,6 @@
                 
   
   
-    
-  
   
   
     
@@ -509,11 +655,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -534,7 +680,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -577,35 +723,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Effectuator
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../concept_effectuator/" class="md-nav__link">
         
   
   
@@ -621,201 +742,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effectuator
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Effectuator">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#role-in-the-optimization-loop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Role in the Optimization Loop
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#effectuator-interface" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effectuator Interface
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#built-in-effectuators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Built-in Effectuators
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Built-in Effectuators">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ssh-effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#http-effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HTTP Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#idempotency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Idempotency
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#effectuation-timing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effectuation Timing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rollback-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rollback Support
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error Handling
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#safety-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safety Considerations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-effectuators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Custom Effectuators
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1084,22 +1010,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Effectuator
+        Getting Started
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Effectuator">
+    <nav class="md-nav" aria-label="Getting Started">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#role-in-the-optimization-loop" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Role in the Optimization Loop
+        Prerequisites
       
     </span>
   </a>
@@ -1107,10 +1033,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#effectuator-interface" class="md-nav__link">
+  <a href="#step-1-run-the-coupled-bench" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Effectuator Interface
+        Step 1: Run the Coupled Bench
       
     </span>
   </a>
@@ -1118,22 +1044,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#built-in-effectuators" class="md-nav__link">
+  <a href="#step-2-watch-the-breeders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Built-in Effectuators
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Built-in Effectuators">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ssh-effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH Effectuator
+        Step 2: Watch the Breeders
       
     </span>
   </a>
@@ -1141,10 +1055,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#http-effectuator" class="md-nav__link">
+  <a href="#step-3-run-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        HTTP Effectuator
+        Step 3: Run Detection
       
     </span>
   </a>
@@ -1152,26 +1066,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kubernetes-effectuator" class="md-nav__link">
+  <a href="#step-4-verify-with-no-coupling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubernetes Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#idempotency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Idempotency
+        Step 4: Verify with No Coupling
       
     </span>
   </a>
@@ -1179,10 +1077,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#effectuation-timing" class="md-nav__link">
+  <a href="#understanding-the-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Effectuation Timing
+        Understanding the Results
       
     </span>
   </a>
@@ -1190,10 +1088,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rollback-support" class="md-nav__link">
+  <a href="#varying-coupling-strength" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rollback Support
+        Varying Coupling Strength
       
     </span>
   </a>
@@ -1201,54 +1099,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Error Handling
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#safety-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safety Considerations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-effectuators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Custom Effectuators
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Next Steps
       
     </span>
   </a>
@@ -1280,368 +1134,146 @@
   
 
 
-  <h1>Effectuator</h1>
+  <h1>Getting Started</h1>
 
-<h2 id="effectuator">Effectuator</h2>
-<p>An <strong>effectuator</strong> applies configurations to target systems — it's the bridge between abstract parameters and real-world changes. Effectuators take a parameter set and make it happen.</p>
-<h3 id="role-in-the-optimization-loop">Role in the Optimization Loop</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
-│                    Optimization Loop                         │
-│                                                              │
-│    Algorithm ──▶ Effectuator ──▶ Target System              │
-│    (suggest)      (apply)         (changed)                 │
-│                                                              │
-│                                         │                    │
-│                                         ▼                    │
-│                                   Reconnaissance            │
-│                                     (observe)                │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p>The effectuator is responsible for making the algorithm's suggestions real.</p>
-<hr />
-<h3 id="effectuator-interface">Effectuator Interface</h3>
-<p>All effectuators implement the same contract:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
-│                     Effectuator                              │
-│                                                              │
-│  Input:  { param_a: 0.5, param_b: &quot;foo&quot;, ... }             │
-│                                                              │
-│  Action: Apply configuration to target                      │
-│                                                              │
-│  Output: Success | Error                                     │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Responsibility</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Validate</strong></td>
-<td>Check parameters are applicable</td>
-</tr>
-<tr>
-<td><strong>Apply</strong></td>
-<td>Make changes to target system</td>
-</tr>
-<tr>
-<td><strong>Verify</strong></td>
-<td>Confirm changes took effect</td>
-</tr>
-<tr>
-<td><strong>Report</strong></td>
-<td>Return success or error details</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="built-in-effectuators">Built-in Effectuators</h3>
-<table>
-<thead>
-<tr>
-<th>Effectuator</th>
-<th>Target</th>
-<th>Protocol</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>SSH</strong></td>
-<td>Remote servers, VMs</td>
-<td>SSH exec</td>
-</tr>
-<tr>
-<td><strong>HTTP</strong></td>
-<td>APIs, services</td>
-<td>REST/HTTP</td>
-</tr>
-<tr>
-<td><strong>Kubernetes</strong></td>
-<td>Pods, deployments, configmaps</td>
-<td>K8s API</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ssh-effectuator">SSH Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: ssh
-  host: 10.0.0.50
-  user: admin
-  ssh_key: /secrets/ssh_key
-
-  apply:
-    command: |
-      sed -i 's/pool_size=.*/pool_size={{ pool_size }}/' /etc/app/config.ini
-      systemctl restart app
-</code></pre>
-<p>Use for: Traditional servers, VMs, bare metal</p>
-<h4 id="http-effectuator">HTTP Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: http
-  endpoint: https://api.example.com/config
-  method: PATCH
-  headers:
-    Authorization: Bearer {{ api_token }}
-
-  payload:
-    pool_size: &quot;{{ pool_size }}&quot;
-    timeout_ms: &quot;{{ timeout_ms }}&quot;
-</code></pre>
-<p>Use for: Services with config APIs, service mesh, control planes</p>
-<h4 id="kubernetes-effectuator">Kubernetes Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: kubernetes
-  namespace: production
-
-  target:
-    kind: Deployment
-    name: app-backend
-
-  patches:
-    - path: /spec/template/spec/containers/0/resources/requests/memory
-      value: &quot;{{ memory_mb }}Mi&quot;
-    - path: /spec/replicas
-      value: &quot;{{ replicas }}&quot;
-</code></pre>
-<p>Use for: Container orchestration, cloud-native workloads</p>
-<hr />
-<h3 id="idempotency">Idempotency</h3>
-<p>Effectuators should be <strong>idempotent</strong> — applying the same configuration twice has the same result as applying it once.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
-│                    Idempotent Apply                          │
-│                                                              │
-│  Apply {pool_size: 10} ──▶ Success                          │
-│  Apply {pool_size: 10} ──▶ Success (no-op)                  │
-│  Apply {pool_size: 10} ──▶ Success (no-op)                  │
-│                                                              │
-│  Same result regardless of how many times applied           │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Why it matters:</strong>
-- Retries don't cause corruption
-- Rollbacks are predictable
-- Parallel workers don't conflict</p>
-<hr />
-<h3 id="effectuation-timing">Effectuation Timing</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
-│                    Effectuation Timeline                        │
-│                                                                  │
-│  Start ──▶ Connect ──▶ Apply ──▶ Propagate ──▶ Steady ──▶ End  │
-│    │          │          │           │           │              │
-│    0s        1s         3s         10s         30s            │
-│                                                                  │
-│  Propagation delay: changes take time to reach full effect     │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>What happens</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Connect</strong></td>
-<td>Establish connection to target</td>
-</tr>
-<tr>
-<td><strong>Apply</strong></td>
-<td>Execute configuration change</td>
-</tr>
-<tr>
-<td><strong>Propagate</strong></td>
-<td>Change spreads through system</td>
-</tr>
-<tr>
-<td><strong>Steady</strong></td>
-<td>System reaches new equilibrium</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Critical:</strong> Reconnaissance should wait until steady state, or metrics will be misleading.</p>
-<hr />
-<h3 id="rollback-support">Rollback Support</h3>
-<p>When guardrails fail, effectuators may need to revert:</p>
-<pre><code class="language-yaml">effectuator:
-  type: kubernetes
-
-  apply:
-    # ... apply config ...
-
-  rollback:
-    strategy: previous
-    # or explicit rollback action
-    command: kubectl rollout undo deployment/app
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Rollback Strategy</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>previous</code></td>
-<td>Restore last known-good config</td>
-</tr>
-<tr>
-<td><code>baseline</code></td>
-<td>Restore original/default config</td>
-</tr>
-<tr>
-<td><code>explicit</code></td>
-<td>Run custom rollback command</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="error-handling">Error Handling</h3>
-<p>Effectuation can fail for many reasons:</p>
-<table>
-<thead>
-<tr>
-<th>Error Type</th>
-<th>Cause</th>
-<th>Recovery</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Connection</strong></td>
-<td>Network, auth</td>
-<td>Retry with backoff</td>
-</tr>
-<tr>
-<td><strong>Validation</strong></td>
-<td>Invalid params</td>
-<td>Mark trial failed</td>
-</tr>
-<tr>
-<td><strong>Permission</strong></td>
-<td>Insufficient rights</td>
-<td>Alert, require manual fix</td>
-</tr>
-<tr>
-<td><strong>Timeout</strong></td>
-<td>Slow target</td>
-<td>Increase timeout or fail</td>
-</tr>
-</tbody>
-</table>
-<pre><code class="language-yaml">effectuator:
-  retry:
-    max_attempts: 3
-    backoff: exponential
-    base_delay: 1s
-
-  timeout: 60s
-  on_failure: mark_trial_failed
-</code></pre>
-<hr />
-<h3 id="safety-considerations">Safety Considerations</h3>
-<p>Effectuators modify real systems. Safety matters:</p>
-<table>
-<thead>
-<tr>
-<th>Practice</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Dry-run mode</strong></td>
-<td>Validate changes without applying</td>
-</tr>
-<tr>
-<td><strong>Gradual rollout</strong></td>
-<td>Apply to subset before full deploy</td>
-</tr>
-<tr>
-<td><strong>Circuit breakers</strong></td>
-<td>Stop if error rate spikes</td>
-</tr>
-<tr>
-<td><strong>Audit logging</strong></td>
-<td>Track what changed, when, by whom</td>
-</tr>
-</tbody>
-</table>
-<pre><code class="language-yaml">effectuator:
-  safety:
-    dry_run: false        # Set true for testing
-    max_concurrent: 1     # Only one change at a time
-    require_confirmation: false  # For production
-</code></pre>
-<hr />
-<h3 id="custom-effectuators">Custom Effectuators</h3>
-<p>Implement your own for specialized targets:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
-│                   Custom Effectuator                         │
-│                                                              │
-│  Implement:                                                  │
-│    - validate(params) → bool                                │
-│    - apply(params) → result                                 │
-│    - rollback(params) → result                              │
-│                                                              │
-│  Register with breeder via plugin interface                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p>Use cases:
-- Proprietary systems
-- Database config changes
-- Hardware tuning
-- Feature flag services</p>
-<hr />
-<h3 id="summary">Summary</h3>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>What it means</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Role</strong></td>
-<td>Apply parameters to target systems</td>
-</tr>
-<tr>
-<td><strong>Types</strong></td>
-<td>SSH, HTTP, Kubernetes, custom</td>
-</tr>
-<tr>
-<td><strong>Contract</strong></td>
-<td>Validate → Apply → Verify → Report</td>
-</tr>
-<tr>
-<td><strong>Idempotency</strong></td>
-<td>Same result on repeated applies</td>
-</tr>
-<tr>
-<td><strong>Timing</strong></td>
-<td>Account for propagation delay</td>
-</tr>
-<tr>
-<td><strong>Safety</strong></td>
-<td>Dry-run, gradual rollout, circuit breakers</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="see-also">See Also</h3>
+<h2 id="getting-started">Getting Started</h2>
+<p>This guide walks you through running a complete interference detection bench — no scenario design needed. You'll trigger two optimizers on a shared microgrid simulation, watch them collect trials, and see the observer detect interference between them.</p>
+<p>The whole process takes about 30 minutes.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>A running godon stack with:</p>
 <ul>
-<li><a href="../concept_breeder/">Breeder</a> — Orchestrates effectuators</li>
-<li><a href="../concept_reconnaissance/">Reconnaissance</a> — Observes what effectuators change</li>
-<li><a href="../concept_guardrails/">Guardrails</a> — May trigger rollback</li>
+<li>Observer (collects trial data, runs detection)</li>
+<li>Two or more breeders (optimization drivers)</li>
+<li>Access to the bench workflow (GitHub Actions)</li>
+</ul>
+<p>If you haven't set up the stack yet, see <a href="../setup/">Setup</a>.</p>
+<h3 id="step-1-run-the-coupled-bench">Step 1: Run the Coupled Bench</h3>
+<p>Trigger the microgrid bench with strong coupling. From the godon repository, run:</p>
+<pre><code class="language-bash">gh workflow run bench-scenario-microgrid.yml \
+  --ref main \
+  -f min_trials=300 \
+  -f max_wait_minutes=90 \
+  -f coupling_factor=0.9
+</code></pre>
+<p>This creates two breeders optimizing a shared microgrid simulation with 90% coupling — one optimizer's decisions strongly affect the other's outcomes.</p>
+<p>Monitor progress:</p>
+<pre><code class="language-bash">gh run watch --exit-status
+</code></pre>
+<h3 id="step-2-watch-the-breeders">Step 2: Watch the Breeders</h3>
+<p>While the bench runs, check the breeders' progress through the observer API:</p>
+<pre><code class="language-bash">kubectl exec -n godon deploy/godon-godon-observer -- \
+  wget -qO- 'http://localhost:8089/api/breeders'
+</code></pre>
+<p>You'll see something like:</p>
+<pre><code class="language-json">[
+  {&quot;name&quot;: &quot;bench-mg-1&quot;, &quot;status&quot;: &quot;active&quot;, &quot;total_trials&quot;: 145},
+  {&quot;name&quot;: &quot;bench-mg-2&quot;, &quot;status&quot;: &quot;active&quot;, &quot;total_trials&quot;: 138}
+]
+</code></pre>
+<p>Both breeders are running and collecting trials. Each trial is one optimization step — parameter values proposed, simulator evaluated, objectives recorded.</p>
+<h3 id="step-3-run-detection">Step 3: Run Detection</h3>
+<p>Once both breeders have 100+ trials, run interference detection. You need the breeder UUIDs from the previous step:</p>
+<pre><code class="language-bash">kubectl exec -n godon deploy/godon-godon-observer -- \
+  wget -qO- 'http://localhost:8089/api/watermark-detection/{SENDER_UUID}/{RECEIVER_UUID}'
+</code></pre>
+<p>The response shows detection results per objective:</p>
+<pre><code class="language-json">{
+  &quot;detected&quot;: true,
+  &quot;per_objective&quot;: [
+    {&quot;objective_index&quot;: 0, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0004}},
+    {&quot;objective_index&quot;: 1, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
+    {&quot;objective_index&quot;: 2, &quot;detected&quot;: true, &quot;fft&quot;: {&quot;p_value&quot;: 0.0002}},
+    {&quot;objective_index&quot;: 3, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.88}}
+  ]
+}
+</code></pre>
+<p><strong>What this means:</strong> Objectives 0-2 show detected interference (p &lt; 0.05). Objective 3 (energy cost) is clean — this objective is not affected by the coupling channel. The observer detected that Optimizer A's watermark appears in Optimizer B's objectives 0-2, proving interference through the shared microgrid.</p>
+<h3 id="step-4-verify-with-no-coupling">Step 4: Verify with No Coupling</h3>
+<p>To confirm the detection is real (not false positives), run the same bench with zero coupling:</p>
+<pre><code class="language-bash">gh workflow run bench-scenario-microgrid.yml \
+  --ref main \
+  -f min_trials=300 \
+  -f max_wait_minutes=90 \
+  -f coupling_factor=0.0
+</code></pre>
+<p>After 100+ trials, run detection again. This time you should see:</p>
+<pre><code class="language-json">{
+  &quot;detected&quot;: false,
+  &quot;per_objective&quot;: [
+    {&quot;objective_index&quot;: 0, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.90}},
+    {&quot;objective_index&quot;: 1, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 1.00}},
+    {&quot;objective_index&quot;: 2, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.27}},
+    {&quot;objective_index&quot;: 3, &quot;detected&quot;: false, &quot;fft&quot;: {&quot;p_value&quot;: 0.99}}
+  ]
+}
+</code></pre>
+<p><strong>No interference detected.</strong> All p-values well above 0.05. This confirms the detection is discriminating — it fires when coupling exists and stays quiet when it doesn't.</p>
+<h3 id="understanding-the-results">Understanding the Results</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detected</code></td>
+<td>Overall: true if any objective shows interference</td>
+</tr>
+<tr>
+<td><code>per_objective[].detected</code></td>
+<td>Per-objective detection result</td>
+</tr>
+<tr>
+<td><code>fft.p_value</code></td>
+<td>Permutation test p-value (p &lt; 0.05 = significant)</td>
+</tr>
+<tr>
+<td><code>fft.combined_power</code></td>
+<td>Spectral power at watermark frequencies</td>
+</tr>
+<tr>
+<td><code>aligned_trials</code></td>
+<td>Number of timestamp-aligned trials used</td>
+</tr>
+</tbody>
+</table>
+<p>The detection uses FFT (Fast Fourier Transform) to measure spectral power at the sender's known watermark frequencies, then compares against 5000 random shuffles to determine statistical significance. See <a href="../concept_interference_detection/">Interference Detection</a> for the full methodology.</p>
+<h3 id="varying-coupling-strength">Varying Coupling Strength</h3>
+<p>The coupling_factor parameter lets you explore the detection's sensitivity:</p>
+<table>
+<thead>
+<tr>
+<th>Coupling</th>
+<th>What to expect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0</td>
+<td>No detection — clean baseline</td>
+</tr>
+<tr>
+<td>0.1</td>
+<td>Partial detection — some objectives may trigger</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>Most coupled objectives detected</td>
+</tr>
+<tr>
+<td>0.9</td>
+<td>Strong detection on all coupled objectives</td>
+</tr>
+</tbody>
+</table>
+<p>Try different values and observe how the p-values and detection results change.</p>
+<h3 id="next-steps">Next Steps</h3>
+<ul>
+<li>Read the <a href="../concept_interference_detection/">Interference Detection</a> concept page for the methodology</li>
+<li>Explore the <a href="../concept_breeder/">Breeder</a> configuration for watermark parameters</li>
+<li>Check <a href="../architecture/">Architecture</a> for system component details</li>
 </ul>
 
 
@@ -1675,7 +1307,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../concept_breeder/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Breeder">
+          <a href="../purpose/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Purpose">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1685,20 +1317,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Breeder
+                Purpose
               </div>
             </div>
           </a>
         
         
           
-          <a href="../concept_reconnaissance/" class="md-footer__link md-footer__link--next" aria-label="Next: Reconnaissance">
+          <a href="../setup/" class="md-footer__link md-footer__link--next" aria-label="Next: Setup">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Reconnaissance
+                Setup
               </div>
             </div>
             <div class="md-footer__button md-icon">
