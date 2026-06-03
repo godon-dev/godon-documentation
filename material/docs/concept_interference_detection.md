@@ -83,7 +83,7 @@ The detection was validated on a microgrid optimization scenario with two breede
 
 ### Design Principles
 
-**Non-overlapping frequency assignment**: Each breeder uses unique prime periods from a shared pool. With 12 primes, up to 6 breeders can run simultaneously with 2 periods each, guaranteed zero frequency overlap.
+**Non-overlapping frequency assignment**: Each breeder uses unique prime periods from a shared pool. The current implementation uses 12 primes supporting up to 6 breeders with 2 periods each. The pool can be extended — primes are infinite — but practical scaling is limited by FFT frequency resolution: with N trials, frequencies closer than 1/N apart become indistinguishable. Small primes are well-separated, so 20-30 primes are feasible with a few hundred trials. Beyond that, adjacent primes converge spectrally and require proportionally more data, at which point alternative encodings (see below) become more efficient.
 
 **No distributional assumptions**: The permutation test compares the observed spectral power against random shuffles of the same data. It works regardless of the optimizer's dynamics, the noise characteristics, or the coupling channel's properties.
 
@@ -131,7 +131,11 @@ Interference isn't static. As optimizers converge, their interference patterns s
 
 #### Alternative Encoding Schemes
 
-The current approach uses sinusoidal watermarks detected via FFT — but this is one point in a larger design space. Other encoding and detection schemes may offer advantages in different scenarios: spread-spectrum codes for noise resilience, chirp signals for time-varying channels, or wavelet-based encodings for non-stationary interference. The optimal scheme depends on the coupling channel's characteristics, the number of optimizers, and the available trial budget. Studying alternative encodings is an open research direction.
+The current approach uses sinusoidal watermarks detected via FFT — a frequency-division multiplexing (FDMA) scheme where each breeder occupies unique prime-numbered periods. This is a deliberate choice for the data regime optimization operates in: typically 200-300 discrete trial samples, not continuous analog signals with millions of data points.
+
+Spread-spectrum approaches like direct-sequence CDMA (DSSS) with orthogonal Walsh-Hadamard codes would scale to more breeders and offer better noise resilience, but they require chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials and 2-3 watermarked parameters, the codes would be too short to correlate reliably. FDMA with prime periods works because frequency resolution is achievable with short data windows — a single period of 37 samples is enough to distinguish that frequency from its neighbors.
+
+As optimization campaigns grow longer (thousands of trials in production deployments) or the number of concurrent optimizers increases significantly, CDMA-style encodings become viable. The transition would be natural — same watermark injection architecture, different encoding and detection kernels. Studying this transition, along with chirp signals for time-varying channels and wavelet-based encodings for non-stationary interference, is an open research direction.
 
 #### Cross-Scenario Generalization
 
