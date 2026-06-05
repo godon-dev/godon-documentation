@@ -23,6 +23,8 @@ The coupling signal passes through:
 
 Every method tested so far has not produced reliable results at 200-300 trials. The question is whether higher trial counts or different detection strategies can overcome the signal death.
 
+For a visual comparison of signal propagation through the microgrid (linear) vs greenhouse (nonlinear) channels, see the [Signal Death Diagram](assets/signal-death-diagram.html).
+
 ### Intermediate State Detection
 
 Measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted. The coupling signal may be detectable at intermediate points in the channel even when it's invisible at the final objectives.
