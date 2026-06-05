@@ -6,13 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels.">
+        <meta name="description" content="godon Development — current status, bench scenarios, detection capabilities, and open research directions for contributors.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
       
       
-        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/benches/">
+        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/development/">
       
       
         <link rel="prev" href="../concept_interference_detection/">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Bench Scenarios - godon</title>
+        <title>Development - godon</title>
       
     
     
@@ -63,17 +63,17 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Bench Scenarios - godon" />
-<meta property="og:description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels." />
-<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/benches.png" />
+<meta property="og:title" content="Development - godon" />
+<meta property="og:description" content="godon Development — current status, bench scenarios, detection capabilities, and open research directions for contributors." />
+<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/development.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/benches/" />
+<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/development/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Bench Scenarios - godon" />
-<meta property="twitter:description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels." />
-<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/benches.png" />
+<meta property="twitter:title" content="Development - godon" />
+<meta property="twitter:description" content="godon Development — current status, bench scenarios, detection capabilities, and open research directions for contributors." />
+<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/development.png" />
 </head>
   
   
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#bench-scenarios" class="md-skip">
+        <a href="#development" class="md-skip">
           Skip to content
         </a>
       
@@ -126,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bench Scenarios
+              Development
             
           </span>
         </div>
@@ -712,7 +712,7 @@
   <span class="md-ellipsis">
     
   
-    Bench Scenarios
+    Development
   
 
     
@@ -730,7 +730,7 @@
   <span class="md-ellipsis">
     
   
-    Bench Scenarios
+    Development
   
 
     
@@ -754,6 +754,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#bench-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -763,18 +786,6 @@
   </a>
   
     <nav class="md-nav" aria-label="Bench Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-benches" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available Benches
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Available Benches">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -805,10 +816,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#detection-coverage" class="md-nav__link">
+  <a href="#detection-capabilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Detection Coverage
+        Detection Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-additive-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Additive Channels
       
     </span>
   </a>
@@ -816,13 +839,123 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#adding-a-new-bench" class="md-nav__link">
+  <a href="#nonlinear-channels-with-measurable-intermediate-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adding a New Bench
+        Nonlinear Channels with Measurable Intermediate State
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deeply-nonlinear-cascaded-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deeply Nonlinear Cascaded Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-stationary-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Stationary Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-research-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Research Directions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open Research Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#greenhouse-nonlinear-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greenhouse Nonlinear Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-state-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate State Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-analysis-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dedicated Analysis Phases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdma-encoding-for-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDMA Encoding for Scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interference-intensity-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interference Intensity Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interference-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interference Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1022,6 +1155,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#bench-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1031,18 +1187,6 @@
   </a>
   
     <nav class="md-nav" aria-label="Bench Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-benches" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available Benches
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Available Benches">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1073,10 +1217,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#detection-coverage" class="md-nav__link">
+  <a href="#detection-capabilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Detection Coverage
+        Detection Capabilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection Capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linear-additive-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear Additive Channels
       
     </span>
   </a>
@@ -1084,13 +1240,123 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#adding-a-new-bench" class="md-nav__link">
+  <a href="#nonlinear-channels-with-measurable-intermediate-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adding a New Bench
+        Nonlinear Channels with Measurable Intermediate State
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deeply-nonlinear-cascaded-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deeply Nonlinear Cascaded Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-stationary-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Stationary Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-research-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Research Directions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Open Research Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#greenhouse-nonlinear-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greenhouse Nonlinear Channels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-state-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate State Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dedicated-analysis-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dedicated Analysis Phases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdma-encoding-for-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDMA Encoding for Scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interference-intensity-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interference Intensity Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interference-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interference Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1130,12 +1396,15 @@
   
 
 
-  <h1>Bench Scenarios</h1>
+  <h1>Development</h1>
 
-<h2 id="bench-scenarios">Bench Scenarios</h2>
+<h2 id="development">Development</h2>
+<p>This page covers the current development status of godon's interference detection capabilities, available bench scenarios, and open research directions. It is intended for contributors and researchers working on the godon project itself.</p>
+<h3 id="current-status">Current Status</h3>
+<p>Interference detection between autonomous optimizers is the primary active development area. The detection pipeline — watermark injection, spectral analysis, permutation testing — is implemented and validated on linear coupling channels. Nonlinear channels remain an active research frontier.</p>
+<h3 id="bench-scenarios">Bench Scenarios</h3>
 <p>Bench scenarios are controlled environments for developing and validating interference detection. Each bench models a different coupling channel type — from simple linear additive channels to deeply nonlinear cascaded systems. Together they span the complexity space that real-world multi-optimizer deployments encounter.</p>
 <p>The benches live in <code>examples/bench/</code> in the godon repository. Each has its own directory with docker-compose configuration, target definitions, and breeder configs.</p>
-<h3 id="available-benches">Available Benches</h3>
 <h4 id="microgrid">Microgrid</h4>
 <p>A pair of coupled microgrid simulators sharing a power bus. Optimizer A adjusts load distribution on one microgrid; the coupling factor determines how much of A's load change leaks into B's grid.</p>
 <table>
@@ -1217,45 +1486,95 @@
 <li><strong>Intermediate state detection</strong> — measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted</li>
 <li><strong>Dedicated analysis phases</strong> — holding the receiver optimizer still while the sender probes aggressively, eliminating the 500× exploration noise</li>
 </ul>
-<h3 id="detection-coverage">Detection Coverage</h3>
+<h3 id="detection-capabilities">Detection Capabilities</h3>
+<p>Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, four categories emerge:</p>
 <table>
 <thead>
 <tr>
-<th>Scenario</th>
 <th>Channel Type</th>
-<th>Status</th>
+<th>Detection</th>
+<th>Method</th>
+<th>Data Requirement</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Microgrid</td>
 <td>Linear additive</td>
 <td>Reliable</td>
+<td>FFT + permutation</td>
+<td>100-300 trials</td>
 </tr>
 <tr>
-<td>Greenhouse</td>
+<td>Nonlinear, intermediate state measurable</td>
+<td>Promising</td>
+<td>Spectral analysis on raw sensors</td>
+<td>300-1000 trials (estimated)</td>
+</tr>
+<tr>
 <td>Deeply nonlinear cascaded</td>
-<td>Research phase</td>
+<td>No reliable method yet</td>
+<td>Research ongoing</td>
+<td>Requires intermediate state measurement or higher trial counts</td>
+</tr>
+<tr>
+<td>Non-stationary</td>
+<td>Research</td>
+<td>Phase-aware methods</td>
+<td>Depends on phase transition frequency</td>
 </tr>
 </tbody>
 </table>
-<p>As new benches are added, they should target specific gaps in this coverage — for example, a nonlinear channel with measurable intermediate state, or a non-stationary channel with phase transitions.</p>
-<h3 id="adding-a-new-bench">Adding a New Bench</h3>
-<p>Each bench scenario follows a standard structure:</p>
-<pre><code>examples/bench/scenario-&lt;name&gt;/
-├── docker-compose.yml          # Simulator containers with coupling config
-├── targets/
-│   ├── &lt;target&gt;-1.yaml         # Target definition for simulator 1
-│   └── &lt;target&gt;-2.yaml         # Target definition for simulator 2
-└── breeders/
-    ├── breeder-1.yml            # Breeder config for optimizer 1
-    └── breeder-2.yml            # Breeder config for optimizer 2
+<h4 id="linear-additive-channels">Linear Additive Channels</h4>
+<p>The coupling signal is added directly to the receiver's objectives. The watermark passes through unchanged — same frequency, proportional amplitude.</p>
+<pre><code>    Sender parameter → [ + coupling_delta ] → Receiver objective
 </code></pre>
-<p>The simulator should expose an HTTP API compatible with godon's target interface. The coupling mechanism should be configurable via environment variables. See the microgrid bench as a reference implementation.</p>
-<p>When adding a bench, update this page with the scenario's properties and detection status.</p>
+<p>Reliably detected with FFT + permutation test. Even weak coupling (0.1) produces detectable signal with sufficient trials.</p>
+<p>Real-world examples: shared power bus (load affects voltage), shared network link (bandwidth contention), shared memory bus (bandwidth allocation).</p>
+<h4 id="nonlinear-channels-with-measurable-intermediate-state">Nonlinear Channels with Measurable Intermediate State</h4>
+<p>The coupling signal passes through nonlinear dynamics before reaching the objectives, but intermediate state variables (temperatures, pressures, flow rates) are measurable and less distorted than the final objectives.</p>
+<pre><code>    Sender parameter → [ nonlinear physics ] → Intermediate state (measurable) → [ nonlinear response ] → Objective
+                                       ↑ detection possible here                         ↑ signal may be heavily distorted here
+</code></pre>
+<p>Detection on intermediate state variables (raw sensor readings) is more promising than detection on derived objectives, because the signal hasn't yet passed through the response function's dead zones and multiplicative interactions. This requires targets to expose raw sensor channels in addition to optimization objectives — a natural extension of the target contract.</p>
+<p>Real-world examples: shared heating network (zone temperatures before growth model), shared cooling loop (inlet temperature before server response), shared compressed air (line pressure before actuator response).</p>
+<h4 id="deeply-nonlinear-cascaded-channels">Deeply Nonlinear Cascaded Channels</h4>
+<p>The coupling signal passes through multiple cascaded nonlinear transformations — multiplicative interactions, piecewise-linear dead zones, state-dependent thresholds, irreversible damage — before reaching the observed objectives. At each stage, the signal is distorted, attenuated, or eliminated.</p>
+<pre><code>    Sender parameter → [ coupling delta ]
+                      → [ thermal inertia (×0.01) ]
+                      → [ multiplicative growth model (dead zones, zero derivative in optimal range) ]
+                      → [ phase-dependent sensitivity (1× → 3× jump) ]
+                      → [ irreversible damage (permanent attenuation) ]
+                      → [ sensor noise ]
+                      → [ receiver's own exploration variance (500× larger than coupling) ]
+                      → Objective
+</code></pre>
+<p>The signal-to-noise ratio at the objective level is approximately 0.002 — the coupling effect is 500 times weaker than the noise from the receiver's own optimization. The watermark signal is physically present but heavily distorted before it reaches the output.</p>
+<p>No reliable method yet at the objective level. All tested approaches (FFT, mutual information, transfer entropy, Granger causality, cross-correlation, convergent cross mapping) have not produced reliable results on this channel type at typical trial budgets (200-300 trials).</p>
+<p>Real-world examples: greenhouse climate control (waste heat → thermal inertia → zone physics → multiplicative growth → crop yield), chemical process control (catalyst temperature → reaction kinetics → yield with saturation), building HVAC (shared chilled water → zone mixing → comfort index with dead band).</p>
+<h4 id="non-stationary-channels">Non-Stationary Channels</h4>
+<p>The coupling characteristics change over time. The same interference signal may be detectable in one operating phase and invisible in another.</p>
+<pre><code>    Phase 1: coupling visible (high sensitivity)
+    Phase 2: coupling hidden (low sensitivity)
+    Phase 3: coupling reversed (negative sensitivity)
+</code></pre>
+<p>Methods that assume a stationary relationship between sender and receiver will produce inconsistent results — detecting interference in some windows and missing it in others. Temporal segmentation and phase-aware detection are potential approaches.</p>
+<p>Real-world examples: crop growth phases (CO2 sensitivity jumps 3× between seedling and flowering), day/night cycles (solar generation changes grid coupling characteristics), seasonal demand shifts (heating vs cooling mode changes infrastructure behavior).</p>
+<h3 id="open-research-directions">Open Research Directions</h3>
+<h4 id="greenhouse-nonlinear-channels">Greenhouse Nonlinear Channels</h4>
+<p>The greenhouse bench represents the hardest detection case. The coupling signal traverses 6+ nonlinear stages before reaching the objectives, with an SNR of ~0.002. Solving this would demonstrate that interference detection works across the full complexity spectrum, not just on linear channels.</p>
+<h4 id="intermediate-state-detection">Intermediate State Detection</h4>
+<p>Measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted. This requires targets to expose raw sensor channels — a natural extension of the target contract.</p>
+<h4 id="dedicated-analysis-phases">Dedicated Analysis Phases</h4>
+<p>Holding the receiver optimizer still while the sender probes aggressively. This eliminates the 500× exploration noise that currently overwhelms the coupling signal. The trade-off is paused optimization on the receiver side during analysis.</p>
+<h4 id="cdma-encoding-for-scale">CDMA Encoding for Scale</h4>
+<p>The current FDMA approach (prime-numbered periods) scales to ~20-30 breeders with a few hundred trials. For significantly larger deployments, spread-spectrum approaches like direct-sequence CDMA with orthogonal Walsh-Hadamard codes would offer better noise resilience. This becomes viable with thousands of trials in production deployments.</p>
+<h4 id="interference-intensity-measurement">Interference Intensity Measurement</h4>
+<p>Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric.</p>
+<h4 id="interference-topology">Interference Topology</h4>
+<p>With three or more optimizers, pairwise detection results form an interference graph — a directed, weighted graph where nodes are optimizers, edges are interference channels, and weights are intensity. This topology reveals clusters of tightly-coupled optimizers, isolated components, and bottleneck resources.</p>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
-<li><a href="../concept_interference_detection/">Interference Detection</a> — methodology, channel taxonomy, and detection pipeline</li>
+<li><a href="../concept_interference_detection/">Interference Detection</a> — methodology, detection pipeline, and validation results</li>
 <li><a href="../getting_started/">Getting Started</a> — walkthrough of the microgrid bench</li>
 <li><a href="../architecture/">Architecture</a> — system component overview</li>
 </ul>
