@@ -23,7 +23,7 @@ A pair of coupled microgrid simulators sharing a power bus. Optimizer A adjusts 
 
 The watermark signal passes through the coupling channel unchanged — same frequency content, proportional amplitude. FFT-based spectral detection with permutation testing reliably detects interference even at weak coupling (0.1). Zero false positives at coupling=0.0.
 
-See [Getting Started](../getting_started.md) for a full walkthrough of this bench.
+- See [Getting Started](getting_started.md) for a full walkthrough of this bench.
 
 ### Greenhouse
 
@@ -76,4 +76,4 @@ The simulator should expose an HTTP API compatible with godon's target interface
 
 - [Detection Capabilities](detection_capabilities.md) — channel taxonomy and detection status per channel type
 - [Open Research](open_research.md) — active research directions
-- [Getting Started](../getting_started.md) — walkthrough of the microgrid bench
+- See [Getting Started](getting_started.md) for a full walkthrough of this bench.

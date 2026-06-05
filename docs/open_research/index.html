@@ -874,6 +874,67 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#methods-evaluated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods Evaluated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods Evaluated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aba-pause-one-breeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ABA (Pause One Breeder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-methods-cross-correlation-granger-causality-mutual-information-transfer-entropy-convergent-cross-mapping-hsic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Methods (Cross-Correlation, Granger Causality, Mutual Information, Transfer Entropy, Convergent Cross Mapping, HSIC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-in-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock-In Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fft-spectral-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FFT Spectral Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#greenhouse-nonlinear-channels" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1155,6 +1216,67 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#methods-evaluated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods Evaluated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods Evaluated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aba-pause-one-breeder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ABA (Pause One Breeder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-methods-cross-correlation-granger-causality-mutual-information-transfer-entropy-convergent-cross-mapping-hsic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Methods (Cross-Correlation, Granger Causality, Mutual Information, Transfer Entropy, Convergent Cross Mapping, HSIC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lock-in-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lock-In Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fft-spectral-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FFT Spectral Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#greenhouse-nonlinear-channels" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1260,6 +1382,17 @@
 
 <h2 id="open-research">Open Research</h2>
 <p>Interference detection works reliably on linear coupling channels. The open research frontier is extending detection to nonlinear, cascaded, and non-stationary channels — and moving from binary detection to quantitative understanding.</p>
+<h3 id="methods-evaluated">Methods Evaluated</h3>
+<p>Over the course of development, several detection approaches were evaluated. The early methods were tested before the watermarking system matured — the original approach added noise to the sampler output rather than producing a clean sinusoidal signal by modulating the parameter directly. This means early failures are confounded with immature signaling. The methods have not been re-evaluated with the current watermarking.</p>
+<h4 id="aba-pause-one-breeder">ABA (Pause One Breeder)</h4>
+<p>Stop one optimizer and observe whether the other's behavior changes. Conceptually simple but operationally expensive — it requires pausing optimization campaigns, which defeats the purpose of continuous online detection. Each ABA cycle produces one data point. Compared to watermark-based detection, which produces a signal every trial without interrupting optimization, ABA is sluggish and impractical for production use.</p>
+<h4 id="statistical-methods-cross-correlation-granger-causality-mutual-information-transfer-entropy-convergent-cross-mapping-hsic">Statistical Methods (Cross-Correlation, Granger Causality, Mutual Information, Transfer Entropy, Convergent Cross Mapping, HSIC)</h4>
+<p>A range of statistical and information-theoretic methods were evaluated for detecting coupling between optimizer time series. These are passive approaches — they don't require an injected signal. None produced reliable results on the greenhouse bench.</p>
+<p>Important caveat: these were evaluated with early signaling that added noise to the sampler rather than modulating parameters with a clean sinusoidal. The current watermarking produces a well-defined spectral signature. Whether these passive methods would perform better with the improved signal — or whether they could detect coupling even without watermarking — remains an open question.</p>
+<h4 id="lock-in-detection">Lock-In Detection</h4>
+<p>Amplitude-phase detection at the known watermark frequency. Requires the optimizer to converge so that noise_std drops below the signal amplitude. Multi-objective Pareto optimization never converges — the optimizer keeps exploring indefinitely, so noise_std never stabilizes. Lock-in detection is effective for single-objective optimization where convergence occurs, but fundamentally incompatible with Pareto front exploration.</p>
+<h4 id="fft-spectral-detection">FFT Spectral Detection</h4>
+<p>The current method. Goertzel algorithm at known watermark frequencies with Hann windowing, noise floor estimation from neighboring bins, and permutation testing for significance. Works reliably on linear additive channels (microgrid bench, all coupling strengths 0.0-0.9). On deeply nonlinear channels, the signal is too heavily distorted by the time it reaches the objectives for FFT to extract it at 200-300 trial budgets.</p>
 <h3 id="greenhouse-nonlinear-channels">Greenhouse Nonlinear Channels</h3>
 <p>The greenhouse bench represents the hardest detection case. The coupling signal traverses 6+ nonlinear stages before reaching the objectives, with an SNR of ~0.002. Solving this would demonstrate that interference detection works across the full complexity spectrum, not just on linear channels.</p>
 <p>The coupling signal passes through:</p>
