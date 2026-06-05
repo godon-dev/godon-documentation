@@ -23,6 +23,7 @@ theme:
   logo: assets/logo_small.png
   icon:
     repo: fontawesome/brands/github
+  custom_dir: overrides
 markdown_extensions:
   - admonition
   - attr_list
@@ -53,5 +54,5 @@ nav:
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
           - References: references.md
+          - Contributing: contributing.md
      - OpenAPI: api.md
-     - Contributing: contributing.md
