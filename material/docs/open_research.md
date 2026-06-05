@@ -93,4 +93,4 @@ This topology reveals clusters of tightly-coupled optimizers, isolated component
 
 - [Detection Capabilities](detection_capabilities.md) — channel taxonomy and current detection status
 - [Bench Scenarios](bench_scenarios.md) — available benches for validation
-- [Interference Detection](../concept_interference_detection.md) — full methodology and detection pipeline
+- [Interference Detection](concept_interference_detection.md) — full methodology and detection pipeline
