@@ -14,7 +14,7 @@ A pair of coupled microgrid simulators sharing a power bus. Optimizer A adjusts 
 
 | Property | Value |
 |---|---|
-| Directory | `examples/bench/scenario-microgrid` (workflow: `bench-scenario-microgrid.yml`) |
+| Directory | [`examples/bench/scenario-microgrid`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid) (workflow: `bench-scenario-microgrid.yml`) |
 | Channel type | Linear additive |
 | Coupling mechanism | Shared power bus — neighbor load adds directly to objectives |
 | Detection status | Working reliably across all coupling strengths (0.0-0.9) |
@@ -31,7 +31,7 @@ A pair of coupled greenhouse simulators sharing outside climate conditions. Opti
 
 | Property | Value |
 |---|---|
-| Directory | `examples/bench/scenario-4` (workflow: `bench-scenario-4.yml`, simulator image: `godon-bench-greenhouse`) |
+| Directory | [`examples/bench/scenario-4`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-4) (workflow: `bench-scenario-4.yml`, simulator image: `godon-bench-greenhouse`) |
 | Channel type | Deeply nonlinear cascaded |
 | Coupling mechanism | Waste heat, CO2 exhaust, humidity drift through thermal inertia, multiplicative growth, phase-dependent thresholds |
 | Detection status | No reliable method yet — research phase |
