@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { background: #1a1a2e; color: #e0e0e0; font-family: monospace; padding: 20px; max-width: 1200px; margin: 0 auto; }
+h1 { color: #00d4ff; font-size: 18px; text-align: center; }
+h2 { color: #ff6b6b; font-size: 14px; margin-top: 30px; }
+.stage { border: 1px solid #333; padding: 12px; margin: 8px 0; border-radius: 4px; position: relative; }
+.stage-label { position: absolute; top: -10px; left: 10px; background: #1a1a2e; padding: 0 6px; font-size: 11px; color: #888; }
+.signal-bar { height: 8px; border-radius: 4px; margin: 6px 0; transition: all 0.3s; }
+.strong { background: linear-gradient(90deg, #00ff88, #00ff88); }
+.medium { background: linear-gradient(90deg, #ffaa00, #ffaa00); }
+.weak { background: linear-gradient(90deg, #ff4444, #ff4444); width: 30%; }
+.dead { background: linear-gradient(90deg, #333, #333); width: 5%; }
+.desc { font-size: 11px; color: #aaa; margin: 4px 0; }
+.math { font-size: 10px; color: #00d4ff; background: #0d1117; padding: 4px 8px; border-radius: 3px; display: inline-block; margin: 2px 0; }
+.kill { color: #ff4444; font-weight: bold; font-size: 11px; }
+.preserve { color: #00ff88; font-weight: bold; font-size: 11px; }
+.comparison { display: flex; gap: 20px; margin-top: 20px; }
+.col { flex: 1; }
+.col h3 { font-size: 13px; text-align: center; padding: 8px; border-radius: 4px 4px 0 0; margin: 0; }
+.microgrid h3 { background: #1a3a1a; color: #00ff88; }
+.greenhouse h3 { background: #3a1a1a; color: #ff6b6b; }
+.arrow { text-align: center; color: #555; font-size: 16px; margin: 4px 0; }
+.summary { background: #0d1117; border: 1px solid #333; padding: 15px; margin-top: 20px; border-radius: 4px; }
+.summary h3 { color: #00d4ff; margin-top: 0; }
+.insight { border-left: 3px solid #ff6b6b; padding-left: 10px; margin: 10px 0; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Signal Death in the Greenhouse vs Microgrid</h1>
+
+<div class="comparison">
+<div class="col microgrid">
+<h3>MICROGRID (Linear Channel)</h3>
+
+<div class="stage">
+<div class="stage-label">1. INJECTION</div>
+<div class="signal-bar strong" style="width:90%"></div>
+<div class="desc">Watermark modulates power_draw, storage_dispatch, local_generation</div>
+<div class="math">params[i] += amplitude * sin(2π * trial / period)</div>
+<div class="preserve">SIGNAL: STRONG — clean sinusoidal modulation</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">2. SENDER'S NET LOAD</div>
+<div class="signal-bar strong" style="width:85%"></div>
+<div class="desc">Net load changes with watermarked parameters</div>
+<div class="math">net = power_draw - generation - storage</div>
+<div class="preserve">SIGNAL: PRESERVED — linear combination</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">3. COUPLING CHANNEL</div>
+<div class="signal-bar strong" style="width:80%"></div>
+<div class="desc">Neighbor's load → direct additive term on objectives</div>
+<div class="math">direct_coupling = (neighbor_load / base) × factor × 10.0</div>
+<div class="preserve">SIGNAL: PRESERVED — additive, proportional to factor</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">4. RECEIVER OBJECTIVES</div>
+<div class="signal-bar strong" style="width:75%"></div>
+<div class="desc">throughput = base + direct_coupling</div>
+<div class="math">obj_val += direct_coupling  (for obj0, obj1, obj2)</div>
+<div class="preserve">SIGNAL: DETECTABLE — additive on 3 of 4 objectives</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">5. DETECTION</div>
+<div class="signal-bar strong" style="width:70%"></div>
+<div class="desc">FFT finds clean spectral peak at watermark frequency</div>
+<div class="math">p = 0.0002 (coupling=0.9), p = 0.005 (coupling=0.5)</div>
+<div class="preserve">RESULT: DETECTED at all coupling levels</div>
+</div>
+</div>
+
+<div class="col greenhouse">
+<h3>GREENHOUSE (Nonlinear Channel)</h3>
+
+<div class="stage">
+<div class="stage-label">1. INJECTION</div>
+<div class="signal-bar strong" style="width:90%"></div>
+<div class="desc">Watermark modulates heating, vents, CO2, light, irrigation</div>
+<div class="math">params[i] += amplitude * sin(2π * trial / period)</div>
+<div class="preserve">SIGNAL: STRONG — clean sinusoidal modulation</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">2. COUPLING DELTAS</div>
+<div class="signal-bar medium" style="width:50%"></div>
+<div class="desc">4 hidden deltas computed from neighbor state</div>
+<div class="math">δT = (neighbor_avg_temp - 20) × factor × 0.1</div>
+<div class="math">δCO₂ = neighbor_energy × factor × 2.0</div>
+<div class="math">δlight = neighbor_energy × factor × 0.01</div>
+<div class="math">δhumidity = (neighbor_avg_hum - 0.5) × factor × 0.05</div>
+<div class="preserve">SIGNAL: WEAKENED — depends on neighbor state deviation from baseline</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">3. OUTSIDE CONDITIONS MODIFIED</div>
+<div class="signal-bar medium" style="width:35%"></div>
+<div class="desc">Deltas fold into outside_temp, outside_co2, outside_humidity, effective_light</div>
+<div class="math">outside_temp += δT  (~0.5°C at factor=0.9)</div>
+<div class="kill">KILL #1: Thermal inertia — zone temp changes by 0.01°C per tick</div>
+<div class="kill">Signal enters a low-pass filter (insulation × dt)</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">4. ZONE PHYSICS (6 nonlinear transforms)</div>
+<div class="signal-bar weak" style="width:15%"></div>
+<div class="desc">Signal passes through cascaded nonlinear dynamics</div>
+<div class="math">heat_loss = (zone_temp - outside_temp) × 0.1</div>
+<div class="math">vent_cooling = vent × (zone_temp - outside_temp) × 0.3</div>
+<div class="math">wall_transfer = (neighbor_avg - zone.temp) × 0.05</div>
+<div class="kill">KILL #2: Multiple interacting heat terms compete with coupling signal</div>
+<div class="kill">KILL #3: Zone-to-zone wall conduction creates feedback loops</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">5. MULTIPLICATIVE GROWTH MODEL</div>
+<div class="signal-bar dead"></div>
+<div class="desc">Growth = temp × light × CO₂ × water × humidity × damage</div>
+<div class="math">temp_factor: 0 if temp&lt;5 or &gt;40, ramps, plateau in optimal range</div>
+<div class="math">co2_factor: optimal range shifts with crop phase (seedling→flowering→fruiting)</div>
+<div class="kill">KILL #4: FLAT REGIONS — if temp is in optimal range, ±0.1°C = ZERO change</div>
+<div class="kill">KILL #5: PHASE DEPENDENCE — CO2 sensitivity jumps 1×→3× at tick 400</div>
+<div class="kill">KILL #6: MULTIPLICATIVE — any factor at 0 kills entire signal</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">6. IRREVERSIBLE DAMAGE</div>
+<div class="signal-bar dead"></div>
+<div class="desc">Extreme temps cause permanent damage_factor reduction (floor 0.3)</div>
+<div class="math">damage_factor -= 0.002 per extreme tick (temp &gt; 42 or &lt; 3)</div>
+<div class="kill">KILL #7: Permanent attenuation — once damaged, all future signal reduced</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">7. SENSOR NOISE</div>
+<div class="signal-bar dead"></div>
+<div class="desc">Metrics add gaussian noise to all readings</div>
+<div class="math">temp ± 0.3°C, humidity ± 0.02, CO₂ ± 15ppm, growth ± 0.02</div>
+<div class="kill">KILL #8: Noise exceeds the already-tiny coupling signal</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">8. RECEIVER'S OWN EXPLORATION</div>
+<div class="signal-bar dead"></div>
+<div class="desc">Evolutionary optimizer changes parameters every trial</div>
+<div class="math">Each trial: new heating, vent, CO2, light, irrigation values</div>
+<div class="kill">KILL #9: Receiver's own parameter changes produce variance 100× larger than coupling</div>
+</div>
+
+<div class="arrow">▼</div>
+
+<div class="stage">
+<div class="stage-label">9. DETECTION ATTEMPT</div>
+<div class="signal-bar dead"></div>
+<div class="desc">FFT / MI / Transfer Entropy / Granger / Cross-correlation</div>
+<div class="math">All methods: p &gt; 0.05 (not significant)</div>
+<div class="kill">RESULT: NOT DETECTED — signal died at stages 4-7, noise buried remainder at 8-9</div>
+</div>
+</div>
+</div>
+
+<div class="summary">
+<h3>The Core Problem</h3>
+
+<div class="insight">
+The coupling signal starts at ~0.5°C temperature shift (stage 3). After thermal inertia (×0.01), it becomes ~0.005°C zone temp change. If the zone is in the optimal temp range (stage 5), this produces <b>exactly zero</b> change in growth rate. The piecewise-linear growth model has dead zones where small perturbations are invisible.
+</div>
+
+<div class="insight">
+Even when the zone is near a threshold (where the signal would be nonzero), the receiver's own exploration (stage 8) changes zone temperature by several degrees per trial — completely overwhelming the 0.005°C coupling signal. The SNR is approximately 0.005 / 3.0 ≈ 0.002. The signal is 500× weaker than the noise.
+</div>
+
+<div class="insight">
+The microgrid works because the coupling is <b>additive on the output</b>: throughput += direct_coupling. The greenhouse fails because the coupling is <b>multiplicative through intermediate state</b>, passing through nonlinear dead zones before reaching the output.
+</div>
+
+<h3>Possible Paths Forward</h3>
+<ul style="font-size: 12px; color: #aaa;">
+<li><b>Stronger coupling</b>: Increase factor beyond 0.9 — unrealistic but would confirm the signal is there</li>
+<li><b>Larger watermark amplitude</b>: Aggressive probing during dedicated analysis phase</li>
+<li><b>Detect on intermediate state</b>: Instead of objectives, detect on raw zone temps, CO₂, humidity (before the growth model kills the signal)</li>
+<li><b>Operate near thresholds</b>: Deliberately keep zones near growth model thresholds where small coupling changes produce nonzero output</li>
+<li><b>Accept the limitation</b>: Some channels have inherent SNR too low for detection at realistic trial budgets</li>
+</ul>
+</div>
+
+</body>
+</html>
