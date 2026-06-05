@@ -54,3 +54,4 @@ nav:
           - MCP_Interface: mcp.md
           - References: references.md
      - OpenAPI: api.md
+     - Contributing: contributing.md
