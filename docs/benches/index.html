@@ -6,17 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon API reference — OpenAPI specification for breeder management endpoints. Create, start, stop, and monitor optimization runs.">
+        <meta name="description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
       
       
-        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/api/">
+        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/benches/">
       
       
-        <link rel="prev" href="../references/">
+        <link rel="prev" href="../concept_interference_detection/">
       
+      
+        <link rel="next" href="../config_guide/">
       
       
         
@@ -27,7 +29,7 @@
     
     
       
-        <title>OpenAPI - godon</title>
+        <title>Bench Scenarios - godon</title>
       
     
     
@@ -61,17 +63,17 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="OpenAPI - godon" />
-<meta property="og:description" content="godon API reference — OpenAPI specification for breeder management endpoints. Create, start, stop, and monitor optimization runs." />
-<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/api.png" />
+<meta property="og:title" content="Bench Scenarios - godon" />
+<meta property="og:description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels." />
+<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/benches.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/api/" />
+<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/benches/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="OpenAPI - godon" />
-<meta property="twitter:description" content="godon API reference — OpenAPI specification for breeder management endpoints. Create, start, stop, and monitor optimization runs." />
-<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/api.png" />
+<meta property="twitter:title" content="Bench Scenarios - godon" />
+<meta property="twitter:description" content="godon Bench Scenarios — available benchmark scenarios for interference detection, covering linear to deeply nonlinear coupling channels." />
+<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/benches.png" />
 </head>
   
   
@@ -91,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#bench-scenarios" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OpenAPI
+              Bench Scenarios
             
           </span>
         </div>
@@ -217,10 +219,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../getting_started/" class="md-tabs__link">
           
   
@@ -237,11 +241,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
         
   
   
@@ -265,9 +267,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -358,24 +358,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -393,7 +398,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -690,10 +695,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../benches/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bench Scenarios
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -709,6 +739,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bench-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bench Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bench Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-benches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Benches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Available Benches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microgrid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microgrid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greenhouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greenhouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a New Bench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -837,19 +974,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
         
   
   
@@ -865,7 +993,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -878,9 +1005,7 @@
             
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -889,8 +1014,103 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bench-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bench Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bench Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-benches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Benches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Available Benches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microgrid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microgrid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greenhouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greenhouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detection-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a New Bench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -904,58 +1124,153 @@
               <article class="md-content__inner md-typeset">
                 
                   
-  
-
-
-
-  
-  
-
-
-<h1 id="_1"></h1>
-<div class="api-html">
-<p>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>API Reference</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <!-- Add your own OpenAPI/Swagger spec file URL here: -->
-        <!-- Note: this includes our proxy, you can remove the following line if you do not need it -->
-        <!-- data-proxy-url="https://api.scalar.com/request-proxy" -->
-        <script id="api-reference" data-url="https://raw.githubusercontent.com/godon-dev/godon-images/refs/heads/main/images/godon-api/openapi.yml"></script>
-        <!-- You can also set a full configuration object like this -->
-        <!-- easier for nested objects -->
-        <script>
-            var configuration = {
-                theme: 'purple'
-            }
-
-            var apiReference = document.getElementById('api-reference')
-            apiReference.dataset.configuration = JSON.stringify(configuration)
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
-    </body>
-</html>
-</p>
-</div>
-
-
-
-
-
 
 
   
   
 
 
+  <h1>Bench Scenarios</h1>
+
+<h2 id="bench-scenarios">Bench Scenarios</h2>
+<p>Bench scenarios are controlled environments for developing and validating interference detection. Each bench models a different coupling channel type — from simple linear additive channels to deeply nonlinear cascaded systems. Together they span the complexity space that real-world multi-optimizer deployments encounter.</p>
+<p>The benches live in <code>examples/bench/</code> in the godon repository. Each has its own directory with docker-compose configuration, target definitions, and breeder configs.</p>
+<h3 id="available-benches">Available Benches</h3>
+<h4 id="microgrid">Microgrid</h4>
+<p>A pair of coupled microgrid simulators sharing a power bus. Optimizer A adjusts load distribution on one microgrid; the coupling factor determines how much of A's load change leaks into B's grid.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directory</td>
+<td><code>examples/bench/scenario-microgrid</code> (workflow: <code>bench-scenario-microgrid.yml</code>)</td>
+</tr>
+<tr>
+<td>Channel type</td>
+<td>Linear additive</td>
+</tr>
+<tr>
+<td>Coupling mechanism</td>
+<td>Shared power bus — neighbor load adds directly to objectives</td>
+</tr>
+<tr>
+<td>Detection status</td>
+<td>Working reliably across all coupling strengths (0.0-0.9)</td>
+</tr>
+<tr>
+<td>Trials needed</td>
+<td>100-300</td>
+</tr>
+<tr>
+<td>Configurable</td>
+<td><code>COUPLING_FACTOR</code> environment variable (0.0 to 0.9)</td>
+</tr>
+</tbody>
+</table>
+<p>The watermark signal passes through the coupling channel unchanged — same frequency content, proportional amplitude. FFT-based spectral detection with permutation testing reliably detects interference even at weak coupling (0.1). Zero false positives at coupling=0.0.</p>
+<p>See <a href="../getting_started/">Getting Started</a> for a full walkthrough of this bench.</p>
+<h4 id="greenhouse">Greenhouse</h4>
+<p>A pair of coupled greenhouse simulators sharing outside climate conditions. Optimizer A's waste heat, CO2 exhaust, and humidity drift affect the outside environment that Optimizer B's greenhouse is exposed to. The coupling signal then passes through zone thermal inertia, multiplicative growth models with dead zones, crop phase transitions with sensitivity jumps, irreversible damage thresholds, and sensor noise before reaching B's observed objectives.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directory</td>
+<td><code>examples/bench/scenario-4</code> (workflow: <code>bench-scenario-4.yml</code>, simulator image: <code>godon-bench-greenhouse</code>)</td>
+</tr>
+<tr>
+<td>Channel type</td>
+<td>Deeply nonlinear cascaded</td>
+</tr>
+<tr>
+<td>Coupling mechanism</td>
+<td>Waste heat, CO2 exhaust, humidity drift through thermal inertia, multiplicative growth, phase-dependent thresholds</td>
+</tr>
+<tr>
+<td>Detection status</td>
+<td>No reliable method yet — research phase</td>
+</tr>
+<tr>
+<td>Signal path stages</td>
+<td>Coupling delta → thermal inertia (×0.01) → zone physics → multiplicative growth (dead zones) → phase-dependent sensitivity (1x→3x) → irreversible damage → sensor noise → receiver exploration variance</td>
+</tr>
+<tr>
+<td>SNR at objectives</td>
+<td>~0.002 (coupling signal 500× weaker than receiver's own exploration noise)</td>
+</tr>
+</tbody>
+</table>
+<p>The watermark signal is physically present in the system but heavily distorted by the time it reaches the observed objectives. All tested detection methods (FFT, mutual information, transfer entropy, Granger causality, cross-correlation, convergent cross mapping) have not produced reliable results at typical trial budgets (200-300 trials).</p>
+<p>Promising research directions:</p>
+<ul>
+<li><strong>Higher trial counts</strong> — thousands of trials may provide enough statistical power for methods like mutual information or distance correlation to detect the weak signal</li>
+<li><strong>Intermediate state detection</strong> — measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted</li>
+<li><strong>Dedicated analysis phases</strong> — holding the receiver optimizer still while the sender probes aggressively, eliminating the 500× exploration noise</li>
+</ul>
+<h3 id="detection-coverage">Detection Coverage</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Channel Type</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microgrid</td>
+<td>Linear additive</td>
+<td>Reliable</td>
+</tr>
+<tr>
+<td>Greenhouse</td>
+<td>Deeply nonlinear cascaded</td>
+<td>Research phase</td>
+</tr>
+</tbody>
+</table>
+<p>As new benches are added, they should target specific gaps in this coverage — for example, a nonlinear channel with measurable intermediate state, or a non-stationary channel with phase transitions.</p>
+<h3 id="adding-a-new-bench">Adding a New Bench</h3>
+<p>Each bench scenario follows a standard structure:</p>
+<pre><code>examples/bench/scenario-&lt;name&gt;/
+├── docker-compose.yml          # Simulator containers with coupling config
+├── targets/
+│   ├── &lt;target&gt;-1.yaml         # Target definition for simulator 1
+│   └── &lt;target&gt;-2.yaml         # Target definition for simulator 2
+└── breeders/
+    ├── breeder-1.yml            # Breeder config for optimizer 1
+    └── breeder-2.yml            # Breeder config for optimizer 2
+</code></pre>
+<p>The simulator should expose an HTTP API compatible with godon's target interface. The coupling mechanism should be configurable via environment variables. See the microgrid bench as a reference implementation.</p>
+<p>When adding a bench, update this page with the scenario's properties and detection status.</p>
+<h3 id="further-reading">Further Reading</h3>
+<ul>
+<li><a href="../concept_interference_detection/">Interference Detection</a> — methodology, channel taxonomy, and detection pipeline</li>
+<li><a href="../getting_started/">Getting Started</a> — walkthrough of the microgrid bench</li>
+<li><a href="../architecture/">Architecture</a> — system component overview</li>
+</ul>
+
+
+
+
+
 
 
   
+  
+
+
+
 
 
 
@@ -973,12 +1288,10 @@
   
     
       
-        
-      
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../references/" class="md-footer__link md-footer__link--prev" aria-label="Previous: References">
+          <a href="../concept_interference_detection/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Interference Detection">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -988,11 +1301,27 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                References
+                Interference Detection
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../config_guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration_Guide">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Configuration_Guide
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
