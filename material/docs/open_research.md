@@ -6,6 +6,28 @@ description: "godon Open Research — active research directions for interferenc
 
 Interference detection works reliably on linear coupling channels. The open research frontier is extending detection to nonlinear, cascaded, and non-stationary channels — and moving from binary detection to quantitative understanding.
 
+### Methods Evaluated
+
+Over the course of development, several detection approaches were evaluated. The early methods were tested before the watermarking system matured — the original approach added noise to the sampler output rather than producing a clean sinusoidal signal by modulating the parameter directly. This means early failures are confounded with immature signaling. The methods have not been re-evaluated with the current watermarking.
+
+#### ABA (Pause One Breeder)
+
+Stop one optimizer and observe whether the other's behavior changes. Conceptually simple but operationally expensive — it requires pausing optimization campaigns, which defeats the purpose of continuous online detection. Each ABA cycle produces one data point. Compared to watermark-based detection, which produces a signal every trial without interrupting optimization, ABA is sluggish and impractical for production use.
+
+#### Statistical Methods (Cross-Correlation, Granger Causality, Mutual Information, Transfer Entropy, Convergent Cross Mapping, HSIC)
+
+A range of statistical and information-theoretic methods were evaluated for detecting coupling between optimizer time series. These are passive approaches — they don't require an injected signal. None produced reliable results on the greenhouse bench.
+
+Important caveat: these were evaluated with early signaling that added noise to the sampler rather than modulating parameters with a clean sinusoidal. The current watermarking produces a well-defined spectral signature. Whether these passive methods would perform better with the improved signal — or whether they could detect coupling even without watermarking — remains an open question.
+
+#### Lock-In Detection
+
+Amplitude-phase detection at the known watermark frequency. Requires the optimizer to converge so that noise_std drops below the signal amplitude. Multi-objective Pareto optimization never converges — the optimizer keeps exploring indefinitely, so noise_std never stabilizes. Lock-in detection is effective for single-objective optimization where convergence occurs, but fundamentally incompatible with Pareto front exploration.
+
+#### FFT Spectral Detection
+
+The current method. Goertzel algorithm at known watermark frequencies with Hann windowing, noise floor estimation from neighboring bins, and permutation testing for significance. Works reliably on linear additive channels (microgrid bench, all coupling strengths 0.0-0.9). On deeply nonlinear channels, the signal is too heavily distorted by the time it reaches the objectives for FFT to extract it at 200-300 trial budgets.
+
 ### Greenhouse Nonlinear Channels
 
 The greenhouse bench represents the hardest detection case. The coupling signal traverses 6+ nonlinear stages before reaching the objectives, with an SNR of ~0.002. Solving this would demonstrate that interference detection works across the full complexity spectrum, not just on linear channels.
@@ -22,6 +44,8 @@ The coupling signal passes through:
 8. Receiver's own exploration variance (500× larger than coupling signal)
 
 Every method tested so far has not produced reliable results at 200-300 trials. The question is whether higher trial counts or different detection strategies can overcome the signal death.
+
+For a visual comparison of signal propagation through the microgrid (linear) vs greenhouse (nonlinear) channels, see the [Signal Death Diagram](assets/signal-death-diagram.html).
 
 ### Intermediate State Detection
 
@@ -69,4 +93,4 @@ This topology reveals clusters of tightly-coupled optimizers, isolated component
 
 - [Detection Capabilities](detection_capabilities.md) — channel taxonomy and current detection status
 - [Bench Scenarios](bench_scenarios.md) — available benches for validation
-- [Interference Detection](../concept_interference_detection.md) — full methodology and detection pipeline
+- [Interference Detection](concept_interference_detection.md) — full methodology and detection pipeline

@@ -75,6 +75,6 @@ Real-world examples: crop growth phases (CO2 sensitivity jumps 3× between seedl
 
 ### Further Reading
 
-- [Interference Detection](../concept_interference_detection.md) — full methodology and validation results
+- [Interference Detection](concept_interference_detection.md) — full methodology and validation results
 - [Bench Scenarios](bench_scenarios.md) — available benches and their channel types
 - [Open Research](open_research.md) — active research directions for unsolved channel types
