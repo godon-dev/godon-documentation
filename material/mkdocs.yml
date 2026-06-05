@@ -23,6 +23,7 @@ theme:
   logo: assets/logo_small.png
   icon:
     repo: fontawesome/brands/github
+  custom_dir: overrides
 markdown_extensions:
   - admonition
   - attr_list
