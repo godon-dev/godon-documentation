@@ -91,6 +91,81 @@ The detection was validated on a microgrid optimization scenario with two breede
 
 **Non-invasive**: The watermark amplitudes are small perturbations within the optimizer's parameter space. They don't alter the optimization's convergence behavior — they're embedded in the existing search process.
 
+### Channel Taxonomy
+
+Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, we identify four categories:
+
+#### Linear Additive Channels
+
+The coupling signal is added directly to the receiver's objectives. The watermark passes through unchanged — same frequency, proportional amplitude.
+
+```
+    Sender parameter → [ + coupling_delta ] → Receiver objective
+```
+
+**Detection status:** Reliably detected with FFT + permutation test. The microgrid bench falls in this category. Even weak coupling (0.1) produces detectable signal with sufficient trials.
+
+**Real-world examples:** Shared power bus (load affects voltage), shared network link (bandwidth contention), shared memory bus (bandwidth allocation).
+
+#### Nonlinear Channels with Measurable Intermediate State
+
+The coupling signal passes through nonlinear dynamics before reaching the objectives, but intermediate state variables (temperatures, pressures, flow rates) are measurable and less distorted than the final objectives.
+
+```
+    Sender parameter → [ nonlinear physics ] → Intermediate state (measurable) → [ nonlinear response ] → Objective
+                                       ↑ detection possible here                         ↑ signal may die here
+```
+
+**Detection status:** Research phase. Detection on intermediate state variables (raw sensor readings) is more promising than detection on derived objectives, because the signal hasn't yet passed through the response function's dead zones and multiplicative interactions. This requires targets to expose raw sensor channels in addition to optimization objectives — a natural extension of the target contract.
+
+**Real-world examples:** Shared heating network (zone temperatures before growth model), shared cooling loop (inlet temperature before server response), shared compressed air (line pressure before actuator response).
+
+#### Deeply Nonlinear Cascaded Channels
+
+The coupling signal passes through multiple cascaded nonlinear transformations — multiplicative interactions, piecewise-linear dead zones, state-dependent thresholds, irreversible damage — before reaching the observed objectives. At each stage, the signal is distorted, attenuated, or eliminated.
+
+```
+    Sender parameter → [ coupling delta ]
+                      → [ thermal inertia (×0.01) ]
+                      → [ multiplicative growth model (dead zones, zero derivative in optimal range) ]
+                      → [ phase-dependent sensitivity (1× → 3× jump) ]
+                      → [ irreversible damage (permanent attenuation) ]
+                      → [ sensor noise ]
+                      → [ receiver's own exploration variance (500× larger than coupling) ]
+                      → Objective
+```
+
+The signal-to-noise ratio at the objective level is approximately 0.002 — the coupling effect is 500 times weaker than the noise from the receiver's own optimization. The watermark signal is physically present but heavily distorted before it reaches the output.
+
+**Detection status:** No reliable method yet at the objective level. All tested approaches (FFT, mutual information, transfer entropy, Granger causality, cross-correlation, convergent cross mapping) have not produced reliable results on this channel type at typical trial budgets (200-300 trials). Promising directions include: higher trial counts (thousands), dedicated analysis phases where the receiver holds still, and detection on intermediate state rather than objectives.
+
+**Real-world examples:** Greenhouse climate control (waste heat → thermal inertia → zone physics → multiplicative growth → crop yield), chemical process control (catalyst temperature → reaction kinetics → yield with saturation), building HVAC (shared chilled water → zone mixing → comfort index with dead band).
+
+#### Non-Stationary Channels
+
+The coupling characteristics change over time. The same interference signal may be detectable in one operating phase and invisible in another.
+
+```
+    Phase 1: coupling visible (high sensitivity)
+    Phase 2: coupling hidden (low sensitivity)
+    Phase 3: coupling reversed (negative sensitivity)
+```
+
+**Detection status:** Research phase. Methods that assume a stationary relationship between sender and receiver will produce inconsistent results — detecting interference in some windows and missing it in others. Temporal segmentation and phase-aware detection are potential approaches.
+
+**Real-world examples:** Crop growth phases (CO2 sensitivity jumps 3× between seedling and flowering), day/night cycles (solar generation changes grid coupling characteristics), seasonal demand shifts (heating vs cooling mode changes infrastructure behavior).
+
+#### Summary
+
+| Channel Type | Detection | Method | Data Requirement |
+|---|---|---|---|
+| Linear additive | Reliable | FFT + permutation | 100-300 trials |
+| Nonlinear, intermediate state measurable | Promising | Spectral analysis on raw sensors | 300-1000 trials (estimated) |
+| Deeply nonlinear cascaded | No reliable method yet | Research ongoing | Requires intermediate state measurement or higher trial counts |
+| Non-stationary | Research | Phase-aware methods | Depends on phase transition frequency |
+
+This taxonomy is intentionally honest. Interference detection is not a universal capability — it depends on the nature of the coupling channel. Documenting these boundaries is as important as documenting successes: it tells operators when they can trust the detection result and when they need additional measurement points or dedicated analysis phases.
+
 ### Outlook
 
 Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably. The detection result (present/absent) opens the door to a much richer understanding of how optimizers interact through shared systems.
