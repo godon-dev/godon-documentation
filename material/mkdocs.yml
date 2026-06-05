@@ -10,6 +10,8 @@ extra:
     - icon: fontawesome/brands/discord
       link: https://discord.com/invite/JZHSBpVr
       name: Discord
+  site_verification:
+    google: p2PAkAxLHbWKKlpC9J6HE3UuvHcbNin4Za3TvTU9CCk
 theme:
   name: "material"
   features:
