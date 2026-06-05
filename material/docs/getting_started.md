@@ -8,6 +8,9 @@ This guide walks you through running a complete interference detection bench on 
 
 The whole process takes about 30 minutes.
 
+!!! note "Using an LLM?"
+    You can also drive godon programmatically through the [MCP Interface](mcp.md) — point your LLM at the godon MCP server and interact with breeders, targets, and detection results directly from your AI assistant.
+
 ### Prerequisites
 
 A running godon stack. If you haven't set it up yet, see [Setup](setup.md). You'll need:
