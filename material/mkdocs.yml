@@ -53,5 +53,5 @@ nav:
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
           - References: references.md
+          - Contributing: contributing.md
      - OpenAPI: api.md
-     - Contributing: contributing.md
