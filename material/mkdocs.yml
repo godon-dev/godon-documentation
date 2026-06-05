@@ -46,9 +46,9 @@ nav:
             - Guardrails: concept_guardrails.md
             - Interference Detection: concept_interference_detection.md
           - Development:
-            - Bench Scenarios: bench_scenarios.md
-            - Detection Capabilities: detection_capabilities.md
-            - Open Research: open_research.md
+            - Bench_Scenarios: bench_scenarios.md
+            - Detection_Capabilities: detection_capabilities.md
+            - Open_Research: open_research.md
           - Configuration_Guide: config_guide.md
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
