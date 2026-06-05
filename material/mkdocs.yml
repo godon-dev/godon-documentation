@@ -45,7 +45,7 @@ nav:
             - Reconnaissance: concept_reconnaissance.md
             - Guardrails: concept_guardrails.md
             - Interference Detection: concept_interference_detection.md
-          - Bench Scenarios: benches.md
+          - Development: development.md
           - Configuration_Guide: config_guide.md
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
