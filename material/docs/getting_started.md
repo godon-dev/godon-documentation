@@ -268,4 +268,4 @@ Try different values and observe how p-values change.
 - Read the [Interference Detection](concept_interference_detection.md) concept page for methodology and validation data
 - Explore the [Breeder](concept_breeder.md) configuration for watermark and optimization parameters
 - Check [Architecture](architecture.md) for system component details
-- See [Development](development.md) for all bench scenarios, detection capabilities, and open research directions
+- See [Development](development.md) for bench scenarios, detection capabilities, and open research directions
