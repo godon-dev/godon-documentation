@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1248,6 +1267,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1494,7 +1542,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <p>godon is a distributed system for live system optimization. It coordinates metaheuristic search algorithms with real-world effectuation and observation, running continuously against production systems.</p>
 <hr />
 <h3 id="high-level-overview">High-Level Overview</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────┐
 │                           Control Plane                                  │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                  │
 │  │  Godon API  │───▶│  Windmill   │───▶│   Workers   │                  │
@@ -1529,7 +1577,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 │                   │  (observe)   │         │   Sources    │             │
 │                   └──────────────┘         └──────────────┘             │
 └─────────────────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="components">Components</h3>
 <h4 id="godon-api">Godon API</h4>
@@ -1707,7 +1755,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <hr />
 <h3 id="optimization-loop">Optimization Loop</h3>
 <p>The core cycle that each breeder worker executes:</p>
-<pre><code>┌──────────────────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────────┐
 │                        Breeder Worker Loop                                   │
 │                                                                              │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌──────────┐  │
@@ -1741,7 +1789,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 │                         └──────────┘              └──────────┘  │           │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1831,7 +1879,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <hr />
 <h3 id="deployment">Deployment</h3>
 <p>godon is deployed via Helm chart to Kubernetes.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Kubernetes Cluster                        │
 │                                                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
@@ -1845,7 +1893,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 │  └─────────────┘  └─────────────┘  └─────────────┘          │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p><strong>Deployment characteristics:</strong></p>
 <ul>
 <li><strong>Stateless API</strong> — Can scale horizontally, rolling updates without downtime</li>

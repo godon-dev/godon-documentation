@@ -6,19 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails.">
+        <meta name="description" content="godon Blog — articles on living systems, interference detection, and the future of optimization.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
       
       
-        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/config_guide/">
+        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/blog/">
       
       
-        <link rel="prev" href="../open_research/">
+        <link rel="prev" href="../api/">
       
-      
-        <link rel="next" href="../comparison/">
       
       
         
@@ -29,7 +27,7 @@
     
     
       
-        <title>Configuration_Guide - godon</title>
+        <title>godon Blog - godon</title>
       
     
     
@@ -65,17 +63,17 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Configuration_Guide - godon" />
-<meta property="og:description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails." />
-<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/config_guide.png" />
+<meta property="og:title" content="godon Blog - godon" />
+<meta property="og:description" content="godon Blog — articles on living systems, interference detection, and the future of optimization." />
+<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/index.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/config_guide/" />
+<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/blog/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="Configuration_Guide - godon" />
-<meta property="twitter:description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails." />
-<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/config_guide.png" />
+<meta property="twitter:title" content="godon Blog - godon" />
+<meta property="twitter:description" content="godon Blog — articles on living systems, interference detection, and the future of optimization." />
+<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/index.png" />
 </head>
   
   
@@ -95,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuration-guide" class="md-skip">
+        <a href="#godon-blog" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuration_Guide
+              godon Blog
             
           </span>
         </div>
@@ -240,12 +238,10 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../getting_started/" class="md-tabs__link">
           
   
@@ -281,9 +277,11 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../blog/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -398,29 +396,24 @@ document.addEventListener("DOMContentLoaded", function() {
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -438,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -877,35 +870,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Configuration_Guide
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../config_guide/" class="md-nav__link">
         
   
   
@@ -921,157 +889,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Guide
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuration-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Overview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-configurations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Configurations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Sections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Sections">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#search-space" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Search Space
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Objectives
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reconnaissance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reconnaissance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1227,12 +1044,41 @@ document.addEventListener("DOMContentLoaded", function() {
       
   
   
-  
     
   
   
-    <li class="md-nav__item">
-      <a href="../blog/" class="md-nav__link">
+    
+      
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1248,6 +1094,37 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tag:essay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        essay
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1269,6 +1146,8 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1277,135 +1156,13 @@ document.addEventListener("DOMContentLoaded", function() {
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#configuration-guide" class="md-nav__link">
+  <a href="#tag:essay" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Guide
+        essay
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Configuration Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuration-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Overview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-configurations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Configurations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Sections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Sections">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#search-space" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Search Space
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Objectives
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effectuator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reconnaissance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reconnaissance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1418,144 +1175,125 @@ document.addEventListener("DOMContentLoaded", function() {
             
           
           
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="godon-blog">godon Blog</h1>
+<p>Articles on living systems, interference detection, and the future of optimization.</p>
 
 
-  
-  
+  <h2 id="tag:essay">
 
 
-  <h1>Configuration_Guide</h1>
+<span class="md-tag">essay</span></h2>
+  <ul>
+    
+      <li>
+        <a href="2026/06/07/from-systems-engineering-to-systems-cultivation/">
+          From Systems Engineering to Systems Cultivation
+        </a>
+      </li>
+    
+    
+  </ul>
 
-<h2 id="configuration-guide">Configuration Guide</h2>
-<p>This guide walks through godon's configuration structure using examples from the <a href="https://github.com/godon-dev/godon/tree/master/examples">godon repository</a>.</p>
-<h3 id="configuration-overview">Configuration Overview</h3>
-<p>A godon configuration defines an optimization run — what to tune, how to apply changes, what to observe, and what constraints to enforce.</p>
-<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
-│                    Configuration                             │
-│                                                              │
-│  ├── Search Space     (what parameters to tune)             │
-│  ├── Objectives       (what to optimize)                    │
-│  ├── Effectuator      (how to apply changes)                │
-│  ├── Reconnaissance   (how to observe results)              │
-│  └── Guardrails       (safety constraints)                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
-<hr />
-<h3 id="example-configurations">Example Configurations</h3>
-<p>Example configurations are available in the <a href="https://github.com/godon-dev/godon/tree/master/examples">godon examples directory</a>.</p>
-<p>These examples cover common scenarios:</p>
-<table>
-<thead>
-<tr>
-<th>Example</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Database tuning</td>
-<td>PostgreSQL, MySQL configuration optimization</td>
-</tr>
-<tr>
-<td>Application tuning</td>
-<td>Web server, cache configuration</td>
-</tr>
-<tr>
-<td>Kubernetes tuning</td>
-<td>Resource limits, replica counts</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="configuration-sections">Configuration Sections</h3>
-<h4 id="search-space">Search Space</h4>
-<p>Define parameters and their ranges:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">pool_size</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
-<span class="w">    </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">50</span><span class="p p-Indicator">]</span>
-
-<span class="w">  </span><span class="nt">timeout_ms</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continuous</span>
-<span class="w">    </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">100.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5000.0</span><span class="p p-Indicator">]</span>
-
-<span class="w">  </span><span class="nt">algorithm</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">categorical</span>
-<span class="w">    </span><span class="nt">choices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">lru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lfu</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fifo</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<h4 id="objectives">Objectives</h4>
-<p>Define what to optimize:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">objectives</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">throughput</span>
-<span class="w">    </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
-</code></pre></div>
-<h4 id="effectuator">Effectuator</h4>
-<p>Define how to apply configurations:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.50</span>
-<span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
-<span class="w">  </span><span class="nt">apply</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">sed -i &#39;s/pool_size=.*/pool_size={{ pool_size }}/&#39; /etc/app/config.ini</span>
-<span class="w">      </span><span class="no">systemctl restart app</span>
-</code></pre></div>
-<h4 id="reconnaissance">Reconnaissance</h4>
-<p>Define how to observe results:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://prometheus:9090</span>
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m]))</span>
-</code></pre></div>
-<h4 id="guardrails">Guardrails</h4>
-<p>Define safety limits:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max_latency</span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
-<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
-</code></pre></div>
-<hr />
-<h3 id="full-example">Full Example</h3>
-<p>See the <a href="https://github.com/godon-dev/godon/tree/master/examples">examples directory</a> for complete, runnable configurations.</p>
-<hr />
-<h3 id="see-also">See Also</h3>
-<ul>
-<li><a href="../concept_breeder/">Breeder</a> — How configurations are executed</li>
-<li><a href="../concept_effectuator/">Effectuator</a> — Applying configurations</li>
-<li><a href="../concept_reconnaissance/">Reconnaissance</a> — Observing results</li>
-<li><a href="../concept_guardrails/">Guardrails</a> — Safety constraints</li>
-</ul>
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-                
-              </article>
-            </div>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-06-07 00:00:00+00:00">June 7, 2026</time></li>
+        
+        
           
+          <li class="md-meta__item">
+            
+              4 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="from-systems-engineering-to-systems-cultivation"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/">From Systems Engineering to Systems Cultivation</a></h2>
+<p>We spent decades treating infrastructure like a bridge. Design it, build it, configure it, monitor it. The bridge stays still. The work is done.</p>
+<p>But your systems don't stay still anymore.</p>
+<h3 id="something-changed"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#something-changed">Something Changed</a></h3>
+<p>Somewhere along the way, infrastructure acquired a heartbeat. Autoscalers adjust resource allocation in real time. Optimization algorithms explore parameter space continuously. AI agents suggest and apply configuration changes. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it runs on.</p>
+<p>Individually, each is useful. Together, they share something none of them account for: the infrastructure itself.</p>
+<p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. An autoscaler scaling up affects memory bus contention for the database tuner alongside it. A cache optimizer changing eviction policies affects latency for the connection pool optimizer on the same service. A process controller adjusting temperature affects yield for the quality optimizer downstream.</p>
+<p>This interference is invisible. Your monitoring sees the symptoms — elevated latency, degraded throughput, oscillating metrics. It cannot tell you why.</p>
+<h3 id="static-config-is-not-the-enemy"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#static-config-is-not-the-enemy">Static Config Is Not the Enemy</a></h3>
+<p>To be clear: static configuration is fine for many things. Service names, port numbers, identity settings — these should stay fixed. Policy config — constraints, boundaries, intent — these should also stay fixed. They define what the system is and what it's allowed to do.</p>
+<p>We're not arguing against static config. We're arguing against treating dynamic parameters as if they were static.</p>
+<p>Connection pool sizes, cache timeouts, memory limits, thread counts, batch sizes — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different load, different neighbor behavior, different coupling conditions. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.</p>
+<h3 id="the-alive-ones"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-alive-ones">The Alive Ones</a></h3>
+<p>There is a class of configuration that is alive. It needs to move, adapt, respond to what the system is doing. Not because the initial value was wrong, but because the system's state has shifted since the value was set.</p>
+<p>Today, these alive parameters are managed in one of two ways:</p>
+<ol>
+<li><strong>Manually</strong> — someone notices degradation, investigates, adjusts the value. Repeat forever.</li>
+<li><strong>Autonomously</strong> — an optimizer, autoscaler, or agent adjusts them automatically.</li>
+</ol>
+<p>Both approaches share a blind spot: neither accounts for interference from other agents acting on the same system.</p>
+<p>The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single dashboard connects.</p>
+<p>The autonomous approach can't see it because each agent optimizes its own objective function in isolation. The database tuner doesn't know the autoscaler exists. The autoscaler doesn't know its scaling decisions create memory pressure that degrades the tuner's results.</p>
+<h3 id="you-cant-engineer-a-garden"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#you-cant-engineer-a-garden">You Can't Engineer a Garden</a></h3>
+<p>Here's the shift. Engineering assumes you build something and it stays built. You design, construct, verify, and hand it off. The artifact is stable.</p>
+<p>Cultivation is different. You work with something that grows, changes, responds to conditions you didn't set and can't fully predict. You don't build a garden once. You tend it. Continuously. With perception.</p>
+<p>The systems we run now are gardens. They have autonomous actors modifying shared state in real time. The coupling between them is emergent, not designed. It shifts as conditions change. And it's invisible to every tool we currently have.</p>
+<p>Cultivation requires something engineering doesn't: <strong>perception of the living system's internal dynamics.</strong> Not monitoring — monitoring tells you what happened. Perception tells you why, by tracing how perturbations propagate through the system.</p>
+<h3 id="the-first-step-is-perception"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-first-step-is-perception">The First Step Is Perception</a></h3>
+<p>godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by embedding a known signal (a watermark) into an optimizer's exploration. When that signal appears in another optimizer's objectives, you've detected a coupling path — one agent's actions are reaching the other through shared state.</p>
+<p>Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.</p>
+<p>This is proven on linear coupling channels. The microgrid bench demonstrates reliable detection at statistical significance (p &lt; 0.001) across coupling strengths from 0.1 to 0.9. The method is concrete, reproducible, and runs continuously without interrupting optimization.</p>
+<p>Whether this scales to reveal the full topology of complex coupled systems — that's an open question. But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.</p>
+<h3 id="what-comes-next"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#what-comes-next">What Comes Next</a></h3>
+<p>Perception is the prerequisite. Once you can detect interference, several directions open:</p>
+<ul>
+<li><strong>Intensity measurement</strong> — not just "is there interference?" but "how much?" Operators need to know whether to act.</li>
+<li><strong>Topology mapping</strong> — with multiple agents, pairwise detections form a graph of who affects whom.</li>
+<li><strong>Coordination</strong> — once interference is detected and measured, agents can adapt. Not by stopping, but by accounting for each other.</li>
+</ul>
+<p>These are sequential. Detection before measurement. Measurement before coordination. Each builds on the last.</p>
+<h3 id="the-cultivation-thesis"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-cultivation-thesis">The Cultivation Thesis</a></h3>
+<p>The argument of this article is simple: the systems we run are alive, and we need to start treating them that way. Not by replacing engineering, but by adding what engineering lacks — continuous perception of how the system's internal dynamics evolve.</p>
+<p>Static config works for what should stay static. For everything else, we need cultivation. And cultivation starts with perception.</p>
+<p>That's what godon is building.</p>
+<hr />
+<p><em>This is the first in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source optimization engine for live systems.</em></p>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  
+</nav>
+        
+      
+    </div>
+  </div>
+
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
@@ -1569,7 +1307,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../open_research/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Open_Research">
+          <a href="../api/" class="md-footer__link md-footer__link--prev" aria-label="Previous: OpenAPI">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1579,27 +1317,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 Previous
               </span>
               <div class="md-ellipsis">
-                Open_Research
+                OpenAPI
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../comparison/" class="md-footer__link md-footer__link--next" aria-label="Next: Comparison">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Comparison
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     

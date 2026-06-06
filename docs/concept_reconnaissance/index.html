@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1250,6 +1269,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1476,7 +1524,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="reconnaissance">Reconnaissance</h2>
 <p><strong>Reconnaissance</strong> observes the target system after effectuation — collecting metrics, checking health, and gathering the data needed to evaluate fitness. It's the eyes of the optimization loop.</p>
 <h3 id="role-in-the-optimization-loop">Role in the Optimization Loop</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Optimization Loop                         │
 │                                                              │
 │    Effectuator ──▶ Target System ──▶ Reconnaissance        │
@@ -1488,11 +1536,11 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                      Observations           │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>Reconnaissance answers: "What happened after we made that change?"</p>
 <hr />
 <h3 id="reconnaissance-interface">Reconnaissance Interface</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                     Reconnaissance                           │
 │                                                              │
 │  Input:  Trial context (what was applied)                   │
@@ -1502,7 +1550,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Output: { metric_a: 123.4, metric_b: &quot;ok&quot;, ... }          │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1558,45 +1606,45 @@ document.addEventListener("DOMContentLoaded", function() {
 </tbody>
 </table>
 <h4 id="prometheus-reconnaissance">Prometheus Reconnaissance</h4>
-<pre><code class="language-yaml">reconnaissance:
-  type: prometheus
-  endpoint: http://prometheus:9090
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://prometheus:9090</span>
 
-  metrics:
-    - name: latency_p99
-      query: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m]))
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
+<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m]))</span>
 
-    - name: throughput
-      query: sum(rate(http_requests_total[1m]))
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">throughput</span>
+<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum(rate(http_requests_total[1m]))</span>
 
-    - name: error_rate
-      query: sum(rate(http_errors_total[1m])) / sum(rate(http_requests_total[1m]))
-</code></pre>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_rate</span>
+<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum(rate(http_errors_total[1m])) / sum(rate(http_requests_total[1m]))</span>
+</code></pre></div>
 <p>Use for: Cloud-native systems, Kubernetes, microservices</p>
 <h4 id="http-reconnaissance">HTTP Reconnaissance</h4>
-<pre><code class="language-yaml">reconnaissance:
-  type: http
-  endpoint: https://api.example.com/stats
-  method: GET
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://api.example.com/stats</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
 
-  extract:
-    latency_p99: &quot;.metrics.latency.p99&quot;
-    active_connections: &quot;.connections.active&quot;
-</code></pre>
+<span class="w">  </span><span class="nt">extract</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">latency_p99</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.metrics.latency.p99&quot;</span>
+<span class="w">    </span><span class="nt">active_connections</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.connections.active&quot;</span>
+</code></pre></div>
 <p>Use for: Services with stats endpoints, health APIs</p>
 <h4 id="script-reconnaissance">Script Reconnaissance</h4>
-<pre><code class="language-yaml">reconnaissance:
-  type: script
-  command: /opt/scripts/collect_metrics.sh
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">script</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/scripts/collect_metrics.sh</span>
 
-  # Script outputs JSON to stdout
-  parse: json
-</code></pre>
+<span class="w">  </span><span class="c1"># Script outputs JSON to stdout</span>
+<span class="w">  </span><span class="nt">parse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+</code></pre></div>
 <p>Use for: Legacy systems, databases, custom metrics</p>
 <hr />
 <h3 id="timing-and-sampling">Timing and Sampling</h3>
 <p>Reconnaissance timing affects data quality:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
 │                    Reconnaissance Timeline                       │
 │                                                                  │
 │  Effectuation        Reconnaissance Window                      │
@@ -1609,7 +1657,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                                                  │
 │  Wait for steady state, then observe for duration              │
 └─────────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1632,12 +1680,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">reconnaissance:
-  timing:
-    wait: 30s        # Let changes propagate
-    duration: 60s    # Observe for 1 minute
-    interval: 5s     # Sample every 5 seconds
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span><span class="w">        </span><span class="c1"># Let changes propagate</span>
+<span class="w">    </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w">    </span><span class="c1"># Observe for 1 minute</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class="w">     </span><span class="c1"># Sample every 5 seconds</span>
+</code></pre></div>
 <hr />
 <h3 id="aggregation">Aggregation</h3>
 <p>Multiple samples → single observation:</p>
@@ -1671,31 +1719,31 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">reconnaissance:
-  metrics:
-    - name: latency
-      query: ...
-      aggregation: p99  # Report 99th percentile
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency</span>
+<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="nt">aggregation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">p99</span><span class="w">  </span><span class="c1"># Report 99th percentile</span>
+</code></pre></div>
 <hr />
 <h3 id="multi-source-reconnaissance">Multi-Source Reconnaissance</h3>
 <p>Combine observations from multiple sources:</p>
-<pre><code class="language-yaml">reconnaissance:
-  sources:
-    - name: prometheus
-      type: prometheus
-      endpoint: http://prometheus:9090
-      metrics:
-        - latency_p99
-        - throughput
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sources</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+<span class="w">      </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://prometheus:9090</span>
+<span class="w">      </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">throughput</span>
 
-    - name: app_stats
-      type: http
-      endpoint: http://app:8080/stats
-      extract:
-        - active_threads
-        - queue_depth
-</code></pre>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app_stats</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">      </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://app:8080/stats</span>
+<span class="w">      </span><span class="nt">extract</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_threads</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">queue_depth</span>
+</code></pre></div>
 <p>All sources contribute to the trial's observation data.</p>
 <hr />
 <h3 id="handling-missing-data">Handling Missing Data</h3>
@@ -1722,14 +1770,14 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">reconnaissance:
-  on_missing: fail  # or: ignore, default_value
-  timeout: 30s
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_missing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail</span><span class="w">  </span><span class="c1"># or: ignore, default_value</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+</code></pre></div>
 <hr />
 <h3 id="noise-and-stability">Noise and Stability</h3>
 <p>Real metrics have noise:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Noisy Observations                        │
 │                                                              │
 │  True value: 50ms                                           │
@@ -1738,7 +1786,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Aggregation smooths noise for fitness evaluation           │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p><strong>Mitigation strategies:</strong></p>
 <table>
 <thead>
@@ -1794,11 +1842,11 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code>Reconnaissance: { latency_p99: 45ms, throughput: 8000, error_rate: 0.001 }
+<div class="highlight"><pre><span></span><code>Reconnaissance: { latency_p99: 45ms, throughput: 8000, error_rate: 0.001 }
                                         │
                                         ▼
 Objective: minimize latency_p99  ──▶  fitness = 45
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="summary">Summary</h3>
 <table>

@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1232,6 +1251,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1501,35 +1549,35 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <li>Helm 3.8+</li>
 </ul>
 <h4 id="step-1-prepare-the-charts">Step 1 --- Prepare the charts</h4>
-<pre><code class="language-bash">git clone https://github.com/godon-dev/godon-charts.git
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/godon-dev/godon-charts.git
+</code></pre></div>
 <h4 id="step-2-create-a-local-cluster">Step 2 --- Create a local cluster</h4>
 <p>Create the host storage directory and spin up a kind cluster using the provided configuration (1 control plane + 2 worker nodes):</p>
-<pre><code class="language-bash">sudo mkdir -p /srv/storage
-kind create cluster --config godon-charts/kind_config.yaml
-kubectl create namespace godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/srv/storage
+kind<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>--config<span class="w"> </span>godon-charts/kind_config.yaml
+kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>godon
+</code></pre></div>
 <p><code>/srv/storage</code> must exist <strong>before</strong> launching kind. The <code>kind_config.yaml</code> bind-mounts this path into every node, which is essential for bypassing kind's virtual overlay filesystem (explained below).</p>
 <h4 id="step-3-install-the-godon-stack">Step 3 --- Install the godon stack</h4>
 <p>For modern Helm (3.8+):</p>
-<pre><code class="language-bash">helm install godon oci://ghcr.io/godon-dev/charts/godon \
-  --namespace godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>godon<span class="w"> </span>oci://ghcr.io/godon-dev/charts/godon<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>godon
+</code></pre></div>
 <p>For older Helm (2.x, 3.0--3.7):</p>
-<pre><code class="language-bash">helm repo add godon https://godon-dev.github.io/godon-charts/charts
-helm install godon godon/godon --namespace godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>godon<span class="w"> </span>https://godon-dev.github.io/godon-charts/charts
+helm<span class="w"> </span>install<span class="w"> </span>godon<span class="w"> </span>godon/godon<span class="w"> </span>--namespace<span class="w"> </span>godon
+</code></pre></div>
 <h4 id="step-4-verify">Step 4 --- Verify</h4>
 <p>Check that all pods are running:</p>
-<pre><code class="language-bash">kubectl get pods --namespace godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--namespace<span class="w"> </span>godon
+</code></pre></div>
 <p>The godon API is available at <code>localhost:7080</code> (forwarded through the kind control plane node).</p>
 <h4 id="applying-environment-overrides">Applying environment overrides</h4>
 <p>The <code>stacks/</code> directory in godon-charts contains environment-specific value overrides. For example, to apply the test stack profile:</p>
-<pre><code class="language-bash">helm install godon oci://ghcr.io/godon-dev/charts/godon \
-  --namespace godon \
-  -f godon-charts/stacks/osuosl/test-stack.yaml
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>godon<span class="w"> </span>oci://ghcr.io/godon-dev/charts/godon<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>godon<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>godon-charts/stacks/osuosl/test-stack.yaml
+</code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Why the storage bypass matters</p>
 <p>kind nodes run inside Docker containers and use an overlay filesystem for their virtual disks. This overlay adds significant I/O overhead, which causes the archive database (YugabyteDB) to fail its startup health probes due to slow disk sync operations --- timing out and crash-looping.</p>
@@ -1549,18 +1597,18 @@ helm install godon godon/godon --namespace godon
 <li>Helm 3.8+</li>
 </ul>
 <h4 id="install">Install</h4>
-<pre><code class="language-bash">helm install godon oci://ghcr.io/godon-dev/charts/godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>godon<span class="w"> </span>oci://ghcr.io/godon-dev/charts/godon
+</code></pre></div>
 <p>For Helm 2.x or 3.0--3.7:</p>
-<pre><code class="language-bash">helm repo add godon https://godon-dev.github.io/godon-charts/charts
-helm install godon godon/godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>godon<span class="w"> </span>https://godon-dev.github.io/godon-charts/charts
+helm<span class="w"> </span>install<span class="w"> </span>godon<span class="w"> </span>godon/godon
+</code></pre></div>
 <h3 id="uninstall">Uninstall</h3>
-<pre><code class="language-bash">helm uninstall godon --namespace godon
-</code></pre>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span>godon<span class="w"> </span>--namespace<span class="w"> </span>godon
+</code></pre></div>
 <p>To tear down a local kind cluster:</p>
-<pre><code class="language-bash">kind delete cluster --name godon-1-cluster
-</code></pre>
+<div class="highlight"><pre><span></span><code>kind<span class="w"> </span>delete<span class="w"> </span>cluster<span class="w"> </span>--name<span class="w"> </span>godon-1-cluster
+</code></pre></div>
 <h3 id="resources">Resources</h3>
 <ul>
 <li><a href="https://github.com/godon-dev/godon-charts">Chart Source</a></li>

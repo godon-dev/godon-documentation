@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1250,6 +1269,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1476,7 +1524,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="effectuator">Effectuator</h2>
 <p>An <strong>effectuator</strong> applies configurations to target systems — it's the bridge between abstract parameters and real-world changes. Effectuators take a parameter set and make it happen.</p>
 <h3 id="role-in-the-optimization-loop">Role in the Optimization Loop</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Optimization Loop                         │
 │                                                              │
 │    Algorithm ──▶ Effectuator ──▶ Target System              │
@@ -1488,12 +1536,12 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                     (observe)                │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>The effectuator is responsible for making the algorithm's suggestions real.</p>
 <hr />
 <h3 id="effectuator-interface">Effectuator Interface</h3>
 <p>All effectuators implement the same contract:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                     Effectuator                              │
 │                                                              │
 │  Input:  { param_a: 0.5, param_b: &quot;foo&quot;, ... }             │
@@ -1503,7 +1551,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Output: Success | Error                                     │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1559,51 +1607,51 @@ document.addEventListener("DOMContentLoaded", function() {
 </tbody>
 </table>
 <h4 id="ssh-effectuator">SSH Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: ssh
-  host: 10.0.0.50
-  user: admin
-  ssh_key: /secrets/ssh_key
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.50</span>
+<span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">  </span><span class="nt">ssh_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/secrets/ssh_key</span>
 
-  apply:
-    command: |
-      sed -i 's/pool_size=.*/pool_size={{ pool_size }}/' /etc/app/config.ini
-      systemctl restart app
-</code></pre>
+<span class="w">  </span><span class="nt">apply</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">sed -i &#39;s/pool_size=.*/pool_size={{ pool_size }}/&#39; /etc/app/config.ini</span>
+<span class="w">      </span><span class="no">systemctl restart app</span>
+</code></pre></div>
 <p>Use for: Traditional servers, VMs, bare metal</p>
 <h4 id="http-effectuator">HTTP Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: http
-  endpoint: https://api.example.com/config
-  method: PATCH
-  headers:
-    Authorization: Bearer {{ api_token }}
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://api.example.com/config</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PATCH</span>
+<span class="w">  </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bearer {{ api_token }}</span>
 
-  payload:
-    pool_size: &quot;{{ pool_size }}&quot;
-    timeout_ms: &quot;{{ timeout_ms }}&quot;
-</code></pre>
+<span class="w">  </span><span class="nt">payload</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">pool_size</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">    </span><span class="nt">timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">timeout_ms</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</code></pre></div>
 <p>Use for: Services with config APIs, service mesh, control planes</p>
 <h4 id="kubernetes-effectuator">Kubernetes Effectuator</h4>
-<pre><code class="language-yaml">effectuator:
-  type: kubernetes
-  namespace: production
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
 
-  target:
-    kind: Deployment
-    name: app-backend
+<span class="w">  </span><span class="nt">target</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-backend</span>
 
-  patches:
-    - path: /spec/template/spec/containers/0/resources/requests/memory
-      value: &quot;{{ memory_mb }}Mi&quot;
-    - path: /spec/replicas
-      value: &quot;{{ replicas }}&quot;
-</code></pre>
+<span class="w">  </span><span class="nt">patches</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/spec/template/spec/containers/0/resources/requests/memory</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">memory_mb</span><span class="nv"> </span><span class="s">}}Mi&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/spec/replicas</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">replicas</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</code></pre></div>
 <p>Use for: Container orchestration, cloud-native workloads</p>
 <hr />
 <h3 id="idempotency">Idempotency</h3>
 <p>Effectuators should be <strong>idempotent</strong> — applying the same configuration twice has the same result as applying it once.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Idempotent Apply                          │
 │                                                              │
 │  Apply {pool_size: 10} ──▶ Success                          │
@@ -1613,14 +1661,14 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Same result regardless of how many times applied           │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p><strong>Why it matters:</strong>
 - Retries don't cause corruption
 - Rollbacks are predictable
 - Parallel workers don't conflict</p>
 <hr />
 <h3 id="effectuation-timing">Effectuation Timing</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
 │                    Effectuation Timeline                        │
 │                                                                  │
 │  Start ──▶ Connect ──▶ Apply ──▶ Propagate ──▶ Steady ──▶ End  │
@@ -1629,7 +1677,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                                                  │
 │  Propagation delay: changes take time to reach full effect     │
 └─────────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1660,17 +1708,17 @@ document.addEventListener("DOMContentLoaded", function() {
 <hr />
 <h3 id="rollback-support">Rollback Support</h3>
 <p>When guardrails fail, effectuators may need to revert:</p>
-<pre><code class="language-yaml">effectuator:
-  type: kubernetes
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
 
-  apply:
-    # ... apply config ...
+<span class="w">  </span><span class="nt">apply</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># ... apply config ...</span>
 
-  rollback:
-    strategy: previous
-    # or explicit rollback action
-    command: kubectl rollout undo deployment/app
-</code></pre>
+<span class="w">  </span><span class="nt">rollback</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">previous</span>
+<span class="w">    </span><span class="c1"># or explicit rollback action</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubectl rollout undo deployment/app</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1727,15 +1775,15 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">effectuator:
-  retry:
-    max_attempts: 3
-    backoff: exponential
-    base_delay: 1s
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">retry</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">backoff</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">exponential</span>
+<span class="w">    </span><span class="nt">base_delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
 
-  timeout: 60s
-  on_failure: mark_trial_failed
-</code></pre>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">  </span><span class="nt">on_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mark_trial_failed</span>
+</code></pre></div>
 <hr />
 <h3 id="safety-considerations">Safety Considerations</h3>
 <p>Effectuators modify real systems. Safety matters:</p>
@@ -1765,16 +1813,16 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">effectuator:
-  safety:
-    dry_run: false        # Set true for testing
-    max_concurrent: 1     # Only one change at a time
-    require_confirmation: false  # For production
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">safety</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dry_run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">        </span><span class="c1"># Set true for testing</span>
+<span class="w">    </span><span class="nt">max_concurrent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">     </span><span class="c1"># Only one change at a time</span>
+<span class="w">    </span><span class="nt">require_confirmation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># For production</span>
+</code></pre></div>
 <hr />
 <h3 id="custom-effectuators">Custom Effectuators</h3>
 <p>Implement your own for specialized targets:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                   Custom Effectuator                         │
 │                                                              │
 │  Implement:                                                  │
@@ -1785,7 +1833,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Register with breeder via plugin interface                  │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>Use cases:
 - Proprietary systems
 - Database config changes

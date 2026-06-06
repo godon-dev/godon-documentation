@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1289,6 +1308,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1557,7 +1605,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>godon's interference detection makes this invisible problem visible. It works by injecting a known mathematical signal (a <em>watermark</em>) into each optimizer's parameters, then observing whether that signal appears in another optimizer's objective values. If it does, the optimizers are interfering.</p>
 <h3 id="the-problem">The Problem</h3>
 <p>Consider two independent optimization loops:</p>
-<pre><code>    ┌─────────────┐              ┌─────────────┐
+<div class="highlight"><pre><span></span><code>    ┌─────────────┐              ┌─────────────┐
     │  Optimizer A │              │  Optimizer B │
     │  (grid load) │              │  (grid cost) │
     └──────┬───────┘              └──────┬───────┘
@@ -1567,18 +1615,18 @@ document.addEventListener("DOMContentLoaded", function() {
     │           Shared Power Grid               │
     │    (the coupling channel)                 │
     └──────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>Optimizer A adjusts load distribution. Optimizer B adjusts cost parameters. Both affect the same grid. When A shifts load, it changes the conditions B is optimizing against. B's "optimal" decisions are now based on a landscape A has altered. Both optimizers degrade each other's performance, but neither can see the cause.</p>
 <p>This isn't theoretical — it happens in any system where multiple optimization workloads share resources.</p>
 <h3 id="how-detection-works">How Detection Works</h3>
 <p>The detection pipeline has three stages:</p>
 <h4 id="1-watermark-injection">1. Watermark Injection</h4>
 <p>Each breeder (optimizer driver) injects a unique mathematical fingerprint into its trial parameters. The fingerprint is a multi-frequency signal — a sum of sinusoidal perturbations at specific periods, applied to selected parameters.</p>
-<pre><code>    Breeder A watermark: periods [29, 37]
+<div class="highlight"><pre><span></span><code>    Breeder A watermark: periods [29, 37]
     Breeder B watermark: periods [67, 71]
 
     (Non-overlapping periods — no shared frequencies between breeders)
-</code></pre>
+</code></pre></div>
 <p>The periods are drawn from a pool of prime numbers, with each breeder assigned a unique, non-overlapping set. This ensures that any spectral power at Breeder A's frequencies in Breeder B's observations can <em>only</em> come from interference — not from Breeder B's own watermark.</p>
 <h4 id="2-observation-and-alignment">2. Observation and Alignment</h4>
 <p>The observer collects trial data from both breeders, aligning them by timestamp. After self-subtraction (removing each breeder's own watermark contribution from its objective values), the residual signal contains only external influences.</p>
@@ -1691,7 +1739,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric. An optimizer running against a power grid at 10% interference and one at 90% interference face fundamentally different problems. Intensity measurement gives operators the information to decide whether to act.</p>
 <h4 id="interference-topology">Interference Topology</h4>
 <p>With three or more optimizers, the question becomes: who interferes with whom, through what? The pairwise detection results between all breeders form an interference graph — a directed, weighted graph where nodes are optimizers, edges are interference channels, and weights are intensity. This topology reveals the structure of the system: clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference.</p>
-<pre><code>    ┌──────────┐  0.7  ┌──────────┐
+<div class="highlight"><pre><span></span><code>    ┌──────────┐  0.7  ┌──────────┐
     │ Breeder A │──────▶│ Breeder B │
     └──────────┘       └──────────┘
          │                  │
@@ -1700,7 +1748,7 @@ document.addEventListener("DOMContentLoaded", function() {
     ┌──────────┐  0.0  ┌──────────┐
     │ Breeder C │──────▶│ Breeder D │
     └──────────┘       └──────────┘
-</code></pre>
+</code></pre></div>
 <p>In this example, A heavily interferes with B through shared infrastructure, while C and D are essentially independent. The topology tells you where to focus decoupling efforts.</p>
 <h4 id="per-parameter-tracing">Per-Parameter Tracing</h4>
 <p>Not all parameters contribute equally to interference. By watermarking individual parameters and analyzing which ones propagate through the coupling channel, the detection can trace interference to specific configuration seams — the exact points where one optimizer's decisions leak into another's domain. This enables targeted decoupling: instead of isolating entire optimizers, you can adjust specific parameters or add constraints at the seams.</p>

@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1244,6 +1263,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1498,7 +1546,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Objectives say "make this better." Guardrails say "don't break this."</p>
 <hr />
 <h3 id="how-guardrails-work">How Guardrails Work</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                      Trial Execution                         │
 │                                                              │
 │    Parameters ──▶ Effectuate ──▶ Reconnoiter ──▶ Check      │
@@ -1515,26 +1563,26 @@ document.addEventListener("DOMContentLoaded", function() {
 │                    Mark FAILED            Accept trial       │ │
 │                    Trigger rollback       Update best        │ │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>Guardrails check reconnaissance data after each trial.</p>
 <hr />
 <h3 id="defining-guardrails">Defining Guardrails</h3>
-<pre><code class="language-yaml">guardrails:
-  - name: max_latency
-    metric: latency_p99
-    condition: &quot;&lt; 100ms&quot;
-    on_violation: fail_trial
+<div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max_latency</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
+<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
 
-  - name: error_budget
-    metric: error_rate
-    condition: &quot;&lt; 0.01&quot;
-    on_violation: fail_trial
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_budget</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_rate</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">0.01&quot;</span>
+<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
 
-  - name: cpu_limit
-    metric: cpu_usage_percent
-    condition: &quot;&lt; 90&quot;
-    on_violation: fail_trial
-</code></pre>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu_limit</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu_usage_percent</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">90&quot;</span>
+<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1602,7 +1650,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </table>
 <hr />
 <h3 id="guardrail-states">Guardrail States</h3>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Guardrail Evaluation                      │
 │                                                              │
 │  Metric value ──▶ Compare ──▶ [PASS] or [FAIL]             │
@@ -1616,7 +1664,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  result: FAIL                                               │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1638,7 +1686,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <hr />
 <h3 id="multiple-guardrails">Multiple Guardrails</h3>
 <p>All guardrails must pass for a trial to succeed:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                   Guardrail Checks                           │
 │                                                              │
 │  latency_p99: 45ms    &lt; 100ms    ✓ PASS                     │
@@ -1659,7 +1707,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │  Any fail → Trial rejected                                  │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="on-violation">On Violation</h3>
 <p>When a guardrail fails, several actions are possible:</p>
@@ -1685,21 +1733,21 @@ document.addEventListener("DOMContentLoaded", function() {
 </tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">guardrails:
-  - name: critical_error_rate
-    metric: error_rate
-    condition: &quot;&lt; 0.1&quot;
-    on_violation: fail_and_rollback
+<div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical_error_rate</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_rate</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">0.1&quot;</span>
+<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_and_rollback</span>
 
-  - name: catastrophic_failure
-    metric: system_down
-    condition: &quot;== false&quot;
-    on_violation: stop_breeder
-</code></pre>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catastrophic_failure</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_down</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;==</span><span class="nv"> </span><span class="s">false&quot;</span>
+<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop_breeder</span>
+</code></pre></div>
 <hr />
 <h3 id="rollback-on-violation">Rollback on Violation</h3>
 <p>Consecutive guardrail violations can trigger automatic rollback:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Rollback Flow                             │
 │                                                              │
 │  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED   │
@@ -1725,13 +1773,13 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                           ▼                  │
 │                                    Continue trials            │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
-<pre><code class="language-yaml">rollback:
-  enabled: true
-  consecutive_failures: 3   # Trigger after N violations
-  target_state: previous    # previous, best, or baseline
-  on_failure: stop          # stop, continue, or skip_target
-</code></pre>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">rollback</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">consecutive_failures</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">   </span><span class="c1"># Trigger after N violations</span>
+<span class="w">  </span><span class="nt">target_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">previous</span><span class="w">    </span><span class="c1"># previous, best, or baseline</span>
+<span class="w">  </span><span class="nt">on_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span><span class="w">          </span><span class="c1"># stop, continue, or skip_target</span>
+</code></pre></div>
 <hr />
 <h3 id="rollback-strategies">Rollback Strategies</h3>
 <table>
@@ -1764,17 +1812,17 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="soft-vs-hard-guardrails">Soft vs Hard Guardrails</h3>
 <p><strong>Soft guardrails</strong> — Warning threshold, continue optimization</p>
 <p><strong>Hard guardrails</strong> — Hard limit, fail trial immediately</p>
-<pre><code class="language-yaml">guardrails:
-  - name: latency_warning
-    metric: latency_p99
-    condition: &quot;&lt; 80ms&quot;
-    severity: soft      # Log warning, continue
+<div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_warning</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">80ms&quot;</span>
+<span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soft</span><span class="w">      </span><span class="c1"># Log warning, continue</span>
 
-  - name: latency_limit
-    metric: latency_p99
-    condition: &quot;&lt; 100ms&quot;
-    severity: hard      # Fail trial
-</code></pre>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_limit</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
+<span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hard</span><span class="w">      </span><span class="c1"># Fail trial</span>
+</code></pre></div>
 <p>Soft guardrails inform without blocking. Hard guardrails protect.</p>
 <hr />
 <h3 id="guardrail-design-guidelines">Guardrail Design Guidelines</h3>
@@ -1809,7 +1857,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <hr />
 <h3 id="guardrails-in-multi-objective-optimization">Guardrails in Multi-Objective Optimization</h3>
 <p>Guardrails constrain the Pareto front:</p>
-<pre><code>              Throughput
+<div class="highlight"><pre><span></span><code>              Throughput
                     ▲
                     │
                     │    · ·  ·   (outside guardrail)
@@ -1822,7 +1870,7 @@ document.addEventListener("DOMContentLoaded", function() {
                        Latency
 
 Only trials inside guardrail boundary are considered
-</code></pre>
+</code></pre></div>
 <p>The effective Pareto front excludes guardrail-violating trials.</p>
 <hr />
 <h3 id="summary">Summary</h3>
