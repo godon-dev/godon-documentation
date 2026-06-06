@@ -26,7 +26,7 @@ godon runs on Kubernetes with Helm charts, Docker images, and GitHub Actions wor
 
 **Optimization and AI Operations**
 
-Multi-objective metaheuristic search, parallel optimization campaigns, LLM integration for configuration suggestion — if you work in optimization or AI operations and see gaps or improvements, we'd like to hear about it.
+Advanced optimization algorithms — multi-objective metaheuristic search, parallel optimization campaigns, heterogeneous strategies. LLM integration as operations copilot — suggesting configuration, interpreting detection results, and assisting with live infrastructure decisions. If you work in optimization or AI operations and see gaps or improvements, we'd like to hear about it.
 
 **Documentation and Communication**
 
