@@ -41,6 +41,7 @@ plugins:
   - blog:
       blog_dir: blog
       post_dir: blog/posts
+      post_excerpt: required
 nav:
      - Landing: index.md
      - Purpose: purpose.md

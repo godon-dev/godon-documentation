@@ -4,6 +4,7 @@ tags:
   - essay
 authors:
   - matthias-tafelmeier
+description: "The systems we run are alive — autonomous agents interfering through shared state. Static config is fine for many things, but dynamic parameters need cultivation, not engineering. The first step is perception."
 ---
 
 # From Systems Engineering to Systems Cultivation
