@@ -1064,17 +1064,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#core-thesis-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Thesis Notes
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1463,20 +1452,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <td>You can't model a complex system from first principles — too many variables, too many interactions, too much nonlinearity. But if you can trace how perturbations propagate transitively — A→B→C→D — you don't need a model. The system tells you its own structure. This applies to infrastructure, biology, any complex assembly. The topology emerges from the signals. <em>(INTERNAL — aspirational, connects to #55/#56)</em></td>
 <td>Researchers</td>
 </tr>
+<tr>
+<td>59</td>
+<td>The Optimization Commons: A Shared Result Catalog</td>
+<td>Not everyone can afford to run optimization campaigns — too small, too risky, too expensive. A shared catalog of optimization results from similar infrastructure would let people start from proven parameter configurations instead of breeding from scratch. Standardized deployments (same Helm chart, same cloud, similar scale) make matching feasible. Living catalog that improves as more campaigns contribute.</td>
+<td>LinkedIn, HN</td>
+</tr>
 </tbody>
 </table>
-<h3 id="core-thesis-notes">Core Thesis Notes</h3>
-<p><strong>The mechanism (proven):</strong> Policy-free optimization explores via watermark-perturbed trials. Each trial is a probe. Observer detects whether A's watermark appears in B's objectives. If detected → one edge in the coupling graph revealed.</p>
-<p><strong>Transitive signal tracing (proven for linear):</strong> A→B, B→C, C→D. Accumulated detections form a partial topology. Not assumed, not modeled — discovered from the system's own dynamics.</p>
-<p><strong>Phrasing discipline — always distinguish:</strong>
-- Proven: "We detected breeder A's watermark in breeder B's objectives at p &lt; 0.001"
-- Hypothesis: "Accumulated detections may form a partial topology of system coupling"
-- Speculation: "This approach could extend to understanding complex biological systems"</p>
-<p><strong>What's proven:</strong> Interference detection on linear channels, watermark propagation, detection at various coupling strengths.</p>
-<p><strong>What's hypothesis:</strong> Transitive tracing scales to full assembly (proven 2 breeders, unproven N). Accumulated topology = genuine understanding. Transfer to nonlinear/non-stationary channels. Transfer beyond infrastructure.</p>
-<p><strong>What's speculation (internal only):</strong> Application to exogenesis, organoid intelligence, biological systems. Unsubstantiated.</p>
-<p><strong>Detection difficulty variables (not just coupling factor):</strong> Coupling strength, SNR, number of nonlinear transforms, transform type, dimensionality, stationarity, watermark design, receiver exploration variance. All interact. Combinatorial but manageable (~5-6 variables, 2-3 levels each).</p>
-<p><strong>Channel classifier (open design question):</strong> Where does it live? Breeder startup calibration, separate probe, or observer? Depends on channel stability. Non-stationary suggests ongoing assessment needed. Classification itself is a meta-optimization problem.</p>
 
 
 
