@@ -8,6 +8,8 @@ This guide walks you through running a complete interference detection bench on 
 
 The whole process takes about 30 minutes.
 
+godon is more than interference detection — it's a platform for optimization campaigns on live systems. Once the breeders are running, you can monitor their progress through the observer's dashboard, inspect trial history, and follow the optimization search in real time.
+
 !!! note "Using an LLM?"
     You can also drive godon programmatically through the [MCP Interface](mcp.md) — point your LLM at the godon MCP server and interact with breeders, targets, and detection results directly from your AI assistant.
 
@@ -164,6 +166,23 @@ You'll see something like:
   {"name": "bench-mg-1", "status": "active", "total_trials": 145},
   {"name": "bench-mg-2", "status": "active", "total_trials": 138}
 ]
+```
+
+You can also access the observer's GUI dashboard to see breeder status, trial history, and optimization progress visually. Port-forward the observer:
+
+```bash
+OBSERVER_POD=$(kubectl get pods -n godon -l component=observer -o jsonpath='{.items[0].metadata.name}')
+kubectl port-forward -n godon --address 127.0.0.3 "${OBSERVER_POD}" 8089:8089 &
+```
+
+Then open `http://127.0.0.3:8089` in your browser to explore the running campaigns, inspect individual trials, and watch how parameters and objectives evolve over time.
+
+You can also query Prometheus metrics directly for trial counts and best values:
+
+```bash
+kubectl exec -n godon deploy/godon-godon-observer -- \
+  wget -qO- 'http://localhost:8089/metrics' | \
+  grep -E 'godon_breeder_(total_trials|best_value)'
 ```
 
 Wait until both breeders have 100+ trials before running detection. Each trial takes a few seconds — expect 15-20 minutes to reach 200+ trials.
