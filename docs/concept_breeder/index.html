@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1261,6 +1280,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1499,7 +1547,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>A <strong>breeder</strong> is the pluggable optimization driver in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Breeders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.</p>
 <h3 id="core-responsibilities">Core Responsibilities</h3>
 <p>A breeder coordinates three concerns:</p>
-<pre><code>                    ┌─────────────┐
+<div class="highlight"><pre><span></span><code>                    ┌─────────────┐
                     │   Breeder   │
                     │  (Driver)   │
                     └─────────────┘
@@ -1511,7 +1559,7 @@ document.addEventListener("DOMContentLoaded", function() {
     │ Algorithm│    │Effectuate│    │Reconnoiter   │
     │ (Search) │    │ (Apply)  │    │ (Observe)    │
     └──────────┘    └──────────┘    └──────────────┘
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1541,7 +1589,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The breeder plugs these together into a coherent optimization loop.</p>
 <hr />
 <h3 id="the-breeder-cycle">The Breeder Cycle</h3>
-<pre><code>┌──────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────┐
 │                                                              │
 │    ┌──────────┐    ┌──────────────┐    ┌──────────────┐     │
 │    │  Sample  │───▶│  Effectuate  │───▶│  Reconnoiter │     │
@@ -1556,7 +1604,7 @@ document.addEventListener("DOMContentLoaded", function() {
 │                       └──────────────────────────────┘      │   (optional)
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
-</code></pre>
+</code></pre></div>
 <p>Each iteration:</p>
 <ol>
 <li><strong>Sample</strong> — Algorithm suggests next configuration to try</li>
@@ -1652,8 +1700,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The observer is a plugin — measure what matters for your objective.</p>
 <hr />
 <h3 id="worker-collaboration">Worker Collaboration</h3>
-<p>Breeders can run with multiple parallel workers:</p>
-<pre><code>                    ┌─────────────┐
+<p>Breeders can run with multiple parallel workers:
+<div class="highlight"><pre><span></span><code>                    ┌─────────────┐
                     │  Controller │
                     │   (API)     │
                     └─────────────┘
@@ -1668,7 +1716,7 @@ document.addEventListener("DOMContentLoaded", function() {
           └───────────────┴───────────────┘
                           │
                     Shared Trial History
-</code></pre>
+</code></pre></div></p>
 <p><strong>How collaboration works:</strong>
 - Workers share a common trial history
 - Each worker samples from the algorithm, avoiding redundant evaluations
@@ -1680,14 +1728,14 @@ document.addEventListener("DOMContentLoaded", function() {
 - Resilience: other workers continue if one fails</p>
 <hr />
 <h3 id="breeder-lifecycle">Breeder Lifecycle</h3>
-<p>Breeders are managed through the Control API:</p>
-<pre><code>created ──▶ active ──┐
+<p>Breeders are managed through the Control API:
+<div class="highlight"><pre><span></span><code>created ──▶ active ──┐
     │           │    │
     │           ▼    ▼
     │       stopped ──▶ deleted
     │           │
     └───────────┴──▶ error
-</code></pre>
+</code></pre></div></p>
 <table>
 <thead>
 <tr>
@@ -1717,8 +1765,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p><strong>Graceful shutdown:</strong> When stopped, workers complete their current trials before terminating. This prevents half-applied configurations.</p>
 <hr />
 <h3 id="where-breeders-fit">Where Breeders Fit</h3>
-<p>In the godon architecture, breeders sit between the control plane and the target systems:</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<p>In the godon architecture, breeders sit between the control plane and the target systems:
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                      Control Plane                          │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
 │  │ Controller  │    │   API       │    │  Scheduler  │     │
@@ -1746,11 +1794,11 @@ document.addEventListener("DOMContentLoaded", function() {
                    │   Target    │
                    │   System    │
                    └─────────────┘
-</code></pre>
+</code></pre></div></p>
 <hr />
 <h3 id="guardrails">Guardrails</h3>
-<p>Guardrails are <strong>safety limits</strong> that protect production systems during optimization. Unlike objectives (which we optimize), guardrails are binary constraints that must not be exceeded.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<p>Guardrails are <strong>safety limits</strong> that protect production systems during optimization. Unlike objectives (which we optimize), guardrails are binary constraints that must not be exceeded.
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                      Trial Execution                         │
 │                                                              │
 │    Parameters ──▶ Effectuate ──▶ Reconnoiter ──▶ Check      │
@@ -1767,8 +1815,8 @@ document.addEventListener("DOMContentLoaded", function() {
 │                    Mark FAILED            Accept trial       │ │
 │                    Trigger rollback       Update best        │ │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>How guardrails work:</strong></p>
+</code></pre></div>
+<strong>How guardrails work:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1832,8 +1880,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </table>
 <hr />
 <h3 id="rollback">Rollback</h3>
-<p>When consecutive guardrail violations occur, breeders can automatically <strong>rollback</strong> to a known-good configuration.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<p>When consecutive guardrail violations occur, breeders can automatically <strong>rollback</strong> to a known-good configuration.
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Rollback Flow                             │
 │                                                              │
 │  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED   │
@@ -1859,8 +1907,8 @@ document.addEventListener("DOMContentLoaded", function() {
 │                                           ▼                  │
 │                                    Continue trials            │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Rollback strategies:</strong></p>
+</code></pre></div>
+<strong>Rollback strategies:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1890,25 +1938,33 @@ document.addEventListener("DOMContentLoaded", function() {
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="nt">rollback</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+
+<span class="nt">rollback_strategies</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">standard</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">consecutive_failures</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">      </span><span class="c1"># Trigger after N violations</span>
+<span class="w">    </span><span class="nt">target_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">previous</span><span class="w">       </span><span class="c1"># previous, best, or baseline</span>
+<span class="w">    </span><span class="nt">on_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span><span class="w">             </span><span class="c1"># stop, continue, or skip_target</span>
+<span class="w">    </span><span class="nt">after</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pause</span><span class="w">              </span><span class="c1"># continue, pause, or stop</span>
+<span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">              </span><span class="c1"># Pause duration in seconds</span>
+</code></pre></div></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<pre><code class="language-yaml">rollback:
-  enabled: true
-  strategy: standard
-
-rollback_strategies:
-  standard:
-    consecutive_failures: 3      # Trigger after N violations
-    target_state: previous       # previous, best, or baseline
-    on_failure: stop             # stop, continue, or skip_target
-    after:
-      action: pause              # continue, pause, or stop
-      duration: 300              # Pause duration in seconds
-</code></pre>
-<hr />
 <h3 id="worker-cooperation">Worker Cooperation</h3>
-<p>Multiple workers can collaborate by <strong>sharing successful trials</strong> across the optimization process.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────────────┐
+<p>Multiple workers can collaborate by <strong>sharing successful trials</strong> across the optimization process.
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────┐
 │                      Shared Trial History                            │
 │                    (YugabyteDB / PostgreSQL)                         │
 └──────────────────────────────┬──────────────────────────────────────┘
@@ -1928,8 +1984,8 @@ rollback_strategies:
            │                   │                   │
            │         All breeders learn from shared trials          │
            └───────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Sharing strategies:</strong></p>
+</code></pre></div>
+<strong>Sharing strategies:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1997,8 +2053,8 @@ rollback_strategies:
 </tbody>
 </table>
 <h3 id="algorithm-diversity">Algorithm Diversity</h3>
-<p>When running multiple parallel workers, breeders can assign <strong>different algorithms</strong> to each worker for better search space coverage.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<p>When running multiple parallel workers, breeders can assign <strong>different algorithms</strong> to each worker for better search space coverage.
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                    Parallel Workers                          │
 │                                                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
@@ -2016,8 +2072,8 @@ rollback_strategies:
 │                                                              │
 │  Each sampler explores differently, sharing discoveries      │
 └─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Assigned samplers:</strong></p>
+</code></pre></div>
+<strong>Assigned samplers:</strong></p>
 <table>
 <thead>
 <tr>

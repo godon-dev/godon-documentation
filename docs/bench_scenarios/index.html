@@ -277,6 +277,25 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  godon Blog
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -1145,6 +1164,35 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
     
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    godon Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1374,7 +1422,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>As new benches are added, they should target specific gaps in this coverage — for example, a nonlinear channel with measurable intermediate state, or a non-stationary channel with phase transitions.</p>
 <h3 id="adding-a-new-bench">Adding a New Bench</h3>
 <p>Each bench scenario follows a standard structure:</p>
-<pre><code>examples/bench/scenario-&lt;name&gt;/
+<div class="highlight"><pre><span></span><code>examples/bench/scenario-&lt;name&gt;/
 ├── docker-compose.yml          # Simulator containers with coupling config
 ├── targets/
 │   ├── &lt;target&gt;-1.yaml         # Target definition for simulator 1
@@ -1382,7 +1430,7 @@ document.addEventListener("DOMContentLoaded", function() {
 └── breeders/
     ├── breeder-1.yml            # Breeder config for optimizer 1
     └── breeder-2.yml            # Breeder config for optimizer 2
-</code></pre>
+</code></pre></div>
 <p>The simulator should expose an HTTP API compatible with godon's target interface. The coupling mechanism should be configurable via environment variables. See the microgrid bench as a reference implementation.</p>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
