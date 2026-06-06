@@ -68,24 +68,5 @@ Coming soon — articles on interference detection, living systems, and the futu
 | 56 | Beyond Infrastructure: Exogenesis and Organoid Intelligence | We currently have no clue how complex living systems work internally. The exploration-detection loop that maps infrastructure coupling could map biological coupling too — perturb, observe, learn the topology of interactions we can't model from first principles. Same epistemological move, different substrate. *(INTERNAL — not for publication until substantiated)* | Researchers |
 | 57 | Topology Discovery Through Transitive Signal Tracing | The core insight: each detection reveals one edge in the graph. A's signal reaches B, B's reaches C, C's reaches D. Over time the full topology emerges not from modeling but from watching signals propagate transitively through the system. The system reveals its own structure through its dynamics. | Researchers, HN |
 | 58 | The Assembly Revealed: Understanding Systems Through Their Own Dynamics | You can't model a complex system from first principles — too many variables, too many interactions, too much nonlinearity. But if you can trace how perturbations propagate transitively — A→B→C→D — you don't need a model. The system tells you its own structure. This applies to infrastructure, biology, any complex assembly. The topology emerges from the signals. *(INTERNAL — aspirational, connects to #55/#56)* | Researchers |
+| 59 | The Optimization Commons: A Shared Result Catalog | Not everyone can afford to run optimization campaigns — too small, too risky, too expensive. A shared catalog of optimization results from similar infrastructure would let people start from proven parameter configurations instead of breeding from scratch. Standardized deployments (same Helm chart, same cloud, similar scale) make matching feasible. Living catalog that improves as more campaigns contribute. | LinkedIn, HN |
 
-### Core Thesis Notes
-
-**The mechanism (proven):** Policy-free optimization explores via watermark-perturbed trials. Each trial is a probe. Observer detects whether A's watermark appears in B's objectives. If detected → one edge in the coupling graph revealed.
-
-**Transitive signal tracing (proven for linear):** A→B, B→C, C→D. Accumulated detections form a partial topology. Not assumed, not modeled — discovered from the system's own dynamics.
-
-**Phrasing discipline — always distinguish:**
-- Proven: "We detected breeder A's watermark in breeder B's objectives at p < 0.001"
-- Hypothesis: "Accumulated detections may form a partial topology of system coupling"
-- Speculation: "This approach could extend to understanding complex biological systems"
-
-**What's proven:** Interference detection on linear channels, watermark propagation, detection at various coupling strengths.
-
-**What's hypothesis:** Transitive tracing scales to full assembly (proven 2 breeders, unproven N). Accumulated topology = genuine understanding. Transfer to nonlinear/non-stationary channels. Transfer beyond infrastructure.
-
-**What's speculation (internal only):** Application to exogenesis, organoid intelligence, biological systems. Unsubstantiated.
-
-**Detection difficulty variables (not just coupling factor):** Coupling strength, SNR, number of nonlinear transforms, transform type, dimensionality, stationarity, watermark design, receiver exploration variance. All interact. Combinatorial but manageable (~5-6 variables, 2-3 levels each).
-
-**Channel classifier (open design question):** Where does it live? Breeder startup calibration, separate probe, or observer? Depends on channel stability. Non-stationary suggests ongoing assessment needed. Classification itself is a meta-optimization problem.
