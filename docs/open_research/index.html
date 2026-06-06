@@ -1022,6 +1022,61 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
+  <a href="#detection-difficulty-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Difficulty Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-beyond-two-breeders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling Beyond Two Breeders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transitive-topology-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transitive Topology Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-optimization-of-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta-Optimization of Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1392,6 +1447,61 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
+  <a href="#detection-difficulty-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Difficulty Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-beyond-two-breeders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling Beyond Two Breeders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transitive-topology-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transitive Topology Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta-optimization-of-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta-Optimization of Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1482,6 +1592,103 @@ document.addEventListener("DOMContentLoaded", function() {
     └──────────┘       └──────────┘
 </code></pre>
 <p>This topology reveals clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference. The detection doesn't just observe the problem — it maps the structure.</p>
+<h3 id="detection-difficulty-variables">Detection Difficulty Variables</h3>
+<p>Coupling factor is not the only variable that determines whether detection succeeds. Multiple factors interact:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Effect on Detection</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coupling strength</td>
+<td>How much signal transfers</td>
+<td>0.001 (barely visible) to 0.9 (trivial)</td>
+</tr>
+<tr>
+<td>Signal-to-noise ratio</td>
+<td>Receiver's own exploration drowns weak coupling</td>
+<td>0.002 (greenhouse) to 1.0+ (microgrid)</td>
+</tr>
+<tr>
+<td>Number of nonlinear transforms</td>
+<td>Each stage distorts or attenuates the signal</td>
+<td>1 (linear) to 6+ (cascaded)</td>
+</tr>
+<tr>
+<td>Transform type</td>
+<td>Additive (benign), multiplicative (scaling), dead zone (destructive)</td>
+<td>Varies per channel</td>
+</tr>
+<tr>
+<td>Dimensionality</td>
+<td>More parameters and objectives increase noise floor</td>
+<td>2-3 (simple) to 20+ (complex)</td>
+</tr>
+<tr>
+<td>Stationarity</td>
+<td>Coupling characteristics change over time</td>
+<td>Stable to highly non-stationary</td>
+</tr>
+<tr>
+<td>Watermark design</td>
+<td>Frequency choice, amplitude, number of frequencies</td>
+<td>Configurable</td>
+</tr>
+<tr>
+<td>Receiver exploration variance</td>
+<td>Wild exploration drowns weak coupling signals</td>
+<td>1× to 500× signal strength</td>
+</tr>
+</tbody>
+</table>
+<p>The space is combinatorial but not infinite — roughly 5-6 key variables with 2-3 levels each. Characterizing where a bench falls in this space is necessary for choosing the right detection method.</p>
+<h3 id="channel-classification">Channel Classification</h3>
+<p>An automated assessment that characterizes the coupling channel before choosing a detection method. Inject calibration signals, measure what comes out, classify:</p>
+<table>
+<thead>
+<tr>
+<th>Classification</th>
+<th>Detection Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear additive</td>
+<td>FFT + permutation test (current)</td>
+</tr>
+<tr>
+<td>Weakly nonlinear</td>
+<td>Adapted spectral methods (research phase)</td>
+</tr>
+<tr>
+<td>Strongly nonlinear</td>
+<td>No reliable method yet</td>
+</tr>
+<tr>
+<td>Non-stationary</td>
+<td>Phase-aware methods (research phase)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Open design question:</strong> where does the classifier live? Part of the breeder (startup calibration), a separate probe unit, or part of the observer? Depends on whether channels are stable or shift over time — non-stationary channels suggest ongoing assessment is needed rather than one-time calibration.</p>
+<h3 id="scaling-beyond-two-breeders">Scaling Beyond Two Breeders</h3>
+<p>All current benches run two coupled breeders. Real infrastructure has many more agents — database tuners, autoscalers, cache optimizers, connection pool managers — running simultaneously. With N breeders, there are N(N-1)/2 possible pairwise interference channels.</p>
+<p>Open questions:
+- Does pairwise detection generalize to multi-breeder environments?
+- Does interference cascade transitively (A→B→C)?
+- Does the presence of multiple interferers change detection reliability?
+- What trial budgets are needed to map N breeders?</p>
+<h3 id="transitive-topology-discovery">Transitive Topology Discovery</h3>
+<p>Each pairwise detection reveals one edge in a coupling graph. With three or more breeders, accumulated detections form a partial topology — not assumed, not modeled, but discovered from the system's own dynamics.</p>
+<p>The hypothesis: as more breeders explore and the observer detects more edges, the topology of how the system is internally connected emerges. This is proven for single edges on linear channels. Whether it scales to reveal the full coupling structure of a complex system is an open question.</p>
+<p>This connects to interference topology (above) but goes further — not just mapping who interferes with whom, but discovering the hidden structure of the system through transitive signal propagation.</p>
+<h3 id="meta-optimization-of-detection">Meta-Optimization of Detection</h3>
+<p>The detection pipeline itself has tunable parameters: watermark frequency, amplitude, number of frequencies, trial budget, analysis window, permutation count. Choosing optimal values for these parameters given the channel characteristics is itself an optimization problem — the system optimizing its own sensing strategy.</p>
+<p>This connects to the broader meta-optimization direction: godon optimizing its own parameters (observer sensitivity, guardrail thresholds, watermark configuration) using the same optimization infrastructure it applies to external systems.</p>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
 <li><a href="../detection_capabilities/">Detection Capabilities</a> — channel taxonomy and current detection status</li>

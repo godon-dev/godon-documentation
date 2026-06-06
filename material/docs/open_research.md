@@ -89,6 +89,60 @@ With three or more optimizers, pairwise detection results form an interference g
 
 This topology reveals clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference. The detection doesn't just observe the problem — it maps the structure.
 
+### Detection Difficulty Variables
+
+Coupling factor is not the only variable that determines whether detection succeeds. Multiple factors interact:
+
+| Variable | Effect on Detection | Range |
+|----------|-------------------|-------|
+| Coupling strength | How much signal transfers | 0.001 (barely visible) to 0.9 (trivial) |
+| Signal-to-noise ratio | Receiver's own exploration drowns weak coupling | 0.002 (greenhouse) to 1.0+ (microgrid) |
+| Number of nonlinear transforms | Each stage distorts or attenuates the signal | 1 (linear) to 6+ (cascaded) |
+| Transform type | Additive (benign), multiplicative (scaling), dead zone (destructive) | Varies per channel |
+| Dimensionality | More parameters and objectives increase noise floor | 2-3 (simple) to 20+ (complex) |
+| Stationarity | Coupling characteristics change over time | Stable to highly non-stationary |
+| Watermark design | Frequency choice, amplitude, number of frequencies | Configurable |
+| Receiver exploration variance | Wild exploration drowns weak coupling signals | 1× to 500× signal strength |
+
+The space is combinatorial but not infinite — roughly 5-6 key variables with 2-3 levels each. Characterizing where a bench falls in this space is necessary for choosing the right detection method.
+
+### Channel Classification
+
+An automated assessment that characterizes the coupling channel before choosing a detection method. Inject calibration signals, measure what comes out, classify:
+
+| Classification | Detection Strategy |
+|---------------|-------------------|
+| Linear additive | FFT + permutation test (current) |
+| Weakly nonlinear | Adapted spectral methods (research phase) |
+| Strongly nonlinear | No reliable method yet |
+| Non-stationary | Phase-aware methods (research phase) |
+
+**Open design question:** where does the classifier live? Part of the breeder (startup calibration), a separate probe unit, or part of the observer? Depends on whether channels are stable or shift over time — non-stationary channels suggest ongoing assessment is needed rather than one-time calibration.
+
+### Scaling Beyond Two Breeders
+
+All current benches run two coupled breeders. Real infrastructure has many more agents — database tuners, autoscalers, cache optimizers, connection pool managers — running simultaneously. With N breeders, there are N(N-1)/2 possible pairwise interference channels.
+
+Open questions:
+- Does pairwise detection generalize to multi-breeder environments?
+- Does interference cascade transitively (A→B→C)?
+- Does the presence of multiple interferers change detection reliability?
+- What trial budgets are needed to map N breeders?
+
+### Transitive Topology Discovery
+
+Each pairwise detection reveals one edge in a coupling graph. With three or more breeders, accumulated detections form a partial topology — not assumed, not modeled, but discovered from the system's own dynamics.
+
+The hypothesis: as more breeders explore and the observer detects more edges, the topology of how the system is internally connected emerges. This is proven for single edges on linear channels. Whether it scales to reveal the full coupling structure of a complex system is an open question.
+
+This connects to interference topology (above) but goes further — not just mapping who interferes with whom, but discovering the hidden structure of the system through transitive signal propagation.
+
+### Meta-Optimization of Detection
+
+The detection pipeline itself has tunable parameters: watermark frequency, amplitude, number of frequencies, trial budget, analysis window, permutation count. Choosing optimal values for these parameters given the channel characteristics is itself an optimization problem — the system optimizing its own sensing strategy.
+
+This connects to the broader meta-optimization direction: godon optimizing its own parameters (observer sensitivity, guardrail thresholds, watermark configuration) using the same optimization infrastructure it applies to external systems.
+
 ### Further Reading
 
 - [Detection Capabilities](detection_capabilities.md) — channel taxonomy and current detection status

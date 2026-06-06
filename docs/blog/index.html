@@ -1064,6 +1064,17 @@ document.addEventListener("DOMContentLoaded", function() {
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#core-thesis-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Thesis Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1398,8 +1409,74 @@ document.addEventListener("DOMContentLoaded", function() {
 <td>Today's LLMs aren't smart enough to manage infrastructure autonomously. They need a harness — clear objectives, hard constraints, real-time feedback, measured outcomes. godon is that harness. The LLM doesn't need to understand interference. It just needs to read the detection report.</td>
 <td>LinkedIn, HN</td>
 </tr>
+<tr>
+<td>50</td>
+<td>The Channel Classifier: Knowing What You're Dealing With</td>
+<td>Before detection can work, you need to know what kind of coupling channel you're facing. An assessment tool that injects calibration signals, measures what comes out, and classifies the channel — linear, weakly nonlinear, strongly nonlinear, non-stationary. Then godon knows which detection method to apply.</td>
+<td>Contributors, researchers</td>
+</tr>
+<tr>
+<td>51</td>
+<td>The Channel Classifier: Where Does It Live?</td>
+<td>Should the assessment be part of the breeder (startup calibration), a separate probe unit (independent assessor), or part of the observer (active probing)? Each has tradeoffs. The answer depends on whether channels are stable or shift over time. Open design question.</td>
+<td>Contributors, researchers</td>
+</tr>
+<tr>
+<td>52</td>
+<td>Channels Within Channels: Subcategories of Difficulty</td>
+<td>Linear isn't just linear — there's weak coupling (0.001) vs strong coupling (0.9), high noise vs low noise, few trials vs many. Nonlinear has gradations too — one nonlinear transform vs cascaded, invertible vs destructive. Even non-stationary has subtypes — periodic phase shifts vs sudden regime changes. The taxonomy needs depth, not just four buckets.</td>
+<td>Researchers</td>
+</tr>
+<tr>
+<td>53</td>
+<td>The Variables That Determine Detection Difficulty</td>
+<td>Coupling factor is just one. Signal-to-noise ratio, number of nonlinear transforms, transform type (additive vs multiplicative vs dead zone), dimensionality, stationarity, watermark design, receiver exploration variance — all interact. The space is combinatorial but not infinite: roughly 5-6 key variables with 2-3 levels each.</td>
+<td>Researchers, contributors</td>
+</tr>
+<tr>
+<td>54</td>
+<td>Optimizing the Detection Itself</td>
+<td>The channel classifier's complexity — choosing detection method, watermark parameters, trial budget based on channel characteristics — is itself an optimization problem. Which detection method for which channel? How many trials before switching approaches? This is meta-optimization: the system optimizing its own sensing strategy.</td>
+<td>Researchers, contributors</td>
+</tr>
+<tr>
+<td>55</td>
+<td>godon as a Means, Not an End</td>
+<td>godon isn't the point. It's the tool that unlocks a complexity level of systems management that wasn't accessible before. If we can detect and steer interference in shared infrastructure, the same principles apply to any complex adaptive system — biological, computational, hybrid. <em>(INTERNAL — not for publication until substantiated)</em></td>
+<td>LinkedIn, HN</td>
+</tr>
+<tr>
+<td>56</td>
+<td>Beyond Infrastructure: Exogenesis and Organoid Intelligence</td>
+<td>We currently have no clue how complex living systems work internally. The exploration-detection loop that maps infrastructure coupling could map biological coupling too — perturb, observe, learn the topology of interactions we can't model from first principles. Same epistemological move, different substrate. <em>(INTERNAL — not for publication until substantiated)</em></td>
+<td>Researchers</td>
+</tr>
+<tr>
+<td>57</td>
+<td>Topology Discovery Through Transitive Signal Tracing</td>
+<td>The core insight: each detection reveals one edge in the graph. A's signal reaches B, B's reaches C, C's reaches D. Over time the full topology emerges not from modeling but from watching signals propagate transitively through the system. The system reveals its own structure through its dynamics.</td>
+<td>Researchers, HN</td>
+</tr>
+<tr>
+<td>58</td>
+<td>The Assembly Revealed: Understanding Systems Through Their Own Dynamics</td>
+<td>You can't model a complex system from first principles — too many variables, too many interactions, too much nonlinearity. But if you can trace how perturbations propagate transitively — A→B→C→D — you don't need a model. The system tells you its own structure. This applies to infrastructure, biology, any complex assembly. The topology emerges from the signals. <em>(INTERNAL — aspirational, connects to #55/#56)</em></td>
+<td>Researchers</td>
+</tr>
 </tbody>
 </table>
+<h3 id="core-thesis-notes">Core Thesis Notes</h3>
+<p><strong>The mechanism (proven):</strong> Policy-free optimization explores via watermark-perturbed trials. Each trial is a probe. Observer detects whether A's watermark appears in B's objectives. If detected → one edge in the coupling graph revealed.</p>
+<p><strong>Transitive signal tracing (proven for linear):</strong> A→B, B→C, C→D. Accumulated detections form a partial topology. Not assumed, not modeled — discovered from the system's own dynamics.</p>
+<p><strong>Phrasing discipline — always distinguish:</strong>
+- Proven: "We detected breeder A's watermark in breeder B's objectives at p &lt; 0.001"
+- Hypothesis: "Accumulated detections may form a partial topology of system coupling"
+- Speculation: "This approach could extend to understanding complex biological systems"</p>
+<p><strong>What's proven:</strong> Interference detection on linear channels, watermark propagation, detection at various coupling strengths.</p>
+<p><strong>What's hypothesis:</strong> Transitive tracing scales to full assembly (proven 2 breeders, unproven N). Accumulated topology = genuine understanding. Transfer to nonlinear/non-stationary channels. Transfer beyond infrastructure.</p>
+<p><strong>What's speculation (internal only):</strong> Application to exogenesis, organoid intelligence, biological systems. Unsubstantiated.</p>
+<p><strong>Detection difficulty variables (not just coupling factor):</strong> Coupling strength, SNR, number of nonlinear transforms, transform type, dimensionality, stationarity, watermark design, receiver exploration variance. All interact. Combinatorial but manageable (~5-6 variables, 2-3 levels each).</p>
+<p><strong>Channel classifier (open design question):</strong> Where does it live? Breeder startup calibration, separate probe, or observer? Depends on channel stability. Non-stationary suggests ongoing assessment needed. Classification itself is a meta-optimization problem.</p>
 
 
 
