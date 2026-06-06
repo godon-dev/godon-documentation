@@ -6,35 +6,37 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Open Source Optimization Engine for Live Systems — Parallelized Metaheuristics driven Infrastructure and Platform Tuning">
+        <meta name="description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
       
       
-        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/blog/archive/2026/">
+        <link rel="canonical" href="https://godon-dev.github.io/godon-documentation/blog/2026/06/07/who-optimizes-the-optimizer/">
       
       
-        <link rel="prev" href="../../">
+        <link rel="prev" href="../why-intelligence-isnt-enough/">
       
+      
+        <link rel="next" href="../how-live-systems-reveal-their-own-structure--transitive-topology-discovery/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/icon.png">
+      <link rel="icon" href="../../../../../assets/icon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>2026 - godon</title>
+        <title>Who Optimizes the Optimizer? - godon</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +55,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,17 +72,17 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="2026 - godon" />
-<meta property="og:description" content="Open Source Optimization Engine for Live Systems — Parallelized Metaheuristics driven Infrastructure and Platform Tuning" />
-<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/archive/2026.png" />
+<meta property="og:title" content="Who Optimizes the Optimizer? - godon" />
+<meta property="og:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
+<meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/2026/06/07/who-optimizes-the-optimizer.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/blog/archive/2026/" />
+<meta property="og:url" content="https://godon-dev.github.io/godon-documentation/blog/2026/06/07/who-optimizes-the-optimizer/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="2026 - godon" />
-<meta property="twitter:description" content="Open Source Optimization Engine for Live Systems — Parallelized Metaheuristics driven Infrastructure and Platform Tuning" />
-<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/archive/2026.png" />
+<meta property="twitter:title" content="Who Optimizes the Optimizer? - godon" />
+<meta property="twitter:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
+<meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/2026/06/07/who-optimizes-the-optimizer.png" />
 </head>
   
   
@@ -100,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2026" class="md-skip">
+        <a href="#who-optimizes-the-optimizer" class="md-skip">
           Skip to content
         </a>
       
@@ -115,9 +117,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="godon" class="md-header__button md-logo" aria-label="godon" data-md-component="logo">
+    <a href="../../../../.." title="godon" class="md-header__button md-logo" aria-label="godon" data-md-component="logo">
       
-  <img src="../../../assets/logo_small.png" alt="logo">
+  <img src="../../../../../assets/logo_small.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -134,7 +136,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2026
+              Who Optimizes the Optimizer?
             
           </span>
         </div>
@@ -208,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../../../../.." class="md-tabs__link">
         
   
   
@@ -227,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-tabs__item">
-      <a href="../../../purpose/" class="md-tabs__link">
+      <a href="../../../../../purpose/" class="md-tabs__link">
         
   
   
@@ -248,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
       <li class="md-tabs__item">
-        <a href="../../../getting_started/" class="md-tabs__link">
+        <a href="../../../../../getting_started/" class="md-tabs__link">
           
   
   
@@ -266,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-tabs__item">
-      <a href="../../../api/" class="md-tabs__link">
+      <a href="../../../../../api/" class="md-tabs__link">
         
   
   
@@ -289,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
+        <a href="../../../../" class="md-tabs__link">
           
   
   
@@ -312,7 +314,9 @@ document.addEventListener("DOMContentLoaded", function() {
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -323,9 +327,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="godon" class="md-nav__button md-logo" aria-label="godon" data-md-component="logo">
+    <a href="../../../../.." title="godon" class="md-nav__button md-logo" aria-label="godon" data-md-component="logo">
       
-  <img src="../../../assets/logo_small.png" alt="logo">
+  <img src="../../../../../assets/logo_small.png" alt="logo">
 
     </a>
     godon
@@ -352,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -379,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../purpose/" class="md-nav__link">
+      <a href="../../../../../purpose/" class="md-nav__link">
         
   
   
@@ -456,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/" class="md-nav__link">
+      <a href="../../../../../getting_started/" class="md-nav__link">
         
   
   
@@ -484,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../setup/" class="md-nav__link">
+      <a href="../../../../../setup/" class="md-nav__link">
         
   
   
@@ -512,7 +516,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/" class="md-nav__link">
+      <a href="../../../../../architecture/" class="md-nav__link">
         
   
   
@@ -590,7 +594,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../concept_breeder/" class="md-nav__link">
+      <a href="../../../../../concept_breeder/" class="md-nav__link">
         
   
   
@@ -618,7 +622,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../concept_effectuator/" class="md-nav__link">
+      <a href="../../../../../concept_effectuator/" class="md-nav__link">
         
   
   
@@ -646,7 +650,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../concept_reconnaissance/" class="md-nav__link">
+      <a href="../../../../../concept_reconnaissance/" class="md-nav__link">
         
   
   
@@ -674,7 +678,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../concept_guardrails/" class="md-nav__link">
+      <a href="../../../../../concept_guardrails/" class="md-nav__link">
         
   
   
@@ -702,7 +706,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../concept_interference_detection/" class="md-nav__link">
+      <a href="../../../../../concept_interference_detection/" class="md-nav__link">
         
   
   
@@ -788,7 +792,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../bench_scenarios/" class="md-nav__link">
+      <a href="../../../../../bench_scenarios/" class="md-nav__link">
         
   
   
@@ -816,7 +820,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../detection_capabilities/" class="md-nav__link">
+      <a href="../../../../../detection_capabilities/" class="md-nav__link">
         
   
   
@@ -844,7 +848,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../open_research/" class="md-nav__link">
+      <a href="../../../../../open_research/" class="md-nav__link">
         
   
   
@@ -880,7 +884,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../config_guide/" class="md-nav__link">
+      <a href="../../../../../config_guide/" class="md-nav__link">
         
   
   
@@ -908,7 +912,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../comparison/" class="md-nav__link">
+      <a href="../../../../../comparison/" class="md-nav__link">
         
   
   
@@ -936,7 +940,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../mcp/" class="md-nav__link">
+      <a href="../../../../../mcp/" class="md-nav__link">
         
   
   
@@ -964,7 +968,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../references/" class="md-nav__link">
+      <a href="../../../../../references/" class="md-nav__link">
         
   
   
@@ -992,7 +996,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../../../../contributing/" class="md-nav__link">
         
   
   
@@ -1027,7 +1031,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
-      <a href="../../../api/" class="md-nav__link">
+      <a href="../../../../../api/" class="md-nav__link">
         
   
   
@@ -1106,12 +1110,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 
   
   
+    
+  
   
     
   
   
-    <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../../" class="md-nav__link">
         
   
   
@@ -1136,8 +1142,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 
   
   
-    
-  
   
   
     
@@ -1148,11 +1152,11 @@ document.addEventListener("DOMContentLoaded", function() {
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1173,7 +1177,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1188,23 +1192,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 
   
   
-    
-  
   
     
-      
-    
   
   
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
         
   
   
@@ -1220,7 +1213,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
       </a>
-      
     </li>
   
 
@@ -1249,6 +1241,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             
               
+                
+              
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -1261,6 +1255,80 @@ document.addEventListener("DOMContentLoaded", function() {
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#godon-as-an-optimization-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        godon as an Optimization Target
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-recursive-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Recursive Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-enables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What This Enables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-actually-stands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where It Actually Stands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-broader-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Broader Direction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-optimizes-the-optimizer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who Optimizes the Optimizer?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1268,214 +1336,183 @@ document.addEventListener("DOMContentLoaded", function() {
             
           
           
-  <div class="md-content" data-md-component="content">
-    <div class="md-content__inner">
-      <header class="md-typeset">
-        <h1 id="2026">2026</h1>
-      </header>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-06-07 00:00:00+00:00">June 7, 2026</time></li>
-        
-        
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          Matthias Tafelmeier
+                        
+                      </strong>
+                      <br>
+                      Author of godon
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-06-07 00:00:00+00:00" class="md-ellipsis">June 7, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              4 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
           
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-        
-      </ul>
-      
+        </div>
+      </div>
     </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="from-systems-engineering-to-systems-cultivation"><a class="toclink" href="../../2026/06/07/from-systems-engineering-to-systems-cultivation/">From Systems Engineering to Systems Cultivation</a></h2>
-<p>We spent decades treating the systems we build like bridges. Design them, configure them, deploy them, monitor them. The artifact stays still. The work is done.</p>
-<p>But your systems don't stay still anymore.</p>
-<h3 id="something-changed"><a class="toclink" href="../../2026/06/07/from-systems-engineering-to-systems-cultivation/#something-changed">Something Changed</a></h3>
-<p>Somewhere along the way, the systems we manage acquired a heartbeat. Optimization algorithms explore parameter space continuously. Control loops adjust settings in real time. AI agents suggest and apply changes autonomously. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it operates on.</p>
-<p>Individually, each is useful. Together, they share something none of them account for: the system itself.</p>
-<p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.</p>
-<p>This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.</p>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
 
-    
-      <nav class="md-post__action">
-        <a href="../../2026/06/07/from-systems-engineering-to-systems-cultivation/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-06-07 00:00:00+00:00">June 7, 2026</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              5 min read
-            
-          </li>
-        
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="how-live-systems-reveal-their-own-structure-transitive-topology-discovery"><a class="toclink" href="../../2026/06/07/how-live-systems-reveal-their-own-structure--transitive-topology-discovery/">How Live Systems Reveal Their Own Structure — Transitive Topology Discovery</a></h2>
-<p>When godon detects interference between two optimization agents, it reveals one edge. Breeder A's watermark appears in breeder B's metrics. That's one coupling path — one connection you didn't know existed.</p>
-<p>A single edge is useful. It tells you these two agents interfere. You can act on that — adjust parameters, add constraints, isolate them.</p>
-<p>But a single edge is also a fragment of something larger. A topology.</p>
 
+  <nav class="md-tags" >
     
-      <nav class="md-post__action">
-        <a href="../../2026/06/07/how-live-systems-reveal-their-own-structure--transitive-topology-discovery/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-06-07 00:00:00+00:00">June 7, 2026</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              4 min read
-            
-          </li>
-        
-        
-      </ul>
       
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="who-optimizes-the-optimizer"><a class="toclink" href="../../2026/06/07/who-optimizes-the-optimizer/">Who Optimizes the Optimizer?</a></h2>
+      
+      
+        <a href="../../../../#tag:essay" class="md-tag">essay</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../#tag:technical" class="md-tag">technical</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="who-optimizes-the-optimizer">Who Optimizes the Optimizer?</h1>
 <p>godon optimizes live systems. An operator defines objectives, the breeder explores parameter space, the observer collects results. Over many trials, the system converges on better configuration.</p>
 <p>But godon itself is a system with parameters. Detection sensitivity, watermark configuration, observation windows, guardrail thresholds, breeder meta-configuration. These parameters determine how well godon works. Who tunes them?</p>
+<!-- more -->
 
-    
-      <nav class="md-post__action">
-        <a href="../../2026/06/07/who-optimizes-the-optimizer/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://avatars.githubusercontent.com/u/10729954?v=4" alt="Matthias Tafelmeier">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2026-06-07 00:00:00+00:00">June 7, 2026</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              5 min read
-            
-          </li>
-        
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="why-intelligence-isnt-enough"><a class="toclink" href="../../2026/06/07/why-intelligence-isnt-enough/">Why Intelligence Isn't Enough</a></h2>
-<p>Every approach to understanding a complex system faces the same constraint: you have to interact with it. You can't deduce coupling topology from logs. You can't reason your way to interference from dashboards. You have to touch the system and observe what responds.</p>
-<p>This is true regardless of how smart the observer is.</p>
-<h3 id="the-perception-gap"><a class="toclink" href="../../2026/06/07/why-intelligence-isnt-enough/#the-perception-gap">The Perception Gap</a></h3>
-<p>Consider two optimization agents running on the same system. One adjusts resource allocation. The other tunes processing parameters. They share state they don't know about — shared memory, shared thermal budgets, shared power paths. One agent's decisions affect the other's results. Neither knows.</p>
-<p>Your monitoring sees the symptoms: degraded performance, oscillating behavior, unexplained variance. It tells you something is wrong. It cannot tell you why, because the coupling doesn't appear in any metric. It exists in the dynamics between agents, not in the agents themselves.</p>
-<p>This is the perception gap. The interference is real but invisible. No amount of dashboard refinement, alert tuning, or log aggregation reveals it, because the signal was never collected.</p>
-
-    
-      <nav class="md-post__action">
-        <a href="../../2026/06/07/why-intelligence-isnt-enough/">
-          Continue reading
-        </a>
-      </nav>
-    
-    
-  </div>
-</article>
-      
-      
-        
-          
+<h2 id="godon-as-an-optimization-target">godon as an Optimization Target</h2>
+<p>Every component in the godon stack has tunable parameters and measurable outcomes:</p>
+<ul>
+<li><strong>Watermark design</strong> — frequency, amplitude, number of frequencies, pattern shape. These determine how detectable the signal is against the system's noise floor. Too weak and interference goes undetected. Too strong and the watermark distorts the optimization itself.</li>
+<li><strong>Detection parameters</strong> — observation window length, statistical significance threshold, permutation count for hypothesis testing, sampling rate. These determine detection accuracy, false positive rate, and detection latency.</li>
+<li><strong>Observer sensitivity</strong> — how aggressively the observer declares a coupling detection. Looser thresholds catch more interference but risk false positives. Tighter thresholds are reliable but may miss weak coupling.</li>
+<li><strong>Guardrail thresholds</strong> — the safety limits that protect production systems during optimization. These could adapt based on observed system behavior rather than remaining static.</li>
+<li><strong>Breeder meta-configuration</strong> — trial budget (min/max iterations), parallelism, time constraints, completion criteria. These determine how thoroughly the search space is explored and how quickly results converge. Currently set by the operator. Could be tuned based on observed convergence behavior.</li>
+</ul>
+<p>Each of these is a parameter. Each affects a measurable outcome. This makes each one an optimization problem — the same kind of problem godon already solves for external systems.</p>
+<h2 id="the-recursive-pattern">The Recursive Pattern</h2>
+<p>The pattern is recursive but not paradoxical. The optimization framework is general: given a search space, an objective function, and feedback, it converges on better configurations. This applies to infrastructure parameters. It also applies to godon's own parameters.</p>
+<p>The loop would look like this:</p>
+<ol>
+<li>Define a quality metric for a godon component (e.g., detection accuracy across known coupling scenarios)</li>
+<li>The breeder explores configurations of that component's parameters</li>
+<li>Each configuration is evaluated against the quality metric</li>
+<li>The system converges on parameters optimized for the specific deployment</li>
+</ol>
+<p>This isn't science fiction. The framework exists. The mechanism exists. The search algorithms exist. The missing piece is connecting them — making godon's own parameters discoverable as optimization targets and defining appropriate objective functions.</p>
+<h2 id="what-this-enables">What This Enables</h2>
+<p>If detection parameters can self-tune, several things become possible:</p>
+<ul>
+<li><strong>Adaptive detection</strong> — the system adjusts its sensitivity based on observed channel characteristics. No manual calibration for each deployment.</li>
+<li><strong>Deployment-specific optimization</strong> — detection parameters tuned for the noise floor, coupling dynamics, and exploration patterns of the specific system. Not generic defaults.</li>
+<li><strong>Continuous improvement</strong> — as the system runs more campaigns and collects more data, detection parameters can be refined. The system gets better at perceiving interference the longer it runs.</li>
+<li><strong>Generalization across components</strong> — the same pattern applies to guardrail thresholds, breeder meta-configuration, watermark design. Each component becomes a self-improving subsystem.</li>
+</ul>
+<h2 id="where-it-actually-stands">Where It Actually Stands</h2>
+<p>Honesty: none of this is built. Detection parameters are static configuration. Guardrail thresholds are static. Breeder meta-configuration is set once per campaign. The framework that could optimize these parameters exists — it's the same framework that optimizes infrastructure — but it hasn't been pointed at itself yet.</p>
+<p>What exists:
+- Detection works with parameters determined through experimentation and synthesis, proven on benches (p &lt; 0.001 across coupling strengths 0.1 to 0.9)
+- The optimization framework is general enough to handle arbitrary parameter spaces
+- The components have identifiable parameters and measurable outcomes</p>
+<p>What doesn't exist:
+- Automatic parameter discovery — making godon's own parameters available as optimization targets
+- Calibration infrastructure — known coupling scenarios to test against during self-tuning
+- Objective function definitions — what exactly to optimize for each component (accuracy? speed? false positive rate? all three as a Pareto front?)</p>
+<p>These are engineering challenges. The concept is sound. The machinery exists. But shipping it requires work that hasn't been done yet.</p>
+<h2 id="the-broader-direction">The Broader Direction</h2>
+<p>Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then breeder meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then watermark design.</p>
+<p>Eventually: coordination parameters. When multiple breeders need to account for each other, the coordination strategy itself has tunable parameters — how aggressively to decouple, how much to share, when to yield. These could be optimized by the same framework.</p>
+<p>The system improves its own perception. Then it improves how it improves perception. Each level uses the same machinery, applied recursively. Not infinitely — each level has concrete parameters and concrete objectives. But the pattern repeats.</p>
+<h2 id="who-optimizes-the-optimizer_1">Who Optimizes the Optimizer?</h2>
+<p>The optimizer does. Or rather, it will. The framework is general. The parameters exist. The outcomes are measurable. The missing piece is the engineering work to connect them.</p>
+<p>This is the direction: not a fixed tool, but a self-improving one. Not static configuration, but parameters that adapt. The optimization loop, turned inward.</p>
+<p>godon optimizing godon.</p>
+<hr />
+<p><em>This is the fourth in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source optimization engine for live systems.</em></p>
 
 
 
-<nav class="md-pagination">
+
+
+
+
   
-</nav>
-        
+  
+
+
+
+
+  
+
+
+
       
-    </div>
+    </article>
   </div>
 
           
@@ -1488,10 +1525,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
     
       
+        
+      
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Blog">
+          <a href="../why-intelligence-isnt-enough/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Why Intelligence Isn&#39;t Enough">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1501,11 +1540,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 Previous
               </span>
               <div class="md-ellipsis">
-                Blog
+                Why Intelligence Isn't Enough
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../how-live-systems-reveal-their-own-structure--transitive-topology-discovery/" class="md-footer__link md-footer__link--next" aria-label="Next: How Live Systems Reveal Their Own Structure — Transitive Topology Discovery">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                How Live Systems Reveal Their Own Structure — Transitive Topology Discovery
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
@@ -1552,10 +1607,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.footer", "navigation.tabs"], "search": "../../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
     
   </body>

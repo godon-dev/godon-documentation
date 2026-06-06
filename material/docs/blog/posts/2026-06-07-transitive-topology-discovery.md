@@ -8,7 +8,7 @@ authors:
 description: "Each detection reveals one edge in a coupling graph. Accumulated edges form a topology nobody designed and nobody mapped. Transitive signal tracing discovers the hidden structure of live systems."
 ---
 
-# Transitive Topology Discovery
+# How Live Systems Reveal Their Own Structure — Transitive Topology Discovery
 
 When godon detects interference between two optimization agents, it reveals one edge. Breeder A's watermark appears in breeder B's metrics. That's one coupling path — one connection you didn't know existed.
 
