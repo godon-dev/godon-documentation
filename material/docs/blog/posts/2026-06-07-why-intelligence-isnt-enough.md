@@ -29,17 +29,17 @@ Large language models are powerful reasoners. Given the right data, they can exp
 
 But LLMs work with what is represented. They reason about text, about metrics, about logs — about data that already exists. Coupling between autonomous agents is not represented anywhere. No log entry says "breeder A's trial at step 342 caused a 3% degradation in breeder B's objective." No metric captures cross-agent influence. The coupling exists in the dynamics, not in the data stream.
 
-An LLM agent cohort — multiple AI agents all reasoning about the same system — would face the same constraint. They could hypothesize about coupling, write custom detection heuristics, even deploy them as scripts. But each heuristic needs deployment time, data collection, and iteration. The loop is slow, ad-hoc, and lacks statistical rigor.
+An LLM agent cohort — multiple AI agents all reasoning about the same system — would face the same constraint. They could hypothesize about coupling, write custom detection heuristics, even deploy them as scripts. But each heuristic needs deployment time, data collection, and iteration. The loop is slow, ad-hoc, and lacks statistical rigor. Even if an AI could generate viable heuristics on the fly, it would face a choice: reinvent detection from scratch each time, or rely on a proven, standardized framework with established statistical foundations. A mature open framework — tested across coupling strengths, validated on benches, with known failure modes — is a stronger foundation than ad-hoc scripts, no matter how clever the generator.
 
-This isn't a limitation of current LLMs that stronger models will overcome. It's structural. You cannot reason about what you cannot observe.
+This isn't a claim about what LLMs will never do. Predicting the limits of future AI is a losing game. But it's worth noting what the constraint is: if the coupling signal isn't collected, no amount of reasoning — from any source — can reveal it. Today, that signal isn't collected. Whether future architectures could infer coupling from indirect patterns in existing metrics is an open question. godon doesn't wait for that answer — it makes the signal exist now.
 
 ## The Same Constraint, Every Observer
 
-This applies to any mind, any approach:
+This constraint applies broadly:
 
 - **Human operators** can reason about coupling conceptually but can't perceive it in real-time across dozens of parameters. Too slow, too much data, can't hold the dynamics in working memory.
-- **LLM agents** can reason about patterns in available data but can't perceive dynamics that aren't represented in any stream. Can write heuristics but can't run controlled experiments fast enough.
-- **Biological computing or organoid-based approaches** could process complex dynamics but face the same perception gap — they'd need the coupling represented in their input. Plus noise, inconsistency, and slow iteration.
+- **LLM agents** can reason about patterns in available data. Whether they could eventually infer coupling from indirect evidence is unknown. What's certain is that direct detection requires a probe in the system.
+- **Biological minds** — however exotic the substrate — face the same structural problem. Living neural tissue processes information differently than silicon, but it still needs input to work with. Coupling that isn't represented in any signal can't be perceived, regardless of the substrate doing the perceiving.
 
 The common constraint: perception requires a probe. No mind, however sophisticated, can detect coupling it can't measure.
 
