@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon Blog — articles on living systems, interference detection, and the future of optimization.">
+        <meta name="description" content="Articles on living systems, interference detection, and the future of optimization.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -27,7 +27,7 @@
     
     
       
-        <title>godon Blog - godon</title>
+        <title>Blog - godon</title>
       
     
     
@@ -63,16 +63,16 @@
 
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="godon Blog - godon" />
-<meta property="og:description" content="godon Blog — articles on living systems, interference detection, and the future of optimization." />
+<meta property="og:title" content="Blog - godon" />
+<meta property="og:description" content="Articles on living systems, interference detection, and the future of optimization." />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/index.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/blog/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="godon Blog - godon" />
-<meta property="twitter:description" content="godon Blog — articles on living systems, interference detection, and the future of optimization." />
+<meta property="twitter:title" content="Blog - godon" />
+<meta property="twitter:description" content="Articles on living systems, interference detection, and the future of optimization." />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/index.png" />
 </head>
   
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#godon-blog" class="md-skip">
+        <a href="#blog" class="md-skip">
           Skip to content
         </a>
       
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              godon Blog
+              Blog
             
           </span>
         </div>
@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     
   
-  godon Blog
+  Blog
 
       </a>
     </li>
@@ -1067,7 +1067,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span class="md-ellipsis">
     
   
-    godon Blog
+    Blog
   
 
     
@@ -1085,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <span class="md-ellipsis">
     
   
-    godon Blog
+    Blog
   
 
     
@@ -1178,7 +1178,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="md-content" data-md-component="content">
     <div class="md-content__inner">
       <header class="md-typeset">
-        <h1 id="godon-blog">godon Blog</h1>
+        <h1 id="blog">Blog</h1>
 <p>Articles on living systems, interference detection, and the future of optimization.</p>
 
 
@@ -1230,27 +1230,27 @@ document.addEventListener("DOMContentLoaded", function() {
   </header>
   <div class="md-post__content md-typeset">
     <h2 id="from-systems-engineering-to-systems-cultivation"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/">From Systems Engineering to Systems Cultivation</a></h2>
-<p>We spent decades treating infrastructure like a bridge. Design it, build it, configure it, monitor it. The bridge stays still. The work is done.</p>
+<p>We spent decades treating the systems we build like bridges. Design them, configure them, deploy them, monitor them. The artifact stays still. The work is done.</p>
 <p>But your systems don't stay still anymore.</p>
 <h3 id="something-changed"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#something-changed">Something Changed</a></h3>
-<p>Somewhere along the way, infrastructure acquired a heartbeat. Autoscalers adjust resource allocation in real time. Optimization algorithms explore parameter space continuously. AI agents suggest and apply configuration changes. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it runs on.</p>
-<p>Individually, each is useful. Together, they share something none of them account for: the infrastructure itself.</p>
-<p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. An autoscaler scaling up affects memory bus contention for the database tuner alongside it. A cache optimizer changing eviction policies affects latency for the connection pool optimizer on the same service. A process controller adjusting temperature affects yield for the quality optimizer downstream.</p>
-<p>This interference is invisible. Your monitoring sees the symptoms — elevated latency, degraded throughput, oscillating metrics. It cannot tell you why.</p>
+<p>Somewhere along the way, the systems we manage acquired a heartbeat. Optimization algorithms explore parameter space continuously. Control loops adjust settings in real time. AI agents suggest and apply changes autonomously. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it operates on.</p>
+<p>Individually, each is useful. Together, they share something none of them account for: the system itself.</p>
+<p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.</p>
+<p>This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.</p>
 <h3 id="static-config-is-not-the-enemy"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#static-config-is-not-the-enemy">Static Config Is Not the Enemy</a></h3>
-<p>To be clear: static configuration is fine for many things. Service names, port numbers, identity settings — these should stay fixed. Policy config — constraints, boundaries, intent — these should also stay fixed. They define what the system is and what it's allowed to do.</p>
+<p>To be clear: static configuration is fine for many things. Identity settings, boundary conditions, policy constraints — these should stay fixed. They define what the system is and what it's allowed to do.</p>
 <p>We're not arguing against static config. We're arguing against treating dynamic parameters as if they were static.</p>
-<p>Connection pool sizes, cache timeouts, memory limits, thread counts, batch sizes — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different load, different neighbor behavior, different coupling conditions. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.</p>
+<p>Control setpoints, allocation sizes, timing parameters, gain coefficients, threshold values — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different conditions, different neighbor behavior, different coupling dynamics. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.</p>
 <h3 id="the-alive-ones"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-alive-ones">The Alive Ones</a></h3>
 <p>There is a class of configuration that is alive. It needs to move, adapt, respond to what the system is doing. Not because the initial value was wrong, but because the system's state has shifted since the value was set.</p>
 <p>Today, these alive parameters are managed in one of two ways:</p>
 <ol>
 <li><strong>Manually</strong> — someone notices degradation, investigates, adjusts the value. Repeat forever.</li>
-<li><strong>Autonomously</strong> — an optimizer, autoscaler, or agent adjusts them automatically.</li>
+<li><strong>Autonomously</strong> — an optimizer, controller, or agent adjusts them automatically.</li>
 </ol>
 <p>Both approaches share a blind spot: neither accounts for interference from other agents acting on the same system.</p>
-<p>The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single dashboard connects.</p>
-<p>The autonomous approach can't see it because each agent optimizes its own objective function in isolation. The database tuner doesn't know the autoscaler exists. The autoscaler doesn't know its scaling decisions create memory pressure that degrades the tuner's results.</p>
+<p>The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single view connects.</p>
+<p>The autonomous approach can't see it because each agent optimizes its own objective function in isolation. One controller doesn't know the other exists. The other doesn't know its decisions create side effects that degrade the first's results.</p>
 <h3 id="you-cant-engineer-a-garden"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#you-cant-engineer-a-garden">You Can't Engineer a Garden</a></h3>
 <p>Here's the shift. Engineering assumes you build something and it stays built. You design, construct, verify, and hand it off. The artifact is stable.</p>
 <p>Cultivation is different. You work with something that grows, changes, responds to conditions you didn't set and can't fully predict. You don't build a garden once. You tend it. Continuously. With perception.</p>
