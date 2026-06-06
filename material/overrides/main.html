@@ -3,6 +3,12 @@
 {% block extrahead %}
 {{ super() }}
 <meta name="google-site-verification" content="p2PAkAxLHbWKKlpC9J6HE3UuvHcbNin4Za3TvTU9CCk" />
+<style>
+/* Blog index: hide excerpt body, show only metadata */
+.md-post--excerpt .md-post__content > h2 { display: block; }
+.md-post--excerpt .md-post__content > p:nth-of-type(1) { display: block; }
+.md-post--excerpt .md-post__content > *:not(h2):not(p:nth-of-type(1)):not(.md-post__action) { display: none; }
+</style>
 {% endblock %}
 
 {% block header %}

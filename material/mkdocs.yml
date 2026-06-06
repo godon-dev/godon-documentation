@@ -41,6 +41,11 @@ plugins:
   - blog:
       blog_dir: blog
       post_dir: blog/posts
+      post_excerpt: required
+      archive: true
+      archive_name: Archive
+      categories: false
+
 nav:
      - Landing: index.md
      - Purpose: purpose.md
@@ -64,4 +69,5 @@ nav:
           - References: references.md
           - Contributing: contributing.md
      - OpenAPI: api.md
-     - Blog: blog/index.md
+     - Blog:
+          - Overview: blog/index.md
