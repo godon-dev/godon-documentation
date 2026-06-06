@@ -2,78 +2,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/api/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/architecture/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/bench_scenarios/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
+    </url>
+    <url>
+         <loc>https://godon-dev.github.io/godon-documentation/blog/</loc>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/comparison/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/concept_breeder/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/concept_effectuator/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/concept_guardrails/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/concept_interference_detection/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/concept_reconnaissance/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/config_guide/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/contributing/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/detection_capabilities/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/getting_started/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/mcp/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/open_research/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/purpose/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/references/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
     <url>
          <loc>https://godon-dev.github.io/godon-documentation/setup/</loc>
-         <lastmod>2026-06-05</lastmod>
+         <lastmod>2026-06-06</lastmod>
     </url>
 </urlset>
