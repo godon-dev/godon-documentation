@@ -22,6 +22,8 @@ When two autonomous agents act on the same system, they interfere. They couple. 
 
 This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.
 
+<!-- more -->
+
 ## Static Config Is Not the Enemy
 
 To be clear: static configuration is fine for many things. Identity settings, boundary conditions, policy constraints — these should stay fixed. They define what the system is and what it's allowed to do.

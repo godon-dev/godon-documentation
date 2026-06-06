@@ -1237,44 +1237,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Individually, each is useful. Together, they share something none of them account for: the system itself.</p>
 <p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.</p>
 <p>This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.</p>
-<h3 id="static-config-is-not-the-enemy"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#static-config-is-not-the-enemy">Static Config Is Not the Enemy</a></h3>
-<p>To be clear: static configuration is fine for many things. Identity settings, boundary conditions, policy constraints — these should stay fixed. They define what the system is and what it's allowed to do.</p>
-<p>We're not arguing against static config. We're arguing against treating dynamic parameters as if they were static.</p>
-<p>Control setpoints, allocation sizes, timing parameters, gain coefficients, threshold values — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different conditions, different neighbor behavior, different coupling dynamics. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.</p>
-<h3 id="the-alive-ones"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-alive-ones">The Alive Ones</a></h3>
-<p>There is a class of configuration that is alive. It needs to move, adapt, respond to what the system is doing. Not because the initial value was wrong, but because the system's state has shifted since the value was set.</p>
-<p>Today, these alive parameters are managed in one of two ways:</p>
-<ol>
-<li><strong>Manually</strong> — someone notices degradation, investigates, adjusts the value. Repeat forever.</li>
-<li><strong>Autonomously</strong> — an optimizer, controller, or agent adjusts them automatically.</li>
-</ol>
-<p>Both approaches share a blind spot: neither accounts for interference from other agents acting on the same system.</p>
-<p>The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single view connects.</p>
-<p>The autonomous approach can't see it because each agent optimizes its own objective function in isolation. One controller doesn't know the other exists. The other doesn't know its decisions create side effects that degrade the first's results.</p>
-<h3 id="you-cant-engineer-a-garden"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#you-cant-engineer-a-garden">You Can't Engineer a Garden</a></h3>
-<p>Here's the shift. Engineering assumes you build something and it stays built. You design, construct, verify, and hand it off. The artifact is stable.</p>
-<p>Cultivation is different. You work with something that grows, changes, responds to conditions you didn't set and can't fully predict. You don't build a garden once. You tend it. Continuously. With perception.</p>
-<p>The systems we run now are gardens. They have autonomous actors modifying shared state in real time. The coupling between them is emergent, not designed. It shifts as conditions change. And it's invisible to every tool we currently have.</p>
-<p>Cultivation requires something engineering doesn't: <strong>perception of the living system's internal dynamics.</strong> Not monitoring — monitoring tells you what happened. Perception tells you why, by tracing how perturbations propagate through the system.</p>
-<h3 id="the-first-step-is-perception"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-first-step-is-perception">The First Step Is Perception</a></h3>
-<p>godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by embedding a known signal (a watermark) into an optimizer's exploration. When that signal appears in another optimizer's objectives, you've detected a coupling path — one agent's actions are reaching the other through shared state.</p>
-<p>Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.</p>
-<p>This is proven on linear coupling channels. The microgrid bench demonstrates reliable detection at statistical significance (p &lt; 0.001) across coupling strengths from 0.1 to 0.9. The method is concrete, reproducible, and runs continuously without interrupting optimization.</p>
-<p>Whether this scales to reveal the full topology of complex coupled systems — that's an open question. But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.</p>
-<h3 id="what-comes-next"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#what-comes-next">What Comes Next</a></h3>
-<p>Perception is the prerequisite. Once you can detect interference, several directions open:</p>
-<ul>
-<li><strong>Intensity measurement</strong> — not just "is there interference?" but "how much?" Operators need to know whether to act.</li>
-<li><strong>Topology mapping</strong> — with multiple agents, pairwise detections form a graph of who affects whom.</li>
-<li><strong>Coordination</strong> — once interference is detected and measured, agents can adapt. Not by stopping, but by accounting for each other.</li>
-</ul>
-<p>These are sequential. Detection before measurement. Measurement before coordination. Each builds on the last.</p>
-<h3 id="the-cultivation-thesis"><a class="toclink" href="2026/06/07/from-systems-engineering-to-systems-cultivation/#the-cultivation-thesis">The Cultivation Thesis</a></h3>
-<p>The argument of this article is simple: the systems we run are alive, and we need to start treating them that way. Not by replacing engineering, but by adding what engineering lacks — continuous perception of how the system's internal dynamics evolve.</p>
-<p>Static config works for what should stay static. For everything else, we need cultivation. And cultivation starts with perception.</p>
-<p>That's what godon is building.</p>
-<hr />
-<p><em>This is the first in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source optimization engine for live systems.</em></p>
+
+    
+      <nav class="md-post__action">
+        <a href="2026/06/07/from-systems-engineering-to-systems-cultivation/">
+          Continue reading
+        </a>
+      </nav>
     
     
   </div>
