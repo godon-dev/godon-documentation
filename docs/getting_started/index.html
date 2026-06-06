@@ -1418,6 +1418,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="getting-started">Getting Started</h2>
 <p>This guide walks you through running a complete interference detection bench on your local godon stack. No scenario design needed — you'll start two coupled microgrid simulators, create two optimizers, and watch the observer detect interference between them.</p>
 <p>The whole process takes about 30 minutes.</p>
+<p>godon is more than interference detection — it's a platform for optimization campaigns on live systems. Once the breeders are running, you can monitor their progress through the observer's dashboard, inspect trial history, and follow the optimization search in real time.</p>
 <div class="admonition note">
 <p class="admonition-title">Using an LLM?</p>
 <p>You can also drive godon programmatically through the <a href="../mcp/">MCP Interface</a> — point your LLM at the godon MCP server and interact with breeders, targets, and detection results directly from your AI assistant.</p>
@@ -1536,6 +1537,16 @@ echo &quot;Breeder 2: ${BREEDER_2_UUID}&quot;
   {&quot;name&quot;: &quot;bench-mg-1&quot;, &quot;status&quot;: &quot;active&quot;, &quot;total_trials&quot;: 145},
   {&quot;name&quot;: &quot;bench-mg-2&quot;, &quot;status&quot;: &quot;active&quot;, &quot;total_trials&quot;: 138}
 ]
+</code></pre>
+<p>You can also access the observer's GUI dashboard to see breeder status, trial history, and optimization progress visually. Port-forward the observer:</p>
+<pre><code class="language-bash">OBSERVER_POD=$(kubectl get pods -n godon -l component=observer -o jsonpath='{.items[0].metadata.name}')
+kubectl port-forward -n godon --address 127.0.0.3 &quot;${OBSERVER_POD}&quot; 8089:8089 &amp;
+</code></pre>
+<p>Then open <code>http://127.0.0.3:8089</code> in your browser to explore the running campaigns, inspect individual trials, and watch how parameters and objectives evolve over time.</p>
+<p>You can also query Prometheus metrics directly for trial counts and best values:</p>
+<pre><code class="language-bash">kubectl exec -n godon deploy/godon-godon-observer -- \
+  wget -qO- 'http://localhost:8089/metrics' | \
+  grep -E 'godon_breeder_(total_trials|best_value)'
 </code></pre>
 <p>Wait until both breeders have 100+ trials before running detection. Each trial takes a few seconds — expect 15-20 minutes to reach 200+ trials.</p>
 <h3 id="step-6-run-interference-detection">Step 6: Run Interference Detection</h3>
