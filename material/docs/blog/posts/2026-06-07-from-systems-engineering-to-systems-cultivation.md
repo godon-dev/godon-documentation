@@ -8,27 +8,27 @@ authors:
 
 # From Systems Engineering to Systems Cultivation
 
-We spent decades treating infrastructure like a bridge. Design it, build it, configure it, monitor it. The bridge stays still. The work is done.
+We spent decades treating the systems we build like bridges. Design them, configure them, deploy them, monitor them. The artifact stays still. The work is done.
 
 But your systems don't stay still anymore.
 
 ## Something Changed
 
-Somewhere along the way, infrastructure acquired a heartbeat. Autoscalers adjust resource allocation in real time. Optimization algorithms explore parameter space continuously. AI agents suggest and apply configuration changes. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it runs on.
+Somewhere along the way, the systems we manage acquired a heartbeat. Optimization algorithms explore parameter space continuously. Control loops adjust settings in real time. AI agents suggest and apply changes autonomously. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it operates on.
 
-Individually, each is useful. Together, they share something none of them account for: the infrastructure itself.
+Individually, each is useful. Together, they share something none of them account for: the system itself.
 
-When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. An autoscaler scaling up affects memory bus contention for the database tuner alongside it. A cache optimizer changing eviction policies affects latency for the connection pool optimizer on the same service. A process controller adjusting temperature affects yield for the quality optimizer downstream.
+When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.
 
-This interference is invisible. Your monitoring sees the symptoms — elevated latency, degraded throughput, oscillating metrics. It cannot tell you why.
+This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.
 
 ## Static Config Is Not the Enemy
 
-To be clear: static configuration is fine for many things. Service names, port numbers, identity settings — these should stay fixed. Policy config — constraints, boundaries, intent — these should also stay fixed. They define what the system is and what it's allowed to do.
+To be clear: static configuration is fine for many things. Identity settings, boundary conditions, policy constraints — these should stay fixed. They define what the system is and what it's allowed to do.
 
 We're not arguing against static config. We're arguing against treating dynamic parameters as if they were static.
 
-Connection pool sizes, cache timeouts, memory limits, thread counts, batch sizes — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different load, different neighbor behavior, different coupling conditions. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.
+Control setpoints, allocation sizes, timing parameters, gain coefficients, threshold values — these are not static properties. They describe behavior in a system that changes. The optimal value today is different from the optimal value under different conditions, different neighbor behavior, different coupling dynamics. Pinning them to a fixed number and calling it "configured" works until it doesn't. And it stops working silently.
 
 ## The Alive Ones
 
@@ -37,13 +37,13 @@ There is a class of configuration that is alive. It needs to move, adapt, respon
 Today, these alive parameters are managed in one of two ways:
 
 1. **Manually** — someone notices degradation, investigates, adjusts the value. Repeat forever.
-2. **Autonomously** — an optimizer, autoscaler, or agent adjusts them automatically.
+2. **Autonomously** — an optimizer, controller, or agent adjusts them automatically.
 
 Both approaches share a blind spot: neither accounts for interference from other agents acting on the same system.
 
-The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single dashboard connects.
+The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single view connects.
 
-The autonomous approach can't see it because each agent optimizes its own objective function in isolation. The database tuner doesn't know the autoscaler exists. The autoscaler doesn't know its scaling decisions create memory pressure that degrades the tuner's results.
+The autonomous approach can't see it because each agent optimizes its own objective function in isolation. One controller doesn't know the other exists. The other doesn't know its decisions create side effects that degrade the first's results.
 
 ## You Can't Engineer a Garden
 
