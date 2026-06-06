@@ -1290,6 +1290,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Individually, each is useful. Together, they share something none of them account for: the system itself.</p>
 <p>When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.</p>
 <p>This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.</p>
+<!-- more -->
+
 <h2 id="static-config-is-not-the-enemy">Static Config Is Not the Enemy</h2>
 <p>To be clear: static configuration is fine for many things. Identity settings, boundary conditions, policy constraints — these should stay fixed. They define what the system is and what it's allowed to do.</p>
 <p>We're not arguing against static config. We're arguing against treating dynamic parameters as if they were static.</p>
