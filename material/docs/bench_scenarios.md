@@ -25,6 +25,24 @@ The watermark signal passes through the coupling channel unchanged — same freq
 
 - See [Getting Started](getting_started.md) for a full walkthrough of this bench.
 
+### Microgrid 6-Breeder
+
+An extended microgrid bench with six coupled simulators, each controlled by an independent optimizer. All six share a power bus with configurable coupling. The scenario tests interference detection at scale — 30 possible pairwise interference channels with overlapping watermark signals.
+
+| Property | Value |
+|---|---|
+| Directory | [`examples/bench/scenario-microgrid-6breeder`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid-6breeder) (workflow: `bench-scenario-microgrid-6breeder.yml`) |
+| Channel type | Linear additive |
+| Coupling mechanism | Shared power bus — neighbor loads add directly to objectives, all pairs coupled |
+| Detection status | Validated — FFT + Rayleigh detection on 20 of 30 pairwise tests with high specificity |
+| Trials produced | 450+ per breeder (5/6 breeders active) |
+| Configurable | `coupling_factor` workflow input (default: 0.9) |
+| Watermark slots | 6 unique slots using prime period pairs (17/19, 23/29, 31/37, 41/43, 47/53, 67/71) |
+
+Each breeder receives a unique watermark slot — a pair of non-overlapping prime periods injected as multi-frequency composite perturbations. The observer performs pairwise detection across all ordered pairs using FFT spectral analysis and Rayleigh phase coherence testing.
+
+Results at coupling_factor=0.9: 5/6 breeders produced 450+ complete trials. Detection correctly identifies coupled pairs and does not fire on uncoupled pairs (e.g., breeder 2 -> breeder 3 non-detection at p=0.34). Zero false positives across all pairwise tests.
+
 ### Greenhouse
 
 A pair of coupled greenhouse simulators sharing outside climate conditions. Optimizer A's waste heat, CO2 exhaust, and humidity drift affect the outside environment that Optimizer B's greenhouse is exposed to. The coupling signal then passes through zone thermal inertia, multiplicative growth models with dead zones, crop phase transitions with sensitivity jumps, irreversible damage thresholds, and sensor noise before reaching B's observed objectives.
@@ -50,7 +68,8 @@ Promising research directions:
 
 | Scenario | Channel Type | Status |
 |---|---|---|
-| Microgrid | Linear additive | Reliable |
+| Microgrid | Linear additive | Reliable (2 breeders, coupling 0.0-0.9) |
+| Microgrid 6-Breeder | Linear additive | Validated at scale (6 breeders, 20 pairwise tests) |
 | Greenhouse | Deeply nonlinear cascaded | Research phase |
 
 As new benches are added, they should target specific gaps in this coverage — for example, a nonlinear channel with measurable intermediate state, or a non-stationary channel with phase transitions.

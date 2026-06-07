@@ -121,19 +121,19 @@ An automated assessment that characterizes the coupling channel before choosing 
 
 ### Scaling Beyond Two Breeders
 
-All current benches run two coupled breeders. Real infrastructure has many more agents — database tuners, autoscalers, cache optimizers, connection pool managers — running simultaneously. With N breeders, there are N(N-1)/2 possible pairwise interference channels.
+Validated at 6-breeder scale (microgrid bench, coupling_factor=0.9). Pairwise FFT + Rayleigh detection generalizes to multi-breeder environments — 20 pairwise tests with high specificity. Multi-frequency composite watermarks with unique prime period pairs successfully separate overlapping signals from 6 independent optimizers.
 
-Open questions:
-- Does pairwise detection generalize to multi-breeder environments?
-- Does interference cascade transitively (A→B→C)?
-- Does the presence of multiple interferers change detection reliability?
-- What trial budgets are needed to map N breeders?
+Remaining open questions:
+- Does interference cascade transitively (A->B->C)?
+- Does the presence of multiple interferers change detection reliability for individual pairs?
+- What trial budgets are needed to map N breeders for N >> 6?
+- Does pairwise detection hold at weaker coupling factors (below 0.5) with many simultaneous interferers?
 
 ### Transitive Topology Discovery
 
 Each pairwise detection reveals one edge in a coupling graph. With three or more breeders, accumulated detections form a partial topology — not assumed, not modeled, but discovered from the system's own dynamics.
 
-The hypothesis: as more breeders explore and the observer detects more edges, the topology of how the system is internally connected emerges. This is proven for single edges on linear channels. Whether it scales to reveal the full coupling structure of a complex system is an open question.
+The hypothesis: as more breeders explore and the observer detects more edges, the topology of how the system is internally connected emerges. This is proven for single edges on linear channels and demonstrated at 6-breeder scale (20 pairwise detections forming a partial interference graph). Whether it scales to reveal the full coupling structure of larger systems (N >> 6) is an open question.
 
 This connects to interference topology (above) but goes further — not just mapping who interferes with whom, but discovering the hidden structure of the system through transitive signal propagation.
 
