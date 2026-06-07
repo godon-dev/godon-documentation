@@ -65,6 +65,40 @@ The current FDMA approach (prime-numbered periods) scales to ~20-30 breeders wit
 
 CDMA requires chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials, codes are too short to correlate reliably. This becomes viable with thousands of trials in production deployments — a natural transition as optimization campaigns grow longer.
 
+### Impulse-Based Detection
+
+All methods tested so far send continuous signals (sines, codes) and rely on frequency content surviving the channel. Nonlinear transforms distort frequencies. Dead zones kill small perturbations. Non-stationary channels shift characteristics mid-signal.
+
+An alternative: send discrete extreme-value impulses instead of continuous tones. Push parameters to the edge of (or beyond) the safe operating range for a single trial. The impulse does not rely on frequency content — it relies on timing and amplitude. You know when the impulse was sent. You look for a response in the receiver's objectives after that timestamp.
+
+Detection method: split the receiver's objective values into post-impulse windows vs baseline. Run a rank-sum test (Mann-Whitney U) or Kolmogorov-Smirnov. No spectral analysis. No frequency preservation assumptions. No stationarity assumptions.
+
+This is not a new invention — it is the standard approach in fields that deal with hostile channels:
+
+- Seismology: earthquake impulses through heterogeneous rock
+- Active sonar: acoustic pings through nonlinear ocean layers
+- Ground-penetrating radar: electromagnetic impulses through soil
+- Medical percussion: tapping to detect fluid in tissue
+- Network traceroute: ICMP packets through congested routers
+- Materials ultrasound: acoustic pulses to detect cracks in metal
+
+In every case, continuous signals fail because the channel is hostile. Impulses succeed because they don't need the channel to preserve frequency content — only to propagate a perturbation.
+
+**Implications for the channel taxonomy:**
+
+| Channel Type | Current Method | Impulse Method |
+|---|---|---|
+| Linear additive | FFT + permutation (works) | Impulse + distribution test (also works, overkill) |
+| Nonlinear, measurable intermediate | Spectral on sensors (research) | Impulse + distribution test (promising) |
+| Deeply nonlinear cascaded | No reliable method | Impulse + distribution test (untested, theoretically strong) |
+| Non-stationary | Phase-aware methods (research) | Impulse + distribution test (timing-based, non-stationarity not a blocker) |
+
+The strategy becomes: unknown channel -> impulse probe first. If it's linear, downgrade to cheaper sine watermark. One method with a strength dial, instead of four channel types with four methods.
+
+**Implications for architecture:** impulses are inherently disruptive. They don't mix with optimization. This forces the separation that the current code ducks: detection and optimization are different jobs. Options are a dedicated probe agent (exists only to send impulses) or a dedicated phase (existing breeder switches to impulse mode temporarily).
+
+Not yet tested. The greenhouse bench is the first target.
+
 ### Interference Intensity Measurement
 
 Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric.
