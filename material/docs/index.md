@@ -1,10 +1,10 @@
 ---
-description: "godon — Open Source Optimization Engine for AI Pilots and Humans. Empirical validation of configurations on live systems through meta-heuristic algorithms."
+description: "godon — Open Source Live Systems Tending and Causal Apprehension Engine. Revealing hidden causal structure through driven pressure, for human and AI co-pilots."
 hide:
   - toc
   - navigation
   - path
----  
+---
 
 <!--
 Copyright (c) 2019 Matthias Tafelmeier.
@@ -29,10 +29,11 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 -   ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg){ width="200" }
 
--   ### :fontawesome-solid-dna: Open Source Optimization Engine for AI Pilots and Humans
+-   ### :fontawesome-solid-dna::fontawesome-solid-gears: Open Source Live Systems Tending and Causal Apprehension Engine
 
-    Godon is the search and validation layer for :fontawesome-solid-user: Human + :fontawesome-solid-brain: AI Mind co-pilots —
-    empirically testing configurations against live systems through meta-heuristic algorithms.
+    An engine that apprehends live system dynamics through driven pressure — and tends what it reveals
+    toward better operating points. Guiding :fontawesome-solid-user: Human + :fontawesome-solid-brain: AI Mind
+    co-pilots to empirical comprehension and steering.
 
 </div>
 
@@ -40,14 +41,17 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ### Why Godon?
 
-- :fontawesome-solid-flask: **Empirical validation** — Transform AI Mind - suggested optimization charters into tested, measured outcomes
-- :fontawesome-solid-diagram-project: **Skeleton for AI reasoning** — Give structure and grounding to AI-generated ideas, anchoring abstract suggestions in real-world results
-- :fontawesome-solid-network-wired: **Infrastructure-first, network-extensible** — Tune anything reachable via network
-- :fontawesome-solid-microchip: **Training-free, GPU-optional** — No models to train, no heavy hardware required
+- :fontawesome-solid-tower-broadcast: **Reveals hidden coupling** — Autonomous processes silently corrupt each other through shared substrate. Godon discovers these channels.
+- :fontawesome-solid-diagram-project: **Transitive topology discovery** — Discover internal live system interplay topology from behavior.
+- :fontawesome-solid-flask: **Causation, not correlation** — Real counterfactuals through experimentation, not inference from observation.
+- :fontawesome-solid-cube: **No upfront modeling** — The system's model emerges from its own response to pressure. The live system is the model.
+- :fontawesome-solid-microchip: **Breeder agents** — Safe, guarded, rollback-capable. Probe and tend in production.
+- :fontawesome-solid-cogs: **Co-pilot validation** — Human and LLM intuition tested against reality — kept if better, discarded if not.
+- :fontawesome-solid-shield-halved: **Isolation certification** — The same signal that finds coupling can prove absence.
 
 ---
 
-## Sponsors
+### Sponsors
 -------------
 
 ![OSUOSL_LOGO](https://osuosl.org/images/osllogo-white_0.png#center-white)
