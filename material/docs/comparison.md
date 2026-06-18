@@ -23,18 +23,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 # Comparison & Competitors
 
-## What Nobody Else Does
-
-The differentiator is not better optimization. It's that godon discerns and maps hidden coupling structure in live systems — something no other tool attempts.
-
-- **No optimization library** (Optuna, Hyperopt, Nevergrad) has any concept of coupling between independent optimization runs
-- **No observability platform** (Datadog, Dynatrace) can detect causal coupling — they observe symptoms, not hidden structure
-- **No infrastructure platform** (Akamas, StormForge, Turbonomic) discovers interference topology between workloads
-- **No ML framework** (Ray Tune, Ax, W&B) accounts for multi-agent interference through shared dependencies
-
-Godon occupies its own category: live systems tending and causal discernment through driven pressure.
-
 ## Positioning
+
+Godon occupies a different category than the tools below. The core distinction is methodological: godon discerns hidden system structure through active perturbation, generating empirical counterfactuals. Passive observation — whether from monitoring tools or statistical inference — cannot structurally distinguish coupling from confounding.
 
 **Libraries** (Optuna, Hyperopt, Nevergrad) provide algorithm primitives — you build the application around them.
 
@@ -44,7 +35,7 @@ Godon occupies its own category: live systems tending and causal discernment thr
 
 **AIOps** (Datadog, Dynatrace) observe and alert — they don't probe or discover causal structure.
 
-Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds. Optimization is one mode of the breeder, not the headline.
+Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds toward better operating points.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
