@@ -31,7 +31,7 @@ The first is solved. The second doesn't exist as a discipline. Godon reveals it.
 
 ## The Hidden Structure Problem
 
-When autonomous agents — optimizers, controllers, AI — share physical substrate, they silently interfere through coupling channels nobody designed and nobody monitors.
+When autonomous agents — optimizers, controllers, AI — operate on coupled systems, they silently interfere through channels nobody designed and nobody monitors. The coupling may run through any layer of the stack — physical substrate, software dependencies, shared state, data schemas, API contracts.
 
 No observability tool can reveal this, because the coupling signal is never collected. No AI can reason about it, because the data doesn't exist. Passive monitoring fundamentally cannot distinguish "improving together because coupled" from "improving together because both converging."
 
@@ -108,10 +108,11 @@ Anything reachable via network that has tunable parameters and measurable outcom
 
 - **Infrastructure** — GPU clusters, HPC, databases, networking, storage
 - **Platforms** — application runtimes, message queues, caches
+- **Software systems** — microservices, distributed databases, shared-state architectures
 - **Physical systems** — power grids, industrial control, HVAC, microgrids
 - **Multi-tenant environments** — cloud isolation verification, regulated industries
 
-Not limited to Kubernetes or cloud-native. The coupling problem exists wherever multiple processes share a physical medium.
+Not limited to physical resource contention. The coupling problem exists wherever multiple agents operate on systems connected through any shared dependency — hardware, software, data, or logic.
 
 ## Capabilities
 
@@ -123,7 +124,7 @@ Not limited to Kubernetes or cloud-native. The coupling problem exists wherever 
 | **Live System Tending** | Continuously steer toward better operating points with guardrails and rollback |
 | **Isolation Certification** | Empirically verify that workloads are genuinely decoupled — proving absence |
 | **Co-pilot Integration** | Human and LLM domain knowledge validated in the loop — charter design, comprehension, strategy |
-| **Multi-Algorithm Exploration** | Metaheuristics (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration |
+| **Multi-Algorithm AI** | Advanced AI algorithms (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration |
 | **Training-Free** | No training data or model training required — learns from live system behavior |
 | **Self-Hosted** | Runs on your infrastructure. AGPLv3. No vendor lock-in |
 
@@ -137,7 +138,7 @@ Not limited to Kubernetes or cloud-native. The coupling problem exists wherever 
 | **Human-AI Supervision Required** | Not fully hands-off — requires human and/or LLM setup, supervision, and planning |
 | **No Guaranteed Best Solution** | Approximates better-than-untouched states rather than finding global optimum |
 | **ML-Light by Default** | Open to lightweight ML/RL where it enhances search, but ML is not the core paradigm |
-| **Application, Not Framework** | Applies metaheuristics to live systems; not a metaheuristics library |
+| **Application, Not Framework** | Applies advanced AI algorithms to live systems; not an algorithm library |
 
 ## Positioning
 

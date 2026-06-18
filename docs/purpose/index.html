@@ -1657,7 +1657,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <p>Every system has two configurations. The documented one — architecture diagrams, IaC, config files. And the real one — the emergent causal structure where changing parameter X on component A silently shifts the behavior of component B through a shared physical channel.</p>
 <p>The first is solved. The second doesn't exist as a discipline. Godon reveals it.</p>
 <h2 id="the-hidden-structure-problem">The Hidden Structure Problem</h2>
-<p>When autonomous agents — optimizers, controllers, AI — share physical substrate, they silently interfere through coupling channels nobody designed and nobody monitors.</p>
+<p>When autonomous agents — optimizers, controllers, AI — operate on coupled systems, they silently interfere through channels nobody designed and nobody monitors. The coupling may run through any layer of the stack — physical substrate, software dependencies, shared state, data schemas, API contracts.</p>
 <p>No observability tool can reveal this, because the coupling signal is never collected. No AI can reason about it, because the data doesn't exist. Passive monitoring fundamentally cannot distinguish "improving together because coupled" from "improving together because both converging."</p>
 <p><strong>Active perturbation is the only path.</strong> Probe the system with known signals, hold other parts still, measure who responds. The coupling topology emerges from the system's own behavior — not modeled, not assumed, discovered.</p>
 <h2 id="what-flows-from-discovery">What Flows From Discovery</h2>
@@ -1714,10 +1714,11 @@ based on measured outcomes.</p>
 <ul>
 <li><strong>Infrastructure</strong> — GPU clusters, HPC, databases, networking, storage</li>
 <li><strong>Platforms</strong> — application runtimes, message queues, caches</li>
+<li><strong>Software systems</strong> — microservices, distributed databases, shared-state architectures</li>
 <li><strong>Physical systems</strong> — power grids, industrial control, HVAC, microgrids</li>
 <li><strong>Multi-tenant environments</strong> — cloud isolation verification, regulated industries</li>
 </ul>
-<p>Not limited to Kubernetes or cloud-native. The coupling problem exists wherever multiple processes share a physical medium.</p>
+<p>Not limited to physical resource contention. The coupling problem exists wherever multiple agents operate on systems connected through any shared dependency — hardware, software, data, or logic.</p>
 <h2 id="capabilities">Capabilities</h2>
 <table>
 <thead>
@@ -1752,8 +1753,8 @@ based on measured outcomes.</p>
 <td>Human and LLM domain knowledge validated in the loop — charter design, comprehension, strategy</td>
 </tr>
 <tr>
-<td><strong>Multi-Algorithm Exploration</strong></td>
-<td>Metaheuristics (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration</td>
+<td><strong>Multi-Algorithm AI</strong></td>
+<td>Advanced AI algorithms (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration</td>
 </tr>
 <tr>
 <td><strong>Training-Free</strong></td>
@@ -1800,7 +1801,7 @@ based on measured outcomes.</p>
 </tr>
 <tr>
 <td><strong>Application, Not Framework</strong></td>
-<td>Applies metaheuristics to live systems; not a metaheuristics library</td>
+<td>Applies advanced AI algorithms to live systems; not an algorithm library</td>
 </tr>
 </tbody>
 </table>
