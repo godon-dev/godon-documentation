@@ -1,5 +1,5 @@
 ---
-description: "godon — Open Source Live Systems Tending and Causal Apprehension Engine. Revealing hidden causal structure through driven pressure, for human and AI co-pilots."
+description: "godon — Open Source Live Systems Tending and Causal Discernment Engine. Revealing hidden causal structure through driven pressure, for human and AI co-pilots."
 hide:
   - toc
   - navigation
@@ -29,9 +29,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 -   ![Emblem](https://raw.githubusercontent.com/cherusk/godon-documentation/main/material/logo.svg){ width="200" }
 
--   ### :fontawesome-solid-dna::fontawesome-solid-gears: Open Source Live Systems Tending and Causal Apprehension Engine
+-   ### :fontawesome-solid-dna::fontawesome-solid-gears: Open Source Live Systems Tending and Causal Discernment Engine
 
-    An engine that apprehends live system dynamics through driven pressure — and tends what it reveals
+    An engine that discerns live system dynamics through driven pressure — and tends what it reveals
     toward better operating points. Guiding :fontawesome-solid-user: Human + :fontawesome-solid-brain: AI Mind
     co-pilots to empirical comprehension and steering.
 
