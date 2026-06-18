@@ -1,5 +1,5 @@
 ---
-description: "godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — positioning as optimization application for live operational systems."
+description: "godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — what godon does that nobody else can."
 ---
 
 <!--
@@ -25,7 +25,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Positioning
 
-Godon is an **optimization application** for live operational systems. It sits at a different layer than most tools in this space:
+Godon occupies a different category than the tools below. The core distinction is methodological: godon discerns hidden system structure through active perturbation, generating empirical counterfactuals. Passive observation — whether from monitoring tools or statistical inference — cannot structurally distinguish coupling from confounding.
 
 **Libraries** (Optuna, Hyperopt, Nevergrad) provide algorithm primitives — you build the application around them.
 
@@ -33,25 +33,30 @@ Godon is an **optimization application** for live operational systems. It sits a
 
 **SaaS Platforms** (Akamas, StormForge) provide managed optimization — you subscribe and cede control.
 
-Godon provides a complete, self-hosted optimization application: algorithms wrapped in plumbing (effectuation, reconnaissance, coordination) and ops safety (guardrails, rollback, failure handling). It leverages open optimization frameworks internally — currently Optuna, with potential for custom samplers.
+**AIOps** (Datadog, Dynatrace) observe and alert — they don't probe or discover causal structure.
 
-The primary differentiator: Godon optimizes **live systems**, not simulations or offline models. This requires safety mechanisms that pure optimization libraries don't provide.
+Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds toward better operating points.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         GODON                                    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │              Discernment Layer                           │    │
+│  │  Coupling detection  │  Topology discovery               │    │
+│  │  Active perturbation │  Isolation certification          │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    Tending Layer                         │    │
+│  │  Live system steering  │  Guardrails  │  Rollback        │    │
+│  └─────────────────────────────────────────────────────────┘    │
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │                    Plumbing Layer                        │    │
 │  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │    │
 │  │  Trial coordination              │  Worker management    │    │
 │  └─────────────────────────────────────────────────────────┘    │
 │  ┌─────────────────────────────────────────────────────────┐    │
-│  │                    Ops Safety Layer                      │    │
-│  │  Guardrails  │  Rollback  │  Consecutive failure handling│   │
-│  └─────────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │              Optimization Core                           │    │
-│  │  (Optuna: TPE, NSGA-II/III, QMC  →  custom samplers)    │    │
+│  │              Algorithm Core                              │    │
+│  │  (TPE, NSGA-II/III, QMC  →  custom samplers, ML)        │    │
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -72,15 +77,15 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 
 | Dimension | Godon | Optuna |
 |-----------|-------|--------|
-| **What it provides** | Complete application | Algorithm library |
+| **What it provides** | Complete engine (discern + tend) | Algorithm library |
 | **Plumbing - Effectuation** | Built-in (SSH, HTTP, APIs) | None — you build it |
 | **Plumbing - Reconnaissance** | Built-in (Prometheus) | None — you build it |
 | **Plumbing - Coordination** | Controller API, trial sharing | Study management only |
+| **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Hard limits with automatic response | No |
 | **Ops Safety - Rollback** | Previous/best/baseline restoration | No |
-| **Ops Safety - Failure handling** | Consecutive failure thresholds, skip_target | No |
 | **Deployment** | Kubernetes-native Helm chart | Python library |
-| **Scope** | Production systems | Any optimization problem |
+| **Scope** | Production live systems | Any optimization problem |
 
 ### Hyperopt
 
@@ -88,7 +93,7 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 |------------|-------|----------|
 | **Plumbing - Effectuation** | Built-in (SSH, HTTP, APIs) | None |
 | **Plumbing - Reconnaissance** | Built-in (Prometheus) | None |
-| **Plumbing - Coordination** | Controller API, trial sharing | MongoDB-based trials |
+| **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Yes | No |
 | **Ops Safety - Rollback** | Yes | No |
 | **Multi-objective** | Yes | No |
@@ -102,11 +107,12 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 |------------|-------|-----------|
 | **Plumbing - Effectuation** | Built-in | None |
 | **Plumbing - Reconnaissance** | Built-in | None |
+| **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Yes | No |
 | **Ops Safety - Rollback** | Yes | No |
-| **Algorithms** | Meta-heuristics (TPE, EA) | Derivative-free (Evolution, Bandits) |
+| **Algorithms** | TPE, NSGA-II/III, QMC | Derivative-free (Evolution, Bandits) |
 | **Multi-objective** | Yes | Yes |
-| **Domain** | Infrastructure + generic | Generic functions |
+| **Domain** | Live systems + generic | Generic functions |
 | **Deployment** | Kubernetes | Python library |
 
 ## ML-Focused Frameworks
@@ -115,35 +121,35 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 
 | Aspect | Godon | Ray Tune |
 |--------|-------|----------|
-| Primary Domain | Infrastructure, systems | ML training |
+| Primary Domain | Live systems, infrastructure | ML training |
 | Live System Integration | Native | Manual |
+| Coupling Detection | Yes — multi-agent interference topology | None |
 | Effectuation Layer | Yes (SSH, HTTP, APIs) | No |
 | Guardrails | Yes | No |
 | Rollback | Yes | No |
 | Deployment | Kubernetes-native | Ray cluster |
 | Overhead | Lightweight | Heavy (Ray runtime) |
-| Training Required | No | No |
 
 ### Ax / BoTorch
 
 | Aspect | Godon | Ax |
 |--------|-------|-----|
-| Algorithm | Meta-heuristics | Bayesian optimization |
+| Algorithm | Multi-strategy (TPE, NSGA, QMC) | Bayesian optimization |
+| Coupling Detection | Yes — multi-agent interference topology | None |
 | Live System Integration | Native | Manual |
 | Constraints | Guardrails + Rollback | Parameter constraints |
 | Deployment | Self-hosted | Hosted service or self-hosted |
-| Multi-objective | Yes | Yes |
 | ML Dependency | None | BoTorch (Gaussian processes) |
 
 ### Weights & Biases Sweeps
 
 | Aspect | Godon | W&B Sweeps |
 |--------|-------|------------|
-| Type | Self-hosted application | SaaS + library |
+| Type | Self-hosted engine | SaaS + library |
+| Coupling Detection | Yes | None |
 | Live System Integration | Native | Manual |
 | Data Ownership | Full | Vendor-hosted |
 | Cost | Free | Subscription tiers |
-| Offline Support | Yes | Limited |
 
 ## Infrastructure Optimization Platforms
 
@@ -153,20 +159,7 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 |------------|-------|--------|
 | **License** | AGPL (open source) | Proprietary |
 | **Deployment** | Self-hosted (Helm) | SaaS |
-| **Kubernetes-bound** | No | Yes |
-| **Algorithm Transparency** | Full | Black-box |
-| **Extensibility** | Custom breeders | Vendor-defined |
-| **Cost** | Free | Subscription |
-| **Vendor Lock-in** | None | High |
-
-## Infrastructure Optimization Platforms
-
-### Akamas
-
-| Dimension | Godon | Akamas |
-|------------|-------|--------|
-| **License** | AGPL (open source) | Proprietary |
-| **Deployment** | Self-hosted (Helm) | SaaS |
+| **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Kubernetes-bound** | No | Yes |
 | **Algorithm Transparency** | Full | Black-box |
 | **Extensibility** | Custom breeders | Vendor-defined |
@@ -175,14 +168,22 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 
 ### StormForge
 
+| Dimension | Godon | StormForge |
+|------------|-------|------------|
+| **License** | AGPL (open source) | Proprietary |
+| **Coupling Detection** | Active perturbation, topology discovery | None |
+| **Deployment** | Self-hosted | SaaS |
+| **Scope** | Any network-accessible system | Kubernetes only |
+| **Vendor Lock-in** | None | High |
+
 ### Turbonomic (IBM)
 
 | Aspect | Godon | Turbonomic |
 |--------|-------|------------|
-| Approach | Search-based optimization | Resource management + placement |
+| Approach | Discernment + tending | Resource management + placement |
+| Coupling Detection | Active perturbation, topology discovery | None |
 | License | Open source | Proprietary |
-| Scope | Configuration tuning | Full resource orchestration |
-| Real-time | Continuous optimization | Real-time decisions |
+| Scope | Configuration + structure discovery | Full resource orchestration |
 | Integration | Network-accessible systems | VMware, cloud providers |
 
 ## AIOps Platforms
@@ -191,17 +192,18 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 
 | Aspect | Godon | Datadog Watchdog |
 |--------|-------|------------------|
-| Approach | Proactive optimization | Reactive anomaly detection |
-| Action | Configuration changes | Alerts, some recommendations |
-| ML Required | No | Yes |
-| Optimization | Search-based | Pattern recognition |
+| Approach | Active perturbation, causal discernment | Passive anomaly detection |
+| Coupling Detection | Discovers hidden causal structure | No — sees symptoms, not causes |
+| Action | Configuration changes, tending | Alerts, some recommendations |
+| Epistemology | Experimentation (counterfactuals) | Observation (correlations) |
 | Cost | Free | Part of Datadog subscription |
 
 ### Dynatrace Davis
 
 | Aspect | Godon | Dynatrace Davis |
 |--------|-------|-----------------|
-| Approach | Optimization search | AI-powered root cause |
+| Approach | Active causal discernment | AI-powered root cause (passive) |
+| Coupling Detection | Discovers hidden causal structure | No — infers from observability data |
 | Proactive/Reactive | Proactive | Reactive |
 | Training | None | Proprietary ML models |
 | Config Changes | Automated effectuation | Recommendations only |
@@ -212,25 +214,29 @@ The primary differentiator: Godon optimizes **live systems**, not simulations or
 
 | Aspect | Godon | KEDA/HPA/VPA |
 |--------|-------|--------------|
-| Optimization Target | Configuration parameters | Replica counts, resource limits |
-| Approach | Search-based | Threshold-based rules |
+| Optimization Target | Configuration parameters + coupling structure | Replica counts, resource limits |
+| Approach | Driven pressure, discernment | Threshold-based rules |
+| Coupling Detection | Yes — discovers HPA/VPA interference | No |
 | Proactive/Reactive | Proactive | Reactive |
 | Relationship | **Complementary** | Complementary |
 
-Godon can optimize autoscaler parameters (thresholds, scaling factors) while KEDA/HPA handles scaling.
+Godon can discern interference between HPA and VPA decisions, and tend autoscaler parameters accordingly.
 
 ## Feature Summary
 
-| Feature | Godon | Optuna | Ray Tune | Ax | Akamas | StormForge |
-|---------|-------|--------|----------|-----|--------|------------|
-| **Live System Integration** | Yes | No | No | No | Yes | Yes |
-| **Effectuation Layer** | Yes | No | No | No | Yes | Yes |
-| **Reconnaissance** | Yes | No | No | No | Yes | Yes |
-| **Guardrails** | Yes | No | No | Limited | Yes | Limited |
-| **Rollback** | Yes | No | No | No | Yes | No |
-| **Multi-objective** | Yes | Yes | Yes | Yes | Yes | Yes |
-| **Algorithm Diversity** | Yes | Manual | Manual | Manual | Yes | Unknown |
-| **Worker Cooperation** | Yes | No | No | No | Unknown | Unknown |
-| **Open Source** | Yes | Yes | Yes | Partial | No | No |
-| **Self-hosted** | Yes | N/A | Yes | Yes | No | No |
-| **Kubernetes Native** | Yes | Optional | Optional | No | Yes | Yes |
+| Feature | Godon | Optuna | Ray Tune | Ax | Akamas | StormForge | Datadog |
+|---------|-------|--------|----------|-----|--------|------------|---------|
+| **Coupling Detection** | **Yes** | No | No | No | No | No | No |
+| **Topology Discovery** | **Yes** | No | No | No | No | No | No |
+| **Isolation Certification** | **Yes** | No | No | No | No | No | No |
+| **Live System Integration** | Yes | No | No | No | Yes | Yes | N/A |
+| **Effectuation Layer** | Yes | No | No | No | Yes | Yes | No |
+| **Guardrails** | Yes | No | No | Limited | Yes | Limited | No |
+| **Rollback** | Yes | No | No | No | Yes | No | No |
+| **Multi-objective** | Yes | Yes | Yes | Yes | Yes | Yes | N/A |
+| **Algorithm Diversity** | Yes | Manual | Manual | Manual | Yes | Unknown | N/A |
+| **Worker Cooperation** | Yes | No | No | No | Unknown | Unknown | N/A |
+| **Open Source** | Yes | Yes | Yes | Partial | No | No | No |
+| **Self-hosted** | Yes | N/A | Yes | Yes | No | No | No |
+
+Coupling detection, topology discovery, and isolation certification appear in **no other tool**. This is godon's unique category.
