@@ -89,4 +89,4 @@ Intelligence reasons about what is. Detection reveals what wasn't visible. You n
 
 ---
 
-*This is the second in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source optimization engine for live systems.*
+*This is the second in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*

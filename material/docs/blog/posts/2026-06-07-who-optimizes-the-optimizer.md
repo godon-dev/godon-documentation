@@ -84,4 +84,4 @@ godon optimizing godon.
 
 ---
 
-*This is the fourth in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source optimization engine for live systems.*
+*This is the fourth in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*

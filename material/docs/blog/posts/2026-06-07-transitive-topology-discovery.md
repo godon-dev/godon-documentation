@@ -88,4 +88,4 @@ That's the core thesis of godon. Not detection for its own sake, but detection a
 
 ---
 
-*This is the third in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source optimization engine for live systems.*
+*This is the third in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
