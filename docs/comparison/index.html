@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — positioning as optimization application for live operational systems.">
+        <meta name="description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — what godon does that nobody else can.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -73,7 +73,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Comparison - godon" />
-<meta property="og:description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — positioning as optimization application for live operational systems." />
+<meta property="og:description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — what godon does that nobody else can." />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/comparison.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -81,7 +81,7 @@
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/comparison/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Comparison - godon" />
-<meta property="twitter:description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — positioning as optimization application for live operational systems." />
+<meta property="twitter:description" content="godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — what godon does that nobody else can." />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/comparison.png" />
 </head>
   
@@ -1119,34 +1119,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#infrastructure-optimization-platforms_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Infrastructure Optimization Platforms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Infrastructure Optimization Platforms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#akamas_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Akamas
-      
-    </span>
-  </a>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#stormforge" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1725,34 +1697,6 @@ document.addEventListener("DOMContentLoaded", function() {
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#infrastructure-optimization-platforms_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Infrastructure Optimization Platforms
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Infrastructure Optimization Platforms">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#akamas_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Akamas
-      
-    </span>
-  </a>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#stormforge" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1899,26 +1843,31 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 <h1 id="comparison-competitors">Comparison &amp; Competitors</h1>
 <h2 id="positioning">Positioning</h2>
-<p>Godon is an <strong>optimization application</strong> for live operational systems. It sits at a different layer than most tools in this space:</p>
+<p>Godon occupies a different category than the tools below. The core distinction is methodological: godon discerns hidden system structure through active perturbation, generating empirical counterfactuals. Passive observation — whether from monitoring tools or statistical inference — cannot structurally distinguish coupling from confounding.</p>
 <p><strong>Libraries</strong> (Optuna, Hyperopt, Nevergrad) provide algorithm primitives — you build the application around them.</p>
 <p><strong>Frameworks</strong> (Ray Tune, Ax) provide orchestration for ML workloads — you adapt to their model.</p>
 <p><strong>SaaS Platforms</strong> (Akamas, StormForge) provide managed optimization — you subscribe and cede control.</p>
-<p>Godon provides a complete, self-hosted optimization application: algorithms wrapped in plumbing (effectuation, reconnaissance, coordination) and ops safety (guardrails, rollback, failure handling). It leverages open optimization frameworks internally — currently Optuna, with potential for custom samplers.</p>
-<p>The primary differentiator: Godon optimizes <strong>live systems</strong>, not simulations or offline models. This requires safety mechanisms that pure optimization libraries don't provide.</p>
+<p><strong>AIOps</strong> (Datadog, Dynatrace) observe and alert — they don't probe or discover causal structure.</p>
+<p>Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds toward better operating points.</p>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────┐
 │                         GODON                                    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │              Discernment Layer                           │    │
+│  │  Coupling detection  │  Topology discovery               │    │
+│  │  Active perturbation │  Isolation certification          │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    Tending Layer                         │    │
+│  │  Live system steering  │  Guardrails  │  Rollback        │    │
+│  └─────────────────────────────────────────────────────────┘    │
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │                    Plumbing Layer                        │    │
 │  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │    │
 │  │  Trial coordination              │  Worker management    │    │
 │  └─────────────────────────────────────────────────────────┘    │
 │  ┌─────────────────────────────────────────────────────────┐    │
-│  │                    Ops Safety Layer                      │    │
-│  │  Guardrails  │  Rollback  │  Consecutive failure handling│   │
-│  └─────────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │              Optimization Core                           │    │
-│  │  (Optuna: TPE, NSGA-II/III, QMC  →  custom samplers)    │    │
+│  │              Algorithm Core                              │    │
+│  │  (TPE, NSGA-II/III, QMC  →  custom samplers, ML)        │    │
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 </code></pre></div>
@@ -1966,7 +1915,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td><strong>What it provides</strong></td>
-<td>Complete application</td>
+<td>Complete engine (discern + tend)</td>
 <td>Algorithm library</td>
 </tr>
 <tr>
@@ -1985,6 +1934,11 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Study management only</td>
 </tr>
 <tr>
+<td><strong>Coupling Detection</strong></td>
+<td>Active perturbation, topology discovery</td>
+<td>None</td>
+</tr>
+<tr>
 <td><strong>Ops Safety - Guardrails</strong></td>
 <td>Hard limits with automatic response</td>
 <td>No</td>
@@ -1995,18 +1949,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>No</td>
 </tr>
 <tr>
-<td><strong>Ops Safety - Failure handling</strong></td>
-<td>Consecutive failure thresholds, skip_target</td>
-<td>No</td>
-</tr>
-<tr>
 <td><strong>Deployment</strong></td>
 <td>Kubernetes-native Helm chart</td>
 <td>Python library</td>
 </tr>
 <tr>
 <td><strong>Scope</strong></td>
-<td>Production systems</td>
+<td>Production live systems</td>
 <td>Any optimization problem</td>
 </tr>
 </tbody>
@@ -2032,9 +1981,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>None</td>
 </tr>
 <tr>
-<td><strong>Plumbing - Coordination</strong></td>
-<td>Controller API, trial sharing</td>
-<td>MongoDB-based trials</td>
+<td><strong>Coupling Detection</strong></td>
+<td>Active perturbation, topology discovery</td>
+<td>None</td>
 </tr>
 <tr>
 <td><strong>Ops Safety - Guardrails</strong></td>
@@ -2089,6 +2038,11 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>None</td>
 </tr>
 <tr>
+<td><strong>Coupling Detection</strong></td>
+<td>Active perturbation, topology discovery</td>
+<td>None</td>
+</tr>
+<tr>
 <td><strong>Ops Safety - Guardrails</strong></td>
 <td>Yes</td>
 <td>No</td>
@@ -2100,7 +2054,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tr>
 <tr>
 <td><strong>Algorithms</strong></td>
-<td>Meta-heuristics (TPE, EA)</td>
+<td>TPE, NSGA-II/III, QMC</td>
 <td>Derivative-free (Evolution, Bandits)</td>
 </tr>
 <tr>
@@ -2110,7 +2064,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tr>
 <tr>
 <td><strong>Domain</strong></td>
-<td>Infrastructure + generic</td>
+<td>Live systems + generic</td>
 <td>Generic functions</td>
 </tr>
 <tr>
@@ -2133,13 +2087,18 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Primary Domain</td>
-<td>Infrastructure, systems</td>
+<td>Live systems, infrastructure</td>
 <td>ML training</td>
 </tr>
 <tr>
 <td>Live System Integration</td>
 <td>Native</td>
 <td>Manual</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Yes — multi-agent interference topology</td>
+<td>None</td>
 </tr>
 <tr>
 <td>Effectuation Layer</td>
@@ -2166,11 +2125,6 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Lightweight</td>
 <td>Heavy (Ray runtime)</td>
 </tr>
-<tr>
-<td>Training Required</td>
-<td>No</td>
-<td>No</td>
-</tr>
 </tbody>
 </table>
 <h3 id="ax-botorch">Ax / BoTorch</h3>
@@ -2185,8 +2139,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Algorithm</td>
-<td>Meta-heuristics</td>
+<td>Multi-strategy (TPE, NSGA, QMC)</td>
 <td>Bayesian optimization</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Yes — multi-agent interference topology</td>
+<td>None</td>
 </tr>
 <tr>
 <td>Live System Integration</td>
@@ -2202,11 +2161,6 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Deployment</td>
 <td>Self-hosted</td>
 <td>Hosted service or self-hosted</td>
-</tr>
-<tr>
-<td>Multi-objective</td>
-<td>Yes</td>
-<td>Yes</td>
 </tr>
 <tr>
 <td>ML Dependency</td>
@@ -2227,8 +2181,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Type</td>
-<td>Self-hosted application</td>
+<td>Self-hosted engine</td>
 <td>SaaS + library</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Yes</td>
+<td>None</td>
 </tr>
 <tr>
 <td>Live System Integration</td>
@@ -2244,11 +2203,6 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Cost</td>
 <td>Free</td>
 <td>Subscription tiers</td>
-</tr>
-<tr>
-<td>Offline Support</td>
-<td>Yes</td>
-<td>Limited</td>
 </tr>
 </tbody>
 </table>
@@ -2274,52 +2228,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>SaaS</td>
 </tr>
 <tr>
-<td><strong>Kubernetes-bound</strong></td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Algorithm Transparency</strong></td>
-<td>Full</td>
-<td>Black-box</td>
-</tr>
-<tr>
-<td><strong>Extensibility</strong></td>
-<td>Custom breeders</td>
-<td>Vendor-defined</td>
-</tr>
-<tr>
-<td><strong>Cost</strong></td>
-<td>Free</td>
-<td>Subscription</td>
-</tr>
-<tr>
-<td><strong>Vendor Lock-in</strong></td>
+<td><strong>Coupling Detection</strong></td>
+<td>Active perturbation, topology discovery</td>
 <td>None</td>
-<td>High</td>
-</tr>
-</tbody>
-</table>
-<h2 id="infrastructure-optimization-platforms_1">Infrastructure Optimization Platforms</h2>
-<h3 id="akamas_1">Akamas</h3>
-<table>
-<thead>
-<tr>
-<th>Dimension</th>
-<th>Godon</th>
-<th>Akamas</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>License</strong></td>
-<td>AGPL (open source)</td>
-<td>Proprietary</td>
-</tr>
-<tr>
-<td><strong>Deployment</strong></td>
-<td>Self-hosted (Helm)</td>
-<td>SaaS</td>
 </tr>
 <tr>
 <td><strong>Kubernetes-bound</strong></td>
@@ -2349,6 +2260,42 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tbody>
 </table>
 <h3 id="stormforge">StormForge</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Godon</th>
+<th>StormForge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>License</strong></td>
+<td>AGPL (open source)</td>
+<td>Proprietary</td>
+</tr>
+<tr>
+<td><strong>Coupling Detection</strong></td>
+<td>Active perturbation, topology discovery</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Self-hosted</td>
+<td>SaaS</td>
+</tr>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Any network-accessible system</td>
+<td>Kubernetes only</td>
+</tr>
+<tr>
+<td><strong>Vendor Lock-in</strong></td>
+<td>None</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
 <h3 id="turbonomic-ibm">Turbonomic (IBM)</h3>
 <table>
 <thead>
@@ -2361,8 +2308,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Approach</td>
-<td>Search-based optimization</td>
+<td>Discernment + tending</td>
 <td>Resource management + placement</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Active perturbation, topology discovery</td>
+<td>None</td>
 </tr>
 <tr>
 <td>License</td>
@@ -2371,13 +2323,8 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tr>
 <tr>
 <td>Scope</td>
-<td>Configuration tuning</td>
+<td>Configuration + structure discovery</td>
 <td>Full resource orchestration</td>
-</tr>
-<tr>
-<td>Real-time</td>
-<td>Continuous optimization</td>
-<td>Real-time decisions</td>
 </tr>
 <tr>
 <td>Integration</td>
@@ -2399,23 +2346,23 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Approach</td>
-<td>Proactive optimization</td>
-<td>Reactive anomaly detection</td>
+<td>Active perturbation, causal discernment</td>
+<td>Passive anomaly detection</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Discovers hidden causal structure</td>
+<td>No — sees symptoms, not causes</td>
 </tr>
 <tr>
 <td>Action</td>
-<td>Configuration changes</td>
+<td>Configuration changes, tending</td>
 <td>Alerts, some recommendations</td>
 </tr>
 <tr>
-<td>ML Required</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Optimization</td>
-<td>Search-based</td>
-<td>Pattern recognition</td>
+<td>Epistemology</td>
+<td>Experimentation (counterfactuals)</td>
+<td>Observation (correlations)</td>
 </tr>
 <tr>
 <td>Cost</td>
@@ -2436,8 +2383,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Approach</td>
-<td>Optimization search</td>
-<td>AI-powered root cause</td>
+<td>Active causal discernment</td>
+<td>AI-powered root cause (passive)</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Discovers hidden causal structure</td>
+<td>No — infers from observability data</td>
 </tr>
 <tr>
 <td>Proactive/Reactive</td>
@@ -2469,13 +2421,18 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <tbody>
 <tr>
 <td>Optimization Target</td>
-<td>Configuration parameters</td>
+<td>Configuration parameters + coupling structure</td>
 <td>Replica counts, resource limits</td>
 </tr>
 <tr>
 <td>Approach</td>
-<td>Search-based</td>
+<td>Driven pressure, discernment</td>
 <td>Threshold-based rules</td>
+</tr>
+<tr>
+<td>Coupling Detection</td>
+<td>Yes — discovers HPA/VPA interference</td>
+<td>No</td>
 </tr>
 <tr>
 <td>Proactive/Reactive</td>
@@ -2489,7 +2446,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tr>
 </tbody>
 </table>
-<p>Godon can optimize autoscaler parameters (thresholds, scaling factors) while KEDA/HPA handles scaling.</p>
+<p>Godon can discern interference between HPA and VPA decisions, and tend autoscaler parameters accordingly.</p>
 <h2 id="feature-summary">Feature Summary</h2>
 <table>
 <thead>
@@ -2501,9 +2458,40 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <th>Ax</th>
 <th>Akamas</th>
 <th>StormForge</th>
+<th>Datadog</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><strong>Coupling Detection</strong></td>
+<td><strong>Yes</strong></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Topology Discovery</strong></td>
+<td><strong>Yes</strong></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Isolation Certification</strong></td>
+<td><strong>Yes</strong></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
 <tr>
 <td><strong>Live System Integration</strong></td>
 <td>Yes</td>
@@ -2512,6 +2500,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>No</td>
 <td>Yes</td>
 <td>Yes</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td><strong>Effectuation Layer</strong></td>
@@ -2521,15 +2510,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>No</td>
 <td>Yes</td>
 <td>Yes</td>
-</tr>
-<tr>
-<td><strong>Reconnaissance</strong></td>
-<td>Yes</td>
 <td>No</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
 </tr>
 <tr>
 <td><strong>Guardrails</strong></td>
@@ -2539,6 +2520,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Limited</td>
 <td>Yes</td>
 <td>Limited</td>
+<td>No</td>
 </tr>
 <tr>
 <td><strong>Rollback</strong></td>
@@ -2547,6 +2529,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>No</td>
 <td>No</td>
 <td>Yes</td>
+<td>No</td>
 <td>No</td>
 </tr>
 <tr>
@@ -2557,6 +2540,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Yes</td>
 <td>Yes</td>
 <td>Yes</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td><strong>Algorithm Diversity</strong></td>
@@ -2566,6 +2550,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Manual</td>
 <td>Yes</td>
 <td>Unknown</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td><strong>Worker Cooperation</strong></td>
@@ -2575,6 +2560,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>No</td>
 <td>Unknown</td>
 <td>Unknown</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td><strong>Open Source</strong></td>
@@ -2582,6 +2568,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Yes</td>
 <td>Yes</td>
 <td>Partial</td>
+<td>No</td>
 <td>No</td>
 <td>No</td>
 </tr>
@@ -2593,18 +2580,11 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <td>Yes</td>
 <td>No</td>
 <td>No</td>
-</tr>
-<tr>
-<td><strong>Kubernetes Native</strong></td>
-<td>Yes</td>
-<td>Optional</td>
-<td>Optional</td>
 <td>No</td>
-<td>Yes</td>
-<td>Yes</td>
 </tr>
 </tbody>
 </table>
+<p>Coupling detection, topology discovery, and isolation certification appear in <strong>no other tool</strong>. This is godon's unique category.</p>
 
 
 
