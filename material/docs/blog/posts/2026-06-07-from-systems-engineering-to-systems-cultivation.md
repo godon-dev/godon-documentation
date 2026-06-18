@@ -87,4 +87,4 @@ That's what godon is building.
 
 ---
 
-*This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source optimization engine for live systems.*
+*This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
