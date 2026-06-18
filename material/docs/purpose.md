@@ -1,5 +1,5 @@
 ---
-description: "godon purpose and positioning — a systematic optimization engine for live infrastructure, bridging AI suggestions with empirical validation in cloud-native and on-premise environments."
+description: "godon purpose and positioning — Open Source Live Systems Tending and Causal Discernment Engine. Revealing hidden causal structure through driven pressure, for human and AI co-pilots."
 ---
 
 <!--
@@ -21,113 +21,142 @@ You should have received a copy of the GNU Affero General Public License
 along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-
 ## Summary
 
-Godon is a **systematic optimization engine** for anything reachable via network — designed to work alongside human operators and generative AI as co-pilots.
+Godon is an open source engine for **discerning and tending** live systems.
 
-Its primary focus is **infrastructure and platform tuning** across on-premise, cloud-native, and hybrid environments. However, godon's architecture extends to any system that can be observed and configured over a network — databases, message queues, application runtimes, and beyond.
+Every system has two configurations. The documented one — architecture diagrams, IaC, config files. And the real one — the emergent causal structure where changing parameter X on component A silently shifts the behavior of component B through a shared physical channel.
 
-Where large language models propose configurations based on patterns and intuition, godon **empirically searches** the configuration space, validating hypotheses against real workloads through meta-heuristic algorithms. It transforms AI-suggested ideas into tested, measurable outcomes.
+The first is solved. The second doesn't exist as a discipline. Godon reveals it.
 
-The focus remains on **continuous optimization** in dynamic environments, with an emphasis on open technologies.
+## The Hidden Structure Problem
 
-## Conception
+When autonomous agents — optimizers, controllers, AI — share physical substrate, they silently interfere through coupling channels nobody designed and nobody monitors.
 
-Modern infrastructure operations — **on-premise, cloud-native, or hybrid** — face an inherently dynamic environment where traffic patterns change, loads are volatile, and service interactions evolve rapidly.
+No observability tool can reveal this, because the coupling signal is never collected. No AI can reason about it, because the data doesn't exist. Passive monitoring fundamentally cannot distinguish "improving together because coupled" from "improving together because both converging."
 
-This complexity often leads to **neglected performance tuning** due to:
+**Active perturbation is the only path.** Probe the system with known signals, hold other parts still, measure who responds. The coupling topology emerges from the system's own behavior — not modeled, not assumed, discovered.
 
-- Intractable complexity as the main challenge
-- Lacking resources in terms of engineering knowledge or capacity
+## What Flows From Discovery
 
-This complexity is not less pronounced in **cloud environments** despite its managed nature because there:
+Revealing hidden coupling structure is the enabling step. What you do with that knowledge is where the value compounds.
 
-- **Elastic scaling** creates constantly changing optimization targets
-- **Multi-cloud deployments** introduce heterogeneous infrastructure challenges
-- **Managed services** limit configuration visibility while requiring optimization
-- **Cost-performance tradeoffs** become more critical with pay-as-you-go models
+### Diagnostics
 
-### The AI Era: New Possibilities, New Gaps
+"Your latency regression traces back to a parameter change in a neighboring optimizer 20 minutes ago through a thermal coupling path." The topology doesn't just tell you what's connected — it tells you where the problem came from and through what channel.
 
-Generative AI and large language models have transformed how operators interact with infrastructure:
+### Coordination
 
-- **LLMs translate intent** into configuration suggestions
-- **LLMs explain** complex systems and propose solutions
-- **LLMs accelerate** the path from problem to proposed fix
+Once breeders know who they're coupled to, they can adapt. Instead of blindly corrupting each other through shared substrate, they account for the coupling — constraining parameters that propagate, scheduling around active edges, avoiding interference.
 
-But LLMs operate on **training data and probabilistic reasoning**, not empirical measurement. They hypothesize; they cannot verify.
+### Tending
 
-**Godon bridges this gap:**
+Steer the whole system jointly, accounting for coupling, toward better operating points. Not each optimizer independently chasing its own optimum at the expense of neighbors, but coordinated improvement that respects the real topology.
 
-```
-Human (intent) → LLM (suggestion) → Godon (systematic search) → Reality (verification)
-```
+### Isolation Certification
 
-- The human defines goals and constraints
-- The LLM proposes candidate configurations and strategies
-- Godon explores the combinatorial space, testing candidates against live behavior
-- Reality provides the feedback signal
+The same signal that discovers coupling can prove its absence. Certify that two workloads are genuinely isolated — not by policy, but empirically verified at runtime. Critical for multi-tenant environments and regulated industries.
 
-This positions godon as the **empirical validation layer** in an AI-augmented operations workflow.
+### System Understanding
 
-### Optimization as a Continuous Process
+The discovered topology is knowledge about the system itself — independent of any single optimization campaign. It reveals bottleneck resources that concentrate coupling, critical paths that nobody designed, and clusters of tightly-coupled agents that need coordination.
 
-Godon approaches tuning as a **continuous multi-objective combinatorial optimization problem**:
+## Human + AI Co-pilots
 
-- **On-premise systems** requiring traditional performance tuning
-- **Cloud deployments** with elastic, distributed architectures
-- **Hybrid setups** bridging local and cloud resources
-- **Any network-accessible system** — databases, caches, message brokers, application runtimes
+Human operators and LLM agents work alongside each other throughout the
+entire loop — not stacked in a pipeline, but as collaborating co-pilots
+with different strengths. Multiple LLM agents can work in parallel on the
+same godon cluster, each focusing on a different aspect.
 
-Key principles:
+Humans contribute:
 
-- **Meta-heuristics** (e.g., Evolutionary Algorithms) excel in such complex optimization fields, optionally enhanced with lightweight ML or reinforcement learning where beneficial
-- **Optimization** spans the entire **lifecycle** of technology instances
-- **No training data required** — godon learns from live systems, not pre-trained models
+- **Domain expertise** — deep knowledge of the system's physics, constraints,
+  and operational realities that no model carries
+- **Operational judgment** — when to push, when to hold, when something
+  looks wrong, when to intervene
+- **Charter design** — translate goals into structured optimization
+  campaigns: parameters, objectives, guardrails, constraints
+- **Architecture decisions** — given a discovered coupling topology, decide
+  what to do: isolate, schedule, constrain, restructure
 
-## Capabilities and Caveats
--------------
+LLMs contribute:
 
-### What godon is - Capabilities
--------------
+- **Charter generation** — draft optimization charters from natural language
+  intent, propose parameter spaces and objectives
+- **System comprehension** — interpret discovered coupling topology and
+  explain what it means: "Your GPU job's batch size is silently degrading
+  training throughput through L3 cache contention"
+- **Operational awareness** — continuous commentary on what godon is finding,
+  flagging anomalies, suggesting when to probe deeper or when to act
+- **Strategy proposal** — given a discovered topology, propose decoupling
+  strategies and parameter adjustments. Godon tests them empirically
+
+They work in parallel, not in sequence. An LLM agent drafts a charter while
+the human reviews a coupling topology from a previous run. A second LLM
+agent monitors ongoing trials while the human decides whether to adjust
+guardrails. Godon discerns and tends underneath all of them, feeding
+structured trial data back to whoever needs it.
+
+Co-pilots guide and comprehend. The engine discerns and acts. Nobody
+touches the system directly except godon — human and LLM suggestions flow
+through the breeder, get tested against reality, and are kept or discarded
+based on measured outcomes.
+
+## Scope
+
+Anything reachable via network that has tunable parameters and measurable outcomes:
+
+- **Infrastructure** — GPU clusters, HPC, databases, networking, storage
+- **Platforms** — application runtimes, message queues, caches
+- **Physical systems** — power grids, industrial control, HVAC, microgrids
+- **Multi-tenant environments** — cloud isolation verification, regulated industries
+
+Not limited to Kubernetes or cloud-native. The coupling problem exists wherever multiple processes share a physical medium.
+
+## Capabilities
 
 | Capability | Description |
 |------------|-------------|
-| **AI-Human Co-pilot Engine** | Serves as the systematic search and validation layer for human and LLM co-pilots |
-| **Empirical Validation** | Transforms AI-suggested configurations into tested, measured outcomes |
-| **Infrastructure-First, Network-Extensible** | Primary focus on infra/platform tuning, extensible to any network-accessible system |
-| **Knowledge Simplification** | Reduces prior knowledge needed about configuration changes and their implications |
-| **Toil Reduction** | Decreases engineering hours spent on manual tuning tasks |
-| **Performance Optimization** | Addresses the widespread neglect of broader performance tuning initiatives |
-| **Operational Complement** | Serves as a pragmatic operations engineering complementing instrument |
-| **Open Technology Focus** | Prioritizes open technologies in optimization approaches |
-| **Dynamic Adaptation** | Approximates optimal states in continuously changing environments |
-| **Algorithm Exploration** | Leverages metaheuristics algorithms of all kinds to explore combinatorial configuration spaces, with optional integration of lightweight ML, RL, or surrogate modeling techniques |
-| **Performance Acceleration** | Utilizes parallelization and acceleration techniques for metaheuristics |
-| **GPU-Optional** | Acceleration hardware like GPUs may be leveraged, but are not mandatory — unlike many ML or generative AI approaches |
+| **Topology Discovery** | Discover internal live system interplay topology from behavior — not assumed from diagrams or models |
+| **Diagnostics** | Trace regressions and anomalies to their actual source through discovered coupling paths |
+| **Coordination** | Breeders adapt their behavior given known coupling — constraining, scheduling, avoiding interference |
+| **Live System Tending** | Continuously steer toward better operating points with guardrails and rollback |
+| **Isolation Certification** | Empirically verify that workloads are genuinely decoupled — proving absence |
+| **Co-pilot Integration** | Human and LLM domain knowledge validated in the loop — charter design, comprehension, strategy |
+| **Multi-Algorithm Exploration** | Metaheuristics (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration |
 | **Training-Free** | No training data or model training required — learns from live system behavior |
+| **Self-Hosted** | Runs on your infrastructure. AGPLv3. No vendor lock-in |
 
-### What godon is not - Caveats
--------------
+## Caveats
 
 | Caveat | Description |
 |--------|-------------|
-| **Human-AI Supervision Required** | Not fully hands-off automation — requires human and/or LLM setup, supervision, and planning |
-| **ML-Light by Default** | Not primarily a machine learning technology, but open to lightweight ML/RL integration where it enhances search efficiency |
-| **Pragmatic ML Usage** | ML techniques applied judiciously — e.g., surrogate models, fitness approximation, adaptive operator selection — not as the core paradigm |
-| **No Global Optimum Guarantee** | Does not guarantee finding global optimum in configuration search space |
-| **Approximate Solutions** | Focuses on approximating better-than-untouched states rather than perfect optimization |
-| **Application, Not Framework** | Functions as an application of metaheuristics rather than providing a metaheuristics framework |
-| **Not a Reasoning Engine** | Unlike LLMs, godon does not reason about configurations — it searches and measures |
+| **Not a Monitoring Tool** | Monitoring observes. Godon experiments. Different epistemological category |
+| **Not a Reasoning Engine** | LLMs reason about what is represented. Godon discerns what isn't — the coupling signal that was never collected |
+| **Not a Digital Twin** | No simulation, no upfront modeling. The live system is the model |
+| **Human-AI Supervision Required** | Not fully hands-off — requires human and/or LLM setup, supervision, and planning |
+| **No Guaranteed Best Solution** | Approximates better-than-untouched states rather than finding global optimum |
+| **ML-Light by Default** | Open to lightweight ML/RL where it enhances search, but ML is not the core paradigm |
+| **Application, Not Framework** | Applies metaheuristics to live systems; not a metaheuristics library |
 
-## Positioning in the AI Operations Stack
+## Positioning
 
-| Layer | Role | Example |
-|-------|------|---------|
-| **Intent** | Define goals, constraints, priorities | Human operator |
-| **Reasoning** | Translate intent into candidates, explain options | LLM |
-| **Search** | Systematically explore configuration space, validate empirically | **Godon** |
+Humans and LLMs work alongside godon, not above it:
+
+| Layer | What Happens | Who |
+|-------|-------------|-----|
+| **Discernment** | Probe, measure, discover hidden causal structure | **Godon** |
+| **Comprehension** | Interpret topology, explain findings, draft charters, propose strategies | LLM agents + Human operators |
+| **Tending** | Steer the system toward better operating points | **Godon** |
 | **Reality** | Execute, measure, provide feedback | Live systems |
 
-Godon occupies the **search layer** — where reasoning meets reality.
+Multiple LLM agents and humans work in parallel on the comprehension layer.
+Godon handles discernment and tending underneath — the engine that makes
+their work grounded in measured reality.
+
+## Principles
+
+- Active perturbation over passive observation
+- Empirical discovery over assumed models
+- Cultivation over one-shot optimization
+- Open source. AGPLv3.
