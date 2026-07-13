@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://godon-dev.github.io/godon-documentation/sitemap.xml
