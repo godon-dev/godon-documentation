@@ -1465,43 +1465,45 @@ document.addEventListener("DOMContentLoaded", function() {
   <h1>Detection_Capabilities</h1>
 
 <h2 id="detection-capabilities">Detection Capabilities</h2>
-<p>Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, four categories emerge:</p>
+<p>Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes.</p>
+<p><strong>Current status:</strong> Active probing + CFAR detection works across all channel types. The earlier spectral watermarking method was limited to linear additive channels. The taxonomy below documents why different channels are harder, and which methods apply to each.</p>
 <table>
 <thead>
 <tr>
 <th>Channel Type</th>
-<th>Detection</th>
-<th>Method</th>
-<th>Data Requirement</th>
+<th>Spectral Method</th>
+<th>Active Probing + CFAR</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Linear additive</td>
-<td>Reliable</td>
-<td>FFT + permutation</td>
-<td>100-300 trials</td>
+<td>Reliable (FFT + permutation)</td>
+<td>Works (overkill)</td>
+<td><strong>Solved</strong></td>
 </tr>
 <tr>
 <td>Nonlinear, intermediate state measurable</td>
-<td>Promising</td>
-<td>Spectral analysis on raw sensors</td>
-<td>300-1000 trials (estimated)</td>
+<td>Failed at objective level</td>
+<td><strong>Validated</strong></td>
+<td><strong>Solved</strong></td>
 </tr>
 <tr>
 <td>Deeply nonlinear cascaded</td>
-<td>No reliable method yet</td>
-<td>Research ongoing</td>
-<td>Requires intermediate state measurement or higher trial counts</td>
+<td>Failed (SNR ~0.002)</td>
+<td><strong>Validated on greenhouse</strong></td>
+<td><strong>Solved</strong></td>
 </tr>
 <tr>
 <td>Non-stationary</td>
-<td>Research</td>
-<td>Phase-aware methods</td>
-<td>Depends on phase transition frequency</td>
+<td>Failed (assumption violated)</td>
+<td>Promising (local reference window)</td>
+<td><strong>In progress</strong></td>
 </tr>
 </tbody>
 </table>
+<p>The greenhouse bench (deeply non-linear, cascaded) was the hardest test case and is now validated. See <a href="../concept_interference_detection/">Interference Detection</a> for full methodology and results.</p>
 <h3 id="linear-additive-channels">Linear Additive Channels</h3>
 <p>The coupling signal is added directly to the receiver's objectives. The watermark passes through unchanged — same frequency, proportional amplitude.</p>
 <div class="highlight"><pre><span></span><code>    Sender parameter → [ + coupling_delta ] → Receiver objective
