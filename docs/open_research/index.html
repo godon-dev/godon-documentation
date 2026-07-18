@@ -1026,13 +1026,30 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#impulse-based-detection" class="md-nav__link">
+  <a href="#active-probing-cfar-detection-validated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Impulse-Based Detection
+        Active Probing + CFAR Detection — VALIDATED
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Active Probing + CFAR Detection — VALIDATED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#original-proposal-now-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Original Proposal (Now Implemented)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1637,13 +1654,30 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#impulse-based-detection" class="md-nav__link">
+  <a href="#active-probing-cfar-detection-validated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Impulse-Based Detection
+        Active Probing + CFAR Detection — VALIDATED
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Active Probing + CFAR Detection — VALIDATED">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#original-proposal-now-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Original Proposal (Now Implemented)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1799,11 +1833,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="cdma-encoding-for-scale">CDMA Encoding for Scale</h3>
 <p>The current FDMA approach (prime-numbered periods) scales to ~20-30 breeders with a few hundred trials. For significantly larger deployments, spread-spectrum approaches like direct-sequence CDMA with orthogonal Walsh-Hadamard codes would offer better noise resilience.</p>
 <p>CDMA requires chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials, codes are too short to correlate reliably. This becomes viable with thousands of trials in production deployments — a natural transition as optimization campaigns grow longer.</p>
-<h3 id="impulse-based-detection">Impulse-Based Detection</h3>
-<p>All methods tested so far send continuous signals (sines, codes) and rely on frequency content surviving the channel. Nonlinear transforms distort frequencies. Dead zones kill small perturbations. Non-stationary channels shift characteristics mid-signal.</p>
-<p>An alternative: send discrete extreme-value impulses instead of continuous tones. Push parameters to the edge of (or beyond) the safe operating range for a single trial. The impulse does not rely on frequency content — it relies on timing and amplitude. You know when the impulse was sent. You look for a response in the receiver's objectives after that timestamp.</p>
-<p>Detection method: split the receiver's objective values into post-impulse windows vs baseline. Run a rank-sum test (Mann-Whitney U) or Kolmogorov-Smirnov. No spectral analysis. No frequency preservation assumptions. No stationarity assumptions.</p>
-<p>This is not a new invention — it is the standard approach in fields that deal with hostile channels:</p>
+<h3 id="active-probing-cfar-detection-validated">Active Probing + CFAR Detection — VALIDATED</h3>
+<p><strong>This approach is now the primary detection method.</strong> Validated July 2026 on the greenhouse bench (deeply non-linear cascaded channel). See <a href="../concept_interference_detection/">Interference Detection</a> for full methodology and results.</p>
+<p>The earlier spectral watermarking approach (FFT + permutation) has been superseded. It is retained below for historical context and for linear channels where it remains a lighter-weight alternative.</p>
+<h4 id="original-proposal-now-implemented">Original Proposal (Now Implemented)</h4>
+<p>The insight was that continuous signals (sines, codes) fail on hostile channels because frequency content doesn't survive non-linear transforms. Impulses succeed because they only need a perturbation to propagate — not frequency preservation. This is the standard approach in fields that deal with hostile channels:</p>
 <ul>
 <li>Seismology: earthquake impulses through heterogeneous rock</li>
 <li>Active sonar: acoustic pings through nonlinear ocean layers</li>
@@ -1847,7 +1881,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </table>
 <p>The strategy becomes: unknown channel -&gt; impulse probe first. If it's linear, downgrade to cheaper sine watermark. One method with a strength dial, instead of four channel types with four methods.</p>
 <p><strong>Implications for architecture:</strong> impulses are inherently disruptive. They don't mix with optimization. This forces the separation that the current code ducks: detection and optimization are different jobs. Options are a dedicated probe agent (exists only to send impulses) or a dedicated phase (existing breeder switches to impulse mode temporarily).</p>
-<p>Not yet tested. The greenhouse bench is the first target.</p>
+<p><strong>Status: VALIDATED.</strong> The greenhouse bench detection succeeded with active probing + CFAR. The channel taxonomy table in the original proposal was resolved — all non-linear channel types are now detectable. Non-stationarity remains partially open (local reference window helps but doesn't fully solve drift).</p>
 <h3 id="interference-intensity-measurement">Interference Intensity Measurement</h3>
 <p>Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric.</p>
 <p>An optimizer running against a power grid at 10% interference and one at 90% interference face fundamentally different problems. Intensity measurement gives operators the information to decide whether to act.</p>
