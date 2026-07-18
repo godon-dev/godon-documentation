@@ -1,5 +1,5 @@
 ---
-description: "godon Interference Detection — autonomous discovery of coupling between independent optimizers through active probing and CFAR detection."
+description: "godon Interference Detection — detect when independent optimizers degrade each other through shared infrastructure using watermark-based spectral analysis."
 ---
 
 ## Interference Detection
@@ -8,7 +8,7 @@ When multiple optimizers operate on shared infrastructure — a power grid, a da
 
 **Neither optimizer knows this is happening.**
 
-godon's interference detection makes this invisible problem visible. The current method is **active probing with CFAR detection** — one optimizer pushes extreme parameters while the other holds still and measures the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.
+godon's interference detection makes this invisible problem visible. It works by injecting a known mathematical signal (a *watermark*) into each optimizer's parameters, then observing whether that signal appears in another optimizer's objective values. If it does, the optimizers are interfering.
 
 ### The Problem
 
@@ -31,154 +31,157 @@ Optimizer A adjusts load distribution. Optimizer B adjusts cost parameters. Both
 
 This isn't theoretical — it happens in any system where multiple optimization workloads share resources.
 
-### Why Not Passive Detection?
+### How Detection Works
 
-Earlier work explored spectral watermarking — injecting a continuous sinusoidal signal into optimizer parameters and detecting it via FFT in another optimizer's objectives. This worked reliably on **linear additive channels** (e.g. microgrid power bus) but failed completely on **non-linear cascaded channels** (e.g. greenhouse climate control).
+The detection pipeline has three stages:
 
-The greenhouse coupling signal passes through 6+ non-linear transforms — thermal inertia, multiplicative growth models, dead zones, phase-dependent sensitivity — before reaching the objectives. Each stage distorts or attenuates frequency content. By the time the signal reaches the observable objectives, its SNR is approximately 0.002. No spectral method can recover it.
+#### 1. Watermark Injection
 
-All passive statistical methods were evaluated and failed: cross-correlation, Granger causality, mutual information, transfer entropy, convergent cross mapping. The fundamental barrier was not the detection algorithm but the **exploration noise** — the receiver's own optimization produces objective variance 500× larger than any coupling signal. No statistical method can extract a signal buried 500× below the noise floor.
-
-### Active Probing Protocol
-
-The solution is not a better passive detector. It is to stop being passive.
-
-Instead of injecting a continuous signal and hoping it survives the channel, the protocol actively creates a perturbation large enough to survive any non-linear distortion, then measures the response while eliminating the dominant noise source.
-
-#### Roles: Sender and Receiver
-
-Two breeders participate. One becomes the **sender**, the other the **receiver**. They coordinate through a shared lease table:
-
-1. **OPTIMIZE** — Both breeders optimize normally until enough trials accumulate.
-2. **HOLD_CALIB** — Sender acquires the lease, holds at neutral parameters, waits for receiver readiness.
-3. **IMPULSE_CALIB** — Sender probes at decreasing amplitude (1.0 → 0.5 → 0.25 → 0.125) to find the largest impulse that doesn't violate guardrails.
-4. **PUSH** — Sender applies extreme parameters for N trials.
-5. **PAUSE** — Sender returns to neutral parameters for N trials.
-6. **COOLDOWN** — Sender releases lease. Receiver can now acquire lease.
-7. **HOLD** — Receiver holds neutral parameters throughout the sender's push/pause, recording observations.
-
-Turn-taking is automatic: after cooldown, roles swap. Both directions are tested.
-
-#### Why This Works Where Passive Methods Failed
-
-Two key differences:
-
-1. **The perturbation is large enough to survive the channel.** Extreme parameters push the system far from its operating point. The coupling delta is proportional to the parameter delta — a large push creates a large thermal transfer that survives non-linear transforms.
-
-2. **The receiver holds still, eliminating exploration noise.** The 500× noise barrier vanishes. The only remaining variance is the system's intrinsic stochasticity, which CFAR handles.
-
-### CFAR Detection
-
-The detector uses a Constant False Alarm Rate (CFAR) approach — the same principle used in active sonar, radar, and seismology for detecting signals in unknown noise environments.
-
-#### Reference Window
-
-The noise floor is estimated from the receiver's hold_calib trials — the trials where the receiver sits at neutral parameters and the sender is also holding (before push starts). These are pure noise samples.
-
-Critical: the reference must exclude the **sender's own hold_calib trials** (`coord_state=hold_calib`), which include unstable early readings as the sender's system stabilizes. Including them inflates the noise estimate by an order of magnitude.
-
-#### Adaptive Threshold
+Each breeder (optimizer driver) injects a unique mathematical fingerprint into its trial parameters. The fingerprint is a multi-frequency signal — a sum of sinusoidal perturbations at specific periods, applied to selected parameters.
 
 ```
-k = N × (Pfa^(-1/N) - 1)
-threshold = k × MAD
+    Breeder A watermark: periods [29, 37]
+    Breeder B watermark: periods [67, 71]
+
+    (Non-overlapping periods — no shared frequencies between breeders)
 ```
 
-Where N = number of reference cells, Pfa = false alarm probability (1 - detection_confidence), MAD = median absolute deviation of reference values.
+The periods are drawn from a pool of prime numbers, with each breeder assigned a unique, non-overlapping set. This ensures that any spectral power at Breeder A's frequencies in Breeder B's observations can *only* come from interference — not from Breeder B's own watermark.
 
-More reference data → lower k → more sensitive. The `detection_confidence` parameter (default 0.95) is configurable.
+#### 2. Observation and Alignment
 
-#### Detection Criterion
+The observer collects trial data from both breeders, aligning them by timestamp. After self-subtraction (removing each breeder's own watermark contribution from its objective values), the residual signal contains only external influences.
 
-For each channel, both **rising edge** (baseline → push) and **falling edge** (push → pause) must exceed the threshold. This ensures the ABA pattern is present — not just a random spike.
+#### 3. Spectral Detection
 
-### Observations: Separate from Objectives
+The observer performs an FFT (Fast Fourier Transform) on the aligned residual signal, measuring spectral power at the sender's known watermark frequencies. A permutation test (5000 random shuffles) determines whether the observed spectral power is statistically significant:
 
-Detection channels are explicitly separated from optimization targets:
+- **Null hypothesis**: the residual signal has no structure at the sender's frequencies
+- **Test statistic**: combined spectral power at the sender's periods
+- **p-value**: fraction of random shuffles that produce equal or greater power
+- **Detection threshold**: p < 0.05
 
-| Section | Purpose | Example |
-|---|---|---|
-| `objectives` | What optuna optimizes | growth_rate, energy, water |
-| `observations` | What the detector reads | max_temp, max_co2, max_humidity |
-| `guardrails` | Safety limits | max_temp (hard_limit=40) |
-
-Observations are collected per trial but never fed into the optuna Pareto front. The detector merges them at query time — all channels checked independently.
+The permutation test is non-parametric — no assumptions about the noise distribution, the optimizer's dynamics, or the coupling channel's characteristics.
 
 ### Validation Results
 
-Validated on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):
+The detection was validated on a microgrid optimization scenario with two breeders optimizing four objectives (load balance, renewable utilization, grid stability, and energy cost). The coupling factor was varied from 0.0 (no coupling) to 0.9 (strong coupling).
 
-#### Coupling = 0.9 (Coupled)
+| Coupling | obj0 | obj1 | obj2 | obj3 (energy cost) |
+|----------|------|------|------|-------------------|
+| 0.0 | clean (p=0.90) | clean (p=1.00) | clean (p=0.27) | clean (p=0.99) |
+| 0.1 | detected (p=0.005) | clean (p=0.61) | detected (p=0.0002) | clean (p=0.73) |
+| 0.5 | detected (p=0.005) | detected (p=0.034) | detected (p=0.004) | clean (p=0.74) |
+| 0.9 | detected (p=0.0004) | detected (p=0.0002) | detected (p=0.0002) | clean (p=0.88) |
 
-| Direction | Channel | Detected | Baseline | Push | Pause | MAD | Edge |
-|---|---|---|---|---|---|---|---|
-| B2→B1 | growth_rate | **Yes** | 0.720 | 0.626 | 0.851 | 0.011 | 0.226 |
-| B2→B1 | max_temp | **Yes** | 28.0°C | 29.7°C | 25.9°C | 0.140 | 3.8°C |
-| B1→B2 | growth_rate | **Yes** | 0.849 | 0.703 | 0.851 | 0.003 | 0.148 |
-| B1→B2 | max_temp | **Yes** | 25.9°C | 28.5°C | 19.3°C | 0.351 | 9.2°C |
-| B1→B2 | max_humidity | **Yes** | 0.660 | 0.698 | 0.593 | 0.001 | 0.104 |
+**Key observations:**
 
-Bidirectional detection. Growth_rate and temperature are the strongest coupling channels.
+- **Zero false positives**: at coupling=0.0, no objectives are falsely flagged. The non-overlapping period assignment eliminates spectral contamination between breeders.
+- **Monotonic detection**: as coupling strength increases, more objectives show detectable interference, and detection confidence (lower p-values) increases.
+- **Objective-specific sensitivity**: energy cost (obj3) shows no interference at any coupling level — this objective is not affected by the coupling channel in the microgrid scenario.
+- **Spectral power scales with coupling**: the actual measured power at watermark frequencies increases proportionally with coupling strength, providing a path toward intensity measurement.
 
-#### Coupling = 0.0 (Control — Uncoupled)
+### Scaling to Six Breeders
 
-| Direction | Detected |
-|---|---|
-| B2→B1 | **No** |
-| B1→B2 | **No** |
+The detection pipeline was validated at 6-breeder scale using a microgrid bench scenario with coupling_factor=0.9. Each breeder controlled an independent microgrid simulator, with coupling configured between all pairs. Five of six breeders produced 450+ trials each, yielding 20 pairwise detection tests.
 
-**Zero false positives.** The CFAR detector stays silent when no coupling exists. A large temperature swing (7.7°C) was observed in the control run, but the rising edge was within the CFAR band — the ABA pattern was not present, so detection correctly rejected it.
+The detection method is FFT + Rayleigh phase coherence: after FFT spectral analysis identifies power at the sender's watermark frequencies, a Rayleigh test checks whether the demodulated phase angles cluster non-uniformly. Both tests must agree for a positive detection.
 
-### Key Insights
+| Pair | Detected | p-value | SNR | Method |
+|------|----------|---------|-----|--------|
+| 1 -> 2 | Yes | 0.0002 | 12.6 | fft_rayleigh |
+| 1 -> 3 | Yes | < 0.001 | 8.2 | fft_rayleigh |
+| 1 -> 6 | Yes | < 0.001 | 9.1 | fft_rayleigh |
+| 2 -> 3 | No | 0.34 | 1.1 | fft_rayleigh |
+| 3 -> 4 | Yes | < 0.001 | 7.4 | fft_rayleigh |
+| 4 -> 6 | Yes | < 0.001 | 6.8 | fft_rayleigh |
 
-1. **Active probing beats passive observation.** The impulse survives non-linear channels where continuous signals die. Not smarter algorithms — stronger signal.
-2. **CFAR handles unknown noise.** Adaptive threshold from local reference statistics. No Gaussian assumption, no fixed threshold.
-3. **The reference window must be clean.** Sender's own hold_calib contaminated the noise floor (MAD 0.18 vs 0.02). Filtering to receiver-only reduced it 18×.
-4. **Temperature is the primary coupling channel.** Thermal transfer is immediate and proportional. Growth_rate works because it's downstream of temperature.
-5. **Turn-taking gives both directions automatically.** The lease-based coordination means each breeder takes turns. Both directions tested without configuration.
+(Representative subset of 20 pairwise tests.)
 
-### Current Limitations
+Key observations from the 6-breeder run:
 
-**Calibration is bypassed, not solved.** When `hold_params` are specified in config, the flatness search is skipped. The generic case — discovering stable hold parameters autonomously — remains open.
+- **High specificity**: not every pair triggers. The 2->3 non-detection shows the method discriminates between coupled and uncoupled pairs at scale.
+- **No false positives**: the permutation test baseline correctly identifies noise-only spectra across all pairwise tests.
+- **Multi-frequency separation works**: with 6 breeders each assigned unique prime period pairs, the CDMA-like frequency separation prevents cross-contamination between watermark signals.
+- **This is not a 2-breeder toy demo**: 6 independent optimizers with unique watermark slots, 20+ pairwise tests, composite multi-frequency watermarks separating overlapping signals.
 
-**Non-stationarity partially handled.** The local reference window (5-8 trials) limits exposure to drift, but the greenhouse crop model still drifts over time. Longer windows would include more drift, inflating MAD.
+The 6-breeder scenario, configuration, and workflow are in [`examples/bench/scenario-microgrid-6breeder`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid-6breeder).
 
-**Lease timing is fragile.** The 90-second lease with 15-second trials requires tight coordination. Untested at scale.
+### Design Principles
+
+**Non-overlapping frequency assignment**: Each breeder uses unique prime periods from a shared pool. The current implementation uses 12 primes supporting up to 6 breeders with 2 periods each. The pool can be extended — primes are infinite — but practical scaling is limited by FFT frequency resolution: with N trials, frequencies closer than 1/N apart become indistinguishable. Small primes are well-separated, so 20-30 primes are feasible with a few hundred trials. Beyond that, adjacent primes converge spectrally and require proportionally more data, at which point alternative encodings (see below) become more efficient.
+
+**No distributional assumptions**: The permutation test compares the observed spectral power against random shuffles of the same data. It works regardless of the optimizer's dynamics, the noise characteristics, or the coupling channel's properties.
+
+**Scenario-agnostic**: The watermark encoding (`MultiFrequencyMultiParam`) accepts arbitrary parameters and periods. The detection reads watermark metadata from trial records. No scenario-specific code in the detection pipeline.
+
+**Non-invasive**: The watermark amplitudes are small perturbations within the optimizer's parameter space. They don't alter the optimization's convergence behavior — they're embedded in the existing search process.
 
 ### Channel Taxonomy
 
-The active probing approach resolves the channel type problem that blocked spectral methods:
+Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, we identify four categories:
 
-| Channel Type | Spectral Method | Active Probing + CFAR | Status |
+| Channel Type | Detection | Method | Data Requirement |
 |---|---|---|---|
-| Linear additive | Reliable | Works (overkill) | **Solved** |
-| Non-linear, intermediate state measurable | Failed | **Validated** | **Solved** |
-| Deeply non-linear cascaded | Failed (SNR ~0.002) | **Validated on greenhouse** | **Solved** |
-| Non-stationary | Failed | Promising (local reference) | **In progress** |
+| Linear additive | Reliable | FFT + permutation | 100-300 trials |
+| Nonlinear, intermediate state measurable | Promising | Spectral analysis on raw sensors | 300-1000 trials (estimated) |
+| Deeply nonlinear cascaded | No reliable method yet | Research ongoing | Requires intermediate state measurement or higher trial counts |
+| Non-stationary | Research | Phase-aware methods | Depends on phase transition frequency |
 
-One method for all channel types. The strategy: active probe first. No need to classify the channel and choose a method — the impulse doesn't care about the channel's transfer function.
-
-For detailed channel descriptions with real-world examples, see [Detection Capabilities](detection_capabilities.md).
+This taxonomy is intentionally honest. Interference detection is not a universal capability — it depends on the nature of the coupling channel. Documenting these boundaries is as important as documenting successes: it tells operators when they can trust the detection result and when they need additional measurement points or dedicated analysis phases. For detailed descriptions of each channel type with real-world examples, see [Detection Capabilities](detection_capabilities.md).
 
 ### Outlook
 
-Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably.
+Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably. The detection result (present/absent) opens the door to a much richer understanding of how optimizers interact through shared systems.
 
 #### Intensity Measurement
 
-Detection answers "is there interference?" The CFAR edge magnitude answers "how much?" The step size on the receiver scales with coupling strength — this relationship can be calibrated into an interference intensity metric.
+Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric. An optimizer running against a power grid at 10% interference and one at 90% interference face fundamentally different problems. Intensity measurement gives operators the information to decide whether to act.
 
 #### Interference Topology
 
-With three or more optimizers, pairwise detection results form a coupling graph — directed, weighted, discovered empirically. No human needs to specify the topology. The agents map it through probing.
+With three or more optimizers, the question becomes: who interferes with whom, through what? The pairwise detection results between all breeders form an interference graph — a directed, weighted graph where nodes are optimizers, edges are interference channels, and weights are intensity. This topology reveals the structure of the system: clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference.
 
-#### Coupling-Aware Optimization
+```
+    ┌──────────┐  0.7  ┌──────────┐
+    │ Breeder A │──────▶│ Breeder B │
+    └──────────┘       └──────────┘
+         │                  │
+      0.2│               0.1│
+         ▼                  ▼
+    ┌──────────┐  0.0  ┌──────────┐
+    │ Breeder C │──────▶│ Breeder D │
+    └──────────┘       └──────────┘
+```
 
-Once coupling is detected, breeders can change behavior: avoid the neighbor's parameter space (competitive) or coordinate search (cooperative). Detection becomes the sensing layer of a closed loop.
+In this example, A heavily interferes with B through shared infrastructure, while C and D are essentially independent. The topology tells you where to focus decoupling efforts.
+
+#### Per-Parameter Tracing
+
+Not all parameters contribute equally to interference. By watermarking individual parameters and analyzing which ones propagate through the coupling channel, the detection can trace interference to specific configuration seams — the exact points where one optimizer's decisions leak into another's domain. This enables targeted decoupling: instead of isolating entire optimizers, you can adjust specific parameters or add constraints at the seams.
+
+#### Permeating Configuration
+
+As interference understanding deepens, the configuration of the optimization system itself can be adapted. If the interference topology shows that two optimizers conflict through a specific resource, that resource's configuration can be partitioned, scheduled, or isolated. The detection doesn't just observe the problem — it informs the system's architecture. Optimization becomes aware of its own multi-agent context and reconfigures at the seams.
+
+#### Temporal Dynamics
+
+Interference isn't static. As optimizers converge, their interference patterns shift. A resource that was heavily contested early in optimization may become stable later. Temporal tracking of interference intensity reveals these dynamics, enabling adaptive strategies: coordinate during high-interference phases, run independently during low-interference phases.
+
+#### Alternative Encoding Schemes
+
+The current approach uses sinusoidal watermarks detected via FFT — a frequency-division multiplexing (FDMA) scheme where each breeder occupies unique prime-numbered periods. This is a deliberate choice for the data regime optimization operates in: typically 200-300 discrete trial samples, not continuous analog signals with millions of data points.
+
+Spread-spectrum approaches like direct-sequence CDMA (DSSS) with orthogonal Walsh-Hadamard codes would scale to more breeders and offer better noise resilience, but they require chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials and 2-3 watermarked parameters, the codes would be too short to correlate reliably. FDMA with prime periods works because frequency resolution is achievable with short data windows — a single period of 37 samples is enough to distinguish that frequency from its neighbors.
+
+As optimization campaigns grow longer (thousands of trials in production deployments) or the number of concurrent optimizers increases significantly, CDMA-style encodings become viable. The transition would be natural — same watermark injection architecture, different encoding and detection kernels. Studying this transition, along with chirp signals for time-varying channels and wavelet-based encodings for non-stationary interference, is an open research direction.
+
+#### Cross-Scenario Generalization
+
+The detection framework is scenario-agnostic — the watermark encoding and spectral analysis make no assumptions about what's being optimized. Validating across diverse scenarios (power grids, data centers, supply chains, chemical plants) establishes the generality of the approach and reveals which interference patterns are universal vs. domain-specific.
 
 ### Further Reading
 
-- [Detection Capabilities](detection_capabilities.md) — channel taxonomy and detection boundaries
-- [Open Research](open_research.md) — active research directions
-- [Breeder](concept_breeder.md) — how breeders run optimization
-- [Reconnaissance](concept_reconnaissance.md) — how the observer collects data
+- [Breeder](concept_breeder.md) — how breeders run optimization and inject watermarks
+- [Architecture](architecture.md) — the overall system architecture
+- [Reconnaissance](concept_reconnaissance.md) — how the observer collects and analyzes trial data

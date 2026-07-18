@@ -65,15 +65,15 @@ The current FDMA approach (prime-numbered periods) scales to ~20-30 breeders wit
 
 CDMA requires chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials, codes are too short to correlate reliably. This becomes viable with thousands of trials in production deployments — a natural transition as optimization campaigns grow longer.
 
-### Active Probing + CFAR Detection — VALIDATED
+### Impulse-Based Detection
 
-**This approach is now the primary detection method.** Validated July 2026 on the greenhouse bench (deeply non-linear cascaded channel). See [Interference Detection](concept_interference_detection.md) for full methodology and results.
+All methods tested so far send continuous signals (sines, codes) and rely on frequency content surviving the channel. Nonlinear transforms distort frequencies. Dead zones kill small perturbations. Non-stationary channels shift characteristics mid-signal.
 
-The earlier spectral watermarking approach (FFT + permutation) has been superseded. It is retained below for historical context and for linear channels where it remains a lighter-weight alternative.
+An alternative: send discrete extreme-value impulses instead of continuous tones. Push parameters to the edge of (or beyond) the safe operating range for a single trial. The impulse does not rely on frequency content — it relies on timing and amplitude. You know when the impulse was sent. You look for a response in the receiver's objectives after that timestamp.
 
-#### Original Proposal (Now Implemented)
+Detection method: split the receiver's objective values into post-impulse windows vs baseline. Run a rank-sum test (Mann-Whitney U) or Kolmogorov-Smirnov. No spectral analysis. No frequency preservation assumptions. No stationarity assumptions.
 
-The insight was that continuous signals (sines, codes) fail on hostile channels because frequency content doesn't survive non-linear transforms. Impulses succeed because they only need a perturbation to propagate — not frequency preservation. This is the standard approach in fields that deal with hostile channels:
+This is not a new invention — it is the standard approach in fields that deal with hostile channels:
 
 - Seismology: earthquake impulses through heterogeneous rock
 - Active sonar: acoustic pings through nonlinear ocean layers
@@ -97,7 +97,7 @@ The strategy becomes: unknown channel -> impulse probe first. If it's linear, do
 
 **Implications for architecture:** impulses are inherently disruptive. They don't mix with optimization. This forces the separation that the current code ducks: detection and optimization are different jobs. Options are a dedicated probe agent (exists only to send impulses) or a dedicated phase (existing breeder switches to impulse mode temporarily).
 
-**Status: VALIDATED.** The greenhouse bench detection succeeded with active probing + CFAR. The channel taxonomy table in the original proposal was resolved — all non-linear channel types are now detectable. Non-stationarity remains partially open (local reference window helps but doesn't fully solve drift).
+Not yet tested. The greenhouse bench is the first target.
 
 ### Interference Intensity Measurement
 

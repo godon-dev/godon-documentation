@@ -4,18 +4,14 @@ description: "godon Detection Capabilities — channel taxonomy and honest bound
 
 ## Detection Capabilities
 
-Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes.
+Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, four categories emerge:
 
-**Current status:** Active probing + CFAR detection works across all channel types. The earlier spectral watermarking method was limited to linear additive channels. The taxonomy below documents why different channels are harder, and which methods apply to each.
-
-| Channel Type | Spectral Method | Active Probing + CFAR | Status |
+| Channel Type | Detection | Method | Data Requirement |
 |---|---|---|---|
-| Linear additive | Reliable (FFT + permutation) | Works (overkill) | **Solved** |
-| Nonlinear, intermediate state measurable | Failed at objective level | **Validated** | **Solved** |
-| Deeply nonlinear cascaded | Failed (SNR ~0.002) | **Validated on greenhouse** | **Solved** |
-| Non-stationary | Failed (assumption violated) | Promising (local reference window) | **In progress** |
-
-The greenhouse bench (deeply non-linear, cascaded) was the hardest test case and is now validated. See [Interference Detection](concept_interference_detection.md) for full methodology and results.
+| Linear additive | Reliable | FFT + permutation | 100-300 trials |
+| Nonlinear, intermediate state measurable | Promising | Spectral analysis on raw sensors | 300-1000 trials (estimated) |
+| Deeply nonlinear cascaded | No reliable method yet | Research ongoing | Requires intermediate state measurement or higher trial counts |
+| Non-stationary | Research | Phase-aware methods | Depends on phase transition frequency |
 
 ### Linear Additive Channels
 
