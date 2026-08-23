@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Architecture
 
-godon is a distributed system for live system optimization. It coordinates metaheuristic search algorithms with real-world effectuation and observation, running continuously against production systems.
+godon is a distributed system for live system optimization and coupling discovery. It coordinates autonomous optimization agents (breeders) with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
 
 ---
 
@@ -96,6 +96,24 @@ Workflow orchestration engine that schedules and executes godon jobs.
 | Dependency resolution | Coordinate multi-step workflows |
 
 Windmill provides the execution backbone without godon needing to implement scheduling logic.
+
+#### Godon Causal
+
+The measurement computation service. Breeders push parameters and observe objectives; causal owns everything computed FROM those trials:
+
+| Responsibility | Description |
+|----------------|-------------|
+| Coupling detection | CFAR on push/pause block contrasts — per (sender, receiver, channel), on demand |
+| Response curves | Per (sender, receiver, parameter, channel): measured level→shift shape with uncertainty bars |
+| Priced stopping | Per-curve gap analysis — a curve retires when remaining ignorance is cheaper than one more probe |
+| Persistence | Curves survive restarts (write-through + replay) and follow breeder lifecycle (purge cascade) |
+| Graph artifact | The measured coupling structure, exportable as a versioned artifact |
+
+Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` (single-hop and multi-hop).
+
+#### Godon Observer
+
+Observability: Prometheus metrics, trial history, the dashboard, and detection proxies to causal (port 8089).
 
 #### Worker Groups
 
@@ -207,6 +225,21 @@ The core cycle that each breeder worker executes:
 - Reconnaissance waits for steady state before collecting
 - Guardrail violations short-circuit the loop, mark trial failed
 - Archive DB write is async, doesn't block next sample
+
+### Characterization Loop (concurrent with optimization)
+
+Breeders in the same interference group coordinate through DB-backed leases (turn-taking: one sender, the rest hold):
+
+```
+  Sender: coverage walk — pick (parameter, level), push within guardrails,
+          pause, return to hold
+  Receivers: hold still, write observations with lease phase tags
+  Causal: per probe — median shift push vs pause, uncertainty bar (MAD),
+          curve update, convergence + gap pricing
+  Retirement: converged AND every gap priced below the local bar
+```
+
+The walk is deterministic (farthest-point level order: midpoint, extremes, quarters), so coverage is a contract — no level is skipped while the walk runs, and re-measurement within bars blends instead of accumulating noise.
 
 ---
 

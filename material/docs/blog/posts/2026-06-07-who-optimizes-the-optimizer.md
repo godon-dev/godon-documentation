@@ -5,14 +5,14 @@ tags:
   - technical
 authors:
   - matthias-tafelmeier
-description: "The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals."
+description: "The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, probe schedules, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals."
 ---
 
 # Who Optimizes the Optimizer?
 
 godon optimizes live systems. An operator defines objectives, the breeder explores parameter space, the observer collects results. Over many trials, the system converges on better configuration.
 
-But godon itself is a system with parameters. Detection sensitivity, watermark configuration, observation windows, guardrail thresholds, breeder meta-configuration. These parameters determine how well godon works. Who tunes them?
+But godon itself is a system with parameters. Detection sensitivity, probe schedules, observation windows, guardrail thresholds, breeder meta-configuration. These parameters determine how well godon works. Who tunes them?
 
 <!-- more -->
 
@@ -20,7 +20,7 @@ But godon itself is a system with parameters. Detection sensitivity, watermark c
 
 Every component in the godon stack has tunable parameters and measurable outcomes:
 
-- **Watermark design** — frequency, amplitude, number of frequencies, pattern shape. These determine how detectable the signal is against the system's noise floor. Too weak and interference goes undetected. Too strong and the watermark distorts the optimization itself.
+- **Probe design** — push amplitude, block lengths, pause spacing. These determine how detectable the response is against the system's noise floor. Too weak and interference goes undetected. Too strong and the probe distorts the optimization itself.
 - **Detection parameters** — observation window length, statistical significance threshold, permutation count for hypothesis testing, sampling rate. These determine detection accuracy, false positive rate, and detection latency.
 - **Observer sensitivity** — how aggressively the observer declares a coupling detection. Looser thresholds catch more interference but risk false positives. Tighter thresholds are reliable but may miss weak coupling.
 - **Guardrail thresholds** — the safety limits that protect production systems during optimization. These could adapt based on observed system behavior rather than remaining static.
@@ -48,7 +48,7 @@ If detection parameters can self-tune, several things become possible:
 - **Adaptive detection** — the system adjusts its sensitivity based on observed channel characteristics. No manual calibration for each deployment.
 - **Deployment-specific optimization** — detection parameters tuned for the noise floor, coupling dynamics, and exploration patterns of the specific system. Not generic defaults.
 - **Continuous improvement** — as the system runs more campaigns and collects more data, detection parameters can be refined. The system gets better at perceiving interference the longer it runs.
-- **Generalization across components** — the same pattern applies to guardrail thresholds, breeder meta-configuration, watermark design. Each component becomes a self-improving subsystem.
+- **Generalization across components** — the same pattern applies to guardrail thresholds, breeder meta-configuration, probe design. Each component becomes a self-improving subsystem.
 
 ## Where It Actually Stands
 
@@ -68,7 +68,7 @@ These are engineering challenges. The concept is sound. The machinery exists. Bu
 
 ## The Broader Direction
 
-Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then breeder meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then watermark design.
+Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then breeder meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then probe design.
 
 Eventually: coordination parameters. When multiple breeders need to account for each other, the coordination strategy itself has tunable parameters — how aggressively to decouple, how much to share, when to yield. These could be optimized by the same framework.
 

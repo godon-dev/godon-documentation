@@ -4,7 +4,7 @@ tags:
   - essay
 authors:
   - matthias-tafelmeier
-description: "No observer — human, AI, or biological — can detect coupling that isn't measured. The interaction with the system is irreducible. But the exploration is already happening. godon piggybacks on it."
+description: "No observer — human, AI, or biological — can detect coupling that isn't measured. The interaction with the system is irreducible. godon performs it deliberately: guarded probes, held still, measured responses."
 ---
 
 # Why Intelligence Isn't Enough
@@ -56,17 +56,13 @@ Every approach must do all four. This is irreducible. Whether you're a human wit
 
 An LLM writing heuristics on the fly still needs to deploy them, collect data, and iterate. Each iteration costs system time and carries risk. The exploration loop is unavoidable.
 
-## The Exploration Is Already Paid For
+## The Probe Is Cheap, Deliberate, and Safe
 
-Here's the insight that makes godon work: the exploration is already happening.
+Here's the insight that makes godon work: the interaction doesn't need to be exotic. It needs to be deliberate.
 
-The breeder is an optimization algorithm — a structured search through parameter space. It runs trials, evaluates fitness, and biases future trials toward better outcomes. It doesn't understand the system it's searching. It doesn't need to. It just searches, guided by feedback.
+The breeder is an optimization agent — a structured search through parameter space. The impulse protocol turns a slice of that search into a measurement: one agent applies a guarded push to parameters it already controls, within bounds it already respects, while the other holds still. The push is large enough to survive the channel; the hold eliminates the dominant noise — the other agent's own exploration. Push, release, compare: if the response shifts and recovers, a coupling path exists.
 
-The strain — the breeder's configuration for a specific domain — carries structural knowledge: which parameters exist, what types they are, what ranges are valid. It knows the shape of the parameter space but not the dynamics of the system. The search itself is blind.
-
-This blindness is a feature. The breeder presses on the parameter space without needing to understand coupling. The watermark — a known perturbation pattern embedded in the breeder's exploration — turns each trial into a probe. The observer watches for that watermark in other agents' metrics. When it appears, you've detected a coupling path.
-
-Zero additional exploration cost. The trials were already running. The watermark makes each one dual-purpose: a search for better configuration AND a probe for interference.
+The probe reuses the agents' own control knobs and safety rails. No new access, no fault injection, no exotic permissions. The measurement costs a handful of trials per direction, on a schedule the agents coordinate through leases.
 
 ## Complementary, Not Competitive
 
@@ -75,7 +71,7 @@ godon doesn't compete with AI. It provides what AI needs but can't generate itse
 - **godon detects** — interference between autonomous agents, one edge at a time
 - **AI reasons** — about what the detection means, what to do about it, how to communicate findings to operators
 
-The trajectory is clear: as LLMs become stronger, they become better at using detection results. But they still can't generate the detection signal. That requires a probe in the system. The watermark is the probe.
+The trajectory is clear: as LLMs become stronger, they become better at using detection results. But they still can't generate the detection signal. That requires a probe in the system. The guarded push is the probe.
 
 What could compete with godon is not a smarter observer but a different detection approach — a different way to embed and recover signals in optimization trails. That's the honest competitive landscape: detection method versus detection method.
 
@@ -83,7 +79,7 @@ What could compete with godon is not a smarter observer but a different detectio
 
 The argument of this article is simple: the coupling between autonomous agents is invisible to every observer that doesn't probe for it. No amount of intelligence — human, artificial, or biological — changes this, because the signal doesn't exist until someone makes it exist.
 
-godon makes it exist. Not by being smarter, but by piggybacking on exploration that's already happening and giving it purpose. The breeder is the pressure. The watermark is the dye. The observer watches where the dye appears.
+godon makes it exist. Not by being smarter, but by probing deliberately and measuring honestly. The breeder applies the pressure. The protocol turns that pressure into a question. The detector reads the answer.
 
 Intelligence reasons about what is. Detection reveals what wasn't visible. You need both. But detection comes first, because you can't reason about what you can't see.
 

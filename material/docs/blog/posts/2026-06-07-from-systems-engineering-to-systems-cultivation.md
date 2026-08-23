@@ -59,7 +59,7 @@ Cultivation requires something engineering doesn't: **perception of the living s
 
 ## The First Step Is Perception
 
-godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by embedding a known signal (a watermark) into an optimizer's exploration. When that signal appears in another optimizer's objectives, you've detected a coupling path — one agent's actions are reaching the other through shared state.
+godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one agent apply a guarded push to its parameters while the other holds still. If the second agent's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.
 
 Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.
 

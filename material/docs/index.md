@@ -41,13 +41,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ### Why Godon?
 
-- :fontawesome-solid-tower-broadcast: **Reveals hidden coupling** — Autonomous processes silently corrupt each other through shared substrate. Godon discovers these channels.
-- :fontawesome-solid-diagram-project: **Transitive topology discovery** — Discover internal live system interplay topology from behavior.
-- :fontawesome-solid-flask: **Causation, not correlation** — Real counterfactuals through experimentation, not inference from observation.
-- :fontawesome-solid-cube: **No upfront modeling** — The system's model emerges from its own response to pressure. The live system is the model.
-- :fontawesome-solid-microchip: **Breeder agents** — Safe, guarded, rollback-capable. Probe and tend in production.
+- :fontawesome-solid-tower-broadcast: **Reveals hidden coupling** — Autonomous processes silently corrupt each other through shared substrate. Godon discovers and measures these channels.
+- :fontawesome-solid-diagram-project: **Topology discovery** — Recover multi-agent coupling structure from behavior, not documentation.
+- :fontawesome-solid-chart-line: **Measured response curves** — Not just edges: full parameter→objective response shapes with uncertainty bars.
+- :fontawesome-solid-flask: **Causation, not correlation** — Real interventions with recovery checks, not inference from observation.
+- :fontawesome-solid-cube: **No upfront modeling** — The system's structure emerges from its own response to pressure.
+- :fontawesome-solid-microchip: **Breeder agents** — Safe, guarded, rollback-capable. Probe and same-knob optimization in production.
 - :fontawesome-solid-cogs: **Co-pilot validation** — Human and LLM intuition tested against reality — kept if better, discarded if not.
-- :fontawesome-solid-shield-halved: **Isolation certification** — The same signal that finds coupling can prove absence.
 
 ---
 
