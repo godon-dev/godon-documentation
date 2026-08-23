@@ -1,184 +1,59 @@
----
-description: "godon Open Research — active research directions for interference detection across nonlinear channels, intensity measurement, and topology mapping."
----
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Open Research
 
-Interference detection works reliably on linear coupling channels. The open research frontier is extending detection to nonlinear, cascaded, and non-stationary channels — and moving from binary detection to quantitative understanding.
+What is genuinely open, honestly bounded. The solved problems moved to [Detection Capabilities](detection_capabilities.md); this page is the frontier.
 
-### Methods Evaluated
+### Resolved (context, briefly)
 
-Over the course of development, several detection approaches were evaluated. The early methods were tested before the watermarking system matured — the original approach added noise to the sampler output rather than producing a clean sinusoidal signal by modulating the parameter directly. This means early failures are confounded with immature signaling. The methods have not been re-evaluated with the current watermarking.
+The method-choice question is closed. Passive statistics (FFT, mutual information, transfer entropy, Granger, CCM) failed on this problem class for a structural reason: the receiver's own exploration noise sits ~500× above any coupling signal in passive data. The shipped answer is the **impulse protocol** — deliberate, guarded pushes with the receiver holding still, detected by CFAR — validated across coupling shapes including deeply nonlinear cascaded channels and slow drift, zero false positives on controls, with a published boundary map. Passive methods remain interesting only as accelerators (ranking candidates for probe prioritization at scale).
 
-#### ABA (Pause One Breeder)
+### Composition on Nonlinear Channels (the keystone)
 
-Stop one optimizer and observe whether the other's behavior changes. Conceptually simple but operationally expensive — it requires pausing optimization campaigns, which defeats the purpose of continuous online detection. Each ABA cycle produces one data point. Compared to watermark-based detection, which produces a signal every trial without interrupting optimization, ABA is sluggish and impractical for production use.
+Edges compose additively — validated: measured two-hop response matches the composed prediction from measured one-hop curves, within uncertainty bars, at every level. The open question is **nonlinear composition**: when the coupling path itself is nonlinear (the intermediate's response function bends the signal), does curve composition still predict, and what correction machinery does it need? This is the make-or-break for prediction, tending, and everything above the map. Requires a bench capability that does not exist yet: nonlinearity in the edge itself.
 
-#### Statistical Methods (Cross-Correlation, Granger Causality, Mutual Information, Transfer Entropy, Convergent Cross Mapping, HSIC)
+### Fast Non-Stationarity
 
-A range of statistical and information-theoretic methods were evaluated for detecting coupling between optimizer time series. These are passive approaches — they don't require an injected signal. None produced reliable results on the greenhouse bench.
+Drift slower than the detection window is handled (local reference windows, drift flags on re-measurement disagreement). Phase transitions faster than the window — a system that changes regime mid-probe — remain open. Candidate directions: shorter adaptive blocks, dwell-based protocols, drift-rate estimation as a first-class measurement.
 
-Important caveat: these were evaluated with early signaling that added noise to the sampler rather than modulating parameters with a clean sinusoidal. The current watermarking produces a well-defined spectral signature. Whether these passive methods would perform better with the improved signal — or whether they could detect coupling even without watermarking — remains an open question.
+### Scaling the Scan
 
-#### Lock-In Detection
+2-6 agents validated. The O(N²) pairwise scan, turn-taking serialization, and scan-rate vs drift-rate at N >> 6 are open — partly engineering (parallel probe groups, spatial locality), partly fundamental (observability limits under drift). Group-scoped coordination and per-receiver curves (one sender walk measures all listeners) already removed one factor of N.
 
-Amplitude-phase detection at the known watermark frequency. Requires the optimizer to converge so that noise_std drops below the signal amplitude. Multi-objective Pareto optimization never converges — the optimizer keeps exploring indefinitely, so noise_std never stabilizes. Lock-in detection is effective for single-objective optimization where convergence occurs, but fundamentally incompatible with Pareto front exploration.
+### Prediction-Driven Rescan (the maintenance loop)
 
-#### FFT Spectral Detection
+A frozen measured map enables prediction: "if node A moves to X, node D responds by Y." When prediction fails, the map is stale — and the error localizes WHERE structure changed. Rescan the neighborhood, diff against the frozen map. The prediction error is the compass: it points toward ignorance; probe where it's most wrong. Designed, prototyped in analysis, not yet an engine loop.
 
-The current method. Goertzel algorithm at known watermark frequencies with Hann windowing, noise floor estimation from neighboring bins, and permutation testing for significance. Works reliably on linear additive channels (microgrid bench, all coupling strengths 0.0-0.9). On deeply nonlinear channels, the signal is too heavily distorted by the time it reaches the objectives for FFT to extract it at 200-300 trial budgets.
+### Multi-Cadence Coupling Spectroscopy
 
-### Greenhouse Nonlinear Channels
+The coupling structure revealed at one probe cadence is one view: slow probes see steady-state thermal coupling, fast probes see electrical/capacitive coupling. Different cadences excite different mechanisms; each yields a different graph. When one cadence suffices (dominant mechanism) the single map is honest; multiple concurrent mechanisms need multi-cadence probing, and detecting that need — via prediction error — is itself open.
 
-The greenhouse bench represents the hardest detection case. The coupling signal traverses 6+ nonlinear stages before reaching the objectives, with an SNR of ~0.002. Solving this would demonstrate that interference detection works across the full complexity spectrum, not just on linear channels.
+### Meta-Optimization of Sensing
 
-The coupling signal passes through:
+The protocol's own parameters (probe amplitude, block lengths, walk depth, convergence threshold) are tunable against measurement outcomes. The system optimizing its own sensing strategy — choosing experiments by expected information — is a natural, unsolved layer. The current walk is deliberately deterministic; adaptive experiment selection is a rung above it.
 
-1. Coupling delta (tiny perturbation)
-2. Thermal inertia (×0.01 per tick)
-3. Zone physics (mixing, diffusion)
-4. Multiplicative growth model with dead zones (zero derivative in optimal range)
-5. Phase-dependent sensitivity (1× → 3× jump between growth phases)
-6. Irreversible damage (permanent attenuation past thresholds)
-7. Sensor noise
-8. Receiver's own exploration variance (500× larger than coupling signal)
+### From Detection to Steering
 
-Every method tested so far has not produced reliable results at 200-300 trials. The question is whether higher trial counts or different detection strategies can overcome the signal death.
-
-For a visual comparison of signal propagation through the microgrid (linear) vs greenhouse (nonlinear) channels, see the [Signal Death Diagram](assets/signal-death-diagram.html).
-
-### Intermediate State Detection
-
-Measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted. The coupling signal may be detectable at intermediate points in the channel even when it's invisible at the final objectives.
-
-This requires targets to expose raw sensor channels in addition to optimization objectives — a natural extension of the target contract. The observer would analyze these raw channels using the same spectral pipeline, but on data that hasn't passed through the growth model's dead zones.
-
-### Dedicated Analysis Phases
-
-Holding the receiver optimizer still while the sender probes aggressively. This eliminates the 500× exploration noise that currently overwhelms the coupling signal. The trade-off is paused optimization on the receiver side during analysis.
-
-A dedicated analysis phase could be triggered automatically when the observer needs more signal power — the receiver pauses its optimization, the sender injects stronger watermarks, and the observer collects a clean signal. After analysis completes, both optimizers resume.
-
-### CDMA Encoding for Scale
-
-The current FDMA approach (prime-numbered periods) scales to ~20-30 breeders with a few hundred trials. For significantly larger deployments, spread-spectrum approaches like direct-sequence CDMA with orthogonal Walsh-Hadamard codes would offer better noise resilience.
-
-CDMA requires chip sequences of length 50-100+ per parameter to achieve reliable orthogonality. With only 200-300 total trials, codes are too short to correlate reliably. This becomes viable with thousands of trials in production deployments — a natural transition as optimization campaigns grow longer.
-
-### Impulse-Based Detection
-
-All methods tested so far send continuous signals (sines, codes) and rely on frequency content surviving the channel. Nonlinear transforms distort frequencies. Dead zones kill small perturbations. Non-stationary channels shift characteristics mid-signal.
-
-An alternative: send discrete extreme-value impulses instead of continuous tones. Push parameters to the edge of (or beyond) the safe operating range for a single trial. The impulse does not rely on frequency content — it relies on timing and amplitude. You know when the impulse was sent. You look for a response in the receiver's objectives after that timestamp.
-
-Detection method: split the receiver's objective values into post-impulse windows vs baseline. Run a rank-sum test (Mann-Whitney U) or Kolmogorov-Smirnov. No spectral analysis. No frequency preservation assumptions. No stationarity assumptions.
-
-This is not a new invention — it is the standard approach in fields that deal with hostile channels:
-
-- Seismology: earthquake impulses through heterogeneous rock
-- Active sonar: acoustic pings through nonlinear ocean layers
-- Ground-penetrating radar: electromagnetic impulses through soil
-- Medical percussion: tapping to detect fluid in tissue
-- Network traceroute: ICMP packets through congested routers
-- Materials ultrasound: acoustic pulses to detect cracks in metal
-
-In every case, continuous signals fail because the channel is hostile. Impulses succeed because they don't need the channel to preserve frequency content — only to propagate a perturbation.
-
-**Implications for the channel taxonomy:**
-
-| Channel Type | Current Method | Impulse Method |
-|---|---|---|
-| Linear additive | FFT + permutation (works) | Impulse + distribution test (also works, overkill) |
-| Nonlinear, measurable intermediate | Spectral on sensors (research) | Impulse + distribution test (promising) |
-| Deeply nonlinear cascaded | No reliable method | Impulse + distribution test (untested, theoretically strong) |
-| Non-stationary | Phase-aware methods (research) | Impulse + distribution test (timing-based, non-stationarity not a blocker) |
-
-The strategy becomes: unknown channel -> impulse probe first. If it's linear, downgrade to cheaper sine watermark. One method with a strength dial, instead of four channel types with four methods.
-
-**Implications for architecture:** impulses are inherently disruptive. They don't mix with optimization. This forces the separation that the current code ducks: detection and optimization are different jobs. Options are a dedicated probe agent (exists only to send impulses) or a dedicated phase (existing breeder switches to impulse mode temporarily).
-
-Not yet tested. The greenhouse bench is the first target.
-
-### Interference Intensity Measurement
-
-Detection answers "is there interference?" The next question is "how much?" The spectral power at watermark frequencies scales with coupling strength — this relationship can be calibrated into an interference intensity metric.
-
-An optimizer running against a power grid at 10% interference and one at 90% interference face fundamentally different problems. Intensity measurement gives operators the information to decide whether to act.
-
-### Interference Topology
-
-With three or more optimizers, pairwise detection results form an interference graph — a directed, weighted graph where nodes are optimizers, edges are interference channels, and weights are intensity.
-
-```
-    ┌──────────┐  0.7  ┌──────────┐
-    │ Breeder A │──────▶│ Breeder B │
-    └──────────┘       └──────────┘
-         │                  │
-      0.2│               0.1│
-         ▼                  ▼
-    ┌──────────┐  0.0  ┌──────────┐
-    │ Breeder C │──────▶│ Breeder D │
-    └──────────┘       └──────────┘
-```
-
-This topology reveals clusters of tightly-coupled optimizers, isolated components, and bottleneck resources that concentrate interference. The detection doesn't just observe the problem — it maps the structure.
-
-### Detection Difficulty Variables
-
-Coupling factor is not the only variable that determines whether detection succeeds. Multiple factors interact:
-
-| Variable | Effect on Detection | Range |
-|----------|-------------------|-------|
-| Coupling strength | How much signal transfers | 0.001 (barely visible) to 0.9 (trivial) |
-| Signal-to-noise ratio | Receiver's own exploration drowns weak coupling | 0.002 (greenhouse) to 1.0+ (microgrid) |
-| Number of nonlinear transforms | Each stage distorts or attenuates the signal | 1 (linear) to 6+ (cascaded) |
-| Transform type | Additive (benign), multiplicative (scaling), dead zone (destructive) | Varies per channel |
-| Dimensionality | More parameters and objectives increase noise floor | 2-3 (simple) to 20+ (complex) |
-| Stationarity | Coupling characteristics change over time | Stable to highly non-stationary |
-| Watermark design | Frequency choice, amplitude, number of frequencies | Configurable |
-| Receiver exploration variance | Wild exploration drowns weak coupling signals | 1× to 500× signal strength |
-
-The space is combinatorial but not infinite — roughly 5-6 key variables with 2-3 levels each. Characterizing where a bench falls in this space is necessary for choosing the right detection method.
-
-### Channel Classification
-
-An automated assessment that characterizes the coupling channel before choosing a detection method. Inject calibration signals, measure what comes out, classify:
-
-| Classification | Detection Strategy |
-|---------------|-------------------|
-| Linear additive | FFT + permutation test (current) |
-| Weakly nonlinear | Adapted spectral methods (research phase) |
-| Strongly nonlinear | No reliable method yet |
-| Non-stationary | Phase-aware methods (research phase) |
-
-**Open design question:** where does the classifier live? Part of the breeder (startup calibration), a separate probe unit, or part of the observer? Depends on whether channels are stable or shift over time — non-stationary channels suggest ongoing assessment is needed rather than one-time calibration.
-
-### Scaling Beyond Two Breeders
-
-Validated at 6-breeder scale (microgrid bench, coupling_factor=0.9). Pairwise FFT + Rayleigh detection generalizes to multi-breeder environments — 20 pairwise tests with high specificity. Multi-frequency composite watermarks with unique prime period pairs successfully separate overlapping signals from 6 independent optimizers.
-
-Remaining open questions:
-- Does interference cascade transitively (A->B->C)?
-- Does the presence of multiple interferers change detection reliability for individual pairs?
-- What trial budgets are needed to map N breeders for N >> 6?
-- Does pairwise detection hold at weaker coupling factors (below 0.5) with many simultaneous interferers?
-
-### Transitive Topology Discovery
-
-Each pairwise detection reveals one edge in a coupling graph. With three or more breeders, accumulated detections form a partial topology — not assumed, not modeled, but discovered from the system's own dynamics.
-
-The hypothesis: as more breeders explore and the observer detects more edges, the topology of how the system is internally connected emerges. This is proven for single edges on linear channels and demonstrated at 6-breeder scale (20 pairwise detections forming a partial interference graph). Whether it scales to reveal the full coupling structure of larger systems (N >> 6) is an open question.
-
-This connects to interference topology (above) but goes further — not just mapping who interferes with whom, but discovering the hidden structure of the system through transitive signal propagation.
-
-### Meta-Optimization of Detection
-
-The detection pipeline itself has tunable parameters: watermark frequency, amplitude, number of frequencies, trial budget, analysis window, permutation count. Choosing optimal values for these parameters given the channel characteristics is itself an optimization problem — the system optimizing its own sensing strategy.
-
-This connects to the broader meta-optimization direction: godon optimizing its own parameters (observer sensitivity, guardrail thresholds, watermark configuration) using the same optimization infrastructure it applies to external systems.
+The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. The open problems in order: composition on nonlinear channels (above), then joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
 
 ### Further Reading
 
-- [Detection Capabilities](detection_capabilities.md) — channel taxonomy and current detection status
-- [Bench Scenarios](bench_scenarios.md) — available benches for validation
-- [Interference Detection](concept_interference_detection.md) — full methodology and detection pipeline
+- [Detection Capabilities](detection_capabilities.md) — the validated boundary map
+- [Bench Scenarios](bench_scenarios.md) — where these questions get measured

@@ -1,80 +1,72 @@
----
-description: "godon Detection Capabilities — channel taxonomy and honest boundaries of interference detection across linear and nonlinear coupling channels."
----
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Detection Capabilities
 
-Not all coupling channels are equal. The detectability of interference depends on how the coupling signal propagates from one optimizer's parameters through the shared infrastructure to another optimizer's observed outcomes. Based on empirical validation and analysis, four categories emerge:
+What the impulse protocol — validated, with measured boundaries — covers. One method: non-destructive guarded pushes, ABA block design (push → pause → compare), CFAR detection with adaptive thresholds. The statistical family is radar and sonar's: constant false-alarm rate detection of a known-shape response in unknown noise.
 
-| Channel Type | Detection | Method | Data Requirement |
-|---|---|---|---|
-| Linear additive | Reliable | FFT + permutation | 100-300 trials |
-| Nonlinear, intermediate state measurable | Promising | Spectral analysis on raw sensors | 300-1000 trials (estimated) |
-| Deeply nonlinear cascaded | No reliable method yet | Research ongoing | Requires intermediate state measurement or higher trial counts |
-| Non-stationary | Research | Phase-aware methods | Depends on phase transition frequency |
-
-### Linear Additive Channels
-
-The coupling signal is added directly to the receiver's objectives. The watermark passes through unchanged — same frequency, proportional amplitude.
+### Linear and Moderately Nonlinear Channels
 
 ```
-    Sender parameter → [ + coupling_delta ] → Receiver objective
+    Sender parameter → [ coupling ] → Receiver objective
 ```
 
-Reliably detected with FFT + permutation test. Even weak coupling (0.1) produces detectable signal with sufficient trials.
-
-Real-world examples: shared power bus (load affects voltage), shared network link (bandwidth contention), shared memory bus (bandwidth allocation).
-
-### Nonlinear Channels with Measurable Intermediate State
-
-The coupling signal passes through nonlinear dynamics before reaching the objectives, but intermediate state variables (temperatures, pressures, flow rates) are measurable and less distorted than the final objectives.
-
-```
-    Sender parameter → [ nonlinear physics ] → Intermediate state (measurable) → [ nonlinear response ] → Objective
-                                       ↑ detection possible here                         ↑ signal may be heavily distorted here
-```
-
-Detection on intermediate state variables (raw sensor readings) is more promising than detection on derived objectives, because the signal hasn't yet passed through the response function's dead zones and multiplicative interactions. This requires targets to expose raw sensor channels in addition to optimization objectives — a natural extension of the target contract.
-
-Real-world examples: shared heating network (zone temperatures before growth model), shared cooling loop (inlet temperature before server response), shared compressed air (line pressure before actuator response).
+Fully covered. 21-cell sweep on the generic bench: detection floor between 0.1 and 0.2 coupling at noise σ=0.02; measurement error under 5%; zero false positives across all uncoupled controls. Coupling shapes (linear, saturation, threshold, polynomial) do not matter at adequate strength — the response is detected by its ABA signature, not its frequency content.
 
 ### Deeply Nonlinear Cascaded Channels
 
-The coupling signal passes through multiple cascaded nonlinear transformations — multiplicative interactions, piecewise-linear dead zones, state-dependent thresholds, irreversible damage — before reaching the observed objectives. At each stage, the signal is distorted, attenuated, or eliminated.
-
 ```
-    Sender parameter → [ coupling delta ]
-                      → [ thermal inertia (×0.01) ]
-                      → [ multiplicative growth model (dead zones, zero derivative in optimal range) ]
-                      → [ phase-dependent sensitivity (1× → 3× jump) ]
-                      → [ irreversible damage (permanent attenuation) ]
-                      → [ sensor noise ]
-                      → [ receiver's own exploration variance (500× larger than coupling) ]
-                      → Objective
+    Sender parameter → [ thermal inertia ] → [ multiplicative growth,
+    dead zones ] → [ phase-dependent sensitivity ] → [ sensor noise ]
+    → Receiver objective
 ```
 
-The signal-to-noise ratio at the objective level is approximately 0.002 — the coupling effect is 500 times weaker than the noise from the receiver's own optimization. The watermark signal is physically present but heavily distorted before it reaches the output.
+Covered — this is the greenhouse bench, the channel class that defeated every passive method. The impulse survives cascades because it does not rely on the channel preserving any signal structure, only propagating a perturbation: push hard within guardrails, measure whether the receiver's median moves and recovers. Validated bidirectionally at strong coupling, zero false positives on controls.
 
-No reliable method yet at the objective level. All tested approaches (FFT, mutual information, transfer entropy, Granger causality, cross-correlation, convergent cross mapping) have not produced reliable results on this channel type at typical trial budgets (200-300 trials).
+### Non-Stationary Channels (Slow Drift)
 
-Real-world examples: greenhouse climate control (waste heat → thermal inertia → zone physics → multiplicative growth → crop yield), chemical process control (catalyst temperature → reaction kinetics → yield with saturation), building HVAC (shared chilled water → zone mixing → comfort index with dead band).
+Covered at the bench's drift rates. The CFAR reference window is local (a handful of trials), limiting exposure to slow drift; re-measurements that disagree beyond bars are flagged as drift rather than blended — the instrument reports the change instead of smearing it.
 
-### Non-Stationary Channels
+### Honest Boundaries (Measured, Not Guessed)
 
-The coupling characteristics change over time. The same interference signal may be detectable in one operating phase and invisible in another.
+| Boundary | Where it sits |
+|---|---|
+| Noise floor | σ=0.05-0.10 at coupling 0.5: signal permanently below threshold — an SNR limit; more budget does not cross it |
+| Fast phase transitions | Non-stationarity faster than the detection window remains open |
+| Coupling-path nonlinearity | Detection is shape-agnostic; composition of edges validated on additive coupling — nonlinear edge composition is future work |
+| Scale | 2-6 agents validated; the coordination regime for 50+ is unbuilt |
 
-```
-    Phase 1: coupling visible (high sensitivity)
-    Phase 2: coupling hidden (low sensitivity)
-    Phase 3: coupling reversed (negative sensitivity)
-```
+### Beyond Detection: Characterization
 
-Methods that assume a stationary relationship between sender and receiver will produce inconsistent results — detecting interference in some windows and missing it in others. Temporal segmentation and phase-aware detection are potential approaches.
+Detection reports an edge exists. The same protocol, run to depth, measures its **response curve**: per (sender, parameter, channel), the full level→shift shape with uncertainty bars from raw sample scatter. Curves converge by blended re-measurement and retire by priced stopping — remaining ignorance (gap jump × width) cheaper than one more probe. Multi-agent groups: one sender's walk measures every holding receiver's curve simultaneously.
 
-Real-world examples: crop growth phases (CO2 sensitivity jumps 3× between seedling and flowering), day/night cycles (solar generation changes grid coupling characteristics), seasonal demand shifts (heating vs cooling mode changes infrastructure behavior).
+See [Interference Detection](concept_interference_detection.md) for the full method.
+
+### Real-World Channel Examples
+
+- Shared power bus — load affects voltage (linear additive)
+- Shared heating/cooling — waste heat through thermal inertia (nonlinear cascaded)
+- Shared compute — cache/memory contention (nonlinear, state-dependent)
+- Shared data paths — schema or queue coupling (logical coupling, any shape)
 
 ### Further Reading
 
-- [Interference Detection](concept_interference_detection.md) — full methodology and validation results
-- [Bench Scenarios](bench_scenarios.md) — available benches and their channel types
-- [Open Research](open_research.md) — active research directions for unsolved channel types
+- [Interference Detection](concept_interference_detection.md) — methodology and validation data
+- [Bench Scenarios](bench_scenarios.md) — the scenario library behind these claims
+- [Open Research](open_research.md) — the open cells and active directions

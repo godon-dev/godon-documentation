@@ -1,98 +1,97 @@
----
-description: "godon Bench Scenarios — available benchmark scenarios for interference detection, from linear to deeply nonlinear coupling channels."
----
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Bench Scenarios
 
-Bench scenarios are controlled environments for developing and validating interference detection. Each bench models a different coupling channel type — from simple linear additive channels to deeply nonlinear cascaded systems. Together they span the complexity space that real-world multi-optimizer deployments encounter.
+Bench scenarios are planted-reality experiments: a simulator with a known coupling topology (the ground truth), target and breeder definitions, and a GitHub Actions workflow that runs the full protocol against it. You plant the truth, the engine measures it, the comparison validates the instrument.
 
-The benches live in `examples/bench/` in the godon repository. Each has its own directory with docker-compose configuration, target definitions, and breeder configs.
+### Generic Bench (workhorse)
+
+The configurable synthetic coupling bench. Any topology: node count, per-node parameter and objective counts, coupling shapes (`linear`, `threshold`, `saturation`, `polynomial`), edge strengths, stacked noise (white, colored, drifting). Deterministic per seed.
+
+| Property | Value |
+|---|---|
+| Directory | [`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) (workflows: `bench-generic.yml`, `bench-characterization.yml`) |
+| Image | `ghcr.io/godon-dev/godon-bench-generic` |
+| Channel type | Any (per topology) |
+| Validation | 21-cell detection sweep + full characterization suite |
+
+**Characterization scenarios** (2-3 breeders, one carrier parameter, dead parameters as controls):
+
+- `scenario-characterization` — threshold carrier, the original loop-validation scenario
+- `scenario-characterization-saturation` — saturation carrier; validated against planted truth to ≤0.7σ per point
+- `scenario-characterization-ch1` — edge feeding objective_1: the per-channel mapping cell
+- `scenario-verification-star` — three agents, one edge, one uncoupled witness: per-receiver curve separation
+- `scenario-composition-gate` — chain topology (A → C → B): composed two-hop response vs measured — the composition validation cell
+
+**Detection sweep scenarios**: `scenario-generic-chain4` (4-node chain, topology recovery), `scenario-generic-pair`, `scenario-generic-noisy`, `scenario-generic-nonlinear`.
+
+Sweep results (linear coupling, noise σ=0.02): detection floor between 0.1 and 0.2 coupling strength; measurement error under 5%; **zero false positives** across all control cells; shape-agnostic at adequate coupling — saturation, threshold, and polynomial shapes all detected at strength 0.7. Honest boundary: at noise σ=0.10 with coupling 0.5, the signal sits permanently below the detection threshold — an SNR limit, not a budget limit.
 
 ### Microgrid
 
-A pair of coupled microgrid simulators sharing a power bus. Optimizer A adjusts load distribution on one microgrid; the coupling factor determines how much of A's load change leaks into B's grid.
+Linear additive coupling through a shared power bus. The first bench the engine was validated on; detection works across the full strength range (0.0-0.9).
 
 | Property | Value |
 |---|---|
-| Directory | [`examples/bench/scenario-microgrid`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid) (workflow: `bench-scenario-microgrid.yml`) |
+| Directory | [`examples/bench/scenario-microgrid`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid) (+ `scenario-microgrid-6breeder` for the 6-agent scale cell) |
 | Channel type | Linear additive |
-| Coupling mechanism | Shared power bus — neighbor load adds directly to objectives |
-| Detection status | Working reliably across all coupling strengths (0.0-0.9) |
-| Trials needed | 100-300 |
-| Configurable | `COUPLING_FACTOR` environment variable (0.0 to 0.9) |
-
-The watermark signal passes through the coupling channel unchanged — same frequency content, proportional amplitude. FFT-based spectral detection with permutation testing reliably detects interference even at weak coupling (0.1). Zero false positives at coupling=0.0.
-
-- See [Getting Started](getting_started.md) for a full walkthrough of this bench.
-
-### Microgrid 6-Breeder
-
-An extended microgrid bench with six coupled simulators, each controlled by an independent optimizer. All six share a power bus with configurable coupling. The scenario tests interference detection at scale — 30 possible pairwise interference channels with overlapping watermark signals.
-
-| Property | Value |
-|---|---|
-| Directory | [`examples/bench/scenario-microgrid-6breeder`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid-6breeder) (workflow: `bench-scenario-microgrid-6breeder.yml`) |
-| Channel type | Linear additive |
-| Coupling mechanism | Shared power bus — neighbor loads add directly to objectives, all pairs coupled |
-| Detection status | Validated — FFT + Rayleigh detection on 20 of 30 pairwise tests with high specificity |
-| Trials produced | 450+ per breeder (5/6 breeders active) |
-| Configurable | `coupling_factor` workflow input (default: 0.9) |
-| Watermark slots | 6 unique slots using prime period pairs (17/19, 23/29, 31/37, 41/43, 47/53, 67/71) |
-
-Each breeder receives a unique watermark slot — a pair of non-overlapping prime periods injected as multi-frequency composite perturbations. The observer performs pairwise detection across all ordered pairs using FFT spectral analysis and Rayleigh phase coherence testing.
-
-Results at coupling_factor=0.9: 5/6 breeders produced 450+ complete trials. Detection correctly identifies coupled pairs and does not fire on uncoupled pairs (e.g., breeder 2 -> breeder 3 non-detection at p=0.34). Zero false positives across all pairwise tests.
+| Validation | Pairwise detection 0.0-0.9; 6-breeder scale run |
 
 ### Greenhouse
 
-A pair of coupled greenhouse simulators sharing outside climate conditions. Optimizer A's waste heat, CO2 exhaust, and humidity drift affect the outside environment that Optimizer B's greenhouse is exposed to. The coupling signal then passes through zone thermal inertia, multiplicative growth models with dead zones, crop phase transitions with sensitivity jumps, irreversible damage thresholds, and sensor noise before reaching B's observed objectives.
+Deeply nonlinear cascaded coupling: waste heat and CO2 through thermal inertia, multiplicative growth with dead zones, crop-phase drift, irreversible damage thresholds. The historically hardest channel — and the one the impulse protocol was designed for: bidirectional detection validated at strong coupling, zero false positives on the uncoupled control.
 
 | Property | Value |
 |---|---|
-| Directory | [`examples/bench/scenario-4`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-4) (workflow: `bench-scenario-4.yml`, simulator image: `godon-bench-greenhouse`) |
-| Channel type | Deeply nonlinear cascaded |
-| Coupling mechanism | Waste heat, CO2 exhaust, humidity drift through thermal inertia, multiplicative growth, phase-dependent thresholds |
-| Detection status | No reliable method yet — research phase |
-| Signal path stages | Coupling delta → thermal inertia (×0.01) → zone physics → multiplicative growth (dead zones) → phase-dependent sensitivity (1x→3x) → irreversible damage → sensor noise → receiver exploration variance |
-| SNR at objectives | ~0.002 (coupling signal 500× weaker than receiver's own exploration noise) |
-
-The watermark signal is physically present in the system but heavily distorted by the time it reaches the observed objectives. All tested detection methods (FFT, mutual information, transfer entropy, Granger causality, cross-correlation, convergent cross mapping) have not produced reliable results at typical trial budgets (200-300 trials).
-
-Promising research directions:
-
-- **Higher trial counts** — thousands of trials may provide enough statistical power for methods like mutual information or distance correlation to detect the weak signal
-- **Intermediate state detection** — measuring interference at raw sensor readings (zone temperatures, CO2 levels) before the growth model, where the signal is less distorted
-- **Dedicated analysis phases** — holding the receiver optimizer still while the sender probes aggressively, eliminating the 500× exploration noise
+| Directory | [`examples/bench/scenario-4`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-4) |
+| Channel type | Deeply nonlinear cascaded + non-stationary (crop drift) |
+| Validation | Bidirectional detection at coupling 0.9; clean control at 0.0 |
 
 ### Detection Coverage
 
-| Scenario | Channel Type | Status |
+| Scenario | Channel type | Status |
 |---|---|---|
-| Microgrid | Linear additive | Reliable (2 breeders, coupling 0.0-0.9) |
-| Microgrid 6-Breeder | Linear additive | Validated at scale (6 breeders, 20 pairwise tests) |
-| Greenhouse | Deeply nonlinear cascaded | Research phase |
+| Generic (all shapes) | Configurable | Validated: sweep + characterization suite |
+| Microgrid | Linear additive | Validated (0.0-0.9) |
+| Microgrid 6-breeder | Linear additive | Validated at scale |
+| Greenhouse | Nonlinear cascaded, non-stationary | Validated (strong coupling) |
 
-As new benches are added, they should target specific gaps in this coverage — for example, a nonlinear channel with measurable intermediate state, or a non-stationary channel with phase transitions.
+Open cells (honest boundaries): non-stationarity with phase transitions faster than the detection window; coupling-path nonlinearity for composition (the bench composes additively — a nonlinearity-in-the-edge bench capability is future work).
 
 ### Adding a New Bench
 
-Each bench scenario follows a standard structure:
+Scenario structure:
 
 ```
 examples/bench/scenario-<name>/
-├── docker-compose.yml          # Simulator containers with coupling config
+├── topology.yaml          # planted ground truth (generic bench)
+│                          # — or docker-compose.yml for other simulators
 ├── targets/
-│   ├── <target>-1.yaml         # Target definition for simulator 1
-│   └── <target>-2.yaml         # Target definition for simulator 2
+│   └── node-N.yaml        # one target per node
 └── breeders/
-    ├── breeder-1.yml            # Breeder config for optimizer 1
-    └── breeder-2.yml            # Breeder config for optimizer 2
+    └── breeder-N.yml      # one breeder config per node
 ```
 
-The simulator should expose an HTTP API compatible with godon's target interface. The coupling mechanism should be configurable via environment variables. See the microgrid bench as a reference implementation.
+For the generic bench, only the topology file changes between scenarios. The characterization workflow discovers breeders and targets from the scenario directory (any node count). See an existing scenario as the reference; the generic bench's HTTP contract (`/{node}/apply`, `/{node}/metrics/json`) is the target interface.
 
 ### Further Reading
 
-- [Detection Capabilities](detection_capabilities.md) — channel taxonomy and detection status per channel type
-- [Open Research](open_research.md) — active research directions
-- See [Getting Started](getting_started.md) for a full walkthrough of this bench.
+- [Detection Capabilities](detection_capabilities.md) — what the validated method covers
+- [Getting Started](getting_started.md) — running your first scenario

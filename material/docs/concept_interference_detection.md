@@ -106,7 +106,7 @@ Observations are collected per trial but never fed into the optuna Pareto front.
 
 ### Validation Results
 
-Validated on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):
+Original bidirectional validation on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):
 
 #### Coupling = 0.9 (Coupled)
 
@@ -161,21 +161,17 @@ One method for all channel types. The greenhouse bench is simultaneously deeply 
 
 For detailed channel descriptions with real-world examples, see [Detection Capabilities](detection_capabilities.md).
 
-### Outlook
+### Beyond Detection (Shipped and Next)
 
-Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably.
+Detection is the entry point; the protocol runs deeper:
 
-#### Intensity Measurement
+**Response curves (shipped).** Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously.
 
-Detection answers "is there interference?" The CFAR edge magnitude answers "how much?" The step size on the receiver scales with coupling strength — this relationship can be calibrated into an interference intensity metric.
+**Topology recovery (shipped).** Pairwise measurements across a group assemble the coupling graph — validated on chain topologies with exact topology recovery and ~5-10% edge-strength error.
 
-#### Interference Topology
+**Composition (validated additive).** Measured edges compose: the two-hop response predicted from chained one-hop curves matches the directly measured response within bars. Nonlinear composition is the open frontier (see [Open Research](open_research.md)).
 
-With three or more optimizers, pairwise detection results form a coupling graph — directed, weighted, discovered empirically. No human needs to specify the topology. The agents map it through probing.
-
-#### Coupling-Aware Optimization
-
-Once coupling is detected, breeders can change behavior: avoid the neighbor's parameter space (competitive) or coordinate search (cooperative). Detection becomes the sensing layer of a closed loop.
+**Coupling-aware behavior (next).** Agents adapting to known coupling — the tending direction. Not yet built.
 
 ### Further Reading
 
