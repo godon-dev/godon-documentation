@@ -42,15 +42,15 @@ Real-world use cases, deployment guides, architecture explanations, blog posts. 
 
 godon is an empirical instrument for complex coupled systems — benches with planted truth, measured response curves, priced stopping, honest boundary maps. The program today is one independent scientist and AI collaborators; the roles below describe work that needs doing, not headcount. If you care about how complex systems actually behave under intervention (rather than how they are modeled or narrated), the entry points are concrete — the assets are public:
 
-**Run replications (the replicator).** [`scenario-composition-gate`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-composition-gate) (three agents, chained coupling: do measured one-hop curves compose to the two-hop response?) and `scenario-verification-star` (per-receiver curve separation with an uncoupled witness) each run via a single `bench-characterization.yml` dispatch on your own cluster. A reproduction report — confirmed, diverged, or surprising — is a genuine contribution.
+**Reproduce a validation cell.** [`scenario-composition-gate`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-composition-gate) (three agents, chained coupling: do measured one-hop curves compose to the two-hop response?) and `scenario-verification-star` (per-receiver curve separation with an uncoupled witness) each run via a single `bench-characterization.yml` dispatch on your own cluster. A reproduction report — confirmed, diverged, or surprising — is a genuine contribution.
 
-**Extend the boundary map (the experimentalist).** The detection boundary is an open grid: coupling strength × noise × shape. The published cells (21 so far, data in [`papers/detection/experiments/`](https://github.com/godon-dev/godon/tree/main/papers/detection/experiments)) each cost one bench run. Pick an untested cell, run it, append the result.
+**Extend the boundary map.** The detection boundary is an open grid: coupling strength × noise × shape. The published cells (21 so far, data in [`papers/detection/experiments/`](https://github.com/godon-dev/godon/tree/main/papers/detection/experiments)) each cost one bench run. Pick an untested cell, run it, append the result.
 
-**Work the open data (the analyst).** The sweep data and characterization curve exports (raw points with uncertainty bars) are in the repository. Independent statistical treatment — alternative estimators, stopping-rule critique, visualizations — strengthens the instrument.
+**Analyze the open data.** The sweep data and characterization curve exports (raw points with uncertainty bars) are in the repository. Independent statistical treatment — alternative estimators, stopping-rule critique, visualizations — strengthens the instrument.
 
-**Build instruments (the instrument maker).** The generic bench is one Rust container; a scenario is one topology YAML. A bench for a substrate you operate (with its real coupling physics) is the highest-value contribution there is.
+**Port a bench.** The generic bench is one Rust container; a scenario is one topology YAML. A bench for a substrate you operate (with its real coupling physics) is the highest-value contribution there is.
 
-**Attack the theory (the theorist).** Curve retirement uses a deliberately simple information-price argument (remaining ignorance = gap jump × width, vs the local measurement bar). The tests and data to attack it are public; a rigorous replacement would harden every measurement the engine makes.
+**Attack the stopping rule.** Curve retirement uses a deliberately simple information-price argument (remaining ignorance = gap jump × width, vs the local measurement bar). The tests and data to attack it are public; a rigorous replacement would harden every measurement the engine makes.
 
 The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.21962957) (Zenodo DOI) — the protocol, its validation, and its honest boundaries.
 
