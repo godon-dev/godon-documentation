@@ -116,8 +116,6 @@ Not limited to physical resource contention. The coupling problem exists whereve
 
 ## Capabilities
 
-### Shipped and Validated
-
 | Capability | Description |
 |------------|-------------|
 | **Coupling Discovery** | Detect interference between autonomous optimizers through guarded probing — validated across coupling shapes, with measured noise floors and zero false positives on controls |
@@ -129,16 +127,7 @@ Not limited to physical resource contention. The coupling problem exists whereve
 | **Training-Free** | No training data or model training required — learns from live system behavior |
 | **Self-Hosted** | Runs on your infrastructure. AGPLv3. No vendor lock-in |
 
-### Built On, Not Yet Built
-
-The direction below follows from discovery — the pieces are designed, not shipped:
-
-- **Diagnostics** — trace regressions to their source through measured coupling paths
-- **Coordination** — agents adapting behavior given known coupling
-- **Tending** — steering the whole system jointly toward better operating points
-- **Isolation certification** — proving decoupling empirically at runtime
-
-We keep this list explicit because the difference between shipped and intended is the difference between an instrument and a promise.
+The map's uses compound beyond measurement — what follows from discovery: tracing regressions through measured coupling paths, agents adapting to known coupling, steering the whole system jointly, certifying isolation empirically. What Flows From Discovery (above) sketches these directions.
 
 ## Caveats
 
