@@ -632,6 +632,28 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
+  <a href="#godon-causal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon Causal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#godon-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon Observer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#worker-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -685,6 +707,17 @@ document.addEventListener("DOMContentLoaded", function() {
     <span class="md-ellipsis">
       
         Optimization Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characterization-loop-concurrent-with-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characterization Loop (concurrent with optimization)
       
     </span>
   </a>
@@ -1531,6 +1564,28 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
+  <a href="#godon-causal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon Causal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#godon-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Godon Observer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#worker-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1584,6 +1639,17 @@ document.addEventListener("DOMContentLoaded", function() {
     <span class="md-ellipsis">
       
         Optimization Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#characterization-loop-concurrent-with-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Characterization Loop (concurrent with optimization)
       
     </span>
   </a>
@@ -1692,7 +1758,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <h2 id="architecture">Architecture</h2>
-<p>godon is a distributed system for live system optimization. It coordinates metaheuristic search algorithms with real-world effectuation and observation, running continuously against production systems.</p>
+<p>godon is a distributed system for live system optimization and coupling discovery. It coordinates autonomous optimization agents (breeders) with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.</p>
 <hr />
 <h3 id="high-level-overview">High-Level Overview</h3>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────┐
@@ -1791,6 +1857,41 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 </tbody>
 </table>
 <p>Windmill provides the execution backbone without godon needing to implement scheduling logic.</p>
+<h4 id="godon-causal">Godon Causal</h4>
+<p>The measurement computation service. Breeders push parameters and observe objectives; causal owns everything computed FROM those trials:</p>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coupling detection</td>
+<td>CFAR on push/pause block contrasts — per (sender, receiver, channel), on demand</td>
+</tr>
+<tr>
+<td>Response curves</td>
+<td>Per (sender, receiver, parameter, channel): measured level→shift shape with uncertainty bars</td>
+</tr>
+<tr>
+<td>Priced stopping</td>
+<td>Per-curve gap analysis — a curve retires when remaining ignorance is cheaper than one more probe</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>Curves survive restarts (write-through + replay) and follow breeder lifecycle (purge cascade)</td>
+</tr>
+<tr>
+<td>Graph artifact</td>
+<td>The measured coupling structure, exportable as a versioned artifact</td>
+</tr>
+</tbody>
+</table>
+<p>Rust service, port 8091. Key endpoints: <code>/detect/{sender}/{receiver}</code>, <code>/characterize</code> (probe results in, shift/delta/convergence out), <code>/curves</code>, <code>/predict</code> (single-hop and multi-hop).</p>
+<h4 id="godon-observer">Godon Observer</h4>
+<p>Observability: Prometheus metrics, trial history, the dashboard, and detection proxies to causal (port 8089).</p>
 <h4 id="worker-groups">Worker Groups</h4>
 <p>Workers are organized by job type:</p>
 <table>
@@ -1984,6 +2085,16 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 - Reconnaissance waits for steady state before collecting
 - Guardrail violations short-circuit the loop, mark trial failed
 - Archive DB write is async, doesn't block next sample</p>
+<h3 id="characterization-loop-concurrent-with-optimization">Characterization Loop (concurrent with optimization)</h3>
+<p>Breeders in the same interference group coordinate through DB-backed leases (turn-taking: one sender, the rest hold):</p>
+<div class="highlight"><pre><span></span><code>  Sender: coverage walk — pick (parameter, level), push within guardrails,
+          pause, return to hold
+  Receivers: hold still, write observations with lease phase tags
+  Causal: per probe — median shift push vs pause, uncertainty bar (MAD),
+          curve update, convergence + gap pricing
+  Retirement: converged AND every gap priced below the local bar
+</code></pre></div>
+<p>The walk is deterministic (farthest-point level order: midpoint, extremes, quarters), so coverage is a contract — no level is skipped while the walk runs, and re-measurement within bars blends instead of accumulating noise.</p>
 <hr />
 <h3 id="technology-choices">Technology Choices</h3>
 <table>

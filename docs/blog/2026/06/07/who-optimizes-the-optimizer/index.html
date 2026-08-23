@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals.">
+        <meta name="description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, probe design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals.">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -73,7 +73,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Who Optimizes the Optimizer? - godon" />
-<meta property="og:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
+<meta property="og:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, probe design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/2026/06/07/who-optimizes-the-optimizer.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -81,7 +81,7 @@
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/blog/2026/06/07/who-optimizes-the-optimizer/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Who Optimizes the Optimizer? - godon" />
-<meta property="twitter:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, watermark design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
+<meta property="twitter:description" content="The same optimization framework that tunes live systems could tune itself. Detection parameters, observer sensitivity, probe design, guardrail thresholds — all are optimization problems waiting to be pointed at godon's own internals." />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/blog/2026/06/07/who-optimizes-the-optimizer.png" />
 </head>
   
@@ -1442,13 +1442,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <h1 id="who-optimizes-the-optimizer">Who Optimizes the Optimizer?</h1>
 <p>godon optimizes live systems. An operator defines objectives, the breeder explores parameter space, the observer collects results. Over many trials, the system converges on better configuration.</p>
-<p>But godon itself is a system with parameters. Detection sensitivity, watermark configuration, observation windows, guardrail thresholds, breeder meta-configuration. These parameters determine how well godon works. Who tunes them?</p>
+<p>But godon itself is a system with parameters. Detection sensitivity, probe configuration, observation windows, guardrail thresholds, breeder meta-configuration. These parameters determine how well godon works. Who tunes them?</p>
 <!-- more -->
 
 <h2 id="godon-as-an-optimization-target">godon as an Optimization Target</h2>
 <p>Every component in the godon stack has tunable parameters and measurable outcomes:</p>
 <ul>
-<li><strong>Watermark design</strong> — frequency, amplitude, number of frequencies, pattern shape. These determine how detectable the signal is against the system's noise floor. Too weak and interference goes undetected. Too strong and the watermark distorts the optimization itself.</li>
+<li><strong>Probe design</strong> — push amplitude, block lengths, pause spacing. These determine how detectable the response is against the system's noise floor. Too weak and interference goes undetected. Too strong and the probe distorts the optimization itself.</li>
 <li><strong>Detection parameters</strong> — observation window length, statistical significance threshold, permutation count for hypothesis testing, sampling rate. These determine detection accuracy, false positive rate, and detection latency.</li>
 <li><strong>Observer sensitivity</strong> — how aggressively the observer declares a coupling detection. Looser thresholds catch more interference but risk false positives. Tighter thresholds are reliable but may miss weak coupling.</li>
 <li><strong>Guardrail thresholds</strong> — the safety limits that protect production systems during optimization. These could adapt based on observed system behavior rather than remaining static.</li>
@@ -1471,7 +1471,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><strong>Adaptive detection</strong> — the system adjusts its sensitivity based on observed channel characteristics. No manual calibration for each deployment.</li>
 <li><strong>Deployment-specific optimization</strong> — detection parameters tuned for the noise floor, coupling dynamics, and exploration patterns of the specific system. Not generic defaults.</li>
 <li><strong>Continuous improvement</strong> — as the system runs more campaigns and collects more data, detection parameters can be refined. The system gets better at perceiving interference the longer it runs.</li>
-<li><strong>Generalization across components</strong> — the same pattern applies to guardrail thresholds, breeder meta-configuration, watermark design. Each component becomes a self-improving subsystem.</li>
+<li><strong>Generalization across components</strong> — the same pattern applies to guardrail thresholds, breeder meta-configuration, probe design. Each component becomes a self-improving subsystem.</li>
 </ul>
 <h2 id="where-it-actually-stands">Where It Actually Stands</h2>
 <p>Honesty: none of this is built. Detection parameters are static configuration. Guardrail thresholds are static. Breeder meta-configuration is set once per campaign. The framework that could optimize these parameters exists — it's the same framework that optimizes infrastructure — but it hasn't been pointed at itself yet.</p>
@@ -1485,7 +1485,7 @@ document.addEventListener("DOMContentLoaded", function() {
 - Objective function definitions — what exactly to optimize for each component (accuracy? speed? false positive rate? all three as a Pareto front?)</p>
 <p>These are engineering challenges. The concept is sound. The machinery exists. But shipping it requires work that hasn't been done yet.</p>
 <h2 id="the-broader-direction">The Broader Direction</h2>
-<p>Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then breeder meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then watermark design.</p>
+<p>Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then breeder meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then probe design.</p>
 <p>Eventually: coordination parameters. When multiple breeders need to account for each other, the coordination strategy itself has tunable parameters — how aggressively to decouple, how much to share, when to yield. These could be optimized by the same framework.</p>
 <p>The system improves its own perception. Then it improves how it improves perception. Each level uses the same machinery, applied recursively. Not infinitely — each level has concrete parameters and concrete objectives. But the pattern repeats.</p>
 <h2 id="who-optimizes-the-optimizer_1">Who Optimizes the Optimizer?</h2>
@@ -1494,6 +1494,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>godon optimizing godon.</p>
 <hr />
 <p><em>This is the fourth in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source live systems tending and causal discernment engine.</em></p>
+<blockquote>
+<p><strong>Update (Aug 2026):</strong> the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.</p>
+</blockquote>
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails.">
+        <meta name="description" content="Open Source Live Systems Tending and Causal Discernment Engine">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -73,7 +73,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Configuration_Guide - godon" />
-<meta property="og:description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails." />
+<meta property="og:description" content="Open Source Live Systems Tending and Causal Discernment Engine" />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/config_guide.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -81,7 +81,7 @@
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/config_guide/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Configuration_Guide - godon" />
-<meta property="twitter:description" content="godon configuration guide — YAML configuration structure for optimization runs: search space parameters, objectives, effectuator, reconnaissance, and guardrails." />
+<meta property="twitter:description" content="Open Source Live Systems Tending and Causal Discernment Engine" />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/config_guide.png" />
 </head>
   
@@ -955,10 +955,10 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuration-overview" class="md-nav__link">
+  <a href="#the-shape-of-a-breeder-config" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Overview
+        The Shape of a Breeder Config
       
     </span>
   </a>
@@ -966,33 +966,22 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-configurations" class="md-nav__link">
+  <a href="#sections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example Configurations
+        Sections
       
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Sections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Sections">
+    <nav class="md-nav" aria-label="Sections">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#search-space" class="md-nav__link">
+  <a href="#settings-the-search-space" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Search Space
+        settings — the search space
       
     </span>
   </a>
@@ -1000,10 +989,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#objectives" class="md-nav__link">
+  <a href="#interference_detection-characterization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objectives
+        interference_detection — characterization
       
     </span>
   </a>
@@ -1011,10 +1000,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
+  <a href="#objectives-vs-observations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Effectuator
+        objectives vs observations
       
     </span>
   </a>
@@ -1025,7 +1014,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <a href="#reconnaissance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reconnaissance
+        reconnaissance
       
     </span>
   </a>
@@ -1049,10 +1038,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
+  <a href="#working-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Full Example
+        Working Examples
       
     </span>
   </a>
@@ -1442,10 +1431,10 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuration-overview" class="md-nav__link">
+  <a href="#the-shape-of-a-breeder-config" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Overview
+        The Shape of a Breeder Config
       
     </span>
   </a>
@@ -1453,33 +1442,22 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-configurations" class="md-nav__link">
+  <a href="#sections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example Configurations
+        Sections
       
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Sections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration Sections">
+    <nav class="md-nav" aria-label="Sections">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#search-space" class="md-nav__link">
+  <a href="#settings-the-search-space" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Search Space
+        settings — the search space
       
     </span>
   </a>
@@ -1487,10 +1465,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#objectives" class="md-nav__link">
+  <a href="#interference_detection-characterization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objectives
+        interference_detection — characterization
       
     </span>
   </a>
@@ -1498,10 +1476,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#effectuator" class="md-nav__link">
+  <a href="#objectives-vs-observations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Effectuator
+        objectives vs observations
       
     </span>
   </a>
@@ -1512,7 +1490,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <a href="#reconnaissance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reconnaissance
+        reconnaissance
       
     </span>
   </a>
@@ -1536,10 +1514,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
+  <a href="#working-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Full Example
+        Working Examples
       
     </span>
   </a>
@@ -1584,111 +1562,114 @@ document.addEventListener("DOMContentLoaded", function() {
 
   <h1>Configuration_Guide</h1>
 
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <h2 id="configuration-guide">Configuration Guide</h2>
-<p>This guide walks through godon's configuration structure using examples from the <a href="https://github.com/godon-dev/godon/tree/master/examples">godon repository</a>.</p>
-<h3 id="configuration-overview">Configuration Overview</h3>
-<p>A godon configuration defines an optimization run — what to tune, how to apply changes, what to observe, and what constraints to enforce.</p>
-<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
-│                    Configuration                             │
-│                                                              │
-│  ├── Search Space     (what parameters to tune)             │
-│  ├── Objectives       (what to optimize)                    │
-│  ├── Effectuator      (how to apply changes)                │
-│  ├── Reconnaissance   (how to observe results)              │
-│  └── Guardrails       (safety constraints)                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
+<p>Breeder configuration is YAML with three concepts only: <strong>objectives</strong> (what to optimize), <strong>guardrails</strong> (safety), and <strong>observations</strong> (extra channels to read). Parameters live under <code>settings</code> with per-parameter constraints. Interference characterization is a section, not a mode — every breeder in a group characterizes and optimizes concurrently.</p>
 <hr />
-<h3 id="example-configurations">Example Configurations</h3>
-<p>Example configurations are available in the <a href="https://github.com/godon-dev/godon/tree/master/examples">godon examples directory</a>.</p>
-<p>These examples cover common scenarios:</p>
-<table>
-<thead>
-<tr>
-<th>Example</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Database tuning</td>
-<td>PostgreSQL, MySQL configuration optimization</td>
-</tr>
-<tr>
-<td>Application tuning</td>
-<td>Web server, cache configuration</td>
-</tr>
-<tr>
-<td>Kubernetes tuning</td>
-<td>Resource limits, replica counts</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="configuration-sections">Configuration Sections</h3>
-<h4 id="search-space">Search Space</h4>
-<p>Define parameters and their ranges:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">pool_size</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
-<span class="w">    </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">50</span><span class="p p-Indicator">]</span>
+<h3 id="the-shape-of-a-breeder-config">The Shape of a Breeder Config</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">meta</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">configVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.3&quot;</span>
+<span class="w">  </span><span class="nt">strict_validation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-<span class="w">  </span><span class="nt">timeout_ms</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continuous</span>
-<span class="w">    </span><span class="nt">bounds</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">100.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">5000.0</span><span class="p p-Indicator">]</span>
+<span class="nt">breeder</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bench_generic</span>
 
-<span class="w">  </span><span class="nt">algorithm</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">categorical</span>
-<span class="w">    </span><span class="nt">choices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">lru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lfu</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">fifo</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<h4 id="objectives">Objectives</h4>
-<p>Define what to optimize:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">objectives</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
+<span class="nt">settings</span><span class="p">:</span><span class="w">                       </span><span class="c1"># parameter search space</span>
+<span class="w">  </span><span class="nt">generic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">param_0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">constraints</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="nv">20.0</span><span class="p p-Indicator">,</span><span class="nt"> lower</span><span class="p">:</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nt"> upper</span><span class="p">:</span><span class="w"> </span><span class="nv">100.0</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">param_1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">constraints</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="nv">20.0</span><span class="p p-Indicator">,</span><span class="nt"> lower</span><span class="p">:</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nt"> upper</span><span class="p">:</span><span class="w"> </span><span class="nv">100.0</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">param_2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">constraints</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="nv">20.0</span><span class="p p-Indicator">,</span><span class="nt"> lower</span><span class="p">:</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="nt"> upper</span><span class="p">:</span><span class="w"> </span><span class="nv">100.0</span><span class="p p-Indicator">}</span>
 
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">throughput</span>
+<span class="nt">run</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parallel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">completion_criteria</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">iterations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="nt"> max</span><span class="p">:</span><span class="w"> </span><span class="nv">500</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">timing</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">end</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;75m&quot;</span><span class="p p-Indicator">}</span>
+
+<span class="nt">cooperation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">interference_detection</span><span class="p">:</span><span class="w">         </span><span class="c1"># characterization group membership</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bench-characterization</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active</span>
+<span class="w">  </span><span class="nt">convergence_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">   </span><span class="c1"># the ONE tuning knob</span>
+<span class="w">  </span><span class="nt">refinement_depth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">push_block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">pause_block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">cooldown_trials</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">hold_params</span><span class="p">:</span><span class="w">                  </span><span class="c1"># neutral position for hold/pause blocks</span>
+<span class="w">    </span><span class="nt">param_0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span>
+<span class="w">    </span><span class="nt">param_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span>
+<span class="w">    </span><span class="nt">param_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span>
+
+<span class="nt">reconnaissance</span><span class="p">:</span><span class="w">                 </span><span class="c1"># how this breeder reads its target</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">  </span><span class="nt">http</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://bench-generic:8090/node-1&quot;</span>
+
+<span class="nt">objectives</span><span class="p">:</span><span class="w">                     </span><span class="c1"># what the optimizer optimizes</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">objective_0</span>
 <span class="w">    </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
-</code></pre></div>
-<h4 id="effectuator">Effectuator</h4>
-<p>Define how to apply configurations:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">effectuator</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.50</span>
-<span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
-<span class="w">  </span><span class="nt">apply</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">sed -i &#39;s/pool_size=.*/pool_size={{ pool_size }}/&#39; /etc/app/config.ini</span>
-<span class="w">      </span><span class="no">systemctl restart app</span>
-</code></pre></div>
-<h4 id="reconnaissance">Reconnaissance</h4>
-<p>Define how to observe results:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">reconnaissance</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
-<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://prometheus:9090</span>
-<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">      </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m]))</span>
-</code></pre></div>
-<h4 id="guardrails">Guardrails</h4>
-<p>Define safety limits:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max_latency</span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
-<span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
+<span class="w">    </span><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics/json</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">objective_0</span>
+<span class="w">      </span><span class="nt">samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">aggregation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">median</span>
+
+<span class="nt">observations</span><span class="p">:</span><span class="w">                   </span><span class="c1"># read but NOT optimized — detection channels</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">objective_1</span>
+<span class="w">    </span><span class="nt">reconnaissance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics/json</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">objective_1</span>
 </code></pre></div>
 <hr />
-<h3 id="full-example">Full Example</h3>
-<p>See the <a href="https://github.com/godon-dev/godon/tree/master/examples">examples directory</a> for complete, runnable configurations.</p>
+<h3 id="sections">Sections</h3>
+<h4 id="settings-the-search-space"><code>settings</code> — the search space</h4>
+<p>Each parameter carries constraints. <code>step</code> sets the grid resolution; the characterization walk derives its level set from lower/upper (and refines between grid points when curves stay unresolved).</p>
+<h4 id="interference_detection-characterization"><code>interference_detection</code> — characterization</h4>
+<p>Any breeders sharing a <code>group</code> characterize each other. <code>convergence_threshold</code> is the single tuning knob: smaller means more re-measurement before a curve retires. Block sizes set the push/pause trial counts per probe. <code>hold_params</code> is the neutral position every breeder returns to when holding or pausing.</p>
+<h4 id="objectives-vs-observations"><code>objectives</code> vs <code>observations</code></h4>
+<p>The separation is deliberate and load-bearing: objectives feed the optimizer's search; observations are collected per trial but never optimized — the detector reads both. A channel you suspect is coupled but don't want an agent chasing should be an observation, not an objective.</p>
+<h4 id="reconnaissance"><code>reconnaissance</code></h4>
+<p>How a breeder reads its target: HTTP endpoints (per-service <code>path</code>/<code>key</code>, sampling, aggregation), or Prometheus queries. See <a href="../concept_reconnaissance/">Reconnaissance</a>.</p>
+<h4 id="guardrails">Guardrails</h4>
+<p>Safety limits with automatic response (fail trial, rollback, or skip target) are configured per strain and effectuator — see <a href="../concept_guardrails/">Guardrails</a>. The impulse protocol's pushes stay inside the same guardrails as ordinary optimization trials: same knobs, same bounds, no special permissions.</p>
+<hr />
+<h3 id="working-examples">Working Examples</h3>
+<p>Runnable, maintained examples live in the scenario library:
+<a href="https://github.com/godon-dev/godon/tree/main/examples/bench"><code>examples/bench/</code></a> in the godon repository — each scenario ships breeder configs, target definitions, and the planted ground truth. The characterization scenarios are the reference implementations for the config above.</p>
 <hr />
 <h3 id="see-also">See Also</h3>
 <ul>
-<li><a href="../concept_breeder/">Breeder</a> — How configurations are executed</li>
-<li><a href="../concept_effectuator/">Effectuator</a> — Applying configurations</li>
-<li><a href="../concept_reconnaissance/">Reconnaissance</a> — Observing results</li>
-<li><a href="../concept_guardrails/">Guardrails</a> — Safety constraints</li>
+<li><a href="../concept_breeder/">Breeder</a> — how configurations are executed</li>
+<li><a href="../concept_interference_detection/">Interference Detection</a> — what the interference section triggers</li>
+<li><a href="../getting_started/">Getting Started</a> — a full walkthrough against the generic bench</li>
 </ul>
 
 
@@ -1696,9 +1677,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-  
-  
 
 
 

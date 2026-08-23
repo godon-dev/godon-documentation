@@ -973,52 +973,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#outlook" class="md-nav__link">
+  <a href="#beyond-detection-shipped-and-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Outlook
+        Beyond Detection (Shipped and Next)
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Outlook">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#intensity-measurement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Intensity Measurement
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interference-topology" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interference Topology
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coupling-aware-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coupling-Aware Optimization
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1777,52 +1738,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#outlook" class="md-nav__link">
+  <a href="#beyond-detection-shipped-and-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Outlook
+        Beyond Detection (Shipped and Next)
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Outlook">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#intensity-measurement" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Intensity Measurement
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interference-topology" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interference Topology
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coupling-aware-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coupling-Aware Optimization
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1955,7 +1877,7 @@ threshold = k × MAD
 </table>
 <p>Observations are collected per trial but never fed into the optuna Pareto front. The detector merges them at query time — all channels checked independently.</p>
 <h3 id="validation-results">Validation Results</h3>
-<p>Validated on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):</p>
+<p>Original bidirectional validation on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):</p>
 <h4 id="coupling-09-coupled">Coupling = 0.9 (Coupled)</h4>
 <table>
 <thead>
@@ -2054,7 +1976,7 @@ threshold = k × MAD
 </ol>
 <h3 id="current-limitations">Current Limitations</h3>
 <p><strong>Calibration is bypassed, not solved.</strong> When <code>hold_params</code> are specified in config, the flatness search is skipped. The generic case — discovering stable hold parameters autonomously — remains open.</p>
-<p><strong>Non-stationarity partially handled.</strong> The local reference window (5-8 trials) limits exposure to drift, but the greenhouse crop model still drifts over time. Longer windows would include more drift, inflating MAD.</p>
+<p><strong>Non-stationarity partially handled.</strong> The greenhouse IS non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local (5-8 trials), limiting exposure to drift. The remaining open case is non-stationarity with phase transitions faster than the detection window — e.g., a crop suddenly entering flowering mid-detection.</p>
 <p><strong>Lease timing is fragile.</strong> The 90-second lease with 15-second trials requires tight coordination. Untested at scale.</p>
 <h3 id="channel-taxonomy">Channel Taxonomy</h3>
 <p>The active probing approach resolves the channel type problem that blocked spectral methods:</p>
@@ -2070,13 +1992,13 @@ threshold = k × MAD
 <tbody>
 <tr>
 <td>Linear additive</td>
-<td>Reliable</td>
+<td>Reliable (FFT + permutation)</td>
 <td>Works (overkill)</td>
 <td><strong>Solved</strong></td>
 </tr>
 <tr>
 <td>Non-linear, intermediate state measurable</td>
-<td>Failed</td>
+<td>Failed at objective level</td>
 <td><strong>Validated</strong></td>
 <td><strong>Solved</strong></td>
 </tr>
@@ -2087,23 +2009,27 @@ threshold = k × MAD
 <td><strong>Solved</strong></td>
 </tr>
 <tr>
-<td>Non-stationary</td>
+<td>Non-stationary (slow drift)</td>
+<td>Failed (assumption violated)</td>
+<td><strong>Validated on greenhouse</strong></td>
+<td><strong>Solved</strong></td>
+</tr>
+<tr>
+<td>Non-stationary (phase transitions)</td>
 <td>Failed</td>
-<td>Promising (local reference)</td>
-<td><strong>In progress</strong></td>
+<td>Untested</td>
+<td><strong>Open</strong></td>
 </tr>
 </tbody>
 </table>
-<p>One method for all channel types. The strategy: active probe first. No need to classify the channel and choose a method — the impulse doesn't care about the channel's transfer function.</p>
+<p>One method for all channel types. The greenhouse bench is simultaneously deeply non-linear AND non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local — 5-8 trials — limiting exposure to drift. The only remaining open case is non-stationarity with phase transitions faster than the detection window.</p>
 <p>For detailed channel descriptions with real-world examples, see <a href="../detection_capabilities/">Detection Capabilities</a>.</p>
-<h3 id="outlook">Outlook</h3>
-<p>Interference detection is the sensing layer — the first step toward making multi-optimizer systems work reliably.</p>
-<h4 id="intensity-measurement">Intensity Measurement</h4>
-<p>Detection answers "is there interference?" The CFAR edge magnitude answers "how much?" The step size on the receiver scales with coupling strength — this relationship can be calibrated into an interference intensity metric.</p>
-<h4 id="interference-topology">Interference Topology</h4>
-<p>With three or more optimizers, pairwise detection results form a coupling graph — directed, weighted, discovered empirically. No human needs to specify the topology. The agents map it through probing.</p>
-<h4 id="coupling-aware-optimization">Coupling-Aware Optimization</h4>
-<p>Once coupling is detected, breeders can change behavior: avoid the neighbor's parameter space (competitive) or coordinate search (cooperative). Detection becomes the sensing layer of a closed loop.</p>
+<h3 id="beyond-detection-shipped-and-next">Beyond Detection (Shipped and Next)</h3>
+<p>Detection is the entry point; the protocol runs deeper:</p>
+<p><strong>Response curves (shipped).</strong> Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously.</p>
+<p><strong>Topology recovery (shipped).</strong> Pairwise measurements across a group assemble the coupling graph — validated on chain topologies with exact topology recovery and ~5-10% edge-strength error.</p>
+<p><strong>Composition (validated additive).</strong> Measured edges compose: the two-hop response predicted from chained one-hop curves matches the directly measured response within bars. Nonlinear composition is the open frontier (see <a href="../open_research/">Open Research</a>).</p>
+<p><strong>Coupling-aware behavior (next).</strong> Agents adapting to known coupling — the tending direction. Not yet built.</p>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
 <li><a href="../detection_capabilities/">Detection Capabilities</a> — channel taxonomy and detection boundaries</li>

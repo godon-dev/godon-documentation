@@ -1452,7 +1452,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <h1 id="how-live-systems-reveal-their-own-structure-transitive-topology-discovery">How Live Systems Reveal Their Own Structure — Transitive Topology Discovery</h1>
-<p>When godon detects interference between two optimization agents, it reveals one edge. Breeder A's watermark appears in breeder B's metrics. That's one coupling path — one connection you didn't know existed.</p>
+<p>When godon detects interference between two optimization agents, it reveals one edge. Breeder A's guarded pushes shift breeder B's objectives. That's one coupling path — one connection you didn't know existed.</p>
 <p>A single edge is useful. It tells you these two agents interfere. You can act on that — adjust parameters, add constraints, isolate them.</p>
 <p>But a single edge is also a fragment of something larger. A topology.</p>
 <!-- more -->
@@ -1463,7 +1463,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>This graph wasn't designed. Nobody drew it. Nobody specified "optimizer A couples to optimizer C through shared memory bandwidth." It emerged from the system's dynamics — the shared state, the parameter interactions, the coupling channels that exist because the subsystems share physical or logical resources.</p>
 <p>The topology is a property of the system itself. godon doesn't create it. It reveals it. One edge at a time.</p>
 <h2 id="the-transitive-insight">The Transitive Insight</h2>
-<p>The key insight is that detection is transitive. If breeder A's watermark reaches breeder B, and breeder B's watermark reaches breeder C, then there's a coupling chain A → B → C. The influence propagates through intermediate agents.</p>
+<p>The key insight is that detection is transitive. If breeder A's pushes reach breeder B, and breeder B's pushes reach breeder C, then there's a coupling chain A → B → C. The influence propagates through intermediate agents.</p>
 <p>This matters because the operators of A and C might not know about B's role. A's configuration change affects B, which affects C. Without B in the picture, A → C looks like unexplained variance. With B, it becomes a traceable path.</p>
 <p>Each detection is one observation. Accumulated observations form a graph. The graph is the topology of interference in the system — the hidden structure that explains why certain parameter changes have unpredictable side effects.</p>
 <h2 id="what-makes-this-different">What Makes This Different</h2>
@@ -1476,7 +1476,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><strong>It reveals unexpected connections</strong>. Coupling can exist through paths nobody designed — shared thermal budgets, shared power delivery, indirect resource contention. These don't appear in any architecture diagram.</li>
 </ul>
 <h2 id="where-it-stands">Where It Stands</h2>
-<p>The mechanism is proven for single edges on linear coupling channels. The microgrid bench demonstrates reliable detection (p &lt; 0.001) across coupling strengths from 0.1 to 0.9. When breeder A's watermark reaches breeder B, we can detect it with high confidence.</p>
+<p>The mechanism is proven for single edges on linear coupling channels. Detection is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls. When breeder A's push reaches breeder B, we can detect it with high confidence.</p>
 <p>Scaling to full topology assembly — automatically constructing the complete coupling graph from pairwise detections across multiple agents — is the next step. This is an open question. The mechanism works for one edge. The assembly of many edges into a coherent topology requires accumulation over time, consistent detection across all pairs, and methods to handle indirect coupling (distinguishing A → B from A → C → B).</p>
 <p>These are engineering challenges, not theoretical barriers. The detection works. The graph assembly is tractable. But it's not built yet.</p>
 <h2 id="why-it-matters">Why It Matters</h2>
@@ -1496,6 +1496,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>That's the core thesis of godon. Not detection for its own sake, but detection as a method for understanding live systems through their own behavior. The system is the model. You just need to listen.</p>
 <hr />
 <p><em>This is the third in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source live systems tending and causal discernment engine.</em></p>
+<blockquote>
+<p><strong>Update (Aug 2026):</strong> the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.</p>
+</blockquote>
 
 
 

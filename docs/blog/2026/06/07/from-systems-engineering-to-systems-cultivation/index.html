@@ -1472,7 +1472,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The systems we run now are gardens. They have autonomous actors modifying shared state in real time. The coupling between them is emergent, not designed. It shifts as conditions change. And it's invisible to every tool we currently have.</p>
 <p>Cultivation requires something engineering doesn't: <strong>perception of the living system's internal dynamics.</strong> Not monitoring — monitoring tells you what happened. Perception tells you why, by tracing how perturbations propagate through the system.</p>
 <h2 id="the-first-step-is-perception">The First Step Is Perception</h2>
-<p>godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by embedding a known signal (a watermark) into an optimizer's exploration. When that signal appears in another optimizer's objectives, you've detected a coupling path — one agent's actions are reaching the other through shared state.</p>
+<p>godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one optimizer apply a guarded push to parameters it already controls while the other holds still. If the second optimizer's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.</p>
 <p>Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.</p>
 <p>This is proven on linear coupling channels. The microgrid bench demonstrates reliable detection at statistical significance (p &lt; 0.001) across coupling strengths from 0.1 to 0.9. The method is concrete, reproducible, and runs continuously without interrupting optimization.</p>
 <p>Whether this scales to reveal the full topology of complex coupled systems — that's an open question. But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.</p>
@@ -1490,6 +1490,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>That's what godon is building.</p>
 <hr />
 <p><em>This is the first in a series of articles on living systems, interference detection, and the future of optimization. <a href="https://github.com/godon-dev/godon">godon</a> is an open-source live systems tending and causal discernment engine.</em></p>
+<blockquote>
+<p><strong>Update (Aug 2026):</strong> the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.</p>
+</blockquote>
 
 
 
