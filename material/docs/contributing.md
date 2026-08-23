@@ -38,26 +38,9 @@ Real-world use cases, deployment guides, architecture explanations, blog posts. 
 
 
 
-### Who Fits Where
-
-Roles the project genuinely needs — none require prior background in the specific stack:
-
-| Role | What you'd do | Background that maps well |
-|---|---|---|
-| **Statistician** | Attack the stopping rule, harden the uncertainty bars, design the boundary-grid cells, critique the sweep methodology | Experimental design, robust statistics, sequential analysis |
-| **Rust engineer** | The causal service (detection, curves), benches, API — a small, well-tested codebase where measurement correctness is the product | Systems Rust, Axum/tokio, a taste for numerical code |
-| **SRE / infrastructure engineer** | Deploy against real substrate, report where the instrument breaks, improve the Helm/CI/observability plumbing | Running production systems, Kubernetes, the pain of not knowing why things interact |
-| **Controls / system-identification researcher** | The composition keystone: when do measured response functions chain, what correction machinery does nonlinearity need | Nonlinear system ID, response-surface methods, causal composition |
-| **Optimization engineer** | The breeder engine: multi-objective search, parallel campaigns, algorithm diversity | Optuna/metaheuristics, production optimization loops |
-| **Technical writer / communicator** | The story is unusual (measure-first infrastructure epistemology) and under-told; docs site, blog, papers | Can explain measurement discipline without hype |
-| **Domain owner** | You operate coupled infrastructure (datacenter, grid, HVAC, industrial) and want to know what actually influences what | The substrate itself — the scarcest contribution |
-| **Student** | Reproduce a published cell, extend the boundary grid by one row — bounded, real, citable work | Curiosity; the bench and data are public |
-
-The core loop crosses statistics, systems engineering, and measurement physics — most useful contributions come from one of those angles, not from knowing godon.
-
 ### Concrete First Contributions
 
-The fastest contributions are one workflow dispatch away — the assets are public:
+godon is an empirical instrument for complex coupled systems — benches with planted truth, measured response curves, priced stopping, honest boundary maps. If you care about how complex systems actually behave under intervention (rather than how they are modeled or narrated), the entry points are concrete — the assets are public:
 
 **Reproduce a validation cell.** [`scenario-composition-gate`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-composition-gate) (three agents, chained coupling: do measured one-hop curves compose to the two-hop response?) and `scenario-verification-star` (per-receiver curve separation with an uncoupled witness) each run via a single `bench-characterization.yml` dispatch on your own cluster. A reproduction report — confirmed, diverged, or surprising — is a genuine contribution.
 
