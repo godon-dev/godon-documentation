@@ -118,15 +118,16 @@ Not limited to physical resource contention. The coupling problem exists whereve
 
 | Capability | Description |
 |------------|-------------|
-| **Topology Discovery** | Discover internal live system interplay topology from behavior — not assumed from diagrams or models |
-| **Diagnostics** | Trace regressions and anomalies to their actual source through discovered coupling paths |
-| **Coordination** | Breeders adapt their behavior given known coupling — constraining, scheduling, avoiding interference |
-| **Live System Tending** | Continuously steer toward better operating points with guardrails and rollback |
-| **Isolation Certification** | Empirically verify that workloads are genuinely decoupled — proving absence |
+| **Coupling Discovery** | Detect interference between autonomous optimizers through guarded probing — validated across coupling shapes, with measured noise floors and zero false positives on controls |
+| **Coupling Characterization** | Measure response curves per (sender, parameter, channel) with uncertainty bars; priced stopping decides when a curve is good enough |
+| **Topology Discovery** | Recover multi-agent coupling topology from pairwise measurements — validated on chain topologies |
+| **Multi-Agent Groups** | Lease-based turn-taking coordination; one sender's walk measures every holding receiver |
 | **Co-pilot Integration** | Human and LLM domain knowledge validated in the loop — charter design, comprehension, strategy |
 | **Multi-Algorithm AI** | Advanced AI algorithms (TPE, NSGA-II/III, QMC) explore parameter spaces, with optional ML integration |
 | **Training-Free** | No training data or model training required — learns from live system behavior |
 | **Self-Hosted** | Runs on your infrastructure. AGPLv3. No vendor lock-in |
+
+The map's uses compound beyond measurement — what follows from discovery: tracing regressions through measured coupling paths, agents adapting to known coupling, steering the whole system jointly, certifying isolation empirically. What Flows From Discovery (above) sketches these directions.
 
 ## Caveats
 
