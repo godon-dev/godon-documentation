@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario.">
+        <meta name="description" content="Open Source Live Systems Tending and Causal Discernment Engine">
       
       
         <meta name="author" content="Matthias Tafelmeier">
@@ -73,7 +73,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Getting Started - godon" />
-<meta property="og:description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario." />
+<meta property="og:description" content="Open Source Live Systems Tending and Causal Discernment Engine" />
 <meta property="og:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -81,7 +81,7 @@
 <meta property="og:url" content="https://godon-dev.github.io/godon-documentation/getting_started/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Getting Started - godon" />
-<meta property="twitter:description" content="godon Getting Started — run your first interference detection bench locally with godon-cli, see the system detect optimizer interference in a microgrid scenario." />
+<meta property="twitter:description" content="Open Source Live Systems Tending and Causal Discernment Engine" />
 <meta property="twitter:image" content="https://godon-dev.github.io/godon-documentation/assets/images/social/getting_started.png" />
 </head>
   
@@ -531,21 +531,10 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#step-1-start-the-bench-simulator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-1-start-the-microgrid-simulators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Start the Microgrid Simulators
+        Step 1: Start the Bench Simulator
       
     </span>
   </a>
@@ -564,10 +553,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-create-targets" class="md-nav__link">
+  <a href="#step-3-create-targets-and-breeders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create Targets
+        Step 3: Create Targets and Breeders
       
     </span>
   </a>
@@ -575,10 +564,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-create-breeders" class="md-nav__link">
+  <a href="#step-4-what-the-breeders-are-doing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Create Breeders
+        Step 4: What the Breeders Are Doing
       
     </span>
   </a>
@@ -586,10 +575,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-watch-optimization-progress" class="md-nav__link">
+  <a href="#step-5-read-the-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Watch Optimization Progress
+        Step 5: Read the Results
       
     </span>
   </a>
@@ -597,10 +586,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-6-run-interference-detection" class="md-nav__link">
+  <a href="#step-6-verify-with-no-coupling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 6: Run Interference Detection
+        Step 6: Verify with No Coupling
       
     </span>
   </a>
@@ -608,10 +597,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-7-verify-with-no-coupling" class="md-nav__link">
+  <a href="#step-7-clean-up" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 7: Verify with No Coupling
+        Step 7: Clean Up
       
     </span>
   </a>
@@ -619,10 +608,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-8-clean-up" class="md-nav__link">
+  <a href="#understanding-the-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 8: Clean Up
+        Understanding the Protocol
       
     </span>
   </a>
@@ -630,21 +619,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-results" class="md-nav__link">
+  <a href="#varying-the-planted-reality" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Understanding the Results
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#varying-coupling-strength" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Varying Coupling Strength
+        Varying the Planted Reality
       
     </span>
   </a>
@@ -1458,21 +1436,10 @@ document.addEventListener("DOMContentLoaded", function() {
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#step-1-start-the-bench-simulator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-1-start-the-microgrid-simulators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Start the Microgrid Simulators
+        Step 1: Start the Bench Simulator
       
     </span>
   </a>
@@ -1491,10 +1458,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-create-targets" class="md-nav__link">
+  <a href="#step-3-create-targets-and-breeders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create Targets
+        Step 3: Create Targets and Breeders
       
     </span>
   </a>
@@ -1502,10 +1469,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-4-create-breeders" class="md-nav__link">
+  <a href="#step-4-what-the-breeders-are-doing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Create Breeders
+        Step 4: What the Breeders Are Doing
       
     </span>
   </a>
@@ -1513,10 +1480,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-watch-optimization-progress" class="md-nav__link">
+  <a href="#step-5-read-the-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Watch Optimization Progress
+        Step 5: Read the Results
       
     </span>
   </a>
@@ -1524,10 +1491,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-6-run-interference-detection" class="md-nav__link">
+  <a href="#step-6-verify-with-no-coupling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 6: Run Interference Detection
+        Step 6: Verify with No Coupling
       
     </span>
   </a>
@@ -1535,10 +1502,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-7-verify-with-no-coupling" class="md-nav__link">
+  <a href="#step-7-clean-up" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 7: Verify with No Coupling
+        Step 7: Clean Up
       
     </span>
   </a>
@@ -1546,10 +1513,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-8-clean-up" class="md-nav__link">
+  <a href="#understanding-the-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 8: Clean Up
+        Understanding the Protocol
       
     </span>
   </a>
@@ -1557,21 +1524,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-results" class="md-nav__link">
+  <a href="#varying-the-planted-reality" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Understanding the Results
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#varying-coupling-strength" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Varying Coupling Strength
+        Varying the Planted Reality
       
     </span>
   </a>
@@ -1616,260 +1572,166 @@ document.addEventListener("DOMContentLoaded", function() {
 
   <h1>Getting Started</h1>
 
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <h2 id="getting-started">Getting Started</h2>
-<p>This guide walks you through running a complete interference detection bench on your local godon stack. No scenario design needed — you'll start two coupled microgrid simulators, create two optimizers, and watch the observer detect interference between them.</p>
-<p>The whole process takes about 30 minutes.</p>
-<p>godon is more than interference detection — it's a platform for optimization campaigns on live systems. Once the breeders are running, you can monitor their progress through the observer's dashboard, inspect trial history, and follow the optimization search in real time.</p>
-<div class="admonition note">
-<p class="admonition-title">Using an LLM?</p>
-<p>You can also drive godon programmatically through the <a href="../mcp/">MCP Interface</a> — point your LLM at the godon MCP server and interact with breeders, targets, and detection results directly from your AI assistant.</p>
-</div>
-<h3 id="prerequisites">Prerequisites</h3>
 <p>A running godon stack. If you haven't set it up yet, see <a href="../setup/">Setup</a>. You'll need:</p>
 <ul>
 <li>KinD cluster with the godon helm chart deployed</li>
 <li><code>kubectl</code> configured with the KinD kubeconfig</li>
-<li>Docker (for the microgrid simulators and godon-cli)</li>
+<li>Docker (for the bench simulator and godon-cli)</li>
 <li><code>jq</code> (for parsing API responses)</li>
 </ul>
-<h3 id="step-1-start-the-microgrid-simulators">Step 1: Start the Microgrid Simulators</h3>
-<p>The bench uses two coupled microgrid simulators — lightweight HTTP services that model a power grid with configurable coupling between instances.</p>
-<p>From the godon repository root:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start with 90% coupling (strong interference)</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">COUPLING_FACTOR</span><span class="o">=</span><span class="m">0</span>.9
-docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>up<span class="w"> </span>-d
-</code></pre></div>
-<p>Wait for both simulators to be healthy:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>port<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">8090</span><span class="w"> </span><span class="m">8091</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="k">until</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-f<span class="w"> </span>http://127.0.0.1:<span class="si">${</span><span class="nv">port</span><span class="si">}</span>/health<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Port </span><span class="si">${</span><span class="nv">port</span><span class="si">}</span><span class="s2">: healthy&quot;</span>
-<span class="k">done</span>
-</code></pre></div>
-<p>If your godon stack runs in KinD, connect the simulators to the kind network:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">MG1_CID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>microgrid-1<span class="k">)</span>
-<span class="nv">MG2_CID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>ps<span class="w"> </span>-q<span class="w"> </span>microgrid-2<span class="k">)</span>
+<p>The walkthrough uses the <strong>generic bench</strong> — a configurable synthetic coupling simulator with known ground truth. You plant the coupling (topology, strength, shape, noise), the engine discovers it, and you compare. Two autonomous optimizers run against two coupled bench nodes; each one discovers the other through the shared substrate.</p>
+<h3 id="step-1-start-the-bench-simulator">Step 1: Start the Bench Simulator</h3>
+<p>The bench runs as a single container exposing two virtual nodes with a planted coupling edge:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>bench-generic<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="w"> </span><span class="m">0</span>:0<span class="w"> </span>-p<span class="w"> </span><span class="m">8090</span>:8090<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">CONFIG_PATH</span><span class="o">=</span>/topology.yaml<span class="w"> </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8090</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">GENERIC_SEED</span><span class="o">=</span><span class="m">42</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">RUST_LOG</span><span class="o">=</span>info<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/godon-dev/godon-bench-generic:0.2.1
 
-docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>kind<span class="w"> </span><span class="nv">$MG1_CID</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>kind<span class="w"> </span><span class="nv">$MG2_CID</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="c1"># Plant the coupling: node-1 -&gt; node-2, strength 0.7, saturation shape</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/tmp/topology.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">nodes:</span>
+<span class="s">  - id: node-1</span>
+<span class="s">    params: 3</span>
+<span class="s">    objectives: 2</span>
+<span class="s">    base: saturation</span>
+<span class="s">    param_lower: 0.0</span>
+<span class="s">    param_upper: 100.0</span>
+<span class="s">    weights: [[0.0, 1.0, 0.0], [0.3, 0.2, 0.5]]</span>
+<span class="s">  - id: node-2</span>
+<span class="s">    params: 3</span>
+<span class="s">    objectives: 2</span>
+<span class="s">    base: linear</span>
+<span class="s">    param_lower: 0.0</span>
+<span class="s">    param_upper: 100.0</span>
+<span class="s">    weights: [[0.4, 0.3, 0.3], [0.2, 0.5, 0.3]]</span>
+<span class="s">edges:</span>
+<span class="s">  - from: node-1</span>
+<span class="s">    from_channel: 0</span>
+<span class="s">    to: node-2</span>
+<span class="s">    to_channel: 0</span>
+<span class="s">    strength: 0.7</span>
+<span class="s">noise:</span>
+<span class="s">  gaussian_sigma: 0.02</span>
+<span class="s">  colored_sigma: 0.0</span>
+<span class="s">  drift_rate: 0.0</span>
+<span class="s">EOF</span>
 
-<span class="nv">MG1_IP</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span><span class="nv">$MG1_CID</span><span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{.NetworkSettings.Networks.kind.IPAddress}}&#39;</span><span class="k">)</span>
-<span class="nv">MG2_IP</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span><span class="nv">$MG2_CID</span><span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{.NetworkSettings.Networks.kind.IPAddress}}&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;MG1: </span><span class="si">${</span><span class="nv">MG1_IP</span><span class="si">}</span><span class="s2">:8090, MG2: </span><span class="si">${</span><span class="nv">MG2_IP</span><span class="si">}</span><span class="s2">:8090&quot;</span>
+docker<span class="w"> </span>cp<span class="w"> </span>/tmp/topology.yaml<span class="w"> </span>bench-generic:/topology.yaml
+docker<span class="w"> </span>start<span class="w"> </span>bench-generic
+docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>kind<span class="w"> </span>bench-generic<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="nv">BENCH_IP</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>bench-generic<span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{.NetworkSettings.Networks.kind.IPAddress}}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bench at: </span><span class="si">${</span><span class="nv">BENCH_IP</span><span class="si">}</span><span class="s2">:8090&quot;</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8090/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
+<p>The <code>/health</code> response lists the nodes and edge count — your ground truth for what the engine should find.</p>
 <h3 id="step-2-port-forward-the-godon-api">Step 2: Port-Forward the Godon API</h3>
-<p>Make the godon API accessible from your host:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/tmp/kind_kubeconfig.yaml
 <span class="nv">API_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
 kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">API_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9090</span>:8080<span class="w"> </span><span class="p">&amp;</span>
 sleep<span class="w"> </span><span class="m">3</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/health
 </code></pre></div>
-<p>Verify:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/health
+<h3 id="step-3-create-targets-and-breeders">Step 3: Create Targets and Breeders</h3>
+<p>The easiest path is the characterization workflow, which creates targets and breeders from a scenario directory, runs the protocol, and exports results:</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>bench-characterization.yml<span class="w"> </span>--repo<span class="w"> </span>godon-dev/godon<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span><span class="nv">scenario</span><span class="o">=</span>characterization-saturation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span><span class="nv">min_trials</span><span class="o">=</span><span class="m">350</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">max_wait_minutes</span><span class="o">=</span><span class="m">75</span>
 </code></pre></div>
-<h3 id="step-3-create-targets">Step 3: Create Targets</h3>
-<p>Targets represent the systems being optimized. Create one for each microgrid:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">CLI_IMAGE</span><span class="o">=</span><span class="s2">&quot;ghcr.io/godon-dev/godon-cli:latest&quot;</span>
-<span class="nv">API_HOST</span><span class="o">=</span><span class="s2">&quot;127.0.0.3&quot;</span>
-<span class="nv">API_PORT</span><span class="o">=</span><span class="s2">&quot;9090&quot;</span>
+<p>Scenarios live in <a href="https://github.com/godon-dev/godon/tree/main/examples/bench"><code>examples/bench/</code></a> — each one ships a <code>topology.yaml</code> (ground truth), target definitions, and breeder configs. The workflow:</p>
+<ol>
+<li>starts the bench container with the scenario's topology,</li>
+<li>creates one target and one breeder per node,</li>
+<li>lets the breeders run the interference protocol,</li>
+<li>exports response curves and coordinator traces to the run logs,</li>
+<li>cleans up.</li>
+</ol>
+<p>To drive it manually instead, create targets and breeders through the API or <code>godon-cli</code> exactly as the workflow does (see the workflow source for the exact calls).</p>
+<h3 id="step-4-what-the-breeders-are-doing">Step 4: What the Breeders Are Doing</h3>
+<p>Each breeder is an optimization agent. Beyond optimizing, they coordinate through lease-based turn-taking to characterize their coupling:</p>
+<ol>
+<li>One breeder acquires the sender role, the other holds still (receiver).</li>
+<li>The sender runs a <strong>coverage walk</strong> — pushing one parameter at a time across its levels (midpoint, extremes, quarters — a deterministic, complete exploration order).</li>
+<li>For every push, the causal service measures the receiver's objective shift between push and pause windows, with an uncertainty bar from the raw sample scatter.</li>
+<li>Re-measurements within bars blend (the point tightens); beyond bars relocate and flag drift.</li>
+<li>A parameter retires when it is converged <strong>and</strong> every remaining gap in its response curve is priced below the local measurement bar — remaining ignorance cheaper than one more probe.</li>
+</ol>
+<p>The result is a <strong>response curve per (sender, parameter, channel)</strong> — the measured shape of the coupling, not just a yes/no edge.</p>
+<h3 id="step-5-read-the-results">Step 5: Read the Results</h3>
+<p>While the run is in progress (or after), query the causal service directly:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CAUSAL_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>godon-causal<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CAUSAL_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9091</span>:8091<span class="w"> </span><span class="p">&amp;</span>
+sleep<span class="w"> </span><span class="m">3</span>
 
-<span class="c1"># Create target for microgrid-1</span>
-cat<span class="w"> </span>examples/bench/scenario-microgrid/targets/microgrid-1.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;s/TARGET_NAME/bench-mg-1/&#39;</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s|TARGET_URL|http://</span><span class="si">${</span><span class="nv">MG1_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/target-mg1.yaml
+<span class="c1"># Detection verdict for one direction (sender -&gt; receiver)</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/detect/<span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span>/<span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span>/tmp:/work:ro<span class="w"> </span>-w<span class="w"> </span>/work<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>/work/target-mg1.yaml
-
-<span class="c1"># Create target for microgrid-2</span>
-cat<span class="w"> </span>examples/bench/scenario-microgrid/targets/microgrid-2.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;s/TARGET_NAME/bench-mg-2/&#39;</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s|TARGET_URL|http://</span><span class="si">${</span><span class="nv">MG2_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/target-mg2.yaml
-
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span>/tmp:/work:ro<span class="w"> </span>-w<span class="w"> </span>/work<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>/work/target-mg2.yaml
+<span class="c1"># All measured response curves — the coupling map</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/curves<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.curves[] | {sender_id, receiver_id, param, channel, points: .state.points}&#39;</span>
 </code></pre></div>
-<p>Get the target IDs:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">TARGET_1_ID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span>:<span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span>/targets<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-mg-1&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nv">TARGET_2_ID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span>:<span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span>/targets<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-mg-2&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Target 1: </span><span class="si">${</span><span class="nv">TARGET_1_ID</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Target 2: </span><span class="si">${</span><span class="nv">TARGET_2_ID</span><span class="si">}</span><span class="s2">&quot;</span>
+<p>The <code>/detect</code> response reports per-channel rising/falling edges with confidence; <code>/curves</code> returns every measured (level, shift, bar) triple. For the planted topology above, expect: <code>param_1</code> of the sender showing a saturation-shaped curve on the receiver's <code>objective_0</code>, <code>param_0</code>/<code>param_2</code> flat (they carry no weight), and <code>objective_1</code> flat (the edge feeds channel 0 only).</p>
+<h3 id="step-6-verify-with-no-coupling">Step 6: Verify with No Coupling</h3>
+<p>Run the same scenario with the edge strength set to <code>0.0</code> in <code>topology.yaml</code> (or use a scenario without edges). Expect flat curves everywhere and no detections — the honest blank. Zero false positives across the sweep is a core validated property of the method.</p>
+<h3 id="step-7-clean-up">Step 7: Clean Up</h3>
+<p>The workflow purges breeders, targets, and the bench container automatically. Manually:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>bench-generic
 </code></pre></div>
-<h3 id="step-4-create-breeders">Step 4: Create Breeders</h3>
-<p>Breeders are the optimization drivers. Each one runs a search against one microgrid, with watermark injection enabled for interference detection:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Prepare breeder-1 config (points to microgrid-1)</span>
-cat<span class="w"> </span>examples/bench/scenario-microgrid/breeders/breeder-1.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/\&quot;microgrid-1\&quot;/\&quot;</span><span class="si">${</span><span class="nv">TARGET_1_ID</span><span class="si">}</span><span class="s2">\&quot;/&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s/\&quot;microgrid-2\&quot;/\&quot;</span><span class="si">${</span><span class="nv">TARGET_1_ID</span><span class="si">}</span><span class="s2">\&quot;/&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s|http://microgrid-1:8090|http://</span><span class="si">${</span><span class="nv">MG1_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s|http://microgrid-2:8090|http://</span><span class="si">${</span><span class="nv">MG1_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/breeder-mg1.yaml
-
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span>/tmp:/work<span class="w"> </span>-w<span class="w"> </span>/work<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>bench-mg-1<span class="w"> </span>--file<span class="o">=</span>/work/breeder-mg1.yaml
-
-<span class="c1"># Prepare breeder-2 config (points to microgrid-2)</span>
-cat<span class="w"> </span>examples/bench/scenario-microgrid/breeders/breeder-2.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/\&quot;microgrid-1\&quot;/\&quot;</span><span class="si">${</span><span class="nv">TARGET_2_ID</span><span class="si">}</span><span class="s2">\&quot;/&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s/\&quot;microgrid-2\&quot;/\&quot;</span><span class="si">${</span><span class="nv">TARGET_2_ID</span><span class="si">}</span><span class="s2">\&quot;/&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s|http://microgrid-1:8090|http://</span><span class="si">${</span><span class="nv">MG2_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>-e<span class="w"> </span><span class="s2">&quot;s|http://microgrid-2:8090|http://</span><span class="si">${</span><span class="nv">MG2_IP</span><span class="si">}</span><span class="s2">:8090|&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/breeder-mg2.yaml
-
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span>/tmp:/work<span class="w"> </span>-w<span class="w"> </span>/work<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>bench-mg-2<span class="w"> </span>--file<span class="o">=</span>/work/breeder-mg2.yaml
-</code></pre></div>
-<p>Get the breeder IDs:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">BREEDER_1_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span>:<span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span>/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-mg-1&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nv">BREEDER_2_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://<span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span>:<span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span>/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-mg-2&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Breeder 1: </span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Breeder 2: </span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-<h3 id="step-5-watch-optimization-progress">Step 5: Watch Optimization Progress</h3>
-<p>The breeders are now running. Check progress through the observer:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>deploy/godon-godon-observer<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="s1">&#39;http://localhost:8089/api/breeders&#39;</span>
-</code></pre></div>
-<p>You'll see something like:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span>
-<span class="w">  </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bench-mg-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;total_trials&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">145</span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bench-mg-2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;total_trials&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">138</span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-<p>You can also access the observer's GUI dashboard to see breeder status, trial history, and optimization progress visually. Port-forward the observer:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">OBSERVER_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>observer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OBSERVER_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">8089</span>:8089<span class="w"> </span><span class="p">&amp;</span>
-</code></pre></div>
-<p>Then open <code>http://127.0.0.3:8089</code> in your browser to explore the running campaigns, inspect individual trials, and watch how parameters and objectives evolve over time.</p>
-<p>You can also query Prometheus metrics directly for trial counts and best values:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>deploy/godon-godon-observer<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="s1">&#39;http://localhost:8089/metrics&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;godon_breeder_(total_trials|best_value)&#39;</span>
-</code></pre></div>
-<p>Wait until both breeders have 100+ trials before running detection. Each trial takes a few seconds — expect 15-20 minutes to reach 200+ trials.</p>
-<h3 id="step-6-run-interference-detection">Step 6: Run Interference Detection</h3>
-<p>Query the observer to detect interference between the two breeders:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>deploy/godon-godon-observer<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="s2">&quot;http://localhost:8089/api/watermark-detection/</span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-<p>The response shows detection results per objective:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;detected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;per_objective&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;objective_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;fft&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;p_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0004</span><span class="p">}},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;objective_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;fft&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;p_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0002</span><span class="p">}},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;objective_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;fft&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;p_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0002</span><span class="p">}},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;objective_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detected&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;fft&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;p_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">}}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Objectives 0-2 show interference (p &lt; 0.05). Objective 3 (energy cost) is clean — it's not affected by the coupling channel in this scenario. The observer detected Breeder 1's watermark in Breeder 2's outcomes, proving interference through the shared microgrid.</p>
-<h3 id="step-7-verify-with-no-coupling">Step 7: Verify with No Coupling</h3>
-<p>Confirm the detection is real by running with zero coupling. First, clean up the existing breeders:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-<p>Restart the microgrids without coupling:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>down<span class="w"> </span>-v
-<span class="nb">export</span><span class="w"> </span><span class="nv">COUPLING_FACTOR</span><span class="o">=</span><span class="m">0</span>.0
-docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>up<span class="w"> </span>-d
-</code></pre></div>
-<p>Then repeat Steps 1 (network reconnect), 4 (create breeders), 5 (wait for trials), and 6 (run detection). This time you should see all objectives clean — no interference detected.</p>
-<h3 id="step-8-clean-up">Step 8: Clean Up</h3>
-<p>When done, tear everything down:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Delete breeders and targets</span>
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
-
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>target<span class="w"> </span>delete<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TARGET_1_ID</span><span class="si">}</span><span class="s2">&quot;</span>
-docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLI_IMAGE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hostname<span class="o">=</span><span class="si">${</span><span class="nv">API_HOST</span><span class="si">}</span><span class="w"> </span>--port<span class="o">=</span><span class="si">${</span><span class="nv">API_PORT</span><span class="si">}</span><span class="w"> </span>--insecure<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>target<span class="w"> </span>delete<span class="w"> </span>--id<span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TARGET_2_ID</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<span class="c1"># Stop simulators</span>
-docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/bench/scenario-microgrid/docker-compose.yml<span class="w"> </span>-p<span class="w"> </span>bench-mg<span class="w"> </span>down<span class="w"> </span>-v
-</code></pre></div>
-<h3 id="understanding-the-results">Understanding the Results</h3>
+<h3 id="understanding-the-protocol">Understanding the Protocol</h3>
+<p>The method is the <strong>impulse protocol</strong>: non-destructive perturbation within guardrail bounds, ABA block design (push → pause → compare), and CFAR detection with adaptive thresholds — the same statistical family as radar and sonar. Receiver exploration noise — the dominant interference signal blocker — is eliminated by the receiver holding still during measurement rather than by stronger statistics.</p>
+<p>Full methodology and validation: <a href="../concept_interference_detection/">Interference Detection</a>.</p>
+<h3 id="varying-the-planted-reality">Varying the Planted Reality</h3>
+<p>The topology file is the experiment design:</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Meaning</th>
+<th>Knob</th>
+<th>What it changes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>detected</code></td>
-<td>Overall: true if any objective shows interference</td>
+<td><code>strength</code></td>
+<td>Edge coupling strength (0.1 floor to 0.9, validated sweep)</td>
 </tr>
 <tr>
-<td><code>per_objective[].detected</code></td>
-<td>Per-objective detection result</td>
+<td><code>base</code></td>
+<td>Per-node shape: <code>linear</code>, <code>threshold</code>, <code>saturation</code>, <code>polynomial</code></td>
 </tr>
 <tr>
-<td><code>fft.p_value</code></td>
-<td>Permutation test p-value (p &lt; 0.05 = significant)</td>
+<td><code>gaussian_sigma</code></td>
+<td>Measurement noise (0.02 validated; boundary characterized 0.05-0.10)</td>
 </tr>
 <tr>
-<td><code>fft.combined_power</code></td>
-<td>Spectral power at watermark frequencies</td>
-</tr>
-<tr>
-<td><code>aligned_trials</code></td>
-<td>Number of timestamp-aligned trials used</td>
+<td><code>edges</code></td>
+<td>Any DAG: chains, stars, multi-agent groups</td>
 </tr>
 </tbody>
 </table>
-<p>The detection uses FFT to measure spectral power at the sender's known watermark frequencies, then compares against 5000 random shuffles. See <a href="../concept_interference_detection/">Interference Detection</a> for the full methodology.</p>
-<h3 id="varying-coupling-strength">Varying Coupling Strength</h3>
-<p>The <code>COUPLING_FACTOR</code> environment variable controls interference strength:</p>
-<table>
-<thead>
-<tr>
-<th>Coupling</th>
-<th>What to expect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.0</td>
-<td>No detection — clean baseline</td>
-</tr>
-<tr>
-<td>0.1</td>
-<td>Partial detection — some objectives may trigger</td>
-</tr>
-<tr>
-<td>0.5</td>
-<td>Most coupled objectives detected</td>
-</tr>
-<tr>
-<td>0.9</td>
-<td>Strong detection on all coupled objectives</td>
-</tr>
-</tbody>
-</table>
-<p>Try different values and observe how p-values change.</p>
 <h3 id="next-steps">Next Steps</h3>
 <ul>
-<li>Read the <a href="../concept_interference_detection/">Interference Detection</a> concept page for methodology and validation data</li>
-<li>Explore the <a href="../concept_breeder/">Breeder</a> configuration for watermark and optimization parameters</li>
-<li>Check <a href="../architecture/">Architecture</a> for system component details</li>
-<li>See <a href="../bench_scenarios/">Bench Scenarios</a> for available bench scenarios and detection status</li>
+<li><a href="../concept_interference_detection/">Interference Detection</a> — the methodology and its validation boundaries</li>
+<li><a href="../architecture/">Architecture</a> — the causal service and the components around it</li>
+<li><a href="../bench_scenarios/">Bench Scenarios</a> — the scenario library</li>
 </ul>
 
 
@@ -1877,9 +1739,6 @@ docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> 
 
 
 
-
-  
-  
 
 
 
