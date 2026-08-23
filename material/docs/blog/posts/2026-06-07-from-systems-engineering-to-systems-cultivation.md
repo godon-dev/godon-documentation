@@ -59,7 +59,7 @@ Cultivation requires something engineering doesn't: **perception of the living s
 
 ## The First Step Is Perception
 
-godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by embedding a known signal (a watermark) into an optimizer's exploration. When that signal appears in another optimizer's objectives, you've detected a coupling path — one agent's actions are reaching the other through shared state.
+godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one optimizer apply a guarded push to parameters it already controls while the other holds still. If the second optimizer's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.
 
 Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.
 
@@ -88,3 +88,5 @@ That's what godon is building.
 ---
 
 *This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
+
+> **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
