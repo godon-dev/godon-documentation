@@ -45,14 +45,14 @@ A group of autonomous optimizers, each locked to its own system — and substrat
        │  System A  │                │  System B  │                │  System C  │
        └─────┬─────┘                 └─────┬─────┘                 └─────┬─────┘
              │                             │                             │
-             ╞════════thermal wall═════════╡                             │
+             ╞════════exhaust heat═════════╡                             │
              │                             │                             │
-             │                             ╞══════════power bus══════════╡
+             │                             ╞══════memory bandwidth═══════╡
              │                                                           │
-             ╞══════shared cache═══════════╪═════════════════════════════╡
+             ╞═════shared connection pool══╪═════════════════════════════╡
 ```
 
-Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. The substrates between — a shared wall, a power bus, a contended cache, shared state, a data schema — carry influence from one system to the others while appearing in **no one's** configuration, **nor** anyone's telemetry. The net is real in every reading and absent from every diagram.
+Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. The substrates between — exhaust heat, memory bandwidth, a shared connection pool, shared state, a data schema — carry influence from one system to the others while appearing in **no one's** configuration, **nor** anyone's telemetry. Three different kinds, one shape: physical (heat), compute (bandwidth), logical (pool). The net is real in every reading and absent from every diagram.
 
 On the generic bench this is planted deliberately: `node-1` and `node-2`, three parameters each, an edge `node-1 → node-2` of strength 0.7 feeding channel 0. The breeders optimizing those nodes know none of that. On the greenhouse bench it is physical: two greenhouses, one shared wall — when A raises its heating, heat crosses the wall and moves B's temperature, humidity, and growth rate. B's optimizer receives the change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
