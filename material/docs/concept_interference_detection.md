@@ -8,7 +8,7 @@ When multiple optimizers operate on shared infrastructure — a power grid, a da
 
 **Neither optimizer knows this is happening.**
 
-godon's interference detection makes this invisible problem visible. The current method is **active probing with CFAR detection** — one optimizer pushes extreme parameters while the other holds still and measures the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.
+godon's interference detection makes this invisible problem visible. The current method is **active probing with CFAR detection** — one optimizer pushes a parameter through scheduled probe levels while the others hold still and measure the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.
 
 ### The Problem
 
@@ -47,23 +47,21 @@ Instead of injecting a continuous signal and hoping it survives the channel, the
 
 #### Roles: Sender and Receiver
 
-Two breeders participate. One becomes the **sender**, the other the **receiver**. They coordinate through a shared lease table:
+Two or more breeders participate. One is the **sender**, the others are **receivers**. They coordinate through a group-scoped lease table (fencing tokens; one sender at a time per group, crash recovery via heartbeat staleness):
 
-1. **OPTIMIZE** — Both breeders optimize normally until enough trials accumulate.
-2. **HOLD_CALIB** — Sender acquires the lease, holds at neutral parameters, waits for receiver readiness.
-3. **IMPULSE_CALIB** — Sender probes at decreasing amplitude (1.0 → 0.5 → 0.25 → 0.125) to find the largest impulse that doesn't violate guardrails.
-4. **PUSH** — Sender applies extreme parameters for N trials.
-5. **PAUSE** — Sender returns to neutral parameters for N trials.
-6. **COOLDOWN** — Sender releases lease. Receiver can now acquire lease.
-7. **HOLD** — Receiver holds neutral parameters throughout the sender's push/pause, recording observations.
+1. **OPTIMIZE** — All breeders optimize normally; baseline accumulates.
+2. **PROBE_PUSH** — The sender pushes one parameter to a scheduled probe level for a block of trials, within guardrails.
+3. **PROBE_PAUSE** — The sender returns to neutral for a block of trials — the reversibility check.
+4. **DONE / COOLDOWN** — The sender releases the lease and waits, so turn-taking stays fair.
+5. **HOLD** — Throughout the sender's push and pause, receivers hold neutral parameters and record observations.
 
-Turn-taking is automatic: after cooldown, roles swap. Both directions are tested.
+Probe levels come from a deterministic **coverage walk** (midpoint, extremes, quarters — a computed low-discrepancy order), not from sampling: every level is visited by contract, and pushes stay inside the same guardrails as ordinary trials. Both directions are tested as the sender role rotates.
 
 #### Why This Works Where Passive Methods Failed
 
 Two key differences:
 
-1. **The perturbation is large enough to survive the channel.** Extreme parameters push the system far from its operating point. The coupling delta is proportional to the parameter delta — a large push creates a large thermal transfer that survives non-linear transforms.
+1. **The perturbation is large enough to survive the channel.** The walk's probe levels span the parameter's full guardrail-bounded range. The coupling delta is proportional to the parameter delta — a full-span push creates a transfer large enough to survive non-linear transforms.
 
 2. **The receiver holds still, eliminating exploration noise.** The 500× noise barrier vanishes. The only remaining variance is the system's intrinsic stochasticity, which CFAR handles.
 
@@ -73,9 +71,9 @@ The detector uses a Constant False Alarm Rate (CFAR) approach — the same princ
 
 #### Reference Window
 
-The noise floor is estimated from the receiver's hold_calib trials — the trials where the receiver sits at neutral parameters and the sender is also holding (before push starts). These are pure noise samples.
+The noise floor is estimated from the receiver's own neutral-hold trials — windows where the receiver sits at neutral parameters, tagged with the lease phase. These are pure noise samples.
 
-Critical: the reference must exclude the **sender's own hold_calib trials** (`coord_state=hold_calib`), which include unstable early readings as the sender's system stabilizes. Including them inflates the noise estimate by an order of magnitude.
+Critical: only the receivers' observation rows enter the reference window. The sender's own self-reads must not — mixing them in poisons the median and both halves of the contrast (this was a real defect, found by live checks, fixed by a lease-phase write gate plus receiver-rows-only SQL; the invariant is pinned by tests).
 
 #### Adaptive Threshold
 
@@ -133,7 +131,7 @@ Bidirectional detection. Growth_rate and temperature are the strongest coupling 
 
 1. **Active probing beats passive observation.** The impulse survives non-linear channels where continuous signals die. Not smarter algorithms — stronger signal.
 2. **CFAR handles unknown noise.** Adaptive threshold from local reference statistics. No Gaussian assumption, no fixed threshold.
-3. **The reference window must be clean.** Sender's own hold_calib contaminated the noise floor (MAD 0.18 vs 0.02). Filtering to receiver-only reduced it 18×.
+3. **The reference window must be clean.** Sender self-reads once contaminated the noise floor (MAD 0.18 vs 0.02). Receiver-rows-only filtering reduced it 18×.
 4. **Temperature is the primary coupling channel.** Thermal transfer is immediate and proportional. Growth_rate works because it's downstream of temperature.
 5. **Turn-taking gives both directions automatically.** The lease-based coordination means each breeder takes turns. Both directions tested without configuration.
 
@@ -143,7 +141,7 @@ Bidirectional detection. Growth_rate and temperature are the strongest coupling 
 
 **Non-stationarity partially handled.** The greenhouse IS non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local (5-8 trials), limiting exposure to drift. The remaining open case is non-stationarity with phase transitions faster than the detection window — e.g., a crop suddenly entering flowering mid-detection.
 
-**Lease timing is fragile.** The 90-second lease with 15-second trials requires tight coordination. Untested at scale.
+**Lease timing is untested at scale.** Coordination is group-scoped with fencing tokens and crash recovery via heartbeat staleness; validated at 2-6 agents. The coordination regime for many more is open (see [Open Research](open_research.md)).
 
 ### Channel Taxonomy
 
@@ -161,17 +159,14 @@ One method for all channel types. The greenhouse bench is simultaneously deeply 
 
 For detailed channel descriptions with real-world examples, see [Detection Capabilities](detection_capabilities.md).
 
-### Beyond Detection (Shipped and Next)
+### Beyond Detection
 
-Detection is the entry point; the protocol runs deeper:
+Detection is the entry point; the protocol runs deeper, and each layer has its own page:
 
-**Response curves (shipped).** Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously. Details and calibration numbers: [Characterization](characterization.md).
-
-**Topology recovery (shipped).** Pairwise measurements across a group assemble the coupling graph — validated on chain topologies with exact topology recovery and ~5-10% edge-strength error.
-
-**Composition (validated additive).** Measured edges compose: the two-hop response predicted from chained one-hop curves matches the directly measured response within bars. Nonlinear composition is the open frontier (see [Open Research](open_research.md)).
-
-**Coupling-aware behavior (next).** Agents adapting to known coupling — the tending direction. Not yet built.
+- **Response curves** — the edge's measured shape, with uncertainty bars and priced stopping: [Characterization](characterization.md)
+- **Topology recovery** — pairwise measurements assemble the coupling graph (validated on chain topologies): [Detection Capabilities](detection_capabilities.md)
+- **Composition** — measured edges compose to predict multi-hop response (validated additive): [Characterization](characterization.md)
+- **Coupling-aware behavior** — agents adapting to known coupling; the tending direction, not yet built: [Open Research](open_research.md)
 
 ### Further Reading
 

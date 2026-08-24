@@ -54,7 +54,7 @@ Covered at the bench's drift rates. The CFAR reference window is local (a handfu
 
 ### Beyond Detection: Characterization
 
-Detection reports an edge exists. The same protocol, run to depth, measures its **response curve**: per (sender, parameter, channel), the full level→shift shape with uncertainty bars from raw sample scatter. Curves converge by blended re-measurement and retire by priced stopping — remaining ignorance (gap jump × width) cheaper than one more probe. Multi-agent groups: one sender's walk measures every holding receiver's curve simultaneously. Full story with calibration numbers: [Characterization](characterization.md).
+Detection reports an edge exists. The same protocol, run to depth, measures its **response curve** — the full level→shift shape per (sender, parameter, channel), with uncertainty bars. Full story, calibration numbers, and composition results: [Characterization](characterization.md).
 
 See [Interference Detection](concept_interference_detection.md) for the full method.
 
