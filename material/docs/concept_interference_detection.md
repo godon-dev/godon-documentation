@@ -12,24 +12,24 @@ godon's interference detection makes this invisible problem visible. The current
 
 ### The Problem
 
-Consider two independent optimization loops:
+Two autonomous optimizers, two separate systems — and a substrate between them that belongs to neither:
 
 ```
-    ┌─────────────┐              ┌─────────────┐
-    │  Optimizer A │              │  Optimizer B │
-    │  (grid load) │              │  (grid cost) │
-    └──────┬───────┘              └──────┬───────┘
-           │                             │
-           ▼                             ▼
-    ┌──────────────────────────────────────────┐
-    │           Shared Power Grid               │
-    │    (the coupling channel)                 │
-    └──────────────────────────────────────────┘
+    ┌────────────┐                      ┌────────────┐
+    │ Optimizer A│                      │ Optimizer B│
+    └─────┬──────┘                      └─────┬──────┘
+          │ tunes                             │ tunes
+          ▼                                   ▼
+    ┌────────────┐   shared substrate   ┌────────────┐
+    │  System A  │ ◀─ wall·bus·cache ─▶ │  System B  │
+    └────────────┘    · shared state    └────────────┘
 ```
 
-Optimizer A adjusts load distribution. Optimizer B adjusts cost parameters. Both affect the same grid. When A shifts load, it changes the conditions B is optimizing against. B's "optimal" decisions are now based on a landscape A has altered. Both optimizers degrade each other's performance, but neither can see the cause.
+Each optimizer tunes its own parameters against its own objective, reading only its own system's outputs. The substrate — a shared wall, a power bus, a contended cache, shared state, a data schema — carries influence from one system to the other while appearing in **neither** configuration, **nor** anyone's telemetry.
 
-This isn't theoretical — it happens in any system where multiple optimization workloads share resources.
+Concretely, the validated greenhouse bench: two greenhouses, each with its own climate optimizer chasing its own growth rate. They share a wall. When A raises its heating, heat conducts through the wall and shifts B's temperature and humidity — B's growth rate moves for reasons B cannot see. B's optimizer does the only thing available to it: attribute the shift to its own parameters. It keeps optimizing against a landscape that A silently rearranges — trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. Nobody configured the wall into anything. Nobody monitors it. The coupling exists physically, in every reading — and in no model.
+
+This is the general shape: it happens wherever multiple autonomous agents share a physical or logical substrate. The interference is real in every measurement and absent from every diagram.
 
 ### Why Not Passive Detection?
 
