@@ -2,111 +2,196 @@
 description: "godon Interference Detection — autonomous discovery of coupling between independent optimizers through active probing and CFAR detection."
 ---
 
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
+
 ## Interference Detection
 
-When multiple optimizers operate on shared infrastructure — a power grid, a data center, a factory floor — their decisions can interfere with each other. Each optimizer acts independently, making locally optimal choices, but through the shared physical or computational medium, one optimizer's actions affect another's outcomes.
+The system answers a knock. The answer is a measurement.
 
-**Neither optimizer knows this is happening.**
+Autonomous optimizers sharing a substrate corrupt each other through channels nobody configured and nobody monitors. Interference detection makes those channels visible — not by watching the systems, but by having the agents already embedded in the substrate perturb it, in turn, within guardrails, and read who answers.
 
-godon's interference detection makes this invisible problem visible. The current method is **active probing with CFAR detection** — one optimizer pushes a parameter through scheduled probe levels while the others hold still and measure the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.
+This document follows the benches: the generic bench (nodes, parameters, planted edges — the same one [Getting Started](getting_started.md) runs) and the greenhouse bench (deeply nonlinear, the channel class that broke every passive method). Numbers quoted are measured engine output, not illustrations.
 
 ### The Problem
 
-Consider two independent optimization loops:
+A group of autonomous optimizers, each locked to its own system — and substrates between the systems that belong to none of them. Two nets, same shape — one physical, one logical:
+
+**The physical net** — the greenhouse bench's own coupling channels:
 
 ```
-    ┌─────────────┐              ┌─────────────┐
-    │  Optimizer A │              │  Optimizer B │
-    │  (grid load) │              │  (grid cost) │
-    └──────┬───────┘              └──────┬───────┘
-           │                             │
-           ▼                             ▼
-    ┌──────────────────────────────────────────┐
-    │           Shared Power Grid               │
-    │    (the coupling channel)                 │
-    └──────────────────────────────────────────┘
+┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
+│ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
+│ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
+│ wants   growth_rate     │   │ wants   growth_rate     │   │ wants   growth_rate     │
+└───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
+             │ tunes                       │ tunes                       │ tunes
+             ▼                             ▼                             ▼
+     ┌──────────────┐              ┌──────────────┐              ┌──────────────┐
+     │ Greenhouse A │              │ Greenhouse B │              │ Greenhouse C │
+     └──────┬───────┘              └──────┬───────┘              └──────┬───────┘
+             │                             │                             │
+             ╞═════════shared wall═════════╡                             │
+             │                             │                             │
+             │                             ╞════════air exchange═════════╡
+             │                                                           │
+             ╞════════shared water tank════╪═════════════════════════════╡
 ```
 
-Optimizer A adjusts load distribution. Optimizer B adjusts cost parameters. Both affect the same grid. When A shifts load, it changes the conditions B is optimizing against. B's "optimal" decisions are now based on a landscape A has altered. Both optimizers degrade each other's performance, but neither can see the cause.
+Not illustrations — the validation tables at the end of this page detect through exactly these channels.
 
-This isn't theoretical — it happens in any system where multiple optimization workloads share resources.
-
-### Why Not Passive Detection?
-
-Earlier work explored spectral watermarking — injecting a continuous sinusoidal signal into optimizer parameters and detecting it via FFT in another optimizer's objectives. This worked reliably on **linear additive channels** (e.g. microgrid power bus) but failed completely on **non-linear cascaded channels** (e.g. greenhouse climate control).
-
-The greenhouse coupling signal passes through 6+ non-linear transforms — thermal inertia, multiplicative growth models, dead zones, phase-dependent sensitivity — before reaching the objectives. Each stage distorts or attenuates frequency content. By the time the signal reaches the observable objectives, its SNR is approximately 0.002. No spectral method can recover it.
-
-All passive statistical methods were evaluated and failed: cross-correlation, Granger causality, mutual information, transfer entropy, convergent cross mapping. The fundamental barrier was not the detection algorithm but the **exploration noise** — the receiver's own optimization produces objective variance 500× larger than any coupling signal. No statistical method can extract a signal buried 500× below the noise floor.
-
-### Active Probing Protocol
-
-The solution is not a better passive detector. It is to stop being passive.
-
-Instead of injecting a continuous signal and hoping it survives the channel, the protocol actively creates a perturbation large enough to survive any non-linear distortion, then measures the response while eliminating the dominant noise source.
-
-#### Roles: Sender and Receiver
-
-Two or more breeders participate. One is the **sender**, the others are **receivers**. They coordinate through a group-scoped lease table (fencing tokens; one sender at a time per group, crash recovery via heartbeat staleness):
-
-1. **OPTIMIZE** — All breeders optimize normally; baseline accumulates.
-2. **PROBE_PUSH** — The sender pushes one parameter to a scheduled probe level for a block of trials, within guardrails.
-3. **PROBE_PAUSE** — The sender returns to neutral for a block of trials — the reversibility check.
-4. **DONE / COOLDOWN** — The sender releases the lease and waits, so turn-taking stays fair.
-5. **HOLD** — Throughout the sender's push and pause, receivers hold neutral parameters and record observations.
-
-Probe levels come from a deterministic **coverage walk** (midpoint, extremes, quarters — a computed low-discrepancy order), not from sampling: every level is visited by contract, and pushes stay inside the same guardrails as ordinary trials. Both directions are tested as the sender role rotates.
-
-#### Why This Works Where Passive Methods Failed
-
-Two key differences:
-
-1. **The perturbation is large enough to survive the channel.** The walk's probe levels span the parameter's full guardrail-bounded range. The coupling delta is proportional to the parameter delta — a full-span push creates a transfer large enough to survive non-linear transforms.
-
-2. **The receiver holds still, eliminating exploration noise.** The 500× noise barrier vanishes. The only remaining variance is the system's intrinsic stochasticity, which CFAR handles.
-
-### CFAR Detection
-
-The detector uses a Constant False Alarm Rate (CFAR) approach — the same principle used in active sonar, radar, and seismology for detecting signals in unknown noise environments.
-
-#### Reference Window
-
-The noise floor is estimated from the receiver's own neutral-hold trials — windows where the receiver sits at neutral parameters, tagged with the lease phase. These are pure noise samples.
-
-Critical: only the receivers' observation rows enter the reference window. The sender's own self-reads must not — mixing them in poisons the median and both halves of the contrast (this was a real defect, found by live checks, fixed by a lease-phase write gate plus receiver-rows-only SQL; the invariant is pinned by tests).
-
-#### Adaptive Threshold
+**The logical net** — the same shape without physics:
 
 ```
-k = N × (Pfa^(-1/N) - 1)
-threshold = k × MAD
+┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
+│ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
+│ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
+│ wants   latency         │   │ wants   cost            │   │ wants   uptime          │
+└───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
+             │ tunes                       │ tunes                       │ tunes
+             ▼                             ▼                             ▼
+       ┌───────────┐                 ┌───────────┐                 ┌───────────┐
+       │ Service A  │                │ Service B  │                │ Service C  │
+       └─────┬─────┘                 └─────┬─────┘                 └─────┬─────┘
+             │                             │                             │
+             ╞═══════shared database═══════╡                             │
+             │                             │                             │
+             │                             ╞════════message queue════════╡
+             │                                                           │
+             ╞═══════════shared schema═════╪═════════════════════════════╡
 ```
 
-Where N = number of reference cells, Pfa = false alarm probability (1 - detection_confidence), MAD = median absolute deviation of reference values.
+Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. Influence crosses through substrates that appear in **no one's** configuration, **nor** anyone's telemetry. The net — physical or logical — is real in every reading and absent from every diagram.
 
-More reference data → lower k → more sensitive. The `detection_confidence` parameter (default 0.95) is configurable.
+That it works across kinds is not an edge case; it is the point. The protocol contains no physics: it needs parameters it can push, objectives it can read, and turns it can take. What sits between can be wall, wire, or schema. And both kinds are validated territory — the greenhouse's channels are physical; the generic bench's edges are pure mathematics (saturation and threshold transforms, no physics at all), and detection holds across the entire sweep on both.
 
-#### Detection Criterion
+On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the breeders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
-For each channel, both **rising edge** (baseline → push) and **falling edge** (push → pause) must exceed the threshold. This ensures the ABA pattern is present — not just a random spike.
+### Why Passive Detection Fails
 
-### Observations: Separate from Objectives
+The obvious move is statistics: watch both optimizers' metrics, look for correlation. It fails structurally, not implementationally.
 
-Detection channels are explicitly separated from optimization targets:
+While a receiver optimizes, its own search moves its objectives — trial by trial, deliberately. That self-inflicted variance sits roughly 500× above any coupling signal in passive data. Every passive estimator in the toolbox was tried on this channel class — cross-correlation, Granger causality, mutual information, transfer entropy, convergent cross mapping — with the same outcome: you cannot subtract a conversation you never heard. The noise is not in the sensor. The noise *is* the listener, thinking.
+
+An earlier attempt made each optimizer broadcast a faint continuous tone (a watermark) and listened for it downstream with spectral methods. It worked on linear channels and died on the greenhouse: six cascaded transforms — thermal inertia, multiplicative growth, dead zones, phase-dependent sensitivity — ate the frequency content until the SNR was ≈ 0.002. The lesson was not a better detector. It was that the signal has to be created at the scale of the channel, not the scale of the sensor.
+
+### The Method: Knock, Listen, Repeat
+
+The protocol is what any engineer does to an unknown system: perturb it, watch what answers. Under discipline:
+
+**Turn-taking.** Breeders in a shared group pass a lease — fencing tokens, one sender at a time, crash recovery via heartbeat staleness. One speaks; the others hold at neutral. Not politeness: a listener shifting in their chair is indistinguishable from an answer. Holding still deletes the 500× self-noise; what remains is the substrate's own voice.
+
+**Scheduled pushes.** The sender walks one parameter through scheduled probe levels — midpoint, extremes, quarters; a deterministic order that visits every level by contract. Each push stays inside the same guardrails as ordinary optimization trials. Non-destructive by construction, not by hope.
+
+**Blocks, not blips.** Every level gets a push block and a pause block of N trials each; the comparison is between block medians, not single samples.
+
+The sender's cycle: `OPTIMIZE → PROBE_PUSH → PROBE_PAUSE → DONE → COOLDOWN`, receivers `HOLD` throughout. Roles rotate; both directions get measured.
+
+### The Dynamics
+
+What the instrument actually records — sender's parameter above, receiver's objective below, same time axis:
+
+```
+         push        pause       push        pause
+       ┌───────┐   ┌───────┐   ┌───────┐
+ param │  100  │   │  50   │   │   0   │    the walk: midpoint,
+ level │       │   │(hold) │   │       │    extremes, quarters —
+       └───────┘   └───────┘   └───────┘    every level, by contract
+ ───────────────────────────────────────────────▶ trials
+
+       ┌───────┐   ┌───────┐   ┌───────┐
+ shift │ S(100)│   │  ~0   │   │ S(0)  │    the answer: same shape,
+       └───────┘   └───────┘   └───────┘    scaled by the channel
+```
+
+Read the lower trace against the upper: each push produces a shift `S(level)`; each pause lets the receiver return. On the saturation bench cell the measured values behind those labels: `S(0) = −0.352 ± 0.020`, `S(100) = −0.113 ± 0.022` — planted truth `−0.350` and `−0.117`. Collect `S(level)` across the whole walk and the points *are* the response curve: detection and [characterization](characterization.md) are the same instrument at different depths.
+
+Three things can move the receiver's objective, and the block design tells them apart:
+
+| Movement | Verdict |
+|---|---|
+| Rises with the push, falls with the pause | **Coupling** — the edge is real |
+| Rises — and stays | **Drift** — flagged, not measured as structure |
+| Moves with no push at all | **Noise** — sizes the band everything else is judged against |
+
+Both edges must clear the band. That reversibility criterion is why the method's false-positive count on uncoupled controls is zero: a coincidence can fake an arrival, a regime change can fake a level — faking an arrival *and* a timely departure is what noise does not do.
+
+### Every Parameter Gets the Walk
+
+The walk repeats per parameter — the map emerges per (parameter, channel), whatever the parameter's dynamics:
+
+- A **carrier** (like `param_1` above) shows its shape: tent, threshold, saturation — the ABA contrast catches any repeatable level-dependence, fast or slow, saturating or stepped. Detection is shape-agnostic because the signature is *arrives with push, leaves with pause*, not any particular curve form.
+- A **dead parameter** reads flat at every level and retires after ~3 probes — on a 100-level grid, the full cost of proving silence was 3 pushes. In one validated run, all three parameters converged on 16 probes out of 303 grid cells; the budget goes to structure, not silence.
+- The **channel split** is measured, not assumed: the same walk that draws `param_1`'s tent on `objective_0` reads honest flat on `objective_1` — seven levels of nothing, bar-carrying. A parameter influences exactly the channels where its curve is non-flat.
+
+### Several Breeders at Once
+
+Turn-taking does not mean pairwise tedium. One sender's walk measures **every** holding receiver simultaneously, through however many substrates the influence must cross. The chain scenario (`node-1 → node-3 → node-2`, edges 0.7 and 0.5):
+
+```
+      breeder A — the walk: param_1 through its levels
+        (50 → 0 → 100 → 25 → 75 → … — push block / pause block each)
+                         │
+        substrate 1      ▼      edge 0.7
+                    ┌────────┐
+                    │   C    │   answers: one-hop curve — 9 levels
+                    └───┬────┘
+        substrate 2      ▼      edge 0.5
+                    ┌────────┐
+                    │   B    │   answers: two-hop curve — the same
+                    └────────┘   walk measures through both substrates
+
+  everything else flat: reverse directions, second channels —
+  36 curves, exactly the 3 planted signal paths non-flat
+```
+
+Both curves — the direct answer at C and the through-C answer at B — fell out of a single walk.
+
+The witness is the control running inside the experiment: in the verification-star scenario (`node-1` sends, `node-2` coupled at 0.7, `node-3` uncoupled) the same windows and the same push schedule give node-2 a tent curve with every point ≤ 0.011 from planted truth (~0.5σ) — and node-3 flat, ±0.015. The honest blank is what certifies the tent as measurement, not artifact.
+
+### Calling the Step: CFAR
+
+How large must a step be before it is believed? In units of the local noise:
+
+```
+threshold = k × MAD,    k = N · (Pfa^(−1/N) − 1)
+```
+
+MAD is the median absolute deviation of the receiver's own neutral-hold window; N is the reference window size; Pfa is the false-alarm probability (`detection_confidence`, default 0.95). More reference data lowers k; a cleaner window lowers MAD. This is CFAR — constant false-alarm rate, the radar and sonar family — because the detector calibrates itself to the local noise, per channel, per round: a known-shape return in unknown noise.
+
+One hygiene rule carries a hard-won invariant: only the receivers' observation rows enter the reference window. Sender self-reads poison the median (a real defect once, caught by live checks, fixed by a lease-phase write gate plus receiver-rows-only SQL — pinned by tests).
+
+### Objectives Are Optimized; Observations Are Watched
+
+Detection channels are explicitly separate from optimization targets:
 
 | Section | Purpose | Example |
 |---|---|---|
-| `objectives` | What optuna optimizes | growth_rate, energy, water |
-| `observations` | What the detector reads | max_temp, max_co2, max_humidity |
-| `guardrails` | Safety limits | max_temp (hard_limit=40) |
+| `objectives` | What the optimizer optimizes | growth_rate, energy |
+| `observations` | Collected per trial, never optimized — extra detector channels | max_temp, humidity |
+| `guardrails` | Hard safety limits | max_temp (hard_limit 40) |
 
-Observations are collected per trial but never fed into the optuna Pareto front. The detector merges them at query time — all channels checked independently.
+The detector reads objectives and observations alike; the optimizer only chases the former. A channel you suspect is coupled but do not want an agent chasing belongs in `observations`.
 
-### Validation Results
+### Validation
 
-Original bidirectional validation on greenhouse scenario 4 (two coupled greenhouses, coupling factor 0.9):
-
-#### Coupling = 0.9 (Coupled)
+On the greenhouse bench — deeply nonlinear cascaded coupling with crop-phase drift — bidirectional detection at coupling 0.9, zero false positives at coupling 0.0:
 
 | Direction | Channel | Detected | Baseline | Push | Pause | MAD | Edge |
 |---|---|---|---|---|---|---|---|
@@ -116,36 +201,17 @@ Original bidirectional validation on greenhouse scenario 4 (two coupled greenhou
 | B1→B2 | max_temp | **Yes** | 25.9°C | 28.5°C | 19.3°C | 0.351 | 9.2°C |
 | B1→B2 | max_humidity | **Yes** | 0.660 | 0.698 | 0.593 | 0.001 | 0.104 |
 
-Bidirectional detection. Growth_rate and temperature are the strongest coupling channels.
+The uncoupled control stayed silent in both directions — including through a genuine 7.7°C temperature swing whose ABA pattern was absent, so the detector correctly rejected it. On the generic bench, the 21-cell sensitivity sweep put the detection floor between 0.1 and 0.2 coupling at noise σ=0.02 with zero false positives across all control cells. Full sweep data: the [paper](publications.md); boundary map in brief: [Detection Capabilities](detection_capabilities.md).
 
-#### Coupling = 0.0 (Control — Uncoupled)
+### Limits
 
-| Direction | Detected |
-|---|---|
-| B2→B1 | **No** |
-| B1→B2 | **No** |
-
-**Zero false positives.** The CFAR detector stays silent when no coupling exists. A large temperature swing (7.7°C) was observed in the control run, but the rising edge was within the CFAR band — the ABA pattern was not present, so detection correctly rejected it.
-
-### Key Insights
-
-1. **Active probing beats passive observation.** The impulse survives non-linear channels where continuous signals die. Not smarter algorithms — stronger signal.
-2. **CFAR handles unknown noise.** Adaptive threshold from local reference statistics. No Gaussian assumption, no fixed threshold.
-3. **The reference window must be clean.** Sender self-reads once contaminated the noise floor (MAD 0.18 vs 0.02). Receiver-rows-only filtering reduced it 18×.
-4. **Temperature is the primary coupling channel.** Thermal transfer is immediate and proportional. Growth_rate works because it's downstream of temperature.
-5. **Turn-taking gives both directions automatically.** The lease-based coordination means each breeder takes turns. Both directions tested without configuration.
-
-### Current Limitations
-
-**Calibration is bypassed, not solved.** When `hold_params` are specified in config, the flatness search is skipped. The generic case — discovering stable hold parameters autonomously — remains open.
-
-**Non-stationarity partially handled.** The greenhouse IS non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local (5-8 trials), limiting exposure to drift. The remaining open case is non-stationarity with phase transitions faster than the detection window — e.g., a crop suddenly entering flowering mid-detection.
-
-**Lease timing is untested at scale.** Coordination is group-scoped with fencing tokens and crash recovery via heartbeat staleness; validated at 2-6 agents. The coordination regime for many more is open (see [Open Research](open_research.md)).
+- **Calibration is bypassed, not solved.** With `hold_params` configured, the flatness search is skipped; discovering stable hold parameters autonomously remains open.
+- **Fast phase transitions** — regime changes quicker than the detection window — remain open.
+- **Scale.** Group-scoped fencing-token coordination is validated at 2-6 agents; the many-agent regime is open (see [Open Research](open_research.md)).
 
 ### Channel Taxonomy
 
-The active probing approach resolves the channel type problem that blocked spectral methods:
+One method covers the channel types that defeated each passive approach:
 
 | Channel Type | Spectral Method | Active Probing + CFAR | Status |
 |---|---|---|---|
@@ -155,13 +221,9 @@ The active probing approach resolves the channel type problem that blocked spect
 | Non-stationary (slow drift) | Failed (assumption violated) | **Validated on greenhouse** | **Solved** |
 | Non-stationary (phase transitions) | Failed | Untested | **Open** |
 
-One method for all channel types. The greenhouse bench is simultaneously deeply non-linear AND non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local — 5-8 trials — limiting exposure to drift. The only remaining open case is non-stationarity with phase transitions faster than the detection window.
-
-For detailed channel descriptions with real-world examples, see [Detection Capabilities](detection_capabilities.md).
-
 ### Beyond Detection
 
-Detection is the entry point; the protocol runs deeper, and each layer has its own page:
+Detection is the entry point; each deeper layer has its own page:
 
 - **Response curves** — the edge's measured shape, with uncertainty bars and priced stopping: [Characterization](characterization.md)
 - **Topology recovery** — pairwise measurements assemble the coupling graph (validated on chain topologies): [Detection Capabilities](detection_capabilities.md)
@@ -170,7 +232,7 @@ Detection is the entry point; the protocol runs deeper, and each layer has its o
 
 ### Further Reading
 
-- [Detection Capabilities](detection_capabilities.md) — channel taxonomy and detection boundaries
-- [Open Research](open_research.md) — active research directions
-- [Breeder](concept_breeder.md) — how breeders run optimization
-- [Reconnaissance](concept_reconnaissance.md) — how the observer collects data
+- [Detection Capabilities](detection_capabilities.md) — the validated boundary map
+- [Characterization](characterization.md) — from edges to measured curves
+- [Publications](publications.md) — the method paper with full validation data
+- [Breeder](concept_breeder.md) — the agents that run this protocol
