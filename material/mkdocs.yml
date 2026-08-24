@@ -67,6 +67,7 @@ nav:
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
           - References: references.md
+          - Publications: publications.md
           - Contributing: contributing.md
      - OpenAPI: api.md
      - Blog:
