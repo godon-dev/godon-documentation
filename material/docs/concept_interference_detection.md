@@ -31,7 +31,9 @@ This document follows the benches: the generic bench (nodes, parameters, planted
 
 ### The Problem
 
-A group of autonomous optimizers, each locked to its own system — and substrates between the systems that belong to none of them:
+A group of autonomous optimizers, each locked to its own system — and substrates between the systems that belong to none of them. Two nets, same shape — one physical, one logical:
+
+**The physical net** — the greenhouse bench's own coupling channels:
 
 ```
 ┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
@@ -52,7 +54,32 @@ A group of autonomous optimizers, each locked to its own system — and substrat
              ╞════════shared water tank════╪═════════════════════════════╡
 ```
 
-Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. The substrates between — a shared wall, air exchange, a shared water tank — are the greenhouse bench's actual coupling channels, not illustrations; the validation tables at the end of this page detect through exactly them. Influence crosses while appearing in **no one's** configuration, **nor** anyone's telemetry. The net is real in every reading and absent from every diagram.
+Not illustrations — the validation tables at the end of this page detect through exactly these channels.
+
+**The logical net** — the same shape without physics:
+
+```
+┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
+│ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
+│ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
+│ wants   latency         │   │ wants   cost            │   │ wants   uptime          │
+└───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
+             │ tunes                       │ tunes                       │ tunes
+             ▼                             ▼                             ▼
+       ┌───────────┐                 ┌───────────┐                 ┌───────────┐
+       │ Service A  │                │ Service B  │                │ Service C  │
+       └─────┬─────┘                 └─────┬─────┘                 └─────┬─────┘
+             │                             │                             │
+             ╞═══════shared database═══════╡                             │
+             │                             │                             │
+             │                             ╞════════message queue════════╡
+             │                                                           │
+             ╞═══════════shared schema═════╪═════════════════════════════╡
+```
+
+Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. Influence crosses through substrates that appear in **no one's** configuration, **nor** anyone's telemetry. The net — physical or logical — is real in every reading and absent from every diagram.
+
+That it works across kinds is not an edge case; it is the point. The protocol contains no physics: it needs parameters it can push, objectives it can read, and turns it can take. What sits between can be wall, wire, or schema. And both kinds are validated territory — the greenhouse's channels are physical; the generic bench's edges are pure mathematics (saturation and threshold transforms, no physics at all), and detection holds across the entire sweep on both.
 
 On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the breeders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
