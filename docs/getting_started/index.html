@@ -575,10 +575,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-read-the-results" class="md-nav__link">
+  <a href="#step-5-watch-progress-read-the-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Read the Results
+        Step 5: Watch Progress, Read the Results
       
     </span>
   </a>
@@ -1480,10 +1480,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-5-read-the-results" class="md-nav__link">
+  <a href="#step-5-watch-progress-read-the-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Read the Results
+        Step 5: Watch Progress, Read the Results
       
     </span>
   </a>
@@ -1592,12 +1592,14 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <h2 id="getting-started">Getting Started</h2>
+<p>Everything in this walkthrough runs on <strong>your machine</strong>: your cluster, your bench simulator, your agents. No godon-dev credentials, no CI. When it's done you will have planted a coupling edge into a simulator with known ground truth, let two autonomous optimizers discover and measure it through the shared substrate, and read the measured response curves back out.</p>
+<p>Budget <strong>45-90 minutes</strong>, most of it waiting while the agents work.</p>
 <p>A running godon stack. If you haven't set it up yet, see <a href="../setup/">Setup</a>. You'll need:</p>
 <ul>
-<li>KinD cluster with the godon helm chart deployed</li>
-<li><code>kubectl</code> configured with the KinD kubeconfig</li>
-<li>Docker (for the bench simulator and godon-cli)</li>
-<li><code>jq</code> (for parsing API responses)</li>
+<li>Linux host with the godon helm chart deployed on a kind cluster (<a href="../setup/">Setup</a>)</li>
+<li><code>kubectl</code> configured with the kind kubeconfig</li>
+<li>Docker (for the bench simulator and the godon CLI)</li>
+<li><code>jq</code> and <code>curl</code></li>
 </ul>
 <p>The walkthrough uses the <strong>generic bench</strong> — a configurable synthetic coupling simulator with known ground truth. You plant the coupling (topology, strength, shape, noise), the engine discovers it, and you compare. Two autonomous optimizers run against two coupled bench nodes; each one discovers the other through the shared substrate.</p>
 <h3 id="step-1-start-the-bench-simulator">Step 1: Start the Bench Simulator</h3>
@@ -1645,28 +1647,137 @@ docker<span class="w"> </span>network<span class="w"> </span>connect<span class=
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8090/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 <p>The <code>/health</code> response lists the nodes and edge count — your ground truth for what the engine should find.</p>
+<p>The <code>docker network connect kind</code> line matters: it puts the bench on the same docker network as your kind nodes, so the breeders (which run inside the cluster) can reach it at <code>BENCH_IP</code>. Keep that variable — the configs in step 3 need it.</p>
 <h3 id="step-2-port-forward-the-godon-api">Step 2: Port-Forward the Godon API</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/tmp/kind_kubeconfig.yaml
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span>kind<span class="w"> </span>kubeconfig&gt;
 <span class="nv">API_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
 kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">API_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9090</span>:8080<span class="w"> </span><span class="p">&amp;</span>
 sleep<span class="w"> </span><span class="m">3</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/health
 </code></pre></div>
+<p><code>127.0.0.3</code> instead of <code>127.0.0.1</code> avoids colliding with anything already bound to localhost — the loopback range gives you free aliases.</p>
 <h3 id="step-3-create-targets-and-breeders">Step 3: Create Targets and Breeders</h3>
-<p>The easiest path is the characterization workflow, which creates targets and breeders from a scenario directory, runs the protocol, and exports results:</p>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>bench-characterization.yml<span class="w"> </span>--repo<span class="w"> </span>godon-dev/godon<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">scenario</span><span class="o">=</span>characterization-saturation<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">min_trials</span><span class="o">=</span><span class="m">350</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">max_wait_minutes</span><span class="o">=</span><span class="m">75</span>
+<p>Two kinds of object make an agent run: a <strong>target</strong> (the HTTP endpoint it optimizes) and a <strong>breeder config</strong> (its parameter space, objectives, and characterization group). You write both yourself — four small files.</p>
+<p>The targets just point at the bench nodes you started in step 1:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/godon-scenario<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/godon-scenario
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-1.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">name: generic-node-1</span>
+<span class="s">targetType: http</span>
+<span class="s">spec:</span>
+<span class="s">  url: &quot;http://${BENCH_IP}:8090/node-1&quot;</span>
+<span class="s">  auth_type: none</span>
+<span class="s">EOF</span>
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">name: generic-node-2</span>
+<span class="s">targetType: http</span>
+<span class="s">spec:</span>
+<span class="s">  url: &quot;http://${BENCH_IP}:8090/node-2&quot;</span>
+<span class="s">  auth_type: none</span>
+<span class="s">EOF</span>
 </code></pre></div>
-<p>Scenarios live in <a href="https://github.com/godon-dev/godon/tree/main/examples/bench"><code>examples/bench/</code></a> — each one ships a <code>topology.yaml</code> (ground truth), target definitions, and breeder configs. The workflow:</p>
-<ol>
-<li>starts the bench container with the scenario's topology,</li>
-<li>creates one target and one breeder per node,</li>
-<li>lets the breeders run the interference protocol,</li>
-<li>exports response curves and coordinator traces to the run logs,</li>
-<li>cleans up.</li>
-</ol>
-<p>To drive it manually instead, create targets and breeders through the API or <code>godon-cli</code> exactly as the workflow does (see the workflow source for the exact calls).</p>
+<p>The breeder config is where the experiment lives. Three parts matter: the <strong>search space</strong> (<code>settings</code> — three parameters on a 0-100 grid), the <strong>objectives vs observations split</strong> (<code>objective_0</code> is optimized, <code>objective_1</code> is only watched — the detector reads both), and the <strong><code>interference_detection</code> group</strong> — any two breeders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>breeder-1.yml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">meta:</span>
+<span class="s">  configVersion: &quot;0.3&quot;</span>
+<span class="s">  strict_validation: false</span>
+
+<span class="s">breeder:</span>
+<span class="s">  type: bench_generic</span>
+
+<span class="s">settings:                       # parameter search space</span>
+<span class="s">  generic:</span>
+<span class="s">    param_0:</span>
+<span class="s">      constraints:</span>
+<span class="s">        - {step: 20.0, lower: 0.0, upper: 100.0}</span>
+<span class="s">    param_1:</span>
+<span class="s">      constraints:</span>
+<span class="s">        - {step: 20.0, lower: 0.0, upper: 100.0}</span>
+<span class="s">    param_2:</span>
+<span class="s">      constraints:</span>
+<span class="s">        - {step: 20.0, lower: 0.0, upper: 100.0}</span>
+
+<span class="s">run:</span>
+<span class="s">  parallel: 1</span>
+<span class="s">  completion_criteria:</span>
+<span class="s">    iterations: {min: 10, max: 500}</span>
+<span class="s">    timing: {end: &quot;75m&quot;}</span>
+
+<span class="s">cooperation:</span>
+<span class="s">  active: false</span>
+
+<span class="s">interference_detection:         # shared group name = these agents measure each other</span>
+<span class="s">  group: bench-characterization</span>
+<span class="s">  mode: active</span>
+<span class="s">  convergence_threshold: 0.02</span>
+<span class="s">  refinement_depth: 3</span>
+<span class="s">  push_block_size: 10</span>
+<span class="s">  pause_block_size: 10</span>
+<span class="s">  cooldown_trials: 5</span>
+<span class="s">  hold_params: {param_0: 50.0, param_1: 50.0, param_2: 50.0}</span>
+
+<span class="s">reconnaissance:                 # how this breeder reads its target</span>
+<span class="s">  type: http</span>
+<span class="s">  http:</span>
+<span class="s">    url: &quot;http://${BENCH_IP}:8090/node-1&quot;</span>
+
+<span class="s">objectives:</span>
+<span class="s">  - name: objective_0</span>
+<span class="s">    direction: maximize</span>
+<span class="s">    reconnaissance:</span>
+<span class="s">      service: http</span>
+<span class="s">      path: /metrics/json</span>
+<span class="s">      key: objective_0</span>
+<span class="s">      samples: 3</span>
+<span class="s">      aggregation: median</span>
+
+<span class="s">observations:                   # read but NOT optimized — an extra detection channel</span>
+<span class="s">  - name: objective_1</span>
+<span class="s">    reconnaissance:</span>
+<span class="s">      service: http</span>
+<span class="s">      path: /metrics/json</span>
+<span class="s">      key: objective_1</span>
+<span class="s">      samples: 3</span>
+<span class="s">      aggregation: median</span>
+
+<span class="s">rollback_strategies:</span>
+<span class="s">  standard:</span>
+<span class="s">    consecutive_failures: 10</span>
+<span class="s">    target_state: previous</span>
+<span class="s">    max_attempts: 3</span>
+<span class="s">    on_failure: continue</span>
+<span class="s">    timeout_seconds: 60</span>
+
+<span class="s">effectuation:                   # how this breeder writes parameters</span>
+<span class="s">  type: http</span>
+<span class="s">  targetRefs: [&quot;generic-node-1&quot;]</span>
+<span class="s">  endpoint_config:</span>
+<span class="s">    method: POST</span>
+<span class="s">    path: /apply</span>
+<span class="s">    timeout_seconds: 30</span>
+<span class="s">EOF</span>
+
+<span class="c1"># breeder-2 is the same file pointed at node-2</span>
+sed<span class="w"> </span><span class="s1">&#39;s/node-1/node-2/g&#39;</span><span class="w"> </span>breeder-1.yml<span class="w"> </span>&gt;<span class="w"> </span>breeder-2.yml
+</code></pre></div>
+<p>Note how the pieces connect: <code>targetRefs: ["generic-node-1"]</code> refers to the target by the <code>name</code> you gave it above, and the reconnaissance URL is the same node endpoint. Every knob is documented in the <a href="../config_guide/">Configuration Guide</a> — the defaults above are the validated characterization setup.</p>
+<p>Now create the objects through the API, using the godon CLI (public image from ghcr; it converts the YAML into API calls):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CLI</span><span class="o">=</span><span class="s2">&quot;docker run --rm --network host -v /tmp/godon-scenario:/work:ro -w /work ghcr.io/godon-dev/godon-cli:latest&quot;</span>
+<span class="nv">API</span><span class="o">=</span><span class="s2">&quot;--hostname 127.0.0.3 --port 9090 --insecure&quot;</span>
+
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>target-node-1.yaml
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>target-node-2.yaml
+
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>breeder<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>bench-char-1<span class="w"> </span>--file<span class="o">=</span>breeder-1.yml
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>breeder<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>bench-char-2<span class="w"> </span>--file<span class="o">=</span>breeder-2.yml
+
+<span class="c1"># Capture the breeder UUIDs — the results in step 5 are keyed by them</span>
+<span class="nv">BREEDER_1_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-char-1&quot;) | .id&#39;</span><span class="k">)</span>
+<span class="nv">BREEDER_2_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-char-2&quot;) | .id&#39;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;sender: </span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">, receiver: </span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+<p>(The <a href="../bench_scenarios/">scenario library</a> ships these same files pre-written for many topologies — useful once you know the shape. Typing them once teaches the shape.)</p>
 <h3 id="step-4-what-the-breeders-are-doing">Step 4: What the Breeders Are Doing</h3>
 <p>Each breeder is an optimization agent. Beyond optimizing, they coordinate through lease-based turn-taking to characterize their coupling:</p>
 <ol>
@@ -1677,7 +1788,10 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/heal
 <li>A parameter retires when it is converged <strong>and</strong> every remaining gap in its response curve is priced below the local measurement bar — remaining ignorance cheaper than one more probe.</li>
 </ol>
 <p>The result is a <strong>response curve per (sender, parameter, channel)</strong> — the measured shape of the coupling, not just a yes/no edge.</p>
-<h3 id="step-5-read-the-results">Step 5: Read the Results</h3>
+<h3 id="step-5-watch-progress-read-the-results">Step 5: Watch Progress, Read the Results</h3>
+<p>Progress: check the breeder states and give it time. First probe blocks typically appear within ~15 minutes; a complete carrier curve at these block sizes takes 30-75 minutes.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders/<span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;{status, name}&#39;</span>
+</code></pre></div>
 <p>While the run is in progress (or after), query the causal service directly:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">CAUSAL_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>godon-causal<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
 kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CAUSAL_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9091</span>:8091<span class="w"> </span><span class="p">&amp;</span>
@@ -1689,12 +1803,19 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/dete
 <span class="c1"># All measured response curves — the coupling map</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/curves<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.curves[] | {sender_id, receiver_id, param, channel, points: .state.points}&#39;</span>
 </code></pre></div>
-<p>The <code>/detect</code> response reports per-channel rising/falling edges with confidence; <code>/curves</code> returns every measured (level, shift, bar) triple. For the planted topology above, expect: <code>param_1</code> of the sender showing a saturation-shaped curve on the receiver's <code>objective_0</code>, <code>param_0</code>/<code>param_2</code> flat (they carry no weight), and <code>objective_1</code> flat (the edge feeds channel 0 only).</p>
+<p>The <code>/detect</code> response reports per-channel rising/falling edges with confidence; <code>/curves</code> returns every measured <code>(level, shift, bar)</code> triple — level on the sender's parameter grid, measured shift on the receiver's objective, and the uncertainty bar from the raw samples.</p>
+<p>For the planted topology above, expect: <code>param_1</code> of the sender showing a saturation-shaped curve on the receiver's <code>objective_0</code>, <code>param_0</code>/<code>param_2</code> flat (they carry no weight), and <code>objective_1</code> flat (the edge feeds channel 0 only). Curves keyed the other direction (node-2 as sender) stay flat — nothing is planted that way.</p>
 <h3 id="step-6-verify-with-no-coupling">Step 6: Verify with No Coupling</h3>
-<p>Run the same scenario with the edge strength set to <code>0.0</code> in <code>topology.yaml</code> (or use a scenario without edges). Expect flat curves everywhere and no detections — the honest blank. Zero false positives across the sweep is a core validated property of the method.</p>
+<p>Run the same walkthrough with the edge strength set to <code>0.0</code> in <code>topology.yaml</code> (or a topology without edges). Expect flat curves everywhere and no detections — the honest blank. Zero false positives across the sweep is a core validated property of the method.</p>
 <h3 id="step-7-clean-up">Step 7: Clean Up</h3>
-<p>The workflow purges breeders, targets, and the bench container automatically. Manually:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>bench-generic
+<div class="highlight"><pre><span></span><code><span class="c1"># Purge the breeders — their measured curves and observation rows are removed with them</span>
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span>
+<span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>breeder<span class="w"> </span>purge<span class="w"> </span>--force<span class="w"> </span>--id<span class="o">=</span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span>
+
+<span class="c1"># Remove the targets (ids from: curl -s http://127.0.0.3:9090/targets)</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span>http://127.0.0.3:9090/targets/&lt;target-id&gt;
+
+docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>bench-generic
 </code></pre></div>
 <h3 id="understanding-the-protocol">Understanding the Protocol</h3>
 <p>The method is the <strong>impulse protocol</strong>: non-destructive perturbation within guardrail bounds, ABA block design (push → pause → compare), and CFAR detection with adaptive thresholds — the same statistical family as radar and sonar. Receiver exploration noise — the dominant interference signal blocker — is eliminated by the receiver holding still during measurement rather than by stronger statistics.</p>
