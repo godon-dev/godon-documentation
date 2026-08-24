@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Bench Scenarios
 
-Bench scenarios are planted-reality experiments: a simulator with a known coupling topology (the ground truth), target and breeder definitions, and a GitHub Actions workflow that runs the full protocol against it. You plant the truth, the engine measures it, the comparison validates the instrument.
+Bench scenarios are planted-reality experiments: a simulator with a known coupling topology (the ground truth) plus the target and breeder definitions that run the protocol against it. You plant the truth, the engine measures it, the comparison validates the instrument. Run any scenario locally with the path in [Getting Started](getting_started.md).
 
 ### Generic Bench (workhorse)
 
@@ -27,7 +27,7 @@ The configurable synthetic coupling bench. Any topology: node count, per-node pa
 
 | Property | Value |
 |---|---|
-| Directory | [`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) (workflows: `bench-generic.yml`, `bench-characterization.yml`) |
+| Directory | [`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) |
 | Image | `ghcr.io/godon-dev/godon-bench-generic` |
 | Channel type | Any (per topology) |
 | Validation | 21-cell detection sweep + full characterization suite |
@@ -89,7 +89,7 @@ examples/bench/scenario-<name>/
     └── breeder-N.yml      # one breeder config per node
 ```
 
-For the generic bench, only the topology file changes between scenarios. The characterization workflow discovers breeders and targets from the scenario directory (any node count). See an existing scenario as the reference; the generic bench's HTTP contract (`/{node}/apply`, `/{node}/metrics/json`) is the target interface.
+For the generic bench, only the topology file changes between scenarios. A scenario directory is self-describing — one target and one breeder per node, any node count. See an existing scenario as the reference; the generic bench's HTTP contract (`/{node}/apply`, `/{node}/metrics/json`) is the target interface.
 
 ### Further Reading
 
