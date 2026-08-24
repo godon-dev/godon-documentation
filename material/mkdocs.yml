@@ -62,6 +62,7 @@ nav:
           - Development:
             - Bench_Scenarios: bench_scenarios.md
             - Detection_Capabilities: detection_capabilities.md
+            - Characterization: characterization.md
             - Open_Research: open_research.md
           - Configuration_Guide: config_guide.md
           - Comparison: comparison.md

@@ -165,7 +165,7 @@ For detailed channel descriptions with real-world examples, see [Detection Capab
 
 Detection is the entry point; the protocol runs deeper:
 
-**Response curves (shipped).** Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously.
+**Response curves (shipped).** Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously. Details and calibration numbers: [Characterization](characterization.md).
 
 **Topology recovery (shipped).** Pairwise measurements across a group assemble the coupling graph — validated on chain topologies with exact topology recovery and ~5-10% edge-strength error.
 
