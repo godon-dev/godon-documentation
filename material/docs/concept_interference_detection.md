@@ -37,24 +37,24 @@ A group of autonomous optimizers, each locked to its own system — and substrat
 ┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
 │ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
 │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
-│ wants   growth_rate     │   │ wants   throughput      │   │ wants   energy          │
+│ wants   growth_rate     │   │ wants   growth_rate     │   │ wants   growth_rate     │
 └───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
              │ tunes                       │ tunes                       │ tunes
              ▼                             ▼                             ▼
-       ┌───────────┐                 ┌───────────┐                 ┌───────────┐
-       │  System A  │                │  System B  │                │  System C  │
-       └─────┬─────┘                 └─────┬─────┘                 └─────┬─────┘
+     ┌──────────────┐              ┌──────────────┐              ┌──────────────┐
+     │ Greenhouse A │              │ Greenhouse B │              │ Greenhouse C │
+     └──────┬───────┘              └──────┬───────┘              └──────┬───────┘
              │                             │                             │
-             ╞════════exhaust heat═════════╡                             │
+             ╞═════════shared wall═════════╡                             │
              │                             │                             │
-             │                             ╞══════memory bandwidth═══════╡
+             │                             ╞════════air exchange═════════╡
              │                                                           │
-             ╞═════shared connection pool══╪═════════════════════════════╡
+             ╞════════shared water tank════╪═════════════════════════════╡
 ```
 
-Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. The substrates between — exhaust heat, memory bandwidth, a shared connection pool, shared state, a data schema — carry influence from one system to the others while appearing in **no one's** configuration, **nor** anyone's telemetry. Three different kinds, one shape: physical (heat), compute (bandwidth), logical (pool). The net is real in every reading and absent from every diagram.
+Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. The substrates between — a shared wall, air exchange, a shared water tank — are the greenhouse bench's actual coupling channels, not illustrations; the validation tables at the end of this page detect through exactly them. Influence crosses while appearing in **no one's** configuration, **nor** anyone's telemetry. The net is real in every reading and absent from every diagram.
 
-On the generic bench this is planted deliberately: `node-1` and `node-2`, three parameters each, an edge `node-1 → node-2` of strength 0.7 feeding channel 0. The breeders optimizing those nodes know none of that. On the greenhouse bench it is physical: two greenhouses, one shared wall — when A raises its heating, heat crosses the wall and moves B's temperature, humidity, and growth rate. B's optimizer receives the change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
+On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the breeders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
 ### Why Passive Detection Fails
 
