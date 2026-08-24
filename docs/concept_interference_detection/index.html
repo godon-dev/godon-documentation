@@ -973,10 +973,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#beyond-detection-shipped-and-next" class="md-nav__link">
+  <a href="#beyond-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Beyond Detection (Shipped and Next)
+        Beyond Detection
       
     </span>
   </a>
@@ -1129,6 +1129,34 @@ document.addEventListener("DOMContentLoaded", function() {
   
   
     <li class="md-nav__item">
+      <a href="../characterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Characterization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../open_research/" class="md-nav__link">
         
   
@@ -1257,6 +1285,34 @@ document.addEventListener("DOMContentLoaded", function() {
     
   
     References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publications
   
 
     
@@ -1738,10 +1794,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </li>
         
           <li class="md-nav__item">
-  <a href="#beyond-detection-shipped-and-next" class="md-nav__link">
+  <a href="#beyond-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Beyond Detection (Shipped and Next)
+        Beyond Detection
       
     </span>
   </a>
@@ -1789,7 +1845,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2 id="interference-detection">Interference Detection</h2>
 <p>When multiple optimizers operate on shared infrastructure — a power grid, a data center, a factory floor — their decisions can interfere with each other. Each optimizer acts independently, making locally optimal choices, but through the shared physical or computational medium, one optimizer's actions affect another's outcomes.</p>
 <p><strong>Neither optimizer knows this is happening.</strong></p>
-<p>godon's interference detection makes this invisible problem visible. The current method is <strong>active probing with CFAR detection</strong> — one optimizer pushes extreme parameters while the other holds still and measures the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.</p>
+<p>godon's interference detection makes this invisible problem visible. The current method is <strong>active probing with CFAR detection</strong> — one optimizer pushes a parameter through scheduled probe levels while the others hold still and measure the response. A Constant False Alarm Rate detector discriminates the coupling step from the system's intrinsic noise.</p>
 <h3 id="the-problem">The Problem</h3>
 <p>Consider two independent optimization loops:</p>
 <div class="highlight"><pre><span></span><code>    ┌─────────────┐              ┌─────────────┐
@@ -1813,22 +1869,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>The solution is not a better passive detector. It is to stop being passive.</p>
 <p>Instead of injecting a continuous signal and hoping it survives the channel, the protocol actively creates a perturbation large enough to survive any non-linear distortion, then measures the response while eliminating the dominant noise source.</p>
 <h4 id="roles-sender-and-receiver">Roles: Sender and Receiver</h4>
-<p>Two breeders participate. One becomes the <strong>sender</strong>, the other the <strong>receiver</strong>. They coordinate through a shared lease table:</p>
+<p>Two or more breeders participate. One is the <strong>sender</strong>, the others are <strong>receivers</strong>. They coordinate through a group-scoped lease table (fencing tokens; one sender at a time per group, crash recovery via heartbeat staleness):</p>
 <ol>
-<li><strong>OPTIMIZE</strong> — Both breeders optimize normally until enough trials accumulate.</li>
-<li><strong>HOLD_CALIB</strong> — Sender acquires the lease, holds at neutral parameters, waits for receiver readiness.</li>
-<li><strong>IMPULSE_CALIB</strong> — Sender probes at decreasing amplitude (1.0 → 0.5 → 0.25 → 0.125) to find the largest impulse that doesn't violate guardrails.</li>
-<li><strong>PUSH</strong> — Sender applies extreme parameters for N trials.</li>
-<li><strong>PAUSE</strong> — Sender returns to neutral parameters for N trials.</li>
-<li><strong>COOLDOWN</strong> — Sender releases lease. Receiver can now acquire lease.</li>
-<li><strong>HOLD</strong> — Receiver holds neutral parameters throughout the sender's push/pause, recording observations.</li>
+<li><strong>OPTIMIZE</strong> — All breeders optimize normally; baseline accumulates.</li>
+<li><strong>PROBE_PUSH</strong> — The sender pushes one parameter to a scheduled probe level for a block of trials, within guardrails.</li>
+<li><strong>PROBE_PAUSE</strong> — The sender returns to neutral for a block of trials — the reversibility check.</li>
+<li><strong>DONE / COOLDOWN</strong> — The sender releases the lease and waits, so turn-taking stays fair.</li>
+<li><strong>HOLD</strong> — Throughout the sender's push and pause, receivers hold neutral parameters and record observations.</li>
 </ol>
-<p>Turn-taking is automatic: after cooldown, roles swap. Both directions are tested.</p>
+<p>Probe levels come from a deterministic <strong>coverage walk</strong> (midpoint, extremes, quarters — a computed low-discrepancy order), not from sampling: every level is visited by contract, and pushes stay inside the same guardrails as ordinary trials. Both directions are tested as the sender role rotates.</p>
 <h4 id="why-this-works-where-passive-methods-failed">Why This Works Where Passive Methods Failed</h4>
 <p>Two key differences:</p>
 <ol>
 <li>
-<p><strong>The perturbation is large enough to survive the channel.</strong> Extreme parameters push the system far from its operating point. The coupling delta is proportional to the parameter delta — a large push creates a large thermal transfer that survives non-linear transforms.</p>
+<p><strong>The perturbation is large enough to survive the channel.</strong> The walk's probe levels span the parameter's full guardrail-bounded range. The coupling delta is proportional to the parameter delta — a full-span push creates a transfer large enough to survive non-linear transforms.</p>
 </li>
 <li>
 <p><strong>The receiver holds still, eliminating exploration noise.</strong> The 500× noise barrier vanishes. The only remaining variance is the system's intrinsic stochasticity, which CFAR handles.</p>
@@ -1837,8 +1891,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <h3 id="cfar-detection">CFAR Detection</h3>
 <p>The detector uses a Constant False Alarm Rate (CFAR) approach — the same principle used in active sonar, radar, and seismology for detecting signals in unknown noise environments.</p>
 <h4 id="reference-window">Reference Window</h4>
-<p>The noise floor is estimated from the receiver's hold_calib trials — the trials where the receiver sits at neutral parameters and the sender is also holding (before push starts). These are pure noise samples.</p>
-<p>Critical: the reference must exclude the <strong>sender's own hold_calib trials</strong> (<code>coord_state=hold_calib</code>), which include unstable early readings as the sender's system stabilizes. Including them inflates the noise estimate by an order of magnitude.</p>
+<p>The noise floor is estimated from the receiver's own neutral-hold trials — windows where the receiver sits at neutral parameters, tagged with the lease phase. These are pure noise samples.</p>
+<p>Critical: only the receivers' observation rows enter the reference window. The sender's own self-reads must not — mixing them in poisons the median and both halves of the contrast (this was a real defect, found by live checks, fixed by a lease-phase write gate plus receiver-rows-only SQL; the invariant is pinned by tests).</p>
 <h4 id="adaptive-threshold">Adaptive Threshold</h4>
 <div class="highlight"><pre><span></span><code>k = N × (Pfa^(-1/N) - 1)
 threshold = k × MAD
@@ -1970,14 +2024,14 @@ threshold = k × MAD
 <ol>
 <li><strong>Active probing beats passive observation.</strong> The impulse survives non-linear channels where continuous signals die. Not smarter algorithms — stronger signal.</li>
 <li><strong>CFAR handles unknown noise.</strong> Adaptive threshold from local reference statistics. No Gaussian assumption, no fixed threshold.</li>
-<li><strong>The reference window must be clean.</strong> Sender's own hold_calib contaminated the noise floor (MAD 0.18 vs 0.02). Filtering to receiver-only reduced it 18×.</li>
+<li><strong>The reference window must be clean.</strong> Sender self-reads once contaminated the noise floor (MAD 0.18 vs 0.02). Receiver-rows-only filtering reduced it 18×.</li>
 <li><strong>Temperature is the primary coupling channel.</strong> Thermal transfer is immediate and proportional. Growth_rate works because it's downstream of temperature.</li>
 <li><strong>Turn-taking gives both directions automatically.</strong> The lease-based coordination means each breeder takes turns. Both directions tested without configuration.</li>
 </ol>
 <h3 id="current-limitations">Current Limitations</h3>
 <p><strong>Calibration is bypassed, not solved.</strong> When <code>hold_params</code> are specified in config, the flatness search is skipped. The generic case — discovering stable hold parameters autonomously — remains open.</p>
 <p><strong>Non-stationarity partially handled.</strong> The greenhouse IS non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local (5-8 trials), limiting exposure to drift. The remaining open case is non-stationarity with phase transitions faster than the detection window — e.g., a crop suddenly entering flowering mid-detection.</p>
-<p><strong>Lease timing is fragile.</strong> The 90-second lease with 15-second trials requires tight coordination. Untested at scale.</p>
+<p><strong>Lease timing is untested at scale.</strong> Coordination is group-scoped with fencing tokens and crash recovery via heartbeat staleness; validated at 2-6 agents. The coordination regime for many more is open (see <a href="../open_research/">Open Research</a>).</p>
 <h3 id="channel-taxonomy">Channel Taxonomy</h3>
 <p>The active probing approach resolves the channel type problem that blocked spectral methods:</p>
 <table>
@@ -2024,12 +2078,14 @@ threshold = k × MAD
 </table>
 <p>One method for all channel types. The greenhouse bench is simultaneously deeply non-linear AND non-stationary (crop model drifts over time). Detection succeeded because the CFAR reference window is local — 5-8 trials — limiting exposure to drift. The only remaining open case is non-stationarity with phase transitions faster than the detection window.</p>
 <p>For detailed channel descriptions with real-world examples, see <a href="../detection_capabilities/">Detection Capabilities</a>.</p>
-<h3 id="beyond-detection-shipped-and-next">Beyond Detection (Shipped and Next)</h3>
-<p>Detection is the entry point; the protocol runs deeper:</p>
-<p><strong>Response curves (shipped).</strong> Detection answers "is there an edge?" The same protocol, run to depth, measures the edge's full response curve — per (sender, parameter, channel), the level→shift shape with uncertainty bars, convergence by blended re-measurement, retirement by priced stopping. Multi-agent groups: one sender's walk measures every holding receiver simultaneously.</p>
-<p><strong>Topology recovery (shipped).</strong> Pairwise measurements across a group assemble the coupling graph — validated on chain topologies with exact topology recovery and ~5-10% edge-strength error.</p>
-<p><strong>Composition (validated additive).</strong> Measured edges compose: the two-hop response predicted from chained one-hop curves matches the directly measured response within bars. Nonlinear composition is the open frontier (see <a href="../open_research/">Open Research</a>).</p>
-<p><strong>Coupling-aware behavior (next).</strong> Agents adapting to known coupling — the tending direction. Not yet built.</p>
+<h3 id="beyond-detection">Beyond Detection</h3>
+<p>Detection is the entry point; the protocol runs deeper, and each layer has its own page:</p>
+<ul>
+<li><strong>Response curves</strong> — the edge's measured shape, with uncertainty bars and priced stopping: <a href="../characterization/">Characterization</a></li>
+<li><strong>Topology recovery</strong> — pairwise measurements assemble the coupling graph (validated on chain topologies): <a href="../detection_capabilities/">Detection Capabilities</a></li>
+<li><strong>Composition</strong> — measured edges compose to predict multi-hop response (validated additive): <a href="../characterization/">Characterization</a></li>
+<li><strong>Coupling-aware behavior</strong> — agents adapting to known coupling; the tending direction, not yet built: <a href="../open_research/">Open Research</a></li>
+</ul>
 <h3 id="further-reading">Further Reading</h3>
 <ul>
 <li><a href="../detection_capabilities/">Detection Capabilities</a> — channel taxonomy and detection boundaries</li>
