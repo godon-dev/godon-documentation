@@ -51,7 +51,7 @@ The protocol's own parameters (probe amplitude, block lengths, walk depth, conve
 
 ### From Detection to Steering
 
-The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. The open problems in order: composition on nonlinear channels (above), then joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
+The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. The sequenced view — rungs, gates, what-gates-what — lives on the [Roadmap](roadmap.md); in brief: composition on nonlinear channels (above), then joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
 
 ### Further Reading
 

@@ -64,6 +64,7 @@ nav:
             - Detection_Capabilities: detection_capabilities.md
             - Characterization: characterization.md
             - Open_Research: open_research.md
+            - Roadmap: roadmap.md
           - Configuration_Guide: config_guide.md
           - Comparison: comparison.md
           - MCP_Interface: mcp.md
