@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1787,17 +1787,17 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max_latency</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">100ms"</span>
 <span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_budget</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_rate</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">0.01&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">0.01"</span>
 <span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu_limit</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu_usage_percent</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">90&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">90"</span>
 <span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_trial</span>
 </code></pre></div>
 <table>
@@ -1953,12 +1953,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical_error_rate</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">error_rate</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">0.1&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">0.1"</span>
 <span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fail_and_rollback</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catastrophic_failure</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_down</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;==</span><span class="nv"> </span><span class="s">false&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"==</span><span class="nv"> </span><span class="s">false"</span>
 <span class="w">    </span><span class="nt">on_violation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop_breeder</span>
 </code></pre></div>
 <hr />
@@ -2032,12 +2032,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="highlight"><pre><span></span><code><span class="nt">guardrails</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_warning</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">80ms&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">80ms"</span>
 <span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">soft</span><span class="w">      </span><span class="c1"># Log warning, continue</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_limit</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latency_p99</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;</span><span class="nv"> </span><span class="s">100ms&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;</span><span class="nv"> </span><span class="s">100ms"</span>
 <span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hard</span><span class="w">      </span><span class="c1"># Fail trial</span>
 </code></pre></div>
 <p>Soft guardrails inform without blocking. Hard guardrails protect.</p>
@@ -2237,10 +2237,10 @@ Only trials inside guardrail boundary are considered
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
