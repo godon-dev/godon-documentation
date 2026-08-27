@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1761,7 +1761,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
 │                     Effectuator                              │
 │                                                              │
-│  Input:  { param_a: 0.5, param_b: &quot;foo&quot;, ... }             │
+│  Input:  { param_a: 0.5, param_b: "foo", ... }             │
 │                                                              │
 │  Action: Apply configuration to target                      │
 │                                                              │
@@ -1832,7 +1832,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <span class="w">  </span><span class="nt">apply</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">sed -i &#39;s/pool_size=.*/pool_size={{ pool_size }}/&#39; /etc/app/config.ini</span>
+<span class="w">      </span><span class="no">sed -i 's/pool_size=.*/pool_size={{ pool_size }}/' /etc/app/config.ini</span>
 <span class="w">      </span><span class="no">systemctl restart app</span>
 </code></pre></div>
 <p>Use for: Traditional servers, VMs, bare metal</p>
@@ -1845,8 +1845,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="w">    </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bearer {{ api_token }}</span>
 
 <span class="w">  </span><span class="nt">payload</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">pool_size</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">    </span><span class="nt">timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">timeout_ms</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">    </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">pool_size</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">    </span><span class="nt">timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">timeout_ms</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 <p>Use for: Services with config APIs, service mesh, control planes</p>
 <h4 id="kubernetes-effectuator">Kubernetes Effectuator</h4>
@@ -1860,9 +1860,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <span class="w">  </span><span class="nt">patches</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/spec/template/spec/containers/0/resources/requests/memory</span>
-<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">memory_mb</span><span class="nv"> </span><span class="s">}}Mi&quot;</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">memory_mb</span><span class="nv"> </span><span class="s">}}Mi"</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/spec/replicas</span>
-<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">replicas</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">replicas</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 <p>Use for: Container orchestration, cloud-native workloads</p>
 <hr />
@@ -2208,10 +2208,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

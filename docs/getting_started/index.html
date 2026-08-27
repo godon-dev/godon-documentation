@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1675,7 +1675,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 <span class="w">  </span>ghcr.io/godon-dev/godon-bench-generic:0.2.1
 
 <span class="c1"># Plant the coupling: node-1 -&gt; node-2, strength 0.7, saturation shape</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>/tmp/topology.yaml<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/tmp/topology.yaml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
 <span class="s">nodes:</span>
 <span class="s">  - id: node-1</span>
 <span class="s">    params: 3</span>
@@ -1706,16 +1706,16 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>/tmp/topology.yaml<span c
 docker<span class="w"> </span>cp<span class="w"> </span>/tmp/topology.yaml<span class="w"> </span>bench-generic:/topology.yaml
 docker<span class="w"> </span>start<span class="w"> </span>bench-generic
 docker<span class="w"> </span>network<span class="w"> </span>connect<span class="w"> </span>kind<span class="w"> </span>bench-generic<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-<span class="nv">BENCH_IP</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>bench-generic<span class="w"> </span>-f<span class="w"> </span><span class="s1">&#39;{{.NetworkSettings.Networks.kind.IPAddress}}&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bench at: </span><span class="si">${</span><span class="nv">BENCH_IP</span><span class="si">}</span><span class="s2">:8090&quot;</span>
+<span class="nv">BENCH_IP</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>bench-generic<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.NetworkSettings.Networks.kind.IPAddress}}'</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Bench at: </span><span class="si">${</span><span class="nv">BENCH_IP</span><span class="si">}</span><span class="s2">:8090"</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:8090/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 <p>The <code>/health</code> response lists the nodes and edge count — your ground truth for what the engine should find.</p>
 <p>The <code>docker network connect kind</code> line matters: it puts the bench on the same docker network as your kind nodes, so the breeders (which run inside the cluster) can reach it at <code>BENCH_IP</code>. Keep that variable — the configs in step 3 need it.</p>
 <h3 id="step-2-port-forward-the-godon-api">Step 2: Port-Forward the Godon API</h3>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>your<span class="w"> </span>kind<span class="w"> </span>kubeconfig&gt;
-<span class="nv">API_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">API_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9090</span>:8080<span class="w"> </span><span class="p">&amp;</span>
+<span class="nv">API_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[0].metadata.name}'</span><span class="k">)</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">API_POD</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="m">9090</span>:8080<span class="w"> </span><span class="p">&amp;</span>
 sleep<span class="w"> </span><span class="m">3</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/health
 </code></pre></div>
@@ -1729,7 +1729,7 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-1.yaml<span c
 <span class="s">name: generic-node-1</span>
 <span class="s">targetType: http</span>
 <span class="s">spec:</span>
-<span class="s">  url: &quot;http://${BENCH_IP}:8090/node-1&quot;</span>
+<span class="s">  url: "http://${BENCH_IP}:8090/node-1"</span>
 <span class="s">  auth_type: none</span>
 <span class="s">EOF</span>
 
@@ -1737,14 +1737,14 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span c
 <span class="s">name: generic-node-2</span>
 <span class="s">targetType: http</span>
 <span class="s">spec:</span>
-<span class="s">  url: &quot;http://${BENCH_IP}:8090/node-2&quot;</span>
+<span class="s">  url: "http://${BENCH_IP}:8090/node-2"</span>
 <span class="s">  auth_type: none</span>
 <span class="s">EOF</span>
 </code></pre></div>
 <p>The breeder config is where the experiment lives. Three parts matter: the <strong>search space</strong> (<code>settings</code> — three parameters on a 0-100 grid), the <strong>objectives vs observations split</strong> (<code>objective_0</code> is optimized, <code>objective_1</code> is only watched — the detector reads both), and the <strong><code>interference_detection</code> group</strong> — any two breeders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>breeder-1.yml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">meta:</span>
-<span class="s">  configVersion: &quot;0.3&quot;</span>
+<span class="s">  configVersion: "0.3"</span>
 <span class="s">  strict_validation: false</span>
 
 <span class="s">breeder:</span>
@@ -1766,7 +1766,7 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span c
 <span class="s">  parallel: 1</span>
 <span class="s">  completion_criteria:</span>
 <span class="s">    iterations: {min: 10, max: 500}</span>
-<span class="s">    timing: {end: &quot;75m&quot;}</span>
+<span class="s">    timing: {end: "75m"}</span>
 
 <span class="s">cooperation:</span>
 <span class="s">  active: false</span>
@@ -1784,7 +1784,7 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span c
 <span class="s">reconnaissance:                 # how this breeder reads its target</span>
 <span class="s">  type: http</span>
 <span class="s">  http:</span>
-<span class="s">    url: &quot;http://${BENCH_IP}:8090/node-1&quot;</span>
+<span class="s">    url: "http://${BENCH_IP}:8090/node-1"</span>
 
 <span class="s">objectives:</span>
 <span class="s">  - name: objective_0</span>
@@ -1815,7 +1815,7 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span c
 
 <span class="s">effectuation:                   # how this breeder writes parameters</span>
 <span class="s">  type: http</span>
-<span class="s">  targetRefs: [&quot;generic-node-1&quot;]</span>
+<span class="s">  targetRefs: ["generic-node-1"]</span>
 <span class="s">  endpoint_config:</span>
 <span class="s">    method: POST</span>
 <span class="s">    path: /apply</span>
@@ -1823,12 +1823,12 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>target-node-2.yaml<span c
 <span class="s">EOF</span>
 
 <span class="c1"># breeder-2 is the same file pointed at node-2</span>
-sed<span class="w"> </span><span class="s1">&#39;s/node-1/node-2/g&#39;</span><span class="w"> </span>breeder-1.yml<span class="w"> </span>&gt;<span class="w"> </span>breeder-2.yml
+sed<span class="w"> </span><span class="s1">'s/node-1/node-2/g'</span><span class="w"> </span>breeder-1.yml<span class="w"> </span>&gt;<span class="w"> </span>breeder-2.yml
 </code></pre></div>
 <p>Note how the pieces connect: <code>targetRefs: ["generic-node-1"]</code> refers to the target by the <code>name</code> you gave it above, and the reconnaissance URL is the same node endpoint. Every knob is documented in the <a href="../config_guide/">Configuration Guide</a> — the defaults above are the validated characterization setup.</p>
 <p>Now create the objects through the API, using the godon CLI (public image from ghcr; it converts the YAML into API calls):</p>
-<div class="highlight"><pre><span></span><code><span class="nv">CLI</span><span class="o">=</span><span class="s2">&quot;docker run --rm --network host -v /tmp/godon-scenario:/work:ro -w /work ghcr.io/godon-dev/godon-cli:latest&quot;</span>
-<span class="nv">API</span><span class="o">=</span><span class="s2">&quot;--hostname 127.0.0.3 --port 9090 --insecure&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">CLI</span><span class="o">=</span><span class="s2">"docker run --rm --network host -v /tmp/godon-scenario:/work:ro -w /work ghcr.io/godon-dev/godon-cli:latest"</span>
+<span class="nv">API</span><span class="o">=</span><span class="s2">"--hostname 127.0.0.3 --port 9090 --insecure"</span>
 
 <span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>target-node-1.yaml
 <span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>target<span class="w"> </span>create<span class="w"> </span>--file<span class="o">=</span>target-node-2.yaml
@@ -1837,9 +1837,9 @@ sed<span class="w"> </span><span class="s1">&#39;s/node-1/node-2/g&#39;</span><s
 <span class="nv">$CLI</span><span class="w"> </span><span class="nv">$API</span><span class="w"> </span>breeder<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>bench-char-2<span class="w"> </span>--file<span class="o">=</span>breeder-2.yml
 
 <span class="c1"># Capture the breeder UUIDs — the results in step 5 are keyed by them</span>
-<span class="nv">BREEDER_1_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-char-1&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nv">BREEDER_2_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name==&quot;bench-char-2&quot;) | .id&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;sender: </span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">, receiver: </span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">BREEDER_1_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.[] | select(.name=="bench-char-1") | .id'</span><span class="k">)</span>
+<span class="nv">BREEDER_2_UUID</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.[] | select(.name=="bench-char-2") | .id'</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"sender: </span><span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="s2">, receiver: </span><span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
 <p>(The <a href="../bench_scenarios/">scenario library</a> ships these same files pre-written for many topologies — useful once you know the shape. Typing them once teaches the shape.)</p>
 <h3 id="step-4-what-the-breeders-are-doing">Step 4: What the Breeders Are Doing</h3>
@@ -1854,18 +1854,18 @@ sed<span class="w"> </span><span class="s1">&#39;s/node-1/node-2/g&#39;</span><s
 <p>The result is a <strong>response curve per (sender, parameter, channel)</strong> — the measured shape of the coupling, not just a yes/no edge.</p>
 <h3 id="step-5-watch-progress-read-the-results">Step 5: Watch Progress, Read the Results</h3>
 <p>Progress: check the breeder states and give it time. First probe blocks typically appear within ~15 minutes; a complete carrier curve at these block sizes takes 30-75 minutes.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders/<span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;{status, name}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9090/breeders/<span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'{status, name}'</span>
 </code></pre></div>
 <p>While the run is in progress (or after), query the causal service directly:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">CAUSAL_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>godon-causal<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CAUSAL_POD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">9091</span>:8091<span class="w"> </span><span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">CAUSAL_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>godon-causal<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[0].metadata.name}'</span><span class="k">)</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span>godon<span class="w"> </span>--address<span class="w"> </span><span class="m">127</span>.0.0.3<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CAUSAL_POD</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="m">9091</span>:8091<span class="w"> </span><span class="p">&amp;</span>
 sleep<span class="w"> </span><span class="m">3</span>
 
 <span class="c1"># Detection verdict for one direction (sender -&gt; receiver)</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/detect/<span class="si">${</span><span class="nv">BREEDER_1_UUID</span><span class="si">}</span>/<span class="si">${</span><span class="nv">BREEDER_2_UUID</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 
 <span class="c1"># All measured response curves — the coupling map</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/curves<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.curves[] | {sender_id, receiver_id, param, channel, points: .state.points}&#39;</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.3:9091/curves<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.curves[] | {sender_id, receiver_id, param, channel, points: .state.points}'</span>
 </code></pre></div>
 <p>The <code>/detect</code> response reports per-channel rising/falling edges with confidence; <code>/curves</code> returns every measured <code>(level, shift, bar)</code> triple — level on the sender's parameter grid, measured shift on the receiver's objective, and the uncertainty bar from the raw samples.</p>
 <p>For the planted topology above, expect: <code>param_1</code> of the sender showing a saturation-shaped curve on the receiver's <code>objective_0</code>, <code>param_0</code>/<code>param_2</code> flat (they carry no weight), and <code>objective_1</code> flat (the edge feeds channel 0 only). Curves keyed the other direction (node-2 as sender) stay flat — nothing is planted that way.</p>
@@ -2024,10 +2024,10 @@ docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </spa
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.tabs"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
