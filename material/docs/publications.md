@@ -38,6 +38,20 @@ Work produced by the godon project.
     DOI: [10.5281/zenodo.21962956](https://doi.org/10.5281/zenodo.21962956) ·
     [Zenodo](https://zenodo.org/records/21962956)
 
+!!! quote "[From Edges to Curves: Calibration of Autonomous Coupling Characterization in Live Systems](https://doi.org/10.5281/zenodo.22127166)"
+
+    The calibration of the characterization walk: measured response
+    curves per coupling edge, with error bars validated against
+    planted truth across a 32-cell grid — strengths 0.0–0.9, noise
+    to σ=0.10, four response shapes, six wiring topologies, and
+    non-stationary regimes. Every certified point within its own
+    reported uncertainty; zero invented structure across all
+    sentinels; the working envelope and the refusal conditions
+    measured, not asserted.
+
+    DOI: [10.5281/zenodo.22127166](https://doi.org/10.5281/zenodo.22127166) ·
+    [Zenodo](https://zenodo.org/records/22127166)
+
 ---
 
 ## See Also
