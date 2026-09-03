@@ -2,7 +2,7 @@ site_name: 'godon'
 site_description: 'Open Source Live Systems Tending and Causal Discernment Engine'
 site_author: 'Matthias Tafelmeier'
 site_url: https://godon-dev.github.io/godon-documentation
-repo_url: https://github.com/godon-dev/godon
+repo_url: https://github.com/godon-dev
 repo_name: GitHub
 copyright: "Copyright &copy; 2019 - Today; Matthias Tafelmeier"
 extra:
@@ -10,6 +10,9 @@ extra:
     - icon: fontawesome/brands/discord
       link: https://discord.gg/4N7jF7s3yv
       name: Discord
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/godon-dev
+      name: LinkedIn
 theme:
   name: "material"
   features:
