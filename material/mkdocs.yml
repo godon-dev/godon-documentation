@@ -53,15 +53,15 @@ nav:
      - Landing: index.md
      - Purpose: purpose.md
      - Documentation:
-          - Getting Started: getting_started.md
+          - Getting_Started: getting_started.md
           - Setup: setup.md
           - Architecture: architecture.md
-          - Core Concepts:
+          - Core_Concepts:
             - Breeder: concept_breeder.md
             - Effectuator: concept_effectuator.md
             - Reconnaissance: concept_reconnaissance.md
             - Guardrails: concept_guardrails.md
-            - Interference Detection: concept_interference_detection.md
+            - Interference_Detection: concept_interference_detection.md
           - Development:
             - Bench_Scenarios: bench_scenarios.md
             - Detection_Capabilities: detection_capabilities.md
