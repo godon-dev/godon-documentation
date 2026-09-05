@@ -52,6 +52,22 @@ Work produced by the godon project.
     DOI: [10.5281/zenodo.22127166](https://doi.org/10.5281/zenodo.22127166) ·
     [Zenodo](https://zenodo.org/records/22127166)
 
+!!! quote "[From Curves to Cascades: Composed Coupling Prediction Among Autonomous Agents](https://doi.org/10.5281/zenodo.22401439)"
+
+    The composition of the measured curves: pairwise response curves,
+    measured autonomously and referenced by total level, chained
+    through nonlinear switching elements and summed at converging
+    junctions to predict far-end response — judged by disjoint direct
+    walks, within error bars propagated from each piece. 95 of 97
+    referee points across chains, a junction, and a live threshold
+    relay; the propagated bars validated as honest metrology; and the
+    composition horizon measured at roughly two nonlinear hops at
+    σ=0.02 — beyond it the far end falls below the detection floor,
+    and composing the pieces is the only remaining door.
+
+    DOI: [10.5281/zenodo.22401439](https://doi.org/10.5281/zenodo.22401439) ·
+    [Zenodo](https://zenodo.org/records/22401439)
+
 ---
 
 ## See Also
