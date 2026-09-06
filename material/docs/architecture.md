@@ -109,7 +109,7 @@ The measurement computation service. Breeders push parameters and observe object
 | Persistence | Curves survive restarts (write-through + replay) and follow breeder lifecycle (purge cascade) |
 | Graph artifact | The measured coupling structure, exportable as a versioned artifact |
 
-Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` (single-hop and multi-hop).
+Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` and `/predict/multihop`, `/graph` and `/artifact` (the measured coupling map, exportable), `/walk-view/{sender}`, `/impact/{breeder_id}`, `/causes/{breeder_id}`.
 
 #### Godon Observer
 
@@ -119,11 +119,13 @@ Observability: Prometheus metrics, trial history, the dashboard, and detection p
 
 Workers are organized by job type:
 
-| Group | Replicas | Timeout | Purpose |
-|-------|----------|---------|---------|
-| **controller** | 3 | 2 minutes | Fast operations: preflight, breeder create, status checks |
-| **breeder** | 5 | None | Long-running optimization loops |
-| **default** | 2 | Default | General operations, dependency resolution |
+| Group | Timeout | Purpose |
+|-------|---------|---------|
+| **controller** | Short (configurable) | Fast operations: preflight, breeder create, status checks |
+| **breeder** | None by design — crash recovery via the Optuna DB | Long-running optimization loops |
+| **default** | Default | General operations, dependency resolution |
+
+Replica counts are deployment values, not architecture — they live in the chart's `values.yaml`.
 
 **Why separate groups:**
 - Controller jobs are fast but frequent — need quick response
@@ -321,7 +323,6 @@ godon is deployed via Helm chart to Kubernetes.
 **Cooperation scaling:**
 - Multiple breeders share Archive DB
 - Each learns from others' trials
-- Diminishing returns after ~10 cooperating breeders (search space coverage)
 
 ---
 
