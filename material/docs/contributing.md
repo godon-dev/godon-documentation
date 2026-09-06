@@ -20,9 +20,29 @@ Every new coupling channel type extends the boundary map. See [Bench Scenarios](
 
 Nonlinear composition is measured: curves chain through nonlinear switching elements and sum at converging junctions to predict far-end response, with the propagated error bars validated as honest metrology — published as [From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439). The open end is the horizon: about two nonlinear hops at noise σ=0.02, beyond which the far end falls below the detection floor. If you work in nonlinear system identification, uncertainty propagation, or error-in-variables methods — extending that horizon is the open end of the composition story.
 
+**Response Dynamics**
+
+The probe data the engine already collects contains more than the curves report: propagation delay, settling time, channel covariance, step-response shape. Extracting them is signal processing on existing data — designed, not built, and a self-contained contribution. It moves the map from statics toward dynamics: edges form cycles, feedback is the second blind spot, and loop gain / cycle tracing are open. If you are a signal-processing person, the quantities are named and the machinery exists.
+
+**Empirical Live Models**
+
+The measured map — curves with per-point bars, topology, priced gaps — is an empirical model of a live system: explicit, causal, discovered rather than specified, served live (`/curves`, `/predict`) and exportable as a versioned artifact. On the bench it already supports the seeing paths: attribute a regression to its source path, foresee a cascade before it fires, certify isolation empirically, right-size isolation spend. If you build models of systems — system identification, simulation, uncertainty quantification — the map is a new input class: structure you did not have to assume. Consuming it, hardening it, and finding where it breaks are all contributions.
+
+**Live Systems Tending**
+
+Detection, curves, and composition are the perception half. The action half — agents adapting to known coupling, joint moves toward chosen targets, simulate-before-execute — is the project's direction and not yet built. One receipt exists: a quiet-bench chain steered to a target at its far end (target −0.100, landed −0.1038 ± 0.038). If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and the loop is the open problem.
+
 **Statistics of Priced Stopping**
 
 Termination is decided by an information-price argument (remaining ignorance vs measurement cost). The current arithmetic is deliberately the simplest defensible version; rigorous treatments (optimal stopping, experimental design under budget) would harden it.
+
+**Detection Statistics & Experiment Design**
+
+Two hard statistical questions sit inside the protocol. CFAR's constant-false-alarm property is empirically untested across conditions, and the threshold arithmetic compares block medians against per-sample scatter — conservative, not literal; a median-aware threshold needs its false-alarm statistics re-derived. And a push that changes the receiver's variance instead of its median is invisible to the current detector — a second statistic on the same trial data (push-scatter vs baseline-scatter) would open variance coupling: jitter, oscillation, instability, the effects that matter most for tending. Fractional-factorial probe schedules are the design-of-experiments side. The fields most vital here: design of experiments and statistical calibration theory.
+
+**Scale & Scan Scheduling**
+
+2-6 agents validated. At N≫6 the pairwise scan is O(N²), turn-taking serializes, and the system drifts while being scanned — scan-rate vs drift-rate is an observability limit to characterize, not a bug to fix. Parallel probe groups, prediction-error-prioritized rescans, topology-aware scheduling (skip pairs the map says are quiet). The bench is N-generic today; the coordination regime is the open part. If you work in graph algorithms or online scheduling, this is a scheduling problem only this instrument creates.
 
 **Infrastructure and Platform Engineering**
 
@@ -30,7 +50,7 @@ godon runs on Kubernetes with Helm charts, container images, and GitHub Actions 
 
 **Optimization and AI Operations**
 
-Multi-objective search, parallel campaigns, heterogeneous strategies. LLM integration as operations copilot — interpreting measured coupling structure, drafting probe configurations, flagging anomalies.
+Multi-objective search, parallel campaigns, heterogeneous strategies. LLM integration as operations copilot — interpreting measured coupling structure, drafting probe configurations, flagging anomalies. The MCP interface exposes the measured map to LLM agents, grounding their reasoning in measured structure rather than training data.
 
 **Documentation and Communication**
 
