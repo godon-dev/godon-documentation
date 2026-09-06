@@ -25,9 +25,15 @@ What is genuinely open, honestly bounded. The solved problems moved to [Detectio
 
 The method-choice question is closed. Passive statistics (FFT, mutual information, transfer entropy, Granger, CCM) failed on this problem class for a structural reason: the receiver's own exploration noise sits ~500× above any coupling signal in passive data. The shipped answer is the **impulse protocol** — deliberate, guarded pushes with the receiver holding still, detected by CFAR — validated across coupling shapes including deeply nonlinear cascaded channels and slow drift, zero false positives on controls, with a published boundary map. Passive methods remain interesting only as accelerators (ranking candidates for probe prioritization at scale).
 
-### Composition on Nonlinear Channels (the keystone)
+Composition is closed to a measured horizon. Nonlinear composition — curves chained through nonlinear switching elements and summed at converging junctions — predicts far-end response within error bars propagated from each piece: 95 of 97 referee points across four chain seeds, a junction, and a live threshold relay, with the propagated bars validated as honest metrology. The bench capability that did not exist (nonlinearity in the edge itself) shipped with the campaign. Published as [From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439).
 
-Edges compose additively — validated: measured two-hop response matches the composed prediction from measured one-hop curves, within uncertainty bars, at every level. The open question is **nonlinear composition**: when the coupling path itself is nonlinear (the intermediate's response function bends the signal), does curve composition still predict, and what correction machinery does it need? This is the make-or-break for prediction, tending, and everything above the map. Requires a bench capability that does not exist yet: nonlinearity in the edge itself.
+### Beyond the Composition Horizon
+
+Roughly two nonlinear hops at noise σ=0.02: beyond that the far end falls below the detection floor, and composing the measured pieces is the only remaining door. Extending the horizon — a quieter instrument, evidence stacked across probes — is open.
+
+### Direct vs Transitive Edges
+
+Distinguishing a direct edge from a two-hop path through an intermediate — the diamond topology is the test cell — remains open. Pairwise curves constrain the answer; they do not yet separate it.
 
 ### Fast Non-Stationarity
 
@@ -51,7 +57,7 @@ The protocol's own parameters (probe amplitude, block lengths, walk depth, conve
 
 ### From Detection to Steering
 
-The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. The open problems in order: composition on nonlinear channels (above), then joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
+The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. With composition closed to its measured horizon (above), the open problems in order are joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
 
 ### Further Reading
 

@@ -30,7 +30,7 @@ The configurable synthetic coupling bench. Any topology: node count, per-node pa
 | Directory | [`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) (workflows: `bench-generic.yml`, `bench-characterization.yml`) |
 | Image | `ghcr.io/godon-dev/godon-bench-generic` |
 | Channel type | Any (per topology) |
-| Validation | 21-cell detection sweep + full characterization suite |
+| Validation | 21-cell detection sweep + characterization suite + nonlinear-composition campaign |
 
 **Characterization scenarios** (2-3 breeders, one carrier parameter, dead parameters as controls):
 
@@ -39,6 +39,10 @@ The configurable synthetic coupling bench. Any topology: node count, per-node pa
 - `scenario-characterization-ch1` — edge feeding objective_1: the per-channel mapping cell
 - `scenario-verification-star` — three agents, one edge, one uncoupled witness: per-receiver curve separation
 - `scenario-composition-gate` — chain topology (A → C → B): composed two-hop response vs measured — the composition validation cell
+- `scenario-door-chain` — nonlinearity in the edge itself: the two-hop nonlinear composition cell
+- `scenario-junction-gate` — converging junction: composition where paths sum
+- `scenario-cliff` — live threshold relay: composition through a discontinuity
+- `scenario-depth4` — three nonlinear hops: the composition-horizon boundary cell
 
 **Detection sweep scenarios**: `scenario-generic-chain4` (4-node chain, topology recovery), `scenario-generic-pair`, `scenario-generic-noisy`, `scenario-generic-nonlinear`.
 
@@ -73,7 +77,7 @@ Deeply nonlinear cascaded coupling: waste heat and CO2 through thermal inertia, 
 | Microgrid 6-breeder | Linear additive | Validated at scale |
 | Greenhouse | Nonlinear cascaded, non-stationary | Validated (strong coupling) |
 
-Open cells (honest boundaries): non-stationarity with phase transitions faster than the detection window; coupling-path nonlinearity for composition (the bench composes additively — a nonlinearity-in-the-edge bench capability is future work).
+Open cells (honest boundaries): non-stationarity with phase transitions faster than the detection window; the composition horizon (about two nonlinear hops at σ=0.02 — beyond it the far end falls below the detection floor). The nonlinearity-in-the-edge bench capability now exists — the door, junction, cliff, and depth cells above.
 
 ### Adding a New Bench
 

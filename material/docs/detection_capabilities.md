@@ -49,7 +49,7 @@ Covered at the bench's drift rates. The CFAR reference window is local (a handfu
 |---|---|
 | Noise floor | σ=0.05-0.10 at coupling 0.5: signal permanently below threshold — an SNR limit; more budget does not cross it |
 | Fast phase transitions | Non-stationarity faster than the detection window remains open |
-| Coupling-path nonlinearity | Detection is shape-agnostic; composition of edges validated on additive coupling — nonlinear edge composition is future work |
+| Coupling-path nonlinearity | Detection is shape-agnostic; composition validated through nonlinear paths and junctions to a measured horizon — about two nonlinear hops at σ=0.02, beyond which the far end falls below the detection floor |
 | Scale | 2-6 agents validated; the coordination regime for 50+ is unbuilt |
 
 ### Beyond Detection: Characterization
