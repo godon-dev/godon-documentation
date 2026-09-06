@@ -91,3 +91,5 @@ That's the core thesis of godon. Not detection for its own sake, but detection a
 *This is the third in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
 
 > **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
+
+> **Update (Sept 2026):** measured curves now compose — through nonlinear switching elements and converging junctions, far-end response predicted within propagated error bars, to a measured horizon of about two nonlinear hops ([From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439)). What this post leaves open still stands: full graph assembly, and separating direct from transitive edges.

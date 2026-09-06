@@ -90,3 +90,5 @@ That's what godon is building.
 *This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
 
 > **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
+
+> **Update (Sept 2026):** the perception layer has since been validated well beyond linear channels — detection and curve measurement across coupling shapes and noise regimes, and measured curves composing through nonlinear paths to predict far-end response to a measured horizon ([publications](https://godon-dev.github.io/godon-documentation/publications/)).
