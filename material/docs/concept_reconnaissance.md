@@ -77,6 +77,8 @@ Reconnaissance answers: "What happened after we made that change?"
 | **HTTP** | Stats and metrics endpoints | REST/HTTP |
 | **Prometheus** | Time-series metrics | PromQL |
 
+Two sources ship today — a known limit, not the design's boundary; more are in development. The per-objective block (path/key/samples/aggregation) is the stable interface each source fills.
+
 #### HTTP Reconnaissance
 
 How a breeder reads its target — per objective (and per observation),

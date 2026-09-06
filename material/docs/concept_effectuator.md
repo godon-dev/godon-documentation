@@ -74,7 +74,7 @@ All effectuators implement the same contract:
 
 ### Built-in Effectuators
 
-Two channels ship today:
+Two channels ship today — a known limit, not the destination: more handlers are in development, and the effectuation/reconnaissance interplay itself is being reworked. What stays stable is the contract above.
 
 | Effectuator | Target | Mechanism |
 |-------------|--------|-----------|
@@ -111,6 +111,9 @@ Targets carry `address`, `username`, and `ssh_key_variable_path`; the
 flow receives the parameters alongside them.
 
 Use for: traditional servers, VMs, bare metal.
+
+This is the project's founding path — the origin workload was
+operating-system network parameter tuning ([References](references.md)).
 
 #### Adding a Channel
 
