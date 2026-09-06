@@ -1,6 +1,25 @@
 ---
-description: "godon Effectuator concept — applies configurations to target systems via SSH, HTTP, and Kubernetes API channels. Idempotent operations, timing, and rollback support."
+description: "godon Effectuator concept — applies configurations to target systems via SSH and HTTP channels. Idempotent operations, timing, and rollback support."
 ---
+
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Effectuator
 
@@ -18,7 +37,7 @@ An **effectuator** applies configurations to target systems — it's the bridge 
 │                                         │                    │
 │                                         ▼                    │
 │                                   Reconnaissance            │
-│                                     (observe)                │
+│                                     (observe)               │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -55,65 +74,53 @@ All effectuators implement the same contract:
 
 ### Built-in Effectuators
 
-| Effectuator | Target | Protocol |
-|-------------|--------|----------|
-| **SSH** | Remote servers, VMs | SSH exec |
-| **HTTP** | APIs, services | REST/HTTP |
-| **Kubernetes** | Pods, deployments, configmaps | K8s API |
+Two channels ship today — a known limit, not the destination: more handlers are in development, and the effectuation/reconnaissance interplay itself is being reworked. What stays stable is the contract above.
 
-#### SSH Effectuator
-
-```yaml
-effectuator:
-  type: ssh
-  host: 10.0.0.50
-  user: admin
-  ssh_key: /secrets/ssh_key
-  
-  apply:
-    command: |
-      sed -i 's/pool_size=.*/pool_size={{ pool_size }}/' /etc/app/config.ini
-      systemctl restart app
-```
-
-Use for: Traditional servers, VMs, bare metal
+| Effectuator | Target | Mechanism |
+|-------------|--------|-----------|
+| **SSH** | Remote servers, VMs | Playbook execution via Windmill |
+| **HTTP** | APIs, services | REST calls |
 
 #### HTTP Effectuator
 
+The bench path — parameters go to a target's apply endpoint:
+
 ```yaml
-effectuator:
+effectuation:
   type: http
-  endpoint: https://api.example.com/config
-  method: PATCH
-  headers:
-    Authorization: Bearer {{ api_token }}
-  
-  payload:
-    pool_size: "{{ pool_size }}"
-    timeout_ms: "{{ timeout_ms }}"
+  targetRefs: ["generic-node-1"]   # target created via the API
+  endpoint_config:
+    method: POST
+    path: /apply
+    timeout_seconds: 30
 ```
 
-Use for: Services with config APIs, service mesh, control planes
+Use for: services with config APIs, bench nodes, control planes.
 
-#### Kubernetes Effectuator
+#### SSH Effectuator
+
+The infrastructure path — a playbook applies the parameters:
 
 ```yaml
-effectuator:
-  type: kubernetes
-  namespace: production
-  
-  target:
-    kind: Deployment
-    name: app-backend
-    
-  patches:
-    - path: /spec/template/spec/containers/0/resources/requests/memory
-      value: "{{ memory_mb }}Mi"
-    - path: /spec/replicas
-      value: "{{ replicas }}"
+effectuation:
+  type: ssh
+  playbook_path: f/prod/sysctl    # Windmill flow that runs the playbook
 ```
 
-Use for: Container orchestration, cloud-native workloads
+Targets carry `address`, `username`, and `ssh_key_variable_path`; the
+flow receives the parameters alongside them.
+
+Use for: traditional servers, VMs, bare metal.
+
+This is the project's founding path — the origin workload was
+operating-system network parameter tuning ([References](references.md)).
+
+#### Adding a Channel
+
+Effectuators are Windmill flows addressed as `f/effectuation/<type>` —
+the breeder calls whatever flow the configured type names. A new channel
+(a cloud API, a database, a hardware interface) is a new flow, not an
+engine change.
 
 ---
 
@@ -155,39 +162,18 @@ Effectuators should be **idempotent** — applying the same configuration twice 
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-| Phase | What happens |
-|-------|--------------|
-| **Connect** | Establish connection to target |
-| **Apply** | Execute configuration change |
-| **Propagate** | Change spreads through system |
-| **Steady** | System reaches new equilibrium |
-
-**Critical:** Reconnaissance should wait until steady state, or metrics will be misleading.
+**Critical:** Reconnaissance samples only after a stabilization wait
+(`stabilization_seconds`, default 2) — reading before the change has
+propagated measures the old state.
 
 ---
 
 ### Rollback Support
 
-When guardrails fail, effectuators may need to revert:
-
-```yaml
-effectuator:
-  type: kubernetes
-  
-  apply:
-    # ... apply config ...
-    
-  rollback:
-    strategy: previous
-    # or explicit rollback action
-    command: kubectl rollout undo deployment/app
-```
-
-| Rollback Strategy | What it does |
-|-------------------|--------------|
-| `previous` | Restore last known-good config |
-| `baseline` | Restore original/default config |
-| `explicit` | Run custom rollback command |
+Rollback is configured on the breeder side (`rollback_strategies` —
+see [Guardrails](concept_guardrails.md)); the effectuator applies the
+restored parameters like any other apply. Strategies restore the
+previous successful trial, the best trial, or the baseline.
 
 ---
 
@@ -197,68 +183,24 @@ Effectuation can fail for many reasons:
 
 | Error Type | Cause | Recovery |
 |------------|-------|----------|
-| **Connection** | Network, auth | Retry with backoff |
+| **Connection** | Network, auth | Failed trial; algorithm learns to avoid |
 | **Validation** | Invalid params | Mark trial failed |
-| **Permission** | Insufficient rights | Alert, require manual fix |
-| **Timeout** | Slow target | Increase timeout or fail |
+| **Timeout** | Slow target | Failed trial after `timeout_seconds` |
 
-```yaml
-effectuator:
-  retry:
-    max_attempts: 3
-    backoff: exponential
-    base_delay: 1s
-    
-  timeout: 60s
-  on_failure: mark_trial_failed
-```
+Failures are honest: a trial that could not be effectuated is failed,
+counted, and — past the rollback threshold — restored.
 
 ---
 
 ### Safety Considerations
 
-Effectuators modify real systems. Safety matters:
+Effectuators modify real systems. The shipped safety line:
 
-| Practice | Why |
-|----------|-----|
-| **Dry-run mode** | Validate changes without applying |
-| **Gradual rollout** | Apply to subset before full deploy |
-| **Circuit breakers** | Stop if error rate spikes |
-| **Audit logging** | Track what changed, when, by whom |
-
-```yaml
-effectuator:
-  safety:
-    dry_run: false        # Set true for testing
-    max_concurrent: 1     # Only one change at a time
-    require_confirmation: false  # For production
-```
-
----
-
-### Custom Effectuators
-
-Implement your own for specialized targets:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Custom Effectuator                         │
-│                                                              │
-│  Implement:                                                  │
-│    - validate(params) → bool                                │
-│    - apply(params) → result                                 │
-│    - rollback(params) → result                              │
-│                                                              │
-│  Register with breeder via plugin interface                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-Use cases:
-- Proprietary systems
-- Database config changes
-- Hardware tuning
-- Feature flag services
+| Practice | How it ships |
+|----------|--------------|
+| Guardrail-bounded | Probe pushes use the same guardrails as ordinary trials |
+| One change at a time | Turn-taking serializes senders during characterization |
+| Audit trail | Every apply is a recorded trial with parameters and results |
 
 ---
 
@@ -267,11 +209,11 @@ Use cases:
 | Aspect | What it means |
 |--------|---------------|
 | **Role** | Apply parameters to target systems |
-| **Types** | SSH, HTTP, Kubernetes, custom |
+| **Channels** | SSH (playbook via Windmill), HTTP (apply endpoint) |
 | **Contract** | Validate → Apply → Verify → Report |
 | **Idempotency** | Same result on repeated applies |
-| **Timing** | Account for propagation delay |
-| **Safety** | Dry-run, gradual rollout, circuit breakers |
+| **Timing** | Stabilization wait before reconnaissance samples |
+| **Extensibility** | New channel = new Windmill flow |
 
 ---
 
@@ -279,4 +221,5 @@ Use cases:
 
 - [Breeder](concept_breeder.md) — Orchestrates effectuators
 - [Reconnaissance](concept_reconnaissance.md) — Observes what effectuators change
-- [Guardrails](concept_guardrails.md) — May trigger rollback
+- [Guardrails](concept_guardrails.md) — Violations trigger rollback
+- [Configuration Guide](config_guide.md) — The shipped config, end to end

@@ -1,19 +1,38 @@
 ---
-description: "godon Guardrails concept — safety limits protecting production systems during optimization. Soft and hard guardrails, rollback strategies, multi-objective constraints."
+description: "godon Guardrails concept — hard safety limits protecting production systems during optimization. Numeric hard limits, consecutive-violation rollback, strategies."
 ---
+
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Guardrails
 
-**Guardrails** are safety limits that protect production systems during optimization. Unlike objectives which guide the search, guardrails enforce hard constraints — trials that violate them are rejected.
+**Guardrails** are safety limits that protect production systems during optimization. Unlike objectives which guide the search, guardrails enforce hard limits — trials that violate them are rejected.
 
 ### Guardrails vs Objectives
 
 | Aspect | Objective | Guardrail |
 |--------|-----------|-----------|
-| **Purpose** | What to optimize | What to avoid |
+| **Purpose** | What to optimize | What to avoid exceeding |
 | **Behavior** | Continuous guidance | Binary pass/fail |
 | **Violation** | Suboptimal result | Trial rejected |
-| **Example** | Minimize latency | Latency must stay < 100ms |
+| **Example** | Minimize latency | Temperature must stay < 40 |
 
 Objectives say "make this better." Guardrails say "don't break this."
 
@@ -37,7 +56,7 @@ Objectives say "make this better." Guardrails say "don't break this."
 │                            │                        │       │ │
 │                            ▼                        ▼       │ │
 │                    Mark FAILED            Accept trial       │ │
-│                    Trigger rollback       Update best        │ │
+│                    Count failure          Update best        │ │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -47,133 +66,52 @@ Guardrails check reconnaissance data after each trial.
 
 ### Defining Guardrails
 
+A guardrail is a named metric with a numeric upper bound:
+
 ```yaml
 guardrails:
-  - name: max_latency
-    metric: latency_p99
-    condition: "< 100ms"
-    on_violation: fail_trial
-    
-  - name: error_budget
-    metric: error_rate
-    condition: "< 0.01"
-    on_violation: fail_trial
-    
-  - name: cpu_limit
-    metric: cpu_usage_percent
-    condition: "< 90"
-    on_violation: fail_trial
+  - name: cpu_usage
+    hard_limit: 90.0
+  - name: max_temp
+    hard_limit: 40.0
 ```
 
 | Field | Meaning |
 |-------|---------|
-| `metric` | Which reconnaissance value to check |
-| `condition` | Threshold expression |
-| `on_violation` | What to do when violated |
+| `name` | Which reconnaissance metric to check |
+| `hard_limit` | Numeric upper bound — a value above it is a violation |
+
+Plain by design: a number, not an expression. A metric that cannot be read or evaluates to infinity counts as a violation — the safe direction is the default.
+
+The same limits bound the impulse protocol's probe pushes: characterization pushes stay inside the same guardrails as ordinary optimization trials. Same knobs, same bounds, no special permissions.
 
 ---
 
-### Condition Syntax
-
-| Operator | Meaning | Example |
-|----------|---------|---------|
-| `<` | Less than | `latency < 100` |
-| `<=` | Less than or equal | `errors <= 10` |
-| `>` | Greater than | `throughput > 1000` |
-| `>=` | Greater than or equal | `uptime >= 0.99` |
-| `==` | Equals | `status == "healthy"` |
-| `!=` | Not equals | `state != "degraded"` |
-
----
-
-### Guardrail States
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Guardrail Evaluation                      │
-│                                                              │
-│  Metric value ──▶ Compare ──▶ [PASS] or [FAIL]             │
-│                                                              │
-│  latency_p99 = 45ms                                         │
-│  condition: < 100ms                                         │
-│  result: PASS                                               │
-│                                                              │
-│  error_rate = 0.05                                          │
-│  condition: < 0.01                                          │
-│  result: FAIL                                               │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-| State | Meaning |
-|-------|---------|
-| **PASS** | Metric within bounds, trial continues |
-| **FAIL** | Metric exceeds limit, trial rejected |
-
----
-
-### Multiple Guardrails
+### Evaluation
 
 All guardrails must pass for a trial to succeed:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                   Guardrail Checks                           │
-│                                                              │
-│  latency_p99: 45ms    < 100ms    ✓ PASS                     │
-│  error_rate:   0.001  < 0.01     ✓ PASS                     │
-│  cpu_usage:    85%    < 90%      ✓ PASS                     │
-│                                                              │
-│  All pass → Trial accepted                                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+  cpu_usage:    85%    ≤ 90%    ✓ PASS
+  max_temp:     38°C   ≤ 40°C   ✓ PASS
+                          → Trial accepted
 
-┌─────────────────────────────────────────────────────────────┐
-│                   Guardrail Checks                           │
-│                                                              │
-│  latency_p99: 45ms    < 100ms    ✓ PASS                     │
-│  error_rate:   0.05   < 0.01     ✗ FAIL                     │
-│  cpu_usage:    85%    < 90%      (skipped)                  │
-│                                                              │
-│  Any fail → Trial rejected                                  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+  cpu_usage:    85%    ≤ 90%    ✓ PASS
+  max_temp:     45°C   ≤ 40°C   ✗ FAIL
+                          → Trial rejected
 ```
+
+Any fail → trial rejected.
 
 ---
 
-### On Violation
+### On Violation: Fail, then Roll Back
 
-When a guardrail fails, several actions are possible:
-
-| Action | What happens |
-|--------|--------------|
-| `fail_trial` | Mark trial failed, continue optimization |
-| `fail_and_rollback` | Mark failed, restore previous config |
-| `stop_breeder` | Halt optimization entirely |
-
-```yaml
-guardrails:
-  - name: critical_error_rate
-    metric: error_rate
-    condition: "< 0.1"
-    on_violation: fail_and_rollback
-    
-  - name: catastrophic_failure
-    metric: system_down
-    condition: "== false"
-    on_violation: stop_breeder
-```
-
----
-
-### Rollback on Violation
-
-Consecutive guardrail violations can trigger automatic rollback:
+A violating trial is marked failed and the failure is counted. Consecutive failures trip the rollback:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Rollback Flow                             │
+│                     Rollback Flow                            │
 │                                                              │
 │  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED   │
 │      │                │                       │              │
@@ -183,63 +121,50 @@ Consecutive guardrail violations can trigger automatic rollback:
 │                                               ▼              │
 │                                    ┌──────────────────┐      │
 │                                    │ Threshold hit?   │      │
-│                                    │ (e.g., 3)        │      │
+│                                    │ (e.g., 10)       │      │
 │                                    └────────┬─────────┘      │
 │                                             │                │
 │                              ┌──────────────┴──────────┐    │
 │                              ▼                         ▼    │
 │                            Yes                        No    │
 │                              │                         │    │
-│                              ▼                         │    │
-│                    Apply last_good params              │    │
-│                    Reset failure counter               │    │
-│                              │                         │    │
-│                              └────────────┬────────────┘    │
-│                                           ▼                  │
-│                                    Continue trials            │
+│                              ▼                         ▼    │
+│                    Apply last_good params       Continue     │
+│                    Reset failure counter                    │
+│                              │                              │
+│                              ▼                              │
+│                       After-policy: continue / pause / stop │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ```yaml
-rollback:
-  enabled: true
-  consecutive_failures: 3   # Trigger after N violations
-  target_state: previous    # previous, best, or baseline
-  on_failure: stop          # stop, continue, or skip_target
+rollback_strategies:
+  standard:
+    consecutive_failures: 10   # Rollback after N failed trials
+    target_state: previous     # previous, best, or baseline
+    max_attempts: 3
+    on_failure: continue       # continue, stop, or skip_target
+    timeout_seconds: 60
+    after:                     # What to do after a rollback
+      action: pause            # continue, pause, or stop
+      duration: 300
 ```
 
 ---
 
 ### Rollback Strategies
 
-| Strategy | What it restores | Use Case |
+| Strategy | What it restores | Use case |
 |----------|------------------|----------|
-| `previous` | Last successful trial | Conservative, safe |
+| `previous` | Last successful trial's parameters | Conservative, safe |
 | `best` | Best Pareto-optimal trial | Aggressive, assumes best is stable |
-| `baseline` | Original configuration | Fallback to known defaults |
+| `baseline` | Empty/original configuration | Fallback to known defaults |
 
 ---
 
-### Soft vs Hard Guardrails
+### Guardrails in Multi-Objective Optimization
 
-**Soft guardrails** — Warning threshold, continue optimization
-
-**Hard guardrails** — Hard limit, fail trial immediately
-
-```yaml
-guardrails:
-  - name: latency_warning
-    metric: latency_p99
-    condition: "< 80ms"
-    severity: soft      # Log warning, continue
-    
-  - name: latency_limit
-    metric: latency_p99
-    condition: "< 100ms"
-    severity: hard      # Fail trial
-```
-
-Soft guardrails inform without blocking. Hard guardrails protect.
+Guardrails constrain the Pareto front: trials that violate a guardrail are excluded from it. The effective front is the unguarded front cut at the limit — tradeoffs beyond the boundary are invisible to the optimizer, by design.
 
 ---
 
@@ -250,35 +175,10 @@ Soft guardrails inform without blocking. Hard guardrails protect.
 | Set guardrails before objectives | Safety first |
 | Start conservative | Loosen after proven safe |
 | Monitor guardrail hit rate | Too many hits = search space issue |
-| Use soft before hard | Graduated response |
 
-**Too tight:** Algorithm can't explore, all trials fail
+**Too tight:** Algorithm can't explore, all trials fail.
 
-**Too loose:** Risk of production incidents
-
----
-
-### Guardrails in Multi-Objective Optimization
-
-Guardrails constrain the Pareto front:
-
-```
-              Throughput
-                    ▲
-                    │
-                    │    · ·  ·   (outside guardrail)
-                    │  ·   · ·    
-                    │    · X      ← guardrail boundary
-                    │  ·   ·
-                    │    · · ·   (inside guardrail)
-                    │
-                    └─────────────────────▶
-                       Latency
-
-Only trials inside guardrail boundary are considered
-```
-
-The effective Pareto front excludes guardrail-violating trials.
+**Too loose:** Risk of production incidents.
 
 ---
 
@@ -287,15 +187,16 @@ The effective Pareto front excludes guardrail-violating trials.
 | Aspect | What it means |
 |--------|---------------|
 | **Purpose** | Protect systems during optimization |
-| **Behavior** | Binary pass/fail on metric thresholds |
-| **Violation** | Trial rejected, possible rollback |
-| **Types** | Soft (warning) vs hard (fail) |
-| **Rollback** | Auto-restore on consecutive failures |
+| **Shape** | Named metric + numeric hard limit |
+| **Behavior** | Binary pass/fail, all must pass |
+| **Violation** | Trial rejected; consecutive failures roll back |
+| **Rollback** | previous / best / baseline, with an after-policy |
 
 ---
 
 ### See Also
 
 - [Reconnaissance](concept_reconnaissance.md) — Provides metrics for guardrail checks
-- [Effectuator](concept_effectuator.md) — May execute rollback
+- [Effectuator](concept_effectuator.md) — Applies the restored parameters on rollback
 - [Breeder](concept_breeder.md) — Configures and enforces guardrails
+- [Configuration Guide](config_guide.md) — The shipped config, end to end

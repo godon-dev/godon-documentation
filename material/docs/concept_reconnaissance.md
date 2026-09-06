@@ -1,6 +1,25 @@
 ---
-description: "godon Reconnaissance concept — observes target systems after effectuation using Prometheus, HTTP, and script sources. Timing, aggregation, and noise handling."
+description: "godon Reconnaissance concept — observes target systems after effectuation using Prometheus and HTTP sources. Stabilization, sampling, and aggregation."
 ---
+
+<!--
+Copyright (c) 2019 Matthias Tafelmeier.
+
+This file is part of godon
+
+godon is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+godon is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this godon. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 ## Reconnaissance
 
@@ -37,111 +56,85 @@ Reconnaissance answers: "What happened after we made that change?"
 │                                                              │
 │  Action: Collect observations from target                   │
 │                                                              │
-│  Output: { metric_a: 123.4, metric_b: "ok", ... }          │
+│  Output: { metric_a: 123.4, metric_b: 42.0, ... }          │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 | Phase | Responsibility |
 |-------|----------------|
-| **Wait** | Allow system to reach steady state |
-| **Collect** | Gather metrics from sources |
-| **Aggregate** | Combine multiple observations |
+| **Stabilize** | Wait for the change to propagate |
+| **Collect** | Gather samples from sources |
+| **Aggregate** | Combine samples into one value |
 | **Report** | Return structured data |
 
 ---
 
-### Built-in Reconnaissance Sources
+### Reconnaissance Sources
 
 | Source | What it provides | Protocol |
 |--------|------------------|----------|
+| **HTTP** | Stats and metrics endpoints | REST/HTTP |
 | **Prometheus** | Time-series metrics | PromQL |
-| **HTTP** | Health checks, stats | REST/HTTP |
-| **Custom scripts** | Arbitrary observations | Exec |
 
-#### Prometheus Reconnaissance
-
-```yaml
-reconnaissance:
-  type: prometheus
-  endpoint: http://prometheus:9090
-  
-  metrics:
-    - name: latency_p99
-      query: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[1m]))
-      
-    - name: throughput
-      query: sum(rate(http_requests_total[1m]))
-      
-    - name: error_rate
-      query: sum(rate(http_errors_total[1m])) / sum(rate(http_requests_total[1m]))
-```
-
-Use for: Cloud-native systems, Kubernetes, microservices
+Two sources ship today — a known limit, not the design's boundary; more are in development. The per-objective block (path/key/samples/aggregation) is the stable interface each source fills.
 
 #### HTTP Reconnaissance
 
+How a breeder reads its target — per objective (and per observation),
+sampled and aggregated:
+
 ```yaml
-reconnaissance:
+reconnaissance:                 # where the target lives
   type: http
-  endpoint: https://api.example.com/stats
-  method: GET
-  
-  extract:
-    latency_p99: ".metrics.latency.p99"
-    active_connections: ".connections.active"
+  http:
+    url: "http://bench-generic:8090/node-1"
+
+objectives:                     # what gets read, how
+  - name: objective_0
+    direction: maximize
+    reconnaissance:
+      service: http
+      path: /metrics/json
+      key: objective_0
+      samples: 3
+      aggregation: median
 ```
 
-Use for: Services with stats endpoints, health APIs
+Use for: services with stats endpoints, bench nodes, health APIs.
 
-#### Script Reconnaissance
+#### Prometheus Reconnaissance
 
-```yaml
-reconnaissance:
-  type: script
-  command: /opt/scripts/collect_metrics.sh
-  
-  # Script outputs JSON to stdout
-  parse: json
-```
+Per-objective PromQL queries against a Prometheus endpoint — a global
+default with per-objective override — sampled and aggregated the same
+way as HTTP reads.
 
-Use for: Legacy systems, databases, custom metrics
+Use for: cloud-native systems, Kubernetes, microservices.
 
 ---
 
 ### Timing and Sampling
 
-Reconnaissance timing affects data quality:
-
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Reconnaissance Timeline                       │
 │                                                                  │
-│  Effectuation        Reconnaissance Window                      │
-│       │                   ├─────────────────┤                   │
-│       │                   │                 │                   │
-│       ▼                   ▼                 ▼                   │
-│  ─────●───────────────────●─────────────────●──────────────▶    │
-│       │                   │                 │                   │
-│       0s                wait: 30s        duration: 60s         │
-│                                                                  │
-│  Wait for steady state, then observe for duration              │
+│  Effectuation        Stabilization      Sampling                │
+│       │               ├────────┤        ● ● ●                   │
+│       │               │        │        │                       │
+│       ▼               ▼        ▼        ▼                       │
+│  ─────●───────────────●────────●────────●──────────────────▶    │
+│       │                                                  trials │
+│                                                              │
+│  Wait for the change to land, then take N samples             │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 | Parameter | Purpose |
 |-----------|---------|
-| **wait** | Delay before first observation (propagation time) |
-| **duration** | How long to observe |
-| **interval** | How often to sample within duration |
-
-```yaml
-reconnaissance:
-  timing:
-    wait: 30s        # Let changes propagate
-    duration: 60s    # Observe for 1 minute
-    interval: 5s     # Sample every 5 seconds
-```
+| `stabilization_seconds` | Wait before first sample (default 2s — propagation time) |
+| `samples` | How many samples to take per read |
+| `aggregation` | How the samples collapse to one value |
 
 ---
 
@@ -149,65 +142,54 @@ reconnaissance:
 
 Multiple samples → single observation:
 
-| Aggregation | Use Case |
+| Aggregation | Use case |
 |-------------|----------|
-| **mean** | Typical value |
-| **median** | Robust to outliers |
-| **p95/p99** | Tail behavior |
-| **max** | Worst case |
-| **min** | Best case |
+| **median** | Default — robust to outliers |
+| **mean** | Typical value when noise is symmetric |
+| **min** / **max** | Bounds |
 
 ```yaml
 reconnaissance:
-  metrics:
-    - name: latency
-      query: ...
-      aggregation: p99  # Report 99th percentile
+  service: http
+  path: /metrics/json
+  key: latency
+  samples: 5
+  aggregation: median
 ```
 
 ---
 
-### Multi-Source Reconnaissance
+### Multiple Channels
 
-Combine observations from multiple sources:
+Every objective and every observation is its own reconnaissance block —
+one target read through as many channels as you care to name:
 
 ```yaml
-reconnaissance:
-  sources:
-    - name: prometheus
-      type: prometheus
-      endpoint: http://prometheus:9090
-      metrics:
-        - latency_p99
-        - throughput
-        
-    - name: app_stats
-      type: http
-      endpoint: http://app:8080/stats
-      extract:
-        - active_threads
-        - queue_depth
+objectives:                     # optimized
+  - name: objective_0
+    direction: maximize
+    reconnaissance: {service: http, path: /metrics/json, key: objective_0, samples: 3, aggregation: median}
+
+observations:                   # read, never optimized — detection channels
+  - name: objective_1
+    reconnaissance: {service: http, path: /metrics/json, key: objective_1, samples: 3, aggregation: median}
 ```
 
-All sources contribute to the trial's observation data.
+Observations feed the detector, not the optimizer — a channel you
+suspect is coupled but don't want an agent chasing belongs here.
 
 ---
 
 ### Handling Missing Data
 
-Reconnaissance may fail to collect some metrics:
+A metric that cannot be read does not silently pass:
 
 | Scenario | Handling |
 |----------|----------|
-| Metric unavailable | Mark trial failed |
-| Partial data | Continue with available metrics |
-| Timeout | Fail or use partial data |
+| No valid samples | The read fails — the trial fails |
+| Read error | No value; counts as a guardrail violation if a limit watches it |
 
-```yaml
-reconnaissance:
-  on_missing: fail  # or: ignore, default_value
-  timeout: 30s
-```
+The safe direction is the default: absence is a failure, not a zero.
 
 ---
 
@@ -231,27 +213,26 @@ Real metrics have noise:
 
 | Strategy | How it helps |
 |----------|--------------|
-| Longer duration | More samples = less variance |
-| Robust aggregation | Median resists outliers |
-| Multiple trials | Average over repeated evaluations |
-| Replication | Run same config multiple times |
+| More samples | Less variance in the aggregate |
+| Median aggregation | Resists outliers |
+| The ABA block design | Push/pause contrast separates signal from drift |
 
 ---
 
 ### Reconnaissance vs Objectives
 
 | Reconnaissance | Objectives |
-|----------------|------------|
+|-----------------|------------|
 | Collects raw metrics | Computes fitness |
 | System-specific | Problem-specific |
 | Multiple values | Single/directional |
 | Descriptive | Evaluative |
 
 ```
-Reconnaissance: { latency_p99: 45ms, throughput: 8000, error_rate: 0.001 }
+Reconnaissance: { latency: 45ms, throughput: 8000, error_rate: 0.001 }
                                         │
                                         ▼
-Objective: minimize latency_p99  ──▶  fitness = 45
+Objective: minimize latency  ──▶  fitness = 45
 ```
 
 ---
@@ -261,10 +242,10 @@ Objective: minimize latency_p99  ──▶  fitness = 45
 | Aspect | What it means |
 |--------|---------------|
 | **Role** | Observe system after effectuation |
-| **Sources** | Prometheus, HTTP, scripts |
-| **Timing** | Wait for steady state, then sample |
-| **Aggregation** | Combine samples into observations |
-| **Output** | Metrics dict used for fitness and guardrails |
+| **Sources** | HTTP endpoints, Prometheus queries |
+| **Timing** | Stabilization wait, then N samples |
+| **Aggregation** | median (default), mean, min, max |
+| **Output** | Metrics dict used for fitness, guardrails, and detection |
 
 ---
 
@@ -273,3 +254,4 @@ Objective: minimize latency_p99  ──▶  fitness = 45
 - [Effectuator](concept_effectuator.md) — What reconnaissance observes
 - [Guardrails](concept_guardrails.md) — Check reconnaissance data against limits
 - [Breeder](concept_breeder.md) — Orchestrates the optimization loop
+- [Configuration Guide](config_guide.md) — The shipped config, end to end
