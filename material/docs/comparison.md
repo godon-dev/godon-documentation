@@ -78,8 +78,8 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | Dimension | Godon | Optuna |
 |-----------|-------|--------|
 | **What it provides** | Complete engine (discern + tend) | Algorithm library |
-| **Plumbing - Effectuation** | Built-in (SSH, HTTP, APIs) | None — you build it |
-| **Plumbing - Reconnaissance** | Built-in (Prometheus) | None — you build it |
+| **Plumbing - Effectuation** | Built-in (SSH, HTTP) | None — you build it |
+| **Plumbing - Reconnaissance** | Built-in (Prometheus, HTTP) | None — you build it |
 | **Plumbing - Coordination** | Controller API, trial sharing | Study management only |
 | **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Hard limits with automatic response | No |
@@ -124,7 +124,7 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | Primary Domain | Live systems, infrastructure | ML training |
 | Live System Integration | Native | Manual |
 | Coupling Detection | Yes — multi-agent interference topology | None |
-| Effectuation Layer | Yes (SSH, HTTP, APIs) | No |
+| Effectuation Layer | Yes (SSH, HTTP) | No |
 | Guardrails | Yes | No |
 | Rollback | Yes | No |
 | Deployment | Kubernetes-native | Ray cluster |
