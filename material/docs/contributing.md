@@ -16,9 +16,9 @@ The engine is validated on synthetic benches with planted ground truth. The most
 
 Every new coupling channel type extends the boundary map. See [Bench Scenarios](bench_scenarios.md) for the current set and how to add new ones — the generic bench makes arbitrary topologies a single YAML file.
 
-**Nonlinear Composition**
+**The Composition Horizon**
 
-Edges are measured; whether measured edges compose to predict multi-hop response on nonlinear channels is the open keystone (additive composition is validated). If you work in nonlinear system identification, response-surface methods, or causal composition — this is the sharpest open problem in the project.
+Nonlinear composition is measured: curves chain through nonlinear switching elements and sum at converging junctions to predict far-end response, with the propagated error bars validated as honest metrology — published as [From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439). The open end is the horizon: about two nonlinear hops at noise σ=0.02, beyond which the far end falls below the detection floor. If you work in nonlinear system identification, uncertainty propagation, or error-in-variables methods — extending that horizon is the open end of the composition story.
 
 **Statistics of Priced Stopping**
 
@@ -42,9 +42,9 @@ Real-world use cases, deployment guides, architecture explanations, blog posts. 
 
 godon is an empirical instrument for complex coupled systems — benches with planted truth, measured response curves, priced stopping, honest boundary maps. The program today is one independent scientist and AI collaborators; the roles below describe work that needs doing, not headcount. If you care about how complex systems actually behave under intervention (rather than how they are modeled or narrated), the entry points are concrete — the assets are public:
 
-**Reproduce a validation cell.** [`scenario-composition-gate`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-composition-gate) (three agents, chained coupling: do measured one-hop curves compose to the two-hop response?) and `scenario-verification-star` (per-receiver curve separation with an uncoupled witness) each run via a single `bench-characterization.yml` dispatch on your own cluster. A reproduction report — confirmed, diverged, or surprising — is a genuine contribution.
+**Reproduce a validation cell.** [`scenario-composition-gate`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-composition-gate) (three agents, chained coupling — the linear composition cell), [`scenario-door-chain`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-door-chain) (nonlinearity in the edge — the nonlinear composition cell), and `scenario-verification-star` (per-receiver curve separation with an uncoupled witness) each run via a single `bench-characterization.yml` dispatch on your own cluster. A reproduction report — confirmed, diverged, or surprising — is a genuine contribution.
 
-**Extend the boundary map.** The detection boundary is an open grid: coupling strength × noise × shape. The published cells (21 so far, data in [`papers/detection/experiments/`](https://github.com/godon-dev/godon/tree/main/papers/detection/experiments)) each cost one bench run. Pick an untested cell, run it, append the result.
+**Extend the boundary map.** The detection boundary is an open grid: coupling strength × noise × shape. The published cells — 21 detection cells ([`papers/detection/experiments/`](https://github.com/godon-dev/godon/tree/main/papers/detection/experiments)), a 32-cell characterization sweep ([`papers/characterization`](https://github.com/godon-dev/godon/tree/main/papers/characterization)), and the nonlinear-composition campaign ([`papers/composition`](https://github.com/godon-dev/godon/tree/main/papers/composition)) — each cost one bench run. Pick an untested cell, run it, append the result.
 
 **Analyze the open data.** The sweep data and characterization curve exports (raw points with uncertainty bars) are in the repository. Independent statistical treatment — alternative estimators, stopping-rule critique, visualizations — strengthens the instrument.
 
@@ -52,7 +52,7 @@ godon is an empirical instrument for complex coupled systems — benches with pl
 
 **Attack the stopping rule.** Curve retirement uses a deliberately simple information-price argument (remaining ignorance = gap jump × width, vs the local measurement bar). The tests and data to attack it are public; a rigorous replacement would harden every measurement the engine makes.
 
-The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.21962957) (Zenodo DOI) — the protocol, its validation, and its honest boundaries.
+The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956) (Zenodo DOI) — the protocol, its validation, and its honest boundaries.
 
 ### How to Contribute
 
