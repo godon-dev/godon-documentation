@@ -75,7 +75,9 @@ Measured edges are only useful if they compose. On a chain topology (node-1 —0
 - **Prediction (out-of-sample):** levels never probed before, predicted from the composed map, then measured: 0.13σ and 0.35σ deviation.
 - **Steering (the loop's first closing):** given a target value at the chain's end, the measured map was inverted to a sender parameter, the parameter applied, and the result measured: target −0.100, landed −0.1038 ± 0.038.
 
-Scope, stated plainly: these composition results are on the quiet bench (no opposing optimizers acting during the act), with additive-linear coupling physics, one seed per scenario. Composition across *nonlinear* coupling paths is open — see [Open Research](open_research.md).
+Scope, stated plainly: the chain results above are on the quiet bench (no opposing optimizers acting during the act), with additive-linear coupling physics, one seed per scenario.
+
+Nonlinear composition is measured, not assumed. Curves chained through nonlinear switching elements and summed at a converging junction predict far-end response — judged by disjoint direct walks against error bars propagated from each piece: 95 of 97 referee points across four chain seeds, a junction, and a live threshold relay, with the propagated bars validated as honest metrology. The horizon is measured too: roughly two nonlinear hops at σ=0.02, beyond which the far end falls below the detection floor and composing the pieces is the only remaining door. Full campaign: [From Curves to Cascades](publications.md); what remains open: [Open Research](open_research.md).
 
 ## Reading Curves from a Running Engine
 
@@ -93,4 +95,4 @@ Curves persist across service restarts and are removed with their breeder's life
 - [Interference Detection](concept_interference_detection.md) — the detection method underneath
 - [Detection Capabilities](detection_capabilities.md) — the validated boundary map
 - [Open Research](open_research.md) — what is deliberately not claimed yet
-- [Publications](publications.md) — the detection paper with full validation data
+- [Publications](publications.md) — the papers and their full validation data

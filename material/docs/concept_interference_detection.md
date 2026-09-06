@@ -201,7 +201,7 @@ On the greenhouse bench — deeply nonlinear cascaded coupling with crop-phase d
 | B1→B2 | max_temp | **Yes** | 25.9°C | 28.5°C | 19.3°C | 0.351 | 9.2°C |
 | B1→B2 | max_humidity | **Yes** | 0.660 | 0.698 | 0.593 | 0.001 | 0.104 |
 
-The uncoupled control stayed silent in both directions — including through a genuine 7.7°C temperature swing whose ABA pattern was absent, so the detector correctly rejected it. On the generic bench, the 21-cell sensitivity sweep put the detection floor between 0.1 and 0.2 coupling at noise σ=0.02 with zero false positives across all control cells. Full sweep data: the [paper](publications.md); boundary map in brief: [Detection Capabilities](detection_capabilities.md).
+The uncoupled control stayed silent in both directions — including through a genuine 7.7°C temperature swing whose ABA pattern was absent, so the detector correctly rejected it. On the generic bench, the 21-cell sensitivity sweep put the detection floor between 0.1 and 0.2 coupling at noise σ=0.02 with zero false positives across all control cells. Full sweep data: the [detection paper](publications.md); boundary map in brief: [Detection Capabilities](detection_capabilities.md).
 
 ### Limits
 
@@ -227,12 +227,12 @@ Detection is the entry point; each deeper layer has its own page:
 
 - **Response curves** — the edge's measured shape, with uncertainty bars and priced stopping: [Characterization](characterization.md)
 - **Topology recovery** — pairwise measurements assemble the coupling graph (validated on chain topologies): [Detection Capabilities](detection_capabilities.md)
-- **Composition** — measured edges compose to predict multi-hop response (validated additive): [Characterization](characterization.md)
+- **Composition** — measured edges compose to predict multi-hop response (validated additive and nonlinear, to a measured horizon): [Characterization](characterization.md)
 - **Coupling-aware behavior** — agents adapting to known coupling; the tending direction, not yet built: [Open Research](open_research.md)
 
 ### Further Reading
 
 - [Detection Capabilities](detection_capabilities.md) — the validated boundary map
 - [Characterization](characterization.md) — from edges to measured curves
-- [Publications](publications.md) — the method paper with full validation data
+- [Publications](publications.md) — the papers and their full validation data
 - [Breeder](concept_breeder.md) — the agents that run this protocol
