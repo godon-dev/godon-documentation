@@ -41,7 +41,8 @@ docker create --name bench-generic \
   --user 0:0 -p 8090:8090 \
   -e CONFIG_PATH=/topology.yaml -e PORT=8090 \
   -e GENERIC_SEED=42 -e RUST_LOG=info \
-  ghcr.io/godon-dev/godon-bench-generic:0.2.1
+  ghcr.io/godon-dev/godon-bench-generic:<version>
+# <version>: a released tag (see ghcr) — or drop ':<version>' to track the current release
 
 # Plant the coupling: node-1 -> node-2, strength 0.7, saturation shape
 cat > /tmp/topology.yaml <<'EOF'
@@ -211,10 +212,10 @@ sed 's/node-1/node-2/g' breeder-1.yml > breeder-2.yml
 
 Note how the pieces connect: `targetRefs: ["generic-node-1"]` refers to the target by the `name` you gave it above, and the reconnaissance URL is the same node endpoint. Every knob is documented in the [Configuration Guide](config_guide.md) — the defaults above are the validated characterization setup.
 
-Now create the objects through the API, using the godon CLI (public image from ghcr; it converts the YAML into API calls):
+Now create the objects through the API, using the godon CLI (public image from ghcr; it converts the YAML into API calls). `<version>` is a released tag — drop it to track the current release:
 
 ```bash
-CLI="docker run --rm --network host -v /tmp/godon-scenario:/work:ro -w /work ghcr.io/godon-dev/godon-cli:latest"
+CLI="docker run --rm --network host -v /tmp/godon-scenario:/work:ro -w /work ghcr.io/godon-dev/godon-cli:<version>"
 API="--hostname 127.0.0.3 --port 9090 --insecure"
 
 $CLI $API target create --file=target-node-1.yaml
