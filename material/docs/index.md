@@ -45,7 +45,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 - :fontawesome-solid-diagram-project: **Transitive topology discovery** — Discover internal live system interplay topology from behavior.
 - :fontawesome-solid-flask: **Causation, not correlation** — Real counterfactuals through experimentation, not inference from observation.
 - :fontawesome-solid-cube: **No upfront modeling** — The system's model emerges from its own response to pressure. The live system is the model.
-- :fontawesome-solid-microchip: **Breeder agents** — Safe, guarded, rollback-capable. Probe and tend in production.
+- :fontawesome-solid-microchip: **Systemtender agents** — Safe, guarded, rollback-capable. Probe and tend in production.
 - :fontawesome-solid-cogs: **Co-pilot validation** — Human and LLM intuition tested against reality — kept if better, discarded if not.
 - :fontawesome-solid-shield-halved: **Isolation certification** — The same signal that finds coupling can prove absence.
 

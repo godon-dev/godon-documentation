@@ -83,7 +83,7 @@ curl -s http://127.0.0.1:8090/health | jq .
 
 The `/health` response lists the nodes and edge count — your ground truth for what the engine should find.
 
-The `docker network connect kind` line matters: it puts the bench on the same docker network as your kind nodes, so the breeders (which run inside the cluster) can reach it at `BENCH_IP`. Keep that variable — the configs in step 3 need it.
+The `docker network connect kind` line matters: it puts the bench on the same docker network as your kind nodes, so the systemtenders (which run inside the cluster) can reach it at `BENCH_IP`. Keep that variable — the configs in step 3 need it.
 
 ### Step 2: Port-Forward the Godon API
 
@@ -97,9 +97,9 @@ curl -s http://127.0.0.3:9090/health
 
 `127.0.0.3` instead of `127.0.0.1` avoids colliding with anything already bound to localhost — the loopback range gives you free aliases.
 
-### Step 3: Create Targets and Breeders
+### Step 3: Create Targets and Systemtenders
 
-Two kinds of object make an agent run: a **target** (the HTTP endpoint it optimizes) and a **breeder config** (its parameter space, objectives, and characterization group). You write both yourself — four small files.
+Two kinds of object make an agent run: a **target** (the HTTP endpoint it optimizes) and a **systemtender config** (its parameter space, objectives, and characterization group). You write both yourself — four small files.
 
 The targets just point at the bench nodes you started in step 1:
 
@@ -123,15 +123,15 @@ spec:
 EOF
 ```
 
-The breeder config is where the experiment lives. Three parts matter: the **search space** (`settings` — three parameters on a 0-100 grid), the **objectives vs observations split** (`objective_0` is optimized, `objective_1` is only watched — the detector reads both), and the **`interference_detection` group** — any two breeders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.
+The systemtender config is where the experiment lives. Three parts matter: the **search space** (`settings` — three parameters on a 0-100 grid), the **objectives vs observations split** (`objective_0` is optimized, `objective_1` is only watched — the detector reads both), and the **`interference_detection` group** — any two systemtenders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.
 
 ```bash
-cat > breeder-1.yml <<EOF
+cat > systemtender-1.yml <<EOF
 meta:
   configVersion: "0.3"
   strict_validation: false
 
-breeder:
+systemtender:
   type: bench_generic
 
 settings:                       # parameter search space
@@ -165,7 +165,7 @@ interference_detection:         # shared group name = these agents measure each 
   cooldown_trials: 5
   hold_params: {param_0: 50.0, param_1: 50.0, param_2: 50.0}
 
-reconnaissance:                 # how this breeder reads its target
+reconnaissance:                 # how this systemtender reads its target
   type: http
   http:
     url: "http://${BENCH_IP}:8090/node-1"
@@ -197,7 +197,7 @@ rollback_strategies:
     on_failure: continue
     timeout_seconds: 60
 
-effectuation:                   # how this breeder writes parameters
+effectuation:                   # how this systemtender writes parameters
   type: http
   targetRefs: ["generic-node-1"]
   endpoint_config:
@@ -206,8 +206,8 @@ effectuation:                   # how this breeder writes parameters
     timeout_seconds: 30
 EOF
 
-# breeder-2 is the same file pointed at node-2
-sed 's/node-1/node-2/g' breeder-1.yml > breeder-2.yml
+# systemtender-2 is the same file pointed at node-2
+sed 's/node-1/node-2/g' systemtender-1.yml > systemtender-2.yml
 ```
 
 Note how the pieces connect: `targetRefs: ["generic-node-1"]` refers to the target by the `name` you gave it above, and the reconnaissance URL is the same node endpoint. Every knob is documented in the [Configuration Guide](config_guide.md) — the defaults above are the validated characterization setup.
@@ -221,22 +221,22 @@ API="--hostname 127.0.0.3 --port 9090 --insecure"
 $CLI $API target create --file=target-node-1.yaml
 $CLI $API target create --file=target-node-2.yaml
 
-$CLI $API breeder create --name=bench-char-1 --file=breeder-1.yml
-$CLI $API breeder create --name=bench-char-2 --file=breeder-2.yml
+$CLI $API systemtender create --name=bench-char-1 --file=systemtender-1.yml
+$CLI $API systemtender create --name=bench-char-2 --file=systemtender-2.yml
 
-# Capture the breeder UUIDs — the results in step 5 are keyed by them
-BREEDER_1_UUID=$(curl -s http://127.0.0.3:9090/breeders | jq -r '.[] | select(.name=="bench-char-1") | .id')
-BREEDER_2_UUID=$(curl -s http://127.0.0.3:9090/breeders | jq -r '.[] | select(.name=="bench-char-2") | .id')
-echo "sender: ${BREEDER_1_UUID}, receiver: ${BREEDER_2_UUID}"
+# Capture the systemtender UUIDs — the results in step 5 are keyed by them
+SYSTEMTENDER_1_UUID=$(curl -s http://127.0.0.3:9090/systemtenders | jq -r '.[] | select(.name=="bench-char-1") | .id')
+SYSTEMTENDER_2_UUID=$(curl -s http://127.0.0.3:9090/systemtenders | jq -r '.[] | select(.name=="bench-char-2") | .id')
+echo "sender: ${SYSTEMTENDER_1_UUID}, receiver: ${SYSTEMTENDER_2_UUID}"
 ```
 
 (The [scenario library](bench_scenarios.md) ships these same files pre-written for many topologies — useful once you know the shape. Typing them once teaches the shape.)
 
-### Step 4: What the Breeders Are Doing
+### Step 4: What the Systemtenders Are Doing
 
-Each breeder is an optimization agent. Beyond optimizing, they coordinate through lease-based turn-taking to characterize their coupling:
+Each systemtender is an optimization agent. Beyond optimizing, they coordinate through lease-based turn-taking to characterize their coupling:
 
-1. One breeder acquires the sender role, the other holds still (receiver).
+1. One systemtender acquires the sender role, the other holds still (receiver).
 2. The sender runs a **coverage walk** — pushing one parameter at a time across its levels (midpoint, extremes, quarters — a deterministic, complete exploration order).
 3. For every push, the causal service measures the receiver's objective shift between push and pause windows, with an uncertainty bar from the raw sample scatter.
 4. Re-measurements within bars blend (the point tightens); beyond bars relocate and flag drift.
@@ -246,10 +246,10 @@ The result is a **response curve per (sender, parameter, channel)** — the meas
 
 ### Step 5: Watch Progress, Read the Results
 
-Progress: check the breeder states and give it time. First probe blocks typically appear within ~15 minutes; a complete carrier curve at these block sizes takes 30-75 minutes.
+Progress: check the systemtender states and give it time. First probe blocks typically appear within ~15 minutes; a complete carrier curve at these block sizes takes 30-75 minutes.
 
 ```bash
-curl -s http://127.0.0.3:9090/breeders/${BREEDER_1_UUID} | jq '{status, name}'
+curl -s http://127.0.0.3:9090/systemtenders/${SYSTEMTENDER_1_UUID} | jq '{status, name}'
 ```
 
 While the run is in progress (or after), query the causal service directly:
@@ -260,7 +260,7 @@ kubectl port-forward -n godon --address 127.0.0.3 "${CAUSAL_POD}" 9091:8091 &
 sleep 3
 
 # Detection verdict for one direction (sender -> receiver)
-curl -s http://127.0.0.3:9091/detect/${BREEDER_1_UUID}/${BREEDER_2_UUID} | jq .
+curl -s http://127.0.0.3:9091/detect/${SYSTEMTENDER_1_UUID}/${SYSTEMTENDER_2_UUID} | jq .
 
 # All measured response curves — the coupling map
 curl -s http://127.0.0.3:9091/curves | jq '.curves[] | {sender_id, receiver_id, param, channel, points: .state.points}'
@@ -277,9 +277,9 @@ Run the same walkthrough with the edge strength set to `0.0` in `topology.yaml` 
 ### Step 7: Clean Up
 
 ```bash
-# Purge the breeders — their measured curves and observation rows are removed with them
-$CLI $API breeder purge --force --id=${BREEDER_1_UUID}
-$CLI $API breeder purge --force --id=${BREEDER_2_UUID}
+# Purge the systemtenders — their measured curves and observation rows are removed with them
+$CLI $API systemtender purge --force --id=${SYSTEMTENDER_1_UUID}
+$CLI $API systemtender purge --force --id=${SYSTEMTENDER_2_UUID}
 
 # Remove the targets (ids from: curl -s http://127.0.0.3:9090/targets)
 curl -s -X DELETE http://127.0.0.3:9090/targets/<target-id>

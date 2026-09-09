@@ -27,7 +27,7 @@ This is the perception gap. The interference is real but invisible. No amount of
 
 Large language models are powerful reasoners. Given the right data, they can explain complex systems, suggest configuration changes, and synthesize findings across domains. In the godon ecosystem, they serve as an operations copilot — interpreting detection results, suggesting interventions, reasoning about topology once the edges are known.
 
-But LLMs work with what is represented. They reason about text, about metrics, about logs — about data that already exists. Coupling between autonomous agents is not represented anywhere. No log entry says "breeder A's trial at step 342 caused a 3% degradation in breeder B's objective." No metric captures cross-agent influence. The coupling exists in the dynamics, not in the data stream.
+But LLMs work with what is represented. They reason about text, about metrics, about logs — about data that already exists. Coupling between autonomous agents is not represented anywhere. No log entry says "systemtender A's trial at step 342 caused a 3% degradation in systemtender B's objective." No metric captures cross-agent influence. The coupling exists in the dynamics, not in the data stream.
 
 An LLM agent cohort — multiple AI agents all reasoning about the same system — would face the same constraint. They could hypothesize about coupling, write custom detection heuristics, even deploy them as scripts. But each heuristic needs deployment time, data collection, and iteration. The loop is slow, ad-hoc, and lacks statistical rigor. Even if an AI could generate viable heuristics on the fly, it would face a choice: reinvent detection from scratch each time, or rely on a proven, standardized framework with established statistical foundations. A mature open framework — tested across coupling strengths, validated on benches, with known failure modes — is a stronger foundation than ad-hoc scripts, no matter how clever the generator.
 
@@ -60,11 +60,11 @@ An LLM writing heuristics on the fly still needs to deploy them, collect data, a
 
 Here's the insight that makes godon work: the exploration is already happening.
 
-The breeder is an optimization algorithm — a structured search through parameter space. It runs trials, evaluates fitness, and biases future trials toward better outcomes. It doesn't understand the system it's searching. It doesn't need to. It just searches, guided by feedback.
+The systemtender is an optimization algorithm — a structured search through parameter space. It runs trials, evaluates fitness, and biases future trials toward better outcomes. It doesn't understand the system it's searching. It doesn't need to. It just searches, guided by feedback.
 
-The strain — the breeder's configuration for a specific domain — carries structural knowledge: which parameters exist, what types they are, what ranges are valid. It knows the shape of the parameter space but not the dynamics of the system. The search itself is blind.
+The strain — the systemtender's configuration for a specific domain — carries structural knowledge: which parameters exist, what types they are, what ranges are valid. It knows the shape of the parameter space but not the dynamics of the system. The search itself is blind.
 
-This blindness is a feature. The breeder presses on the parameter space without needing to understand coupling. The impulse protocol turns a slice of that search into a measurement: one agent applies a guarded push to parameters it already controls — within bounds it already respects — while the other holds still. Push, release, compare: if the response shifts and recovers, a coupling path exists.
+This blindness is a feature. The systemtender presses on the parameter space without needing to understand coupling. The impulse protocol turns a slice of that search into a measurement: one agent applies a guarded push to parameters it already controls — within bounds it already respects — while the other holds still. Push, release, compare: if the response shifts and recovers, a coupling path exists.
 
 The probe reuses the agents' own control knobs and safety rails — no new access, no fault injection. The measurement costs a handful of trials per direction, on a schedule the agents coordinate themselves.
 
@@ -83,7 +83,7 @@ What could compete with godon is not a smarter observer but a different detectio
 
 The argument of this article is simple: the coupling between autonomous agents is invisible to every observer that doesn't probe for it. No amount of intelligence — human, artificial, or biological — changes this, because the signal doesn't exist until someone makes it exist.
 
-godon makes it exist. Not by being smarter, but by probing deliberately and measuring honestly. The breeder applies the pressure. The protocol turns that pressure into a question. The detector reads the answer.
+godon makes it exist. Not by being smarter, but by probing deliberately and measuring honestly. The systemtender applies the pressure. The protocol turns that pressure into a question. The detector reads the answer.
 
 Intelligence reasons about what is. Detection reveals what wasn't visible. You need both. But detection comes first, because you can't reason about what you can't see.
 

@@ -127,8 +127,8 @@ const hiddenEdges = [
   { from: 2, to: 9, revealAt: 8.0 },    // edge -> infra (deepest)
 ];
 
-// === BREEDERS on specific nodes ===
-const breederNodes = [0, 5, 11];
+// === SYSTEMTENDERS on specific nodes ===
+const systemtenderNodes = [0, 5, 11];
 
 // === TIMING — 14 seconds ===
 const PHASES = {
@@ -355,11 +355,11 @@ function drawNodes(time, chaos, elapsed) {
   }
 }
 
-function drawBreeders(time, chaos, elapsed) {
+function drawSystemtenders(time, chaos, elapsed) {
   const probing = (inPhase(elapsed, PHASES.probe) || inPhase(elapsed, PHASES.perturb1) || inPhase(elapsed, PHASES.perturb2));
 
-  for (let i = 0; i < breederNodes.length; i++) {
-    const node = nodes[breederNodes[i]];
+  for (let i = 0; i < systemtenderNodes.length; i++) {
+    const node = nodes[systemtenderNodes[i]];
     const pos = nodePos(node, time, chaos);
 
     let r, g, b, scale, glowOp;
@@ -479,7 +479,7 @@ function animate(now) {
   drawPerturbations(now / 1000, chaos);
   drawHiddenEdges(now / 1000, chaos, elapsed);
   drawNodes(now / 1000, chaos, elapsed);
-  drawBreeders(now / 1000, chaos, elapsed);
+  drawSystemtenders(now / 1000, chaos, elapsed);
   drawVignette();
   drawText(elapsed);
 

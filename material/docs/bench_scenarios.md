@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Bench Scenarios
 
-Bench scenarios are planted-reality experiments: a simulator with a known coupling topology (the ground truth), target and breeder definitions, and a GitHub Actions workflow that runs the full protocol against it. You plant the truth, the engine measures it, the comparison validates the instrument.
+Bench scenarios are planted-reality experiments: a simulator with a known coupling topology (the ground truth), target and systemtender definitions, and a GitHub Actions workflow that runs the full protocol against it. You plant the truth, the engine measures it, the comparison validates the instrument.
 
 ### Generic Bench (workhorse)
 
@@ -32,7 +32,7 @@ The configurable synthetic coupling bench. Any topology: node count, per-node pa
 | Channel type | Any (per topology) |
 | Validation | 21-cell detection sweep + characterization suite + nonlinear-composition campaign |
 
-**Characterization scenarios** (2-3 breeders, one carrier parameter, dead parameters as controls):
+**Characterization scenarios** (2-3 systemtenders, one carrier parameter, dead parameters as controls):
 
 - `scenario-characterization` — threshold carrier, the original loop-validation scenario
 - `scenario-characterization-saturation` — saturation carrier; validated against planted truth to ≤0.7σ per point
@@ -54,9 +54,9 @@ Linear additive coupling through a shared power bus. The first bench the engine 
 
 | Property | Value |
 |---|---|
-| Directory | [`examples/bench/scenario-microgrid`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid) (+ `scenario-microgrid-6breeder` for the 6-agent scale cell) |
+| Directory | [`examples/bench/scenario-microgrid`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-microgrid) (+ `scenario-microgrid-6systemtender` for the 6-agent scale cell) |
 | Channel type | Linear additive |
-| Validation | Pairwise detection 0.0-0.9; 6-breeder scale run |
+| Validation | Pairwise detection 0.0-0.9; 6-systemtender scale run |
 
 ### Greenhouse
 
@@ -74,7 +74,7 @@ Deeply nonlinear cascaded coupling: waste heat and CO2 through thermal inertia, 
 |---|---|---|
 | Generic (all shapes) | Configurable | Validated: sweep + characterization suite |
 | Microgrid | Linear additive | Validated (0.0-0.9) |
-| Microgrid 6-breeder | Linear additive | Validated at scale |
+| Microgrid 6-systemtender | Linear additive | Validated at scale |
 | Greenhouse | Nonlinear cascaded, non-stationary | Validated (strong coupling) |
 
 Open cells (honest boundaries): non-stationarity with phase transitions faster than the detection window; the composition horizon (about two nonlinear hops at σ=0.02 — beyond it the far end falls below the detection floor). The nonlinearity-in-the-edge bench capability now exists — the door, junction, cliff, and depth cells above.
@@ -89,11 +89,11 @@ examples/bench/scenario-<name>/
 │                          # — or docker-compose.yml for other simulators
 ├── targets/
 │   └── node-N.yaml        # one target per node
-└── breeders/
-    └── breeder-N.yml      # one breeder config per node
+└── systemtenders/
+    └── systemtender-N.yml      # one systemtender config per node
 ```
 
-For the generic bench, only the topology file changes between scenarios. The characterization workflow discovers breeders and targets from the scenario directory (any node count). See an existing scenario as the reference; the generic bench's HTTP contract (`/{node}/apply`, `/{node}/metrics/json`) is the target interface.
+For the generic bench, only the topology file changes between scenarios. The characterization workflow discovers systemtenders and targets from the scenario directory (any node count). See an existing scenario as the reference; the generic bench's HTTP contract (`/{node}/apply`, `/{node}/metrics/json`) is the target interface.
 
 ### Further Reading
 

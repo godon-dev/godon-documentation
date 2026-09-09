@@ -19,18 +19,18 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Configuration Guide
 
-Breeder configuration is YAML with three concepts only: **objectives** (what to optimize), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every breeder in a group characterizes and optimizes concurrently.
+Systemtender configuration is YAML with three concepts only: **objectives** (what to optimize), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group characterizes and optimizes concurrently.
 
 ---
 
-### The Shape of a Breeder Config
+### The Shape of a Systemtender Config
 
 ```yaml
 meta:
   configVersion: "0.3"
   strict_validation: false
 
-breeder:
+systemtender:
   type: bench_generic
 
 settings:                       # parameter search space
@@ -67,7 +67,7 @@ interference_detection:         # characterization group membership
     param_1: 50.0
     param_2: 50.0
 
-reconnaissance:                 # how this breeder reads its target
+reconnaissance:                 # how this systemtender reads its target
   type: http
   http:
     url: "http://bench-generic:8090/node-1"
@@ -100,7 +100,7 @@ Each parameter carries constraints. `step` sets the grid resolution; the charact
 
 #### `interference_detection` — characterization
 
-Any breeders sharing a `group` characterize each other. `convergence_threshold` is the single tuning knob: smaller means more re-measurement before a curve retires. Block sizes set the push/pause trial counts per probe. `hold_params` is the neutral position every breeder returns to when holding or pausing.
+Any systemtenders sharing a `group` characterize each other. `convergence_threshold` is the single tuning knob: smaller means more re-measurement before a curve retires. Block sizes set the push/pause trial counts per probe. `hold_params` is the neutral position every systemtender returns to when holding or pausing.
 
 #### `objectives` vs `observations`
 
@@ -108,7 +108,7 @@ The separation is deliberate and load-bearing: objectives feed the optimizer's s
 
 #### `reconnaissance`
 
-How a breeder reads its target: HTTP endpoints (per-service `path`/`key`, sampling, aggregation), or Prometheus queries. See [Reconnaissance](concept_reconnaissance.md).
+How a systemtender reads its target: HTTP endpoints (per-service `path`/`key`, sampling, aggregation), or Prometheus queries. See [Reconnaissance](concept_reconnaissance.md).
 
 #### Guardrails
 
@@ -119,12 +119,12 @@ Safety limits with automatic response (fail trial, rollback, or skip target) are
 ### Working Examples
 
 Runnable, maintained examples live in the scenario library:
-[`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) in the godon repository — each scenario ships breeder configs, target definitions, and the planted ground truth. The characterization scenarios are the reference implementations for the config above.
+[`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) in the godon repository — each scenario ships systemtender configs, target definitions, and the planted ground truth. The characterization scenarios are the reference implementations for the config above.
 
 ---
 
 ### See Also
 
-- [Breeder](concept_breeder.md) — how configurations are executed
+- [Systemtender](concept_systemtender.md) — how configurations are executed
 - [Interference Detection](concept_interference_detection.md) — what the interference section triggers
 - [Getting Started](getting_started.md) — a full walkthrough against the generic bench

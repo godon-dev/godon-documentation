@@ -1,5 +1,5 @@
 ---
-description: "godon API reference — OpenAPI specification for breeder management endpoints. Create, start, stop, and monitor optimization runs."
+description: "godon API reference — OpenAPI specification for systemtender management endpoints. Create, start, stop, and monitor optimization runs."
 hide:
   - toc
   - navigation

@@ -10,7 +10,7 @@ description: "Each detection reveals one edge in a coupling graph. Accumulated e
 
 # How Live Systems Reveal Their Own Structure — Transitive Topology Discovery
 
-When godon detects interference between two optimization agents, it reveals one edge. Breeder A's guarded pushes shift breeder B's objectives. That's one coupling path — one connection you didn't know existed.
+When godon detects interference between two optimization agents, it reveals one edge. Systemtender A's guarded pushes shift systemtender B's objectives. That's one coupling path — one connection you didn't know existed.
 
 A single edge is useful. It tells you these two agents interfere. You can act on that — adjust parameters, add constraints, isolate them.
 
@@ -30,7 +30,7 @@ The topology is a property of the system itself. godon doesn't create it. It rev
 
 ## The Transitive Insight
 
-The key insight is that detection is transitive. If breeder A's pushes reach breeder B, and breeder B's pushes reach breeder C, then there's a coupling chain A → B → C. The influence propagates through intermediate agents.
+The key insight is that detection is transitive. If systemtender A's pushes reach systemtender B, and systemtender B's pushes reach systemtender C, then there's a coupling chain A → B → C. The influence propagates through intermediate agents.
 
 This matters because the operators of A and C might not know about B's role. A's configuration change affects B, which affects C. Without B in the picture, A → C looks like unexplained variance. With B, it becomes a traceable path.
 
@@ -50,7 +50,7 @@ This has several advantages:
 
 ## Where It Stands
 
-The mechanism is proven for single edges on linear coupling channels. Detection is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls. When breeder A's push reaches breeder B, we can detect it with high confidence.
+The mechanism is proven for single edges on linear coupling channels. Detection is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls. When systemtender A's push reaches systemtender B, we can detect it with high confidence.
 
 Scaling to full topology assembly — automatically constructing the complete coupling graph from pairwise detections across multiple agents — is the next step. This is an open question. The mechanism works for one edge. The assembly of many edges into a coherent topology requires accumulation over time, consistent detection across all pairs, and methods to handle indirect coupling (distinguishing A → B from A → C → B).
 

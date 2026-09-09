@@ -37,7 +37,7 @@ The ABA structure is built into every point: the shift is only counted when it a
 
 ## How the Walk Runs
 
-Breeders in a shared interference group take turns through DB-backed leases. One is the sender; the others hold still.
+Systemtenders in a shared interference group take turns through DB-backed leases. One is the sender; the others hold still.
 
 - **The walk is deterministic and complete by contract.** Levels are visited in farthest-point order — midpoint, then extremes, then quarters — a low-discrepancy sequence computed, not sampled. No level is skipped while the walk runs; smartness only accelerates (early retirement of converged parameters), it never licenses gaps.
 - **Every listener is measured at once.** One sender's walk measures the response curves of *all* holding receivers simultaneously — in a three-agent chain run, a single walk produced all 36 curves, of which exactly the three planted coupling paths were non-flat.
@@ -88,7 +88,7 @@ GET /curves           → every curve: sender, receiver, param, channel, points,
 GET /detect/{a}/{b}   → detection verdict per channel
 ```
 
-Curves persist across service restarts and are removed with their breeder's lifecycle. The [Getting Started](getting_started.md) walkthrough runs this end to end against a planted topology; the scenario library ships the calibration cells above (see [Bench Scenarios](bench_scenarios.md)).
+Curves persist across service restarts and are removed with their systemtender's lifecycle. The [Getting Started](getting_started.md) walkthrough runs this end to end against a planted topology; the scenario library ships the calibration cells above (see [Bench Scenarios](bench_scenarios.md)).
 
 ## See Also
 

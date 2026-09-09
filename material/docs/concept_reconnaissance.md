@@ -81,7 +81,7 @@ Two sources ship today — a known limit, not the design's boundary; more are in
 
 #### HTTP Reconnaissance
 
-How a breeder reads its target — per objective (and per observation),
+How a systemtender reads its target — per objective (and per observation),
 sampled and aggregated:
 
 ```yaml
@@ -253,5 +253,5 @@ Objective: minimize latency  ──▶  fitness = 45
 
 - [Effectuator](concept_effectuator.md) — What reconnaissance observes
 - [Guardrails](concept_guardrails.md) — Check reconnaissance data against limits
-- [Breeder](concept_breeder.md) — Orchestrates the optimization loop
+- [Systemtender](concept_systemtender.md) — Orchestrates the optimization loop
 - [Configuration Guide](config_guide.md) — The shipped config, end to end

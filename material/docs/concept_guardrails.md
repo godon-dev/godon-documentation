@@ -198,5 +198,5 @@ Guardrails constrain the Pareto front: trials that violate a guardrail are exclu
 
 - [Reconnaissance](concept_reconnaissance.md) — Provides metrics for guardrail checks
 - [Effectuator](concept_effectuator.md) — Applies the restored parameters on rollback
-- [Breeder](concept_breeder.md) — Configures and enforces guardrails
+- [Systemtender](concept_systemtender.md) — Configures and enforces guardrails
 - [Configuration Guide](config_guide.md) — The shipped config, end to end
