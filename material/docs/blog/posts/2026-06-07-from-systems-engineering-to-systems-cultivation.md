@@ -61,7 +61,7 @@ Cultivation requires something engineering doesn't: **perception of the living s
 
 godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one optimizer apply a guarded push to parameters it already controls while the other holds still. If the second optimizer's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.
 
-Each detection reveals one edge in a coupling graph. Breeder A's signal reaches breeder B. That's one connection you didn't know existed.
+Each detection reveals one edge in a coupling graph. Systemtender A's signal reaches systemtender B. That's one connection you didn't know existed.
 
 This is proven on linear coupling channels. The microgrid bench demonstrates reliable detection at statistical significance (p < 0.001) across coupling strengths from 0.1 to 0.9. The method is concrete, reproducible, and runs continuously without interrupting optimization.
 

@@ -47,7 +47,7 @@ Revealing hidden coupling structure is the enabling step. What you do with that 
 
 ### Coordination
 
-Once breeders know who they're coupled to, they can adapt. Instead of blindly corrupting each other through shared substrate, they account for the coupling — constraining parameters that propagate, scheduling around active edges, avoiding interference.
+Once systemtenders know who they're coupled to, they can adapt. Instead of blindly corrupting each other through shared substrate, they account for the coupling — constraining parameters that propagate, scheduling around active edges, avoiding interference.
 
 ### Tending
 
@@ -99,7 +99,7 @@ structured trial data back to whoever needs it.
 
 Co-pilots guide and comprehend. The engine discerns and acts. Nobody
 touches the system directly except godon — human and LLM suggestions flow
-through the breeder, get tested against reality, and are kept or discarded
+through the systemtender, get tested against reality, and are kept or discarded
 based on measured outcomes.
 
 ## Scope
@@ -120,7 +120,7 @@ Not limited to physical resource contention. The coupling problem exists whereve
 |------------|-------------|
 | **Topology Discovery** | Discover internal live system interplay topology from behavior — not assumed from diagrams or models |
 | **Diagnostics** | Trace regressions and anomalies to their actual source through discovered coupling paths |
-| **Coordination** | Breeders adapt their behavior given known coupling — constraining, scheduling, avoiding interference |
+| **Coordination** | Systemtenders adapt their behavior given known coupling — constraining, scheduling, avoiding interference |
 | **Live System Tending** | Continuously steer toward better operating points with guardrails and rollback |
 | **Isolation Certification** | Empirically verify that workloads are genuinely decoupled — proving absence |
 | **Co-pilot Integration** | Human and LLM domain knowledge validated in the loop — charter design, comprehension, strategy |

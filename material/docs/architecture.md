@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Architecture
 
-godon is a distributed system for live system optimization and coupling discovery. It coordinates autonomous optimization agents (breeders) with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
+godon is a distributed system for live system optimization and coupling discovery. It coordinates autonomous optimization agents (systemtenders) with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
 
 ---
 
@@ -55,7 +55,7 @@ godon is a distributed system for live system optimization and coupling discover
 │                         Execution Layer                                  │
 │                                                                          │
 │    ┌──────────┐         ┌──────────────┐         ┌──────────────┐       │
-│    │ Breeder  │────────▶│  Effectuator │────────▶│    Target    │       │
+│    │ Systemtender  │────────▶│  Effectuator │────────▶│    Target    │       │
 │    │ (driver) │         │   (apply)    │         │   System     │       │
 │    └──────────┘         └──────────────┘         └──────────────┘       │
 │         │                                                │               │
@@ -77,8 +77,8 @@ The external interface for managing optimization runs.
 
 | Responsibility | Description |
 |----------------|-------------|
-| Breeder lifecycle | Create, start, stop, delete breeders |
-| Status queries | Check breeder and trial status |
+| Systemtender lifecycle | Create, start, stop, delete systemtenders |
+| Status queries | Check systemtender and trial status |
 | Configuration | Submit optimization configs |
 | Results | Retrieve best configurations |
 
@@ -99,17 +99,17 @@ Windmill provides the execution backbone without godon needing to implement sche
 
 #### Godon Causal
 
-The measurement computation service. Breeders push parameters and observe objectives; causal owns everything computed FROM those trials:
+The measurement computation service. Systemtenders push parameters and observe objectives; causal owns everything computed FROM those trials:
 
 | Responsibility | Description |
 |----------------|-------------|
 | Coupling detection | CFAR on push/pause block contrasts — per (sender, receiver, channel), on demand |
 | Response curves | Per (sender, receiver, parameter, channel): measured level→shift shape with uncertainty bars |
 | Priced stopping | Per-curve gap analysis — a curve retires when remaining ignorance is cheaper than one more probe |
-| Persistence | Curves survive restarts (write-through + replay) and follow breeder lifecycle (purge cascade) |
+| Persistence | Curves survive restarts (write-through + replay) and follow systemtender lifecycle (purge cascade) |
 | Graph artifact | The measured coupling structure, exportable as a versioned artifact |
 
-Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` and `/predict/multihop`, `/graph` and `/artifact` (the measured coupling map, exportable), `/walk-view/{sender}`, `/impact/{breeder_id}`, `/causes/{breeder_id}`.
+Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` and `/predict/multihop`, `/graph` and `/artifact` (the measured coupling map, exportable), `/walk-view/{sender}`, `/impact/{systemtender_id}`, `/causes/{systemtender_id}`.
 
 #### Godon Observer
 
@@ -121,15 +121,15 @@ Workers are organized by job type:
 
 | Group | Timeout | Purpose |
 |-------|---------|---------|
-| **controller** | Short (configurable) | Fast operations: preflight, breeder create, status checks |
-| **breeder** | None by design — crash recovery via the Optuna DB | Long-running optimization loops |
+| **controller** | Short (configurable) | Fast operations: preflight, systemtender create, status checks |
+| **systemtender** | None by design — crash recovery via the Optuna DB | Long-running optimization loops |
 | **default** | Default | General operations, dependency resolution |
 
 Replica counts are deployment values, not architecture — they live in the chart's `values.yaml`.
 
 **Why separate groups:**
 - Controller jobs are fast but frequent — need quick response
-- Breeder jobs run continuously — no timeout, crash recovery via Optuna DB
+- Systemtender jobs run continuously — no timeout, crash recovery via Optuna DB
 - Default handles everything else without blocking specialized groups
 
 #### Metadata DB (PostgreSQL)
@@ -138,7 +138,7 @@ Stores godon's operational state.
 
 | Data | Purpose |
 |------|---------|
-| Breeder definitions | Configurations submitted via API |
+| Systemtender definitions | Configurations submitted via API |
 | Job state | Windmill job tracking |
 | Component metadata | Internal godon state |
 
@@ -152,12 +152,12 @@ Stores trial history for optimization and cooperation.
 |------|---------|
 | Trial records | Parameters, metrics, fitness |
 | Pareto fronts | Best configurations found |
-| Cooperation data | Shared trials between breeders |
+| Cooperation data | Shared trials between systemtenders |
 
 **Why YugabyteDB:**
-- **Horizontal scalability** — Many concurrent breeders writing trials
+- **Horizontal scalability** — Many concurrent systemtenders writing trials
 - **PostgreSQL compatibility** — Uses YSQL, same queries as Optuna expects
-- **Distribution** — Cooperative breeders need shared storage
+- **Distribution** — Cooperative systemtenders need shared storage
 
 #### Metrics Exporter
 
@@ -167,7 +167,7 @@ Exposes godon metrics for observability.
 |-------------|----------|
 | Trials | Total, successful, failed |
 | Duration | Effectuation time, reconnaissance time |
-| Breeder | Active count, worker utilization |
+| Systemtender | Active count, worker utilization |
 
 Pushes to Prometheus Push Gateway for aggregation.
 
@@ -175,11 +175,11 @@ Pushes to Prometheus Push Gateway for aggregation.
 
 ### Optimization Loop
 
-The core cycle that each breeder worker executes:
+The core cycle that each systemtender worker executes:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│                        Breeder Worker Loop                                   │
+│                        Systemtender Worker Loop                                   │
 │                                                                              │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌──────────┐  │
 │  │   Sample   │───▶│  Effectuate │───▶│Reconnoiter │───▶│  Update  │  │
@@ -230,7 +230,7 @@ The core cycle that each breeder worker executes:
 
 ### Characterization Loop (concurrent with optimization)
 
-Breeders in the same interference group coordinate through DB-backed leases (turn-taking: one sender, the rest hold):
+Systemtenders in the same interference group coordinate through DB-backed leases (turn-taking: one sender, the rest hold):
 
 ```
   Sender: coverage walk — pick (parameter, level), push within guardrails,
@@ -300,12 +300,12 @@ godon is deployed via Helm chart to Kubernetes.
 |---------|--------|----------|
 | API pod dies | No new requests | Kubernetes restarts, stateless |
 | Worker dies | In-flight trial lost | Optuna DB enables resume, algorithm continues |
-| Metadata DB down | No new breeders | Existing breeders continue (state already dispatched) |
-| Archive DB down | No cooperation, no persistence | Breeders continue locally, no cross-learning |
+| Metadata DB down | No new systemtenders | Existing systemtenders continue (state already dispatched) |
+| Archive DB down | No cooperation, no persistence | Systemtenders continue locally, no cross-learning |
 | Target system unreachable | Trial fails | Marked failed, algorithm learns to avoid |
 
 **Crash safety:**
-- Breeder workers have no timeout — they run until completion or crash
+- Systemtender workers have no timeout — they run until completion or crash
 - Optuna stores trial state in Archive DB — restart resumes from last known state
 - No half-applied configs — effectuation is idempotent
 
@@ -321,13 +321,13 @@ godon is deployed via Helm chart to Kubernetes.
 | Archive DB | Horizontal | YugabyteDB distributes across nodes |
 
 **Cooperation scaling:**
-- Multiple breeders share Archive DB
+- Multiple systemtenders share Archive DB
 - Each learns from others' trials
 
 ---
 
 ### See Also
 
-- [Core Concepts](concept_breeder.md) — Breeder, Effectuator, Reconnaissance, Guardrails
+- [Core Concepts](concept_systemtender.md) — Systemtender, Effectuator, Reconnaissance, Guardrails
 - [Configuration Guide](config_guide.md) — How to configure optimization runs
 - [Setup](setup.md) — Installation instructions

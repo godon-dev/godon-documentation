@@ -1,5 +1,5 @@
 ---
-description: "godon MCP interface — connect any MCP-compatible LLM client to manage breeders, credentials, and platform health via the Model Context Protocol."
+description: "godon MCP interface — connect any MCP-compatible LLM client to manage systemtenders, credentials, and platform health via the Model Context Protocol."
 ---
 
 <!--
@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## MCP Interface
 
-godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compatible client — Claude Desktop, Claude Code, opencode, or any MCP SDK — can connect and manage breeders, credentials, and platform health directly.
+godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compatible client — Claude Desktop, Claude Code, opencode, or any MCP SDK — can connect and manage systemtenders, credentials, and platform health directly.
 
 ### Overview
 
@@ -40,12 +40,12 @@ The MCP server proxies to the godon API, so any action available through the RES
 
 | Tool | Description |
 |------|-------------|
-| `breeder_list` | List all optimization breeders with their current status |
-| `breeder_get` | Get detailed information about a specific breeder |
-| `breeder_create` | Create and start a new optimization breeder |
-| `breeder_start` | Resume a previously stopped breeder |
-| `breeder_stop` | Gracefully stop a running breeder |
-| `breeder_delete` | Delete a breeder and all its data |
+| `systemtender_list` | List all optimization systemtenders with their current status |
+| `systemtender_get` | Get detailed information about a specific systemtender |
+| `systemtender_create` | Create and start a new optimization systemtender |
+| `systemtender_start` | Resume a previously stopped systemtender |
+| `systemtender_stop` | Gracefully stop a running systemtender |
+| `systemtender_delete` | Delete a systemtender and all its data |
 | `credential_list` | List all stored credentials |
 | `credential_create` | Register a new credential (SSH key, API token, etc.) |
 | `credential_get` | Get details of a specific credential |
@@ -116,11 +116,11 @@ const tools = await client.listTools();
 
 ### Example Usage
 
-Once connected, an LLM can create and manage optimization runs directly. For example, to create a TCP tuning breeder:
+Once connected, an LLM can create and manage optimization runs directly. For example, to create a TCP tuning systemtender:
 
 ```
-Create a breeder named "tcp-tuning" that optimizes net.ipv4.tcp_rmem
+Create a systemtender named "tcp-tuning" that optimizes net.ipv4.tcp_rmem
 between 4096 and 6291456 targeting host 10.0.0.5, measuring RTT as the objective.
 ```
 
-The LLM translates this into a `breeder_create` tool call with the appropriate godon v0.3 configuration.
+The LLM translates this into a `systemtender_create` tool call with the appropriate godon v0.3 configuration.

@@ -162,7 +162,7 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Kubernetes-bound** | No | Yes |
 | **Algorithm Transparency** | Full | Black-box |
-| **Extensibility** | Custom breeders | Vendor-defined |
+| **Extensibility** | Custom systemtenders | Vendor-defined |
 | **Cost** | Free | Subscription |
 | **Vendor Lock-in** | None | High |
 

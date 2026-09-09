@@ -118,7 +118,7 @@ operating-system network parameter tuning ([References](references.md)).
 #### Adding a Channel
 
 Effectuators are Windmill flows addressed as `f/effectuation/<type>` —
-the breeder calls whatever flow the configured type names. A new channel
+the systemtender calls whatever flow the configured type names. A new channel
 (a cloud API, a database, a hardware interface) is a new flow, not an
 engine change.
 
@@ -170,7 +170,7 @@ propagated measures the old state.
 
 ### Rollback Support
 
-Rollback is configured on the breeder side (`rollback_strategies` —
+Rollback is configured on the systemtender side (`rollback_strategies` —
 see [Guardrails](concept_guardrails.md)); the effectuator applies the
 restored parameters like any other apply. Strategies restore the
 previous successful trial, the best trial, or the baseline.
@@ -219,7 +219,7 @@ Effectuators modify real systems. The shipped safety line:
 
 ### See Also
 
-- [Breeder](concept_breeder.md) — Orchestrates effectuators
+- [Systemtender](concept_systemtender.md) — Orchestrates effectuators
 - [Reconnaissance](concept_reconnaissance.md) — Observes what effectuators change
 - [Guardrails](concept_guardrails.md) — Violations trigger rollback
 - [Configuration Guide](config_guide.md) — The shipped config, end to end

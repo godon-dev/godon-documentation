@@ -57,7 +57,7 @@ nav:
           - Setup: setup.md
           - Architecture: architecture.md
           - Core_Concepts:
-            - Breeder: concept_breeder.md
+            - Systemtender: concept_systemtender.md
             - Effectuator: concept_effectuator.md
             - Reconnaissance: concept_reconnaissance.md
             - Guardrails: concept_guardrails.md

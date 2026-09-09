@@ -1,18 +1,18 @@
 ---
-description: "godon Breeder concept — pluggable optimization driver coordinating algorithms, effectuation, and reconnaissance. Worker collaboration, guardrails, rollback, and cooperation."
+description: "godon Systemtender concept — pluggable optimization driver coordinating algorithms, effectuation, and reconnaissance. Worker collaboration, guardrails, rollback, and cooperation."
 ---
 
-## Breeder
+## Systemtender
 
-A **breeder** is the pluggable optimization driver in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Breeders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.
+A **systemtender** is the pluggable optimization driver in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Systemtenders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.
 
 ### Core Responsibilities
 
-A breeder coordinates three concerns:
+A systemtender coordinates three concerns:
 
 ```
                     ┌─────────────┐
-                    │   Breeder   │
+                    │   Systemtender   │
                     │  (Driver)   │
                     └─────────────┘
                           │
@@ -31,11 +31,11 @@ A breeder coordinates three concerns:
 | **Effectuation** | How to apply configurations | SSH, HTTP, Kubernetes API |
 | **Reconnaissance** | How to observe results | Prometheus, custom metrics |
 
-The breeder plugs these together into a coherent optimization loop.
+The systemtender plugs these together into a coherent optimization loop.
 
 ---
 
-### The Breeder Cycle
+### The Systemtender Cycle
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -64,13 +64,13 @@ Each iteration:
 
 ---
 
-### Breeder as Coordination Hub
+### Systemtender as Coordination Hub
 
-The breeder doesn't implement algorithms, effectuation, or reconnaissance directly — it **coordinates** pluggable components:
+The systemtender doesn't implement algorithms, effectuation, or reconnaissance directly — it **coordinates** pluggable components:
 
 #### Pluggable Algorithms
 
-Breeders can use different search strategies:
+Systemtenders can use different search strategies:
 
 | Sampler | Use Case |
 |---------|----------|
@@ -95,7 +95,7 @@ How configurations reach the target system:
 The effectuator is a plugin — same algorithm can tune different targets.
 #### Pluggable Reconnaissance
 
-How the breeder observes results:
+How the systemtender observes results:
 
 | Source | What it provides |
 |--------|------------------|
@@ -109,7 +109,7 @@ The observer is a plugin — measure what matters for your objective.
 
 ### Worker Collaboration
 
-Breeders can run with multiple parallel workers:
+Systemtenders can run with multiple parallel workers:
 ```
                     ┌─────────────┐
                     │  Controller │
@@ -141,8 +141,8 @@ Breeders can run with multiple parallel workers:
 
 ---
 
-### Breeder Lifecycle
-Breeders are managed through the Control API:
+### Systemtender Lifecycle
+Systemtenders are managed through the Control API:
 ```
 created ──▶ active ──┐
     │           │    │
@@ -163,8 +163,8 @@ created ──▶ active ──┐
 
 ---
 
-### Where Breeders Fit
-In the godon architecture, breeders sit between the control plane and the target systems:
+### Where Systemtenders Fit
+In the godon architecture, systemtenders sit between the control plane and the target systems:
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Control Plane                          │
@@ -175,7 +175,7 @@ In the godon architecture, breeders sit between the control plane and the target
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Breeder                               │
+│                       Systemtender                               │
 │  ┌──────────┐    ┌──────────────┐    ┌──────────────┐      │
 │  │ Algorithm│◀──▶│ Coordinator  │◀──▶│   Workers    │      │
 │  └──────────┘    └──────────────┘    └──────────────┘      │
@@ -239,7 +239,7 @@ Guardrails are **safety limits** that protect production systems during optimiza
 ---
 
 ### Rollback
-When consecutive guardrail violations occur, breeders can automatically **rollback** to a known-good configuration.
+When consecutive guardrail violations occur, systemtenders can automatically **rollback** to a known-good configuration.
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Rollback Flow                             │
@@ -304,7 +304,7 @@ Multiple workers can collaborate by **sharing successful trials** across the opt
            │                   │                   │
            ▼                   ▼                   ▼
      ┌──────────┐        ┌──────────┐        ┌──────────┐
-     │ Breeder A│        │ Breeder B│        │ Breeder C│
+     │ Systemtender A│        │ Systemtender B│        │ Systemtender C│
      │ Worker 1 │        │ Worker 1 │        │ Worker 1 │
      └──────────┘        └──────────┘        └──────────┘
            │                   │                   │
@@ -313,7 +313,7 @@ Multiple workers can collaborate by **sharing successful trials** across the opt
            │                   │  Shares trial #12 │
            │                   ├──────────────────▶│
            │                   │                   │
-           │         All breeders learn from shared trials          │
+           │         All systemtenders learn from shared trials          │
            └───────────────────────────────────────────────────────────────┘
 ```
 **Sharing strategies:**
@@ -333,7 +333,7 @@ Multiple workers can collaborate by **sharing successful trials** across the opt
 ---
 
 ### Algorithm Diversity
-When running multiple parallel workers, breeders can assign **different algorithms** to each worker for better search space coverage.
+When running multiple parallel workers, systemtenders can assign **different algorithms** to each worker for better search space coverage.
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Parallel Workers                          │
@@ -373,7 +373,7 @@ When running multiple parallel workers, breeders can assign **different algorith
 ### Summary
 | Aspect | What it means |
 |--------|---------------|
-| **Driver role** | Breeder drives algorithm, effectuation, and reconnaissance forward |
+| **Driver role** | Systemtender drives algorithm, effectuation, and reconnaissance forward |
 | **Pluggable** | Swap algorithms, effectors, and observers independently |
 | **Guardrails** | Safety limits that reject trials exceeding thresholds |
 | **Rollback** | Automatic restoration to known-good state after failures |
@@ -385,5 +385,5 @@ When running multiple parallel workers, breeders can assign **different algorith
 
 ### See Also
 - [Architecture](architecture.md) — Full system overview
-- [API Reference](api.md) — Breeder management endpoints
-- [Comparison](comparison.md) — How breeders differ from optimization libraries
+- [API Reference](api.md) — Systemtender management endpoints
+- [Comparison](comparison.md) — How systemtenders differ from optimization libraries

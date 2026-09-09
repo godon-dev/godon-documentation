@@ -37,7 +37,7 @@ A group of autonomous optimizers, each locked to its own system — and substrat
 
 ```
 ┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
-│ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
+│ Systemtender A  (node-1)     │   │ Systemtender B  (node-2)     │   │ Systemtender C  (node-3)     │
 │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
 │ wants   growth_rate     │   │ wants   growth_rate     │   │ wants   growth_rate     │
 └───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
@@ -60,7 +60,7 @@ Not illustrations — the validation tables at the end of this page detect throu
 
 ```
 ┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
-│ Breeder A  (node-1)     │   │ Breeder B  (node-2)     │   │ Breeder C  (node-3)     │
+│ Systemtender A  (node-1)     │   │ Systemtender B  (node-2)     │   │ Systemtender C  (node-3)     │
 │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
 │ wants   latency         │   │ wants   cost            │   │ wants   uptime          │
 └───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
@@ -77,11 +77,11 @@ Not illustrations — the validation tables at the end of this page detect throu
              ╞═══════════shared schema═════╪═════════════════════════════╡
 ```
 
-Each breeder tunes its own parameters against its own objective, reading only its own system's outputs. Influence crosses through substrates that appear in **no one's** configuration, **nor** anyone's telemetry. The net — physical or logical — is real in every reading and absent from every diagram.
+Each systemtender tunes its own parameters against its own objective, reading only its own system's outputs. Influence crosses through substrates that appear in **no one's** configuration, **nor** anyone's telemetry. The net — physical or logical — is real in every reading and absent from every diagram.
 
 That it works across kinds is not an edge case; it is the point. The protocol contains no physics: it needs parameters it can push, objectives it can read, and turns it can take. What sits between can be wall, wire, or schema. And both kinds are validated territory — the greenhouse's channels are physical; the generic bench's edges are pure mathematics (saturation and threshold transforms, no physics at all), and detection holds across the entire sweep on both.
 
-On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the breeders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
+On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the systemtenders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
 ### Why Passive Detection Fails
 
@@ -95,7 +95,7 @@ An earlier attempt made each optimizer broadcast a faint continuous tone (a wate
 
 The protocol is what any engineer does to an unknown system: perturb it, watch what answers. Under discipline:
 
-**Turn-taking.** Breeders in a shared group pass a lease — fencing tokens, one sender at a time, crash recovery via heartbeat staleness. One speaks; the others hold at neutral. Not politeness: a listener shifting in their chair is indistinguishable from an answer. Holding still deletes the 500× self-noise; what remains is the substrate's own voice.
+**Turn-taking.** Systemtenders in a shared group pass a lease — fencing tokens, one sender at a time, crash recovery via heartbeat staleness. One speaks; the others hold at neutral. Not politeness: a listener shifting in their chair is indistinguishable from an answer. Holding still deletes the 500× self-noise; what remains is the substrate's own voice.
 
 **Scheduled pushes.** The sender walks one parameter through scheduled probe levels — midpoint, extremes, quarters; a deterministic order that visits every level by contract. Each push stays inside the same guardrails as ordinary optimization trials. Non-destructive by construction, not by hope.
 
@@ -140,12 +140,12 @@ The walk repeats per parameter — the map emerges per (parameter, channel), wha
 - A **dead parameter** reads flat at every level and retires after ~3 probes — on a 100-level grid, the full cost of proving silence was 3 pushes. In one validated run, all three parameters converged on 16 probes out of 303 grid cells; the budget goes to structure, not silence.
 - The **channel split** is measured, not assumed: the same walk that draws `param_1`'s tent on `objective_0` reads honest flat on `objective_1` — seven levels of nothing, bar-carrying. A parameter influences exactly the channels where its curve is non-flat.
 
-### Several Breeders at Once
+### Several Systemtenders at Once
 
 Turn-taking does not mean pairwise tedium. One sender's walk measures **every** holding receiver simultaneously, through however many substrates the influence must cross. The chain scenario (`node-1 → node-3 → node-2`, edges 0.7 and 0.5):
 
 ```
-      breeder A — the walk: param_1 through its levels
+      systemtender A — the walk: param_1 through its levels
         (50 → 0 → 100 → 25 → 75 → … — push block / pause block each)
                          │
         substrate 1      ▼      edge 0.7
@@ -235,4 +235,4 @@ Detection is the entry point; each deeper layer has its own page:
 - [Detection Capabilities](detection_capabilities.md) — the validated boundary map
 - [Characterization](characterization.md) — from edges to measured curves
 - [Publications](publications.md) — the papers and their full validation data
-- [Breeder](concept_breeder.md) — the agents that run this protocol
+- [Systemtender](concept_systemtender.md) — the agents that run this protocol
