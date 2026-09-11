@@ -1,0 +1,1631 @@
+---
+# Copyright (c) 2019 Matthias Tafelmeier.
+#
+# This file is part of godon
+#
+# godon is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# godon is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this godon. If not, see <http://www.gnu.org/licenses/>.
+
+openapi: 3.0.0
+info:
+  version: 0.0.0
+  title: Godon Control API
+  description: |
+    RESTful API for controlling and managing the godon optimizer systemtenders.
+    This API allows you to create, read, update, and delete systemtender configurations.
+  contact:
+    name: Godon Development Team
+    url: https://github.com/godon-dev
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.html
+
+servers:
+  - url: /v0
+    description: Lab server v0
+
+tags:
+  - name: systemtenders
+    description: Operations for managing optimizer systemtenders
+  - name: steerwishes
+    description: Operations for declaring and tending steerwishes (declared outcomes held on the map)
+  - name: credentials
+    description: Operations for managing credential catalog
+  - name: targets
+    description: Operations for managing target system catalog
+
+paths:
+  /systemtenders:
+    get:
+      tags:
+        - systemtenders
+      operationId: listSystemtenders
+      summary: List all systemtenders
+      description: Retrieves a list of all configured optimizer systemtenders
+      responses:
+        '200':
+          description: Successfully returned list of configured systemtenders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SystemtenderSummary'
+              examples:
+                systemtenders:
+                  summary: Example list of systemtenders
+                  value:
+                    - id: "550e8400-e29b-41d4-a716-446655440000"
+                      name: "genetic-optimizer-1"
+                      status: "active"
+                      createdAt: "2024-01-15T10:30:00Z"
+                    - id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+                      name: "neural-systemtender-2"
+                      status: "paused"
+                      createdAt: "2024-01-16T14:20:00Z"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      tags:
+        - systemtenders
+      operationId: createSystemtender
+      summary: Create a new systemtender
+      description: Creates a new optimizer systemtender with the provided configuration
+      requestBody:
+        required: true
+        description: Systemtender configuration details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemtenderCreate'
+            examples:
+              basic:
+                summary: Basic systemtender configuration
+                value:
+                  name: "genetic-optimizer-1"
+      responses:
+        '201':
+          description: Successfully created the systemtender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemtenderSummary'
+              examples:
+                created:
+                  summary: Newly created systemtender
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "genetic-optimizer-1"
+                    status: "active"
+                    createdAt: "2024-01-15T10:30:00Z"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /systemtenders/{uuid}:
+    parameters:
+      - $ref: '#/components/parameters/SystemtenderUuid'
+
+    get:
+      tags:
+        - systemtenders
+      operationId: getSystemtender
+      summary: Get systemtender by ID
+      description: Retrieves detailed information about a specific systemtender
+      responses:
+        '200':
+          description: Successfully returned systemtender information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Systemtender'
+              examples:
+                systemtender:
+                  summary: Example systemtender details
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "genetic-optimizer-1"
+                    status: "active"
+                    createdAt: "2024-01-15T10:30:00Z"
+                    config: "{}"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      tags:
+        - systemtenders
+      operationId: updateSystemtender
+      summary: Update systemtender configuration
+      description: Updates the configuration of an existing systemtender
+      requestBody:
+        required: true
+        description: New systemtender configuration. Trial data is preserved unless the config is incompatible.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemtenderUpdate'
+            examples:
+              update:
+                summary: Update systemtender config
+                value:
+                  config:
+                    systemtender:
+                      type: "linux_performance"
+                    objectives:
+                      - name: "latency"
+                        goal: "MINIMIZE"
+              force_update:
+                summary: Force update with incompatible config (clears trial history)
+                value:
+                  config:
+                    systemtender:
+                      type: "linux_performance"
+                    objectives:
+                      - name: "latency"
+                        goal: "MINIMIZE"
+                      - name: "throughput"
+                        goal: "MAXIMIZE"
+                  force: true
+
+      responses:
+        '200':
+          description: Successfully updated the systemtender
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      systemtender_id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      status:
+                        type: string
+                      workers_started:
+                        type: integer
+                      trials_cleared:
+                        type: boolean
+                      config_history_entries:
+                        type: integer
+              examples:
+                updated:
+                  summary: Update confirmation
+                  value:
+                    result: "SUCCESS"
+                    data:
+                      systemtender_id: "550e8400-e29b-41d4-a716-446655440000"
+                      name: "my-systemtender"
+                      status: "active"
+                      workers_started: 2
+                      trials_cleared: false
+                      config_history_entries: 1
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '501':
+          $ref: '#/components/responses/NotImplementedServerError'
+
+    delete:
+      tags:
+        - systemtenders
+      operationId: deleteSystemtender
+      summary: Delete a systemtender
+      description: |
+        Permanently removes a systemtender and its configuration.
+
+        **Default behavior (safe):** Requires workers to be gracefully stopped first.
+        Call `stop_systemtender()` to request graceful shutdown, then delete.
+
+        **Force deletion:** Use `force=true` to cancel workers immediately.
+        Use for automated cleanup or when worker state is not important.
+      parameters:
+        - name: force
+          in: query
+          description: |
+            Cancel workers immediately instead of requiring graceful stop.
+            Default is false (safe).
+          required: false
+          schema:
+            type: boolean
+            default: false
+          example: true
+      responses:
+        '200':
+          description: Successfully deleted the systemtender
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - deleted
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: The ID of the deleted systemtender
+                  deleted:
+                    type: boolean
+                    description: Confirmation that the systemtender was deleted
+              examples:
+                deleted:
+                  summary: Deletion confirmation
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    deleted: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /systemtenders/{uuid}/stop:
+    post:
+      tags:
+        - systemtenders
+      operationId: stopSystemtender
+      summary: Stop a systemtender
+      description: |
+        Requests graceful shutdown of a systemtender's workers.
+        Workers will finish their current trial before stopping.
+        This is an asynchronous operation - check status with GET /systemtenders/{uuid}.
+      parameters:
+        - $ref: '#/components/parameters/SystemtenderUuid'
+      responses:
+        '200':
+          description: Graceful shutdown requested successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                  - data
+                properties:
+                  result:
+                    type: string
+                    enum: [SUCCESS]
+                  data:
+                    type: object
+                    required:
+                      - systemtender_id
+                      - shutdown_type
+                    properties:
+                      systemtender_id:
+                        type: string
+                        format: uuid
+                        description: The ID of the systemtender to stop
+                      shutdown_type:
+                        type: string
+                        enum: [graceful]
+                        description: Type of shutdown (graceful)
+              examples:
+                shutdownRequested:
+                  summary: Graceful shutdown requested
+                  value:
+                    result: "SUCCESS"
+                    message: "Graceful shutdown requested. Workers will stop after completing current trials."
+                    data:
+                      systemtender_id: "550e8400-e29b-41d4-a716-446655440000"
+                      shutdown_type: "graceful"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /systemtenders/{uuid}/start:
+    post:
+      tags:
+        - systemtenders
+      operationId: startSystemtender
+      summary: Start/resume a systemtender
+      description: |
+        Starts or resumes a stopped systemtender by clearing the shutdown flag
+        and relaunching workers. Use this to resume optimization after
+        calling stop_systemtender().
+      parameters:
+        - $ref: '#/components/parameters/SystemtenderUuid'
+      responses:
+        '200':
+          description: Systemtender started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                  - data
+                properties:
+                  result:
+                    type: string
+                    enum: [SUCCESS]
+                  data:
+                    type: object
+                    required:
+                      - systemtender_id
+                      - status
+                      - workers_started
+                    properties:
+                      systemtender_id:
+                        type: string
+                        format: uuid
+                        description: The ID of the systemtender that was started
+                      status:
+                        type: string
+                        enum: [ACTIVE]
+                        description: New status of the systemtender
+                      workers_started:
+                        type: integer
+                        description: Number of worker jobs that were launched
+              examples:
+                started:
+                  summary: Systemtender started successfully
+                  value:
+                    result: "SUCCESS"
+                    data:
+                      systemtender_id: "550e8400-e29b-41d4-a716-446655440000"
+                      workers_started: 3
+                      status: "ACTIVE"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /steerwishes:
+    get:
+      tags:
+        - steerwishes
+      operationId: listSteerwishes
+      summary: List all steerwishes
+      description: Retrieves a list of all declared steerwishes with their derived lifecycle state
+      responses:
+        '200':
+          description: Successfully returned list of steerwishes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SteerwishSummary'
+              examples:
+                steerwishes:
+                  summary: Example list of steerwishes
+                  value:
+                    - id: "550e8400-e29b-41d4-a716-446655440000"
+                      outcome: "chainend.shift"
+                      state: "declared"
+                      createdAt: "2026-09-10T10:30:00Z"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      tags:
+        - steerwishes
+      operationId: declareSteerwish
+      summary: Declare a new steerwish
+      description: |
+        Declares a desired outcome: the named measured value is to be brought
+        into its band and held there. The declaration is a durable, withdrawable
+        record - the safety device for everything that acts on it. Validation
+        happens at the door; a malformed wish is rejected before any planning.
+      requestBody:
+        required: true
+        description: Steerwish declaration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SteerwishCreate'
+            examples:
+              chainend:
+                summary: Hold the chain-end shift at -0.10
+                value:
+                  outcome: "chainend.shift"
+                  band:
+                    lo: -0.14
+                    hi: -0.06
+                    target: -0.10
+                  limits:
+                    exclude: []
+                    maxChange: 0.5
+                  budget: 2
+                  regime: "standing"
+      responses:
+        '201':
+          description: Successfully declared the steerwish
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Steerwish'
+              examples:
+                declared:
+                  summary: Newly declared steerwish
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    outcome: "chainend.shift"
+                    band:
+                      lo: -0.14
+                      hi: -0.06
+                      target: -0.10
+                    limits:
+                      exclude: []
+                      maxChange: 0.5
+                    budget: 2
+                    regime: "standing"
+                    state: "declared"
+                    createdAt: "2026-09-10T10:30:00Z"
+                    events:
+                      - type: "declared"
+                        at: "2026-09-10T10:30:00Z"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /steerwishes/{wish_id}:
+    get:
+      tags:
+        - steerwishes
+      operationId: getSteerwish
+      summary: Get a steerwish
+      description: Retrieves one steerwish with its full event history
+      parameters:
+        - $ref: '#/components/parameters/SteerwishId'
+      responses:
+        '200':
+          description: Successfully returned the steerwish
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Steerwish'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /steerwishes/{wish_id}/close:
+    post:
+      tags:
+        - steerwishes
+      operationId: closeSteerwish
+      summary: Close a steerwish
+      description: |
+        Closes the wish: the obligation ends (closed wishes bind nothing -
+        history, not law). The serving tender releases its setting back to
+        neutral on exit.
+      parameters:
+        - $ref: '#/components/parameters/SteerwishId'
+      responses:
+        '200':
+          description: Successfully closed the steerwish
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Steerwish'
+              examples:
+                closed:
+                  summary: Closed steerwish
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    outcome: "chainend.shift"
+                    band:
+                      lo: -0.14
+                      hi: -0.06
+                      target: -0.10
+                    state: "closed"
+                    createdAt: "2026-09-10T10:30:00Z"
+                    events:
+                      - type: "declared"
+                        at: "2026-09-10T10:30:00Z"
+                      - type: "closed"
+                        at: "2026-09-10T12:45:00Z"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /credentials:
+    get:
+      tags:
+        - credentials
+      operationId: listCredentials
+      summary: List all credentials
+      description: Retrieves a list of all credentials in the catalog
+      responses:
+        '200':
+          description: Successfully returned list of credentials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Credential'
+              examples:
+                credentials:
+                  summary: Example credentials list
+                  value:
+                    - id: "550e8400-e29b-41d4-a716-446655440001"
+                      name: "production_ssh_key"
+                      credentialType: "ssh_private_key"
+                      description: "SSH key for production servers"
+                      windmillVariable: "f/vars/prod_ssh_key"
+                      createdAt: "2024-01-15T10:30:00Z"
+                    - id: "6ba7b810-9dad-11d1-80b4-00c04fd430c9"
+                      name: "staging_ssh_key"
+                      credentialType: "ssh_private_key"
+                      description: "SSH key for staging environment"
+                      windmillVariable: "f/vars/staging_ssh_key"
+                      createdAt: "2024-01-16T14:20:00Z"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      tags:
+        - credentials
+      operationId: createCredential
+      summary: Create a new credential
+      description: |
+        Creates a new credential catalog entry and stores the credential content in Windmill.
+        The credential content is sent over the provided HTTPS transport and stored encrypted
+        in Windmill's workspace (per-workspace symmetric encryption).
+      requestBody:
+        required: true
+        description: Credential details including the actual credential content
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialCreate'
+            examples:
+              sshKey:
+                summary: SSH private key credential
+                value:
+                  name: "production_ssh_key"
+                  credentialType: "ssh_private_key"
+                  description: "SSH key for production servers"
+                  content: "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA2Z2H7V..."
+      responses:
+        '201':
+          description: Successfully created the credential
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+              examples:
+                created:
+                  summary: Newly created credential
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440001"
+                    name: "production_ssh_key"
+                    credentialType: "ssh_private_key"
+                    description: "SSH key for production servers"
+                    windmillVariable: "f/vars/prod_ssh_key"
+                    createdAt: "2024-01-15T10:30:00Z"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /credentials/{credential_id}:
+    parameters:
+      - $ref: '#/components/parameters/CredentialId'
+
+    get:
+      tags:
+        - credentials
+      operationId: getCredential
+      summary: Get credential by ID
+      description: Retrieves detailed information about a specific credential including the actual content
+      responses:
+        '200':
+          description: Successfully returned credential information with content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      tags:
+        - credentials
+      operationId: deleteCredential
+      summary: Delete a credential
+      description: |
+        Permanently removes a credential from both the godon catalog and Windmill.
+        This operation cannot be undone.
+      responses:
+        '200':
+          description: Successfully deleted the credential
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - deleted
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: The ID of the deleted credential
+                  deleted:
+                    type: boolean
+                    description: Confirmation that the credential was deleted
+              examples:
+                deleted:
+                  summary: Deletion confirmation
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440001"
+                    deleted: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /targets:
+    get:
+      tags:
+        - targets
+      operationId: listTargets
+      summary: List all targets
+      description: Retrieves a list of all target systems in the catalog
+      responses:
+        '200':
+          description: Successfully returned list of targets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Target'
+              examples:
+                targets:
+                  summary: Example targets list
+                  value:
+                    - id: "550e8400-e29b-41d4-a716-446655440020"
+                      name: "production-server-1"
+                      targetType: "ssh"
+                      spec:
+                        address: "10.0.5.53"
+                        username: "godon_robot"
+                        ssh_key_variable_path: "f/vars/prod_ssh_key"
+                      metadata:
+                        description: "Production server for network optimization"
+                        allows_downtime: false
+                      createdAt: "2024-01-15T10:30:00Z"
+                    - id: "6ba7b810-9dad-11d1-80b4-00c04fd430ca"
+                      name: "staging-api"
+                      targetType: "http"
+                      spec:
+                        url: "https://staging.example.com"
+                        auth_type: "none"
+                      metadata:
+                        description: "Staging HTTP API"
+                      createdAt: "2024-01-16T14:20:00Z"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      tags:
+        - targets
+      operationId: createTarget
+      summary: Create a new target
+      description: |
+        Creates a new target system catalog entry. Targets represent remote systems
+        that systemtenders optimize against. Supported types: ssh, http.
+      requestBody:
+        required: true
+        description: Target system details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetCreate'
+            examples:
+              sshTarget:
+                summary: SSH target system
+                value:
+                  name: "production-server-1"
+                  targetType: "ssh"
+                  spec:
+                    address: "10.0.5.53"
+                    username: "godon_robot"
+                    ssh_key_variable_path: "f/vars/prod_ssh_key"
+                  metadata:
+                    description: "Production server for network optimization"
+                    allows_downtime: false
+              httpTarget:
+                summary: HTTP target system
+                value:
+                  name: "staging-api"
+                  targetType: "http"
+                  spec:
+                    url: "https://staging.example.com"
+                    auth_type: "none"
+                  metadata:
+                    description: "Staging HTTP API"
+      responses:
+        '201':
+          description: Successfully created the target
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Target'
+              examples:
+                created:
+                  summary: Newly created target
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440020"
+                    name: "production-server-1"
+                    targetType: "ssh"
+                    spec:
+                      address: "10.0.5.53"
+                      username: "godon_robot"
+                      ssh_key_variable_path: "f/vars/prod_ssh_key"
+                    metadata:
+                      description: "Production server for network optimization"
+                      allows_downtime: false
+                    createdAt: "2024-01-15T10:30:00Z"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /targets/{target_id}:
+    parameters:
+      - $ref: '#/components/parameters/TargetId'
+
+    get:
+      tags:
+        - targets
+      operationId: getTarget
+      summary: Get target by ID
+      description: Retrieves detailed information about a specific target system
+      responses:
+        '200':
+          description: Successfully returned target information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Target'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      tags:
+        - targets
+      operationId: deleteTarget
+      summary: Delete a target
+      description: |
+        Permanently removes a target from the catalog.
+        Systemtenders referencing this target will fail on next effectuation.
+      responses:
+        '200':
+          description: Successfully deleted the target
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - deleted
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: The ID of the deleted target
+                  deleted:
+                    type: boolean
+                    description: Confirmation that the target was deleted
+              examples:
+                deleted:
+                  summary: Deletion confirmation
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440020"
+                    deleted: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /connectome:
+    get:
+      tags: [map]
+      summary: Get the live map
+      description: Every node and characterized edge the system currently believes in, with fitted response, confidence, and noise floor. Partial by design - curves exist only where probed.
+      responses:
+        '200':
+          description: The live map
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome/curves:
+    get:
+      tags: [map]
+      summary: Get the measured response curves
+      description: Per edge, probe levels with measured shifts and honest error bars.
+      responses:
+        '200':
+          description: Measured curves
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome:
+    get:
+      tags: [map]
+      summary: Get the connectome
+      description: The full connectome as persisted at last build - complete at build time, the citable object. The formal name for the certified export; the living partial map lives under /map.
+      responses:
+        '200':
+          description: The persisted map artifact
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome/predict:
+    post:
+      tags: [map]
+      summary: Predict a one-hop shift
+      description: Ask the map - reads never touch the system. Linearized; refusal is causal-side for out-of-range asks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sender_id, impulse_scale]
+              properties:
+                sender_id:
+                  type: string
+                impulse_scale:
+                  type: number
+      responses:
+        '200':
+          description: Prediction
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome/predict/multihop:
+    post:
+      tags: [map]
+      summary: Predict a composed cascade shift
+      description: P3 composition along a measured path; reads never touch the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sender_id, impulse_scale]
+              properties:
+                sender_id:
+                  type: string
+                impulse_scale:
+                  type: number
+      responses:
+        '200':
+          description: Cascade prediction
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome/impact/{systemtender_id}:
+    get:
+      tags: [map]
+      summary: Impact of one systemtender
+      description: What its probing has moved across the map.
+      parameters:
+        - name: systemtender_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Measured impact
+          content:
+            application/json:
+              schema:
+                type: object
+  /connectome/causes/{systemtender_id}:
+    get:
+      tags: [map]
+      summary: Causes feeding one systemtender
+      description: The measured upstream causes of its patch of the map.
+      parameters:
+        - name: systemtender_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Upstream causes
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  parameters:
+    SystemtenderUuid:
+      name: uuid
+      in: path
+      required: true
+      description: Unique identifier (UUID v4) for the systemtender
+      schema:
+        type: string
+        format: uuid
+        pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      example: "550e8400-e29b-41d4-a716-446655440000"
+
+    SteerwishId:
+      name: wish_id
+      in: path
+      required: true
+      description: Unique identifier (UUID v4) for the steerwish
+      schema:
+        type: string
+        format: uuid
+        pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      example: "550e8400-e29b-41d4-a716-446655440000"
+
+    CredentialId:
+      name: credential_id
+      in: path
+      required: true
+      description: Unique identifier (UUID v4) for the credential
+      schema:
+        type: string
+        format: uuid
+        pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      example: "550e8400-e29b-41d4-a716-446655440001"
+
+    TargetId:
+      name: target_id
+      in: path
+      required: true
+      description: Unique identifier (UUID v4) for the target
+      schema:
+        type: string
+        format: uuid
+        pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      example: "550e8400-e29b-41d4-a716-446655440020"
+
+  schemas:
+    Systemtender:
+      type: object
+      required:
+        - id
+        - name
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the systemtender
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the systemtender (alphanumeric, hyphens, and underscores only)
+          example: "genetic-optimizer-1"
+        status:
+          type: string
+          enum: [active, paused, stopped, error]
+          description: Current operational status of the systemtender
+          example: "active"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the systemtender was created
+          readOnly: true
+          example: "2024-01-15T10:30:00Z"
+        config:
+          type: object
+          description: Configuration object for the systemtender
+          additionalProperties: true
+          example:
+            setting1: "value1"
+            setting2: 42
+            optimization_target: "performance"
+
+    SystemtenderSummary:
+      type: object
+      required:
+        - id
+        - name
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the systemtender
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the systemtender (alphanumeric, hyphens, and underscores only)
+          example: "genetic-optimizer-1"
+        status:
+          type: string
+          enum: [active, paused, stopped, error]
+          description: Current operational status of the systemtender
+          example: "active"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the systemtender was created
+          readOnly: true
+          example: "2024-01-15T10:30:00Z"
+
+    SystemtenderCreate:
+      type: object
+      required:
+        - name
+        - config
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable name for the systemtender
+          example: "genetic-optimizer-1"
+        config:
+          type: object
+          description: Configuration object for the systemtender
+          additionalProperties: true
+
+    SystemtenderUpdate:
+      type: object
+      required:
+        - config
+      properties:
+        config:
+          type: object
+          description: New systemtender configuration (replaces existing config entirely)
+          additionalProperties: true
+        force:
+          type: boolean
+          default: false
+          description: If true, clear trial history when config is incompatible with existing trial data (e.g. changed parameter or objective count)
+
+    SystemtenderList:
+      type: array
+      items:
+        $ref: '#/components/schemas/SystemtenderSummary'
+      description: Array of systemtender summary objects (without configuration details)
+
+    SteerwishBand:
+      type: object
+      required:
+        - lo
+        - hi
+      properties:
+        lo:
+          type: number
+          format: double
+          description: Lower edge of the acceptable band (in the outcome's measurement units)
+          example: -0.14
+        hi:
+          type: number
+          format: double
+          description: Upper edge of the acceptable band (in the outcome's measurement units)
+          example: -0.06
+        target:
+          type: number
+          format: double
+          description: Aim point inside the band - receipt and reporting only, never judged
+          example: -0.10
+
+    SteerwishLimits:
+      type: object
+      description: Guardrails on how the wish may be served - checked at plan time, refusal names the binding one
+      properties:
+        exclude:
+          type: array
+          items:
+            type: string
+          description: Param names that may not be moved at all
+          example: []
+        maxChange:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          exclusiveMinimum: true
+          description: No input may end further from its neutral point than this fraction of its own range
+          example: 0.5
+
+    SteerwishCreate:
+      type: object
+      required:
+        - outcome
+        - band
+      properties:
+        outcome:
+          type: string
+          minLength: 1
+          description: Plain name of the measured value this wish is about - must resolve to exactly one entry in the map's outcome registry
+          example: "chainend.shift"
+        band:
+          $ref: '#/components/schemas/SteerwishBand'
+        limits:
+          $ref: '#/components/schemas/SteerwishLimits'
+        budget:
+          type: integer
+          minimum: 0
+          description: Re-act allowance after drift events; omitted means upkeep indefinitely
+          example: 2
+        regime:
+          type: string
+          enum: [standing]
+          default: standing
+          description: Closing rule of the wish. Only standing exists today (held until closed); time-bound and event-bound close rules are planned
+
+    SteerwishEvent:
+      type: object
+      required:
+        - type
+        - at
+      properties:
+        type:
+          type: string
+          enum: [declared, planned, refused, acted, landed, missed, re_opened, closed]
+          description: Lifecycle event kind
+          example: "declared"
+        at:
+          type: string
+          format: date-time
+          description: When the event was stamped
+          example: "2026-09-10T10:30:00Z"
+        detail:
+          type: string
+          description: Optional evidence or reason (a refusal names its binding constraint)
+          example: "target outside measured range"
+
+    Steerwish:
+      type: object
+      required:
+        - id
+        - outcome
+        - band
+        - state
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the steerwish
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        outcome:
+          type: string
+          description: Plain name of the measured value this wish holds
+          example: "chainend.shift"
+        band:
+          $ref: '#/components/schemas/SteerwishBand'
+        limits:
+          $ref: '#/components/schemas/SteerwishLimits'
+        budget:
+          type: integer
+          minimum: 0
+          description: Remaining re-act allowance; omitted means upkeep indefinitely
+          example: 2
+        regime:
+          type: string
+          enum: [standing]
+          description: Closing rule; standing today
+          example: "standing"
+        state:
+          type: string
+          enum: [declared, planned, refused, acted, landed, missed, re_opened, closed]
+          description: Derived lifecycle state - the latest event, computed on read (never stored)
+          readOnly: true
+          example: "declared"
+        createdAt:
+          type: string
+          format: date-time
+          description: When the wish was declared
+          readOnly: true
+          example: "2026-09-10T10:30:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the latest event was stamped
+          readOnly: true
+          example: "2026-09-10T10:30:00Z"
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SteerwishEvent'
+          description: Full lifecycle history - truth lives here, state derives from it
+          readOnly: true
+
+    SteerwishSummary:
+      type: object
+      required:
+        - id
+        - outcome
+        - state
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the steerwish
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        outcome:
+          type: string
+          description: Plain name of the measured value this wish holds
+          example: "chainend.shift"
+        state:
+          type: string
+          enum: [declared, planned, refused, acted, landed, missed, re_opened, closed]
+          description: Derived lifecycle state
+          readOnly: true
+          example: "declared"
+        createdAt:
+          type: string
+          format: date-time
+          description: When the wish was declared
+          readOnly: true
+          example: "2026-09-10T10:30:00Z"
+
+    SteerwishList:
+      type: array
+      items:
+        $ref: '#/components/schemas/SteerwishSummary'
+      description: Array of steerwish summary objects (without event history)
+
+    Error:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid request parameters"
+        code:
+          type: string
+          description: Machine-readable error code
+          example: "INVALID_INPUT"
+        details:
+          type: object
+          description: Additional error details and context
+          additionalProperties: true
+          example:
+            field: "name"
+            reason: "Name must be between 1 and 255 characters"
+
+    SuccessMessage:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable success message
+          example: "Operation completed successfully"
+
+    Credential:
+      type: object
+      required:
+        - id
+        - name
+        - credentialType
+        - windmillVariable
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the credential
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the credential (alphanumeric, hyphens, and underscores only)
+          example: "production_ssh_key"
+        credentialType:
+          type: string
+          enum: ["ssh_private_key", "api_token", "database_connection", "http_basic_auth"]
+          description: Type of credential
+          example: "ssh_private_key"
+        description:
+          type: string
+          description: Human-readable description of the credential's purpose
+          example: "SSH key for production servers"
+        windmillVariable:
+          type: string
+          description: Path to the corresponding Windmill variable (auto-generated from name)
+          readOnly: true
+          example: "f/vars/prod_ssh_key"
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the credential was created
+          readOnly: true
+          example: "2024-01-15T10:30:00Z"
+        lastUsedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the credential was last accessed
+          readOnly: true
+          example: "2024-01-16T14:20:00Z"
+        content:
+          type: string
+          description: The actual credential content (only included in GET /credentials/{id} responses)
+          example: "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA2Z2H7V..."
+
+    CredentialCreate:
+      type: object
+      required:
+        - name
+        - credentialType
+        - content
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the credential
+          example: "production_ssh_key"
+        credentialType:
+          type: string
+          enum: ["ssh_private_key", "api_token", "database_connection", "http_basic_auth"]
+          description: Type of credential being stored
+          example: "ssh_private_key"
+        description:
+          type: string
+          description: Human-readable description of the credential's purpose
+          example: "SSH key for production servers"
+        content:
+          type: string
+          description: |
+            The actual credential content (e.g., private key content, API token, etc.).
+            This is sent over HTTPS and stored encrypted in Windmill's per-workspace encryption.
+          example: "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA2Z2H7V..."
+
+    CredentialList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Credential'
+      description: Array of credential objects (excluding the actual credential content)
+
+    Target:
+      type: object
+      required:
+        - id
+        - name
+        - targetType
+        - spec
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the target
+          readOnly: true
+          example: "550e8400-e29b-41d4-a716-446655440020"
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the target (alphanumeric, hyphens, and underscores only)
+          example: "production-server-1"
+        targetType:
+          type: string
+          enum: ["ssh", "http"]
+          description: Type of target system
+          example: "ssh"
+        spec:
+          type: object
+          description: "Type-specific configuration. SSH spec: {address, username, ssh_key_variable_path}. HTTP spec: {url, auth_type}."
+          additionalProperties: true
+          example:
+            address: "10.0.5.53"
+            username: "godon_robot"
+            ssh_key_variable_path: "f/vars/prod_ssh_key"
+        metadata:
+          type: object
+          description: Optional metadata associated with the target
+          additionalProperties: true
+          example:
+            description: "Production server for network optimization"
+            allows_downtime: false
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the target was created
+          readOnly: true
+          example: "2024-01-15T10:30:00Z"
+        lastUsedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the target was last used by a systemtender
+          readOnly: true
+          example: "2024-01-16T14:20:00Z"
+
+    TargetCreate:
+      type: object
+      required:
+        - name
+        - targetType
+        - spec
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]+$'
+          description: Human-readable name for the target
+          example: "production-server-1"
+        targetType:
+          type: string
+          enum: ["ssh", "http"]
+          description: Type of target system
+          example: "ssh"
+        spec:
+          type: object
+          description: "Type-specific configuration. SSH spec: {address, username, ssh_key_variable_path}. HTTP spec: {url, auth_type}."
+          additionalProperties: true
+          example:
+            address: "10.0.5.53"
+            username: "godon_robot"
+            ssh_key_variable_path: "f/vars/prod_ssh_key"
+        metadata:
+          type: object
+          description: Optional metadata associated with the target
+          additionalProperties: true
+          example:
+            allows_downtime: false
+
+    TargetList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Target'
+      description: Array of target objects
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters or malformed request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            invalidInput:
+              summary: Invalid input validation
+              value:
+                message: "Invalid request parameters"
+                code: "INVALID_INPUT"
+                details:
+                  field: "name"
+                  reason: "Name is required and must contain only alphanumeric characters, hyphens, and underscores (no spaces)"
+
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            notFound:
+              summary: Systemtender not found
+              value:
+                message: "Systemtender not found"
+                code: "NOT_FOUND"
+                details:
+                  uuid: "550e8400-e29b-41d4-a716-446655440000"
+
+    Conflict:
+      description: Resource conflict (e.g., duplicate name)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            duplicate:
+              summary: Duplicate systemtender name
+              value:
+                message: "A systemtender with this name already exists"
+                code: "DUPLICATE_RESOURCE"
+                details:
+                  field: "name"
+                  value: "genetic-optimizer-1"
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            serverError:
+              summary: Unexpected server error
+              value:
+                message: "An unexpected error occurred"
+                code: "INTERNAL_SERVER_ERROR"
+
+    NotImplementedServerError:
+      description: Not Implented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            serverError:
+              summary: Not implemented
+              value:
+                message: "Not implemented on server side"
+                code: "NOT_IMPLEMENTED_ERROR"
+
