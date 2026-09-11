@@ -8,7 +8,7 @@ hide:
 ---
 
 <div class="api-html">
-<script id="api-reference" data-url="https://raw.githubusercontent.com/godon-dev/godon-images/refs/heads/main/images/godon-api/openapi.yml"></script>
+<script id="api-reference" data-url="openapi.yml"></script>
 <script>
   var configuration = {
     theme: 'purple'
