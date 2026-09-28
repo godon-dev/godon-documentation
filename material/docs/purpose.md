@@ -51,7 +51,7 @@ Once systemtenders know who they're coupled to, they can adapt. Instead of blind
 
 ### Tending
 
-Steer the whole system jointly, accounting for coupling, toward better operating points. Not each optimizer independently chasing its own optimum at the expense of neighbors, but coordinated improvement that respects the real topology.
+Steering here is intent-driven. A holder — human or AI mind — declares a steerwish, and the engine carries that intent into the live system. A wish holds chosen values on chosen axes — one or several measured outcomes, each kept in its band, a little wiggle around what matters — under terms that respect the environment: parameters that must not move, rates of change, budgets. The engine measures the room, plans against the measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several steerwishes can live on one complex system — kept together where possible, collisions surfaced where not. The engine invents no intents and weighs none against another; it facilitates them. And keeping is priced, visibly, in trials.
 
 ### Isolation Certification
 
@@ -68,21 +68,23 @@ entire loop — not stacked in a pipeline, but as collaborating co-pilots
 with different strengths. Multiple LLM agents can work in parallel on the
 same godon cluster, each focusing on a different aspect.
 
+As systems grow more entangled, steering may pass beyond what humans can hold alone — the steerwish is the fence that lets co-minds carry part of it without seizing it: a durable record with coordinates, terms, and a full trail.
+
 Humans contribute:
 
 - **Domain expertise** — deep knowledge of the system's physics, constraints,
   and operational realities that no model carries
 - **Operational judgment** — when to push, when to hold, when something
   looks wrong, when to intervene
-- **Charter design** — translate goals into structured optimization
-  campaigns: parameters, objectives, guardrails, constraints
+- **Charter design** — translate goals into steerwishes and campaigns:
+  declared points, bands, terms, guardrails, constraints
 - **Architecture decisions** — given a discovered coupling topology, decide
   what to do: isolate, schedule, constrain, restructure
 
 LLMs contribute:
 
-- **Charter generation** — draft optimization charters from natural language
-  intent, propose parameter spaces and objectives
+- **Charter generation** — draft steerwishes and campaigns from natural
+  language intent, propose parameter spaces and objectives
 - **System comprehension** — interpret discovered coupling topology and
   explain what it means: "Your GPU job's batch size is silently degrading
   training throughput through L3 cache contention"
@@ -119,6 +121,8 @@ Not limited to physical resource contention. The coupling problem exists whereve
 | Capability | Description |
 |------------|-------------|
 | **Topology Discovery** | Discover internal live system interplay topology from behavior — not assumed from diagrams or models |
+| **Measured Map (Connectome)** | The wiring map measured from the system's own responses — partial by design, re-measured as the system drifts |
+| **Intent Keeping (Steerwishes)** | Declared intents held against drift — several wishes on one system, refused by name when unkeepable, kept at a measured price |
 | **Diagnostics** | Trace regressions and anomalies to their actual source through discovered coupling paths |
 | **Coordination** | Systemtenders adapt their behavior given known coupling — constraining, scheduling, avoiding interference |
 | **Live System Tending** | Continuously steer toward better operating points with guardrails and rollback |
@@ -148,7 +152,7 @@ Humans and LLMs work alongside godon, not above it:
 |-------|-------------|-----|
 | **Discernment** | Probe, measure, discover hidden causal structure | **Godon** |
 | **Comprehension** | Interpret topology, explain findings, draft charters, propose strategies | LLM agents + Human operators |
-| **Tending** | Steer the system toward better operating points | **Godon** |
+| **Tending** | Facilitate declared steerwishes — hold chosen values against drift, surface collisions | **Godon** |
 | **Reality** | Execute, measure, provide feedback | Live systems |
 
 Multiple LLM agents and humans work in parallel on the comprehension layer.
@@ -160,4 +164,5 @@ their work grounded in measured reality.
 - Active perturbation over passive observation
 - Empirical discovery over assumed models
 - Cultivation over one-shot optimization
+- Declared intent over invented objectives
 - Open source. AGPLv3.
