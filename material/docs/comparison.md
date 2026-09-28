@@ -1,5 +1,5 @@
 ---
-description: "godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — what godon does that nobody else can."
+description: "godon comparison vs Optuna, Hyperopt, Nevergrad, Ray Tune, Ax, Akamas, StormForge, Datadog, KEDA — every tool below finds settings; none keeps one. Finding is a crowded field. Keeping is godon's category."
 ---
 
 <!--
@@ -25,15 +25,13 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Positioning
 
-Godon occupies a different category than the tools below. The core distinction is methodological: godon discerns hidden system structure through active perturbation, generating empirical counterfactuals. Passive observation — whether from monitoring tools or statistical inference — cannot structurally distinguish coupling from confounding.
+Every tool below finds settings. None of them keeps one.
 
-**Libraries** (Optuna, Hyperopt, Nevergrad) provide algorithm primitives — you build the application around them.
+Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a room but cannot refuse, keeps no record of why it acts, and re-learns from scratch when the room drifts.
 
-**Frameworks** (Ray Tune, Ax) provide orchestration for ML workloads — you adapt to their model.
+Godon keeps. A holder — human or AI mind — declares a chosen point: a band on a measured value, with terms for how it may be served. The engine measures the room, plans against its measured map, holds the point while the world drifts, and refuses by name when a promise cannot be kept. Keeping is priced — the trials it costs are counted, not hidden.
 
-**SaaS Platforms** (Akamas, StormForge) provide managed optimization — you subscribe and cede control.
-
-**AIOps** (Datadog, Dynatrace) observe and alert — they don't probe or discover causal structure.
+Finding is well served by the tools below; several are excellent at it. Keeping — declared intent, held continuously on a measured map, honestly refused, visibly priced — none of them offers. That conjunction is godon's category.
 
 Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds toward better operating points.
 
@@ -151,6 +149,21 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | Data Ownership | Full | Vendor-hosted |
 | Cost | Free | Subscription tiers |
 
+## Model-Based RL
+
+The closest cousin: like godon, model-based reinforcement learning learns a model of its environment and plans against it. The fair representatives are PILCO-class (Gaussian-process world models) and PETS-class (ensemble neural world models); SAC as the model-free regime exhibit.
+
+| Aspect | Godon | Model-Based RL (PILCO / PETS class) |
+|--------|-------|--------------------------------------|
+| World model | Measured curves with error bars, partial by design | Learned model, full-coverage assumption |
+| Keeping | Holds a declared band, with terms | Optimizes a return; no keep semantics |
+| Refusal | Named refusal when a promise cannot be kept | None — it keeps sampling |
+| Drift | Demotes curves to priors, re-anchors on the map | Discards the model, re-learns from scratch |
+| Records | Full event trail — every verdict re-derivable | Trajectories only |
+| Home regime | Costly, drifting trials (production) | Dense, cheap interaction (simulation) |
+
+Different home turf, honestly stated: dense cheap interaction is where that family shines, and its behavior under capped budget in a costly drifting regime is regime evidence, not a defeat. The planned referee grid (see [Open Research](open_research.md)) gives both families equal budget and equal observation access.
+
 ## Infrastructure Optimization Platforms
 
 ### Akamas
@@ -226,6 +239,9 @@ Godon can discern interference between HPA and VPA decisions, and tend autoscale
 
 | Feature | Godon | Optuna | Ray Tune | Ax | Akamas | StormForge | Datadog |
 |---------|-------|--------|----------|-----|--------|------------|---------|
+| **Keeps a declared point (wish)** | **Yes** | No | No | No | No | No | No |
+| **Refusal with named reason** | **Yes** | No | No | No | No | No | No |
+| **Measured map (connectome)** | **Yes** | No | No | No | No | No | No |
 | **Coupling Detection** | **Yes** | No | No | No | No | No | No |
 | **Topology Discovery** | **Yes** | No | No | No | No | No | No |
 | **Isolation Certification** | **Yes** | No | No | No | No | No | No |
@@ -239,4 +255,4 @@ Godon can discern interference between HPA and VPA decisions, and tend autoscale
 | **Open Source** | Yes | Yes | Yes | Partial | No | No | No |
 | **Self-hosted** | Yes | N/A | Yes | Yes | No | No | No |
 
-Coupling detection, topology discovery, and isolation certification appear in **no other tool**. This is godon's unique category.
+Coupling detection, topology discovery, and isolation certification appear in **no other tool**. And keeping — declared intent held on a measured map, honestly refused, visibly priced — appears in none either. Finding is a crowded field; keeping, in the open tooling landscape, is godon's category.
