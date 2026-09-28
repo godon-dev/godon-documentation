@@ -29,7 +29,7 @@ Every tool below finds settings. None of them keeps one.
 
 Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a room but cannot refuse, keeps no record of why it acts, and re-learns from scratch when the room drifts.
 
-Godon keeps. A holder — human or AI mind — declares a chosen point: a band on a measured value, with terms for how it may be served. The engine measures the room, plans against its measured map, holds the point while the world drifts, and refuses by name when a promise cannot be kept. Keeping is priced — the trials it costs are counted, not hidden.
+Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a steerwish, and the engine serves that intent. A wish holds chosen values on chosen axes: one or several measured outcomes, each kept in its band, under terms that respect the rest of the system. It measures the room, plans against its measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several steerwishes can live on one complex system — kept together where the room allows, collisions surfaced where it does not. Keeping is priced: the trials it costs are counted, not hidden.
 
 Finding is well served by the tools below; several are excellent at it. Keeping — declared intent, held continuously on a measured map, honestly refused, visibly priced — none of them offers. That conjunction is godon's category.
 
@@ -239,7 +239,7 @@ Godon can discern interference between HPA and VPA decisions, and tend autoscale
 
 | Feature | Godon | Optuna | Ray Tune | Ax | Akamas | StormForge | Datadog |
 |---------|-------|--------|----------|-----|--------|------------|---------|
-| **Keeps a declared point (wish)** | **Yes** | No | No | No | No | No | No |
+| **Holds declared intents (steerwishes)** | **Yes** | No | No | No | No | No | No |
 | **Refusal with named reason** | **Yes** | No | No | No | No | No | No |
 | **Measured map (connectome)** | **Yes** | No | No | No | No | No | No |
 | **Coupling Detection** | **Yes** | No | No | No | No | No | No |
