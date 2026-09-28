@@ -1,5 +1,5 @@
 ---
-description: "godon Steerwish concept — a declared wish with coordinates: a named measured outcome brought into its band and held. The record ships today (declare, list, get, close); the serving loop is the active development rung."
+description: "godon Steerwish concept — a declared wish with coordinates: one or more claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is the demonstration now closing out."
 ---
 
 <!--
@@ -23,7 +23,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Steerwish
 
-A **steerwish** is a declared wish with coordinates: a named measured value is to be brought into its band and held there. A wish is a chosen state, not a maximum — it asks for a condition to keep, not a score to push upward. Wishes are declared, never invented by the engine: someone states the outcome; the engine's work starts from that statement.
+A **steerwish** is a declared wish with coordinates: one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A wish is a chosen state, not a maximum — it asks for conditions to keep, not scores to push upward. Wishes are declared, never invented by the engine: a holder — human or AI mind — states the outcomes; the engine's work starts from that statement.
+
+Holding a chosen state within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
 
 The connectome is what a wish is held on — the outcome must resolve to a measured entry in the map ([Connectome](concept_connectome.md)).
 
@@ -33,15 +35,26 @@ The declaration is a durable, withdrawable record — the safety device for ever
 
 Closing is equally explicit. A closed wish binds nothing — history, not law. On close, the serving side releases its setting back to neutral.
 
+A standing wish the world has moved beyond is neither silently abandoned nor silently rewritten. The holder decides: close it, or **correct** it in place — the same wish re-aimed to new terms, stamped with the previous band, identity and trail intact. Correcting, not replacing, is the primitive: a replacement wish for the same intent loses the trail.
+
 ### Coordinates
+
+A wish carries one or more **claims**; each claim names one measured value and the band to keep it in:
 
 | Field | Meaning |
 |-------|---------|
 | **outcome** | Plain name of the measured value — must resolve to exactly one entry in the connectome's outcome registry |
 | **band** | `lo` / `hi` / `target` — the acceptable band, in the outcome's own measurement units |
-| **limits** | How the wish may be served: parameters excluded from movement, a maximum change per act — checked at plan time; a refusal names the binding one |
+
+The remaining fields are the **terms** — the fences around how the wish may be served, not what is kept:
+
+| Field | Meaning |
+|-------|---------|
+| **limits** | Parameters excluded from movement, a maximum change per act — checked at plan time; a refusal names the binding one |
 | **budget** | Re-act allowance after drift events; omitted means upkeep indefinitely |
 | **regime** | The closing rule — `standing` today (held until closed); time-bound and event-bound close rules are planned |
+
+One judge rules the whole conjunction, claims first, then terms: every claim inside its band, every term respected. A broken term counts as a miss. What cannot be kept is refused — by name, never silently.
 
 ### Lifecycle
 
@@ -50,18 +63,19 @@ declared ──▶ planned ──▶ acted ──▶ landed
     │           │                   │
     │           └──▶ refused        ├──▶ missed ──▶ re_opened
     │                               │
-    └───────────────────────────────┴──▶ closed
+    └───────────┬───────────────────┴──▶ closed
+                └──▶ corrected ──▶ planned   (same wish, new terms)
 ```
 
-The events — `declared`, `planned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `closed` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range").
+The events — `declared`, `planned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `closed` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range").
 
 Judging is in/out of band only. The target inside the band is receipt and reporting — not a grade, not a maximization score.
 
 ### What Ships Today
 
-The record surface: declare, list, get, close — through the REST API (`/steerwishes`) and the `steerwish_*` MCP tools, with validation at the door and the full event history on every read.
+The record and the serving loop are live. The surface — declare, list, get, close, and **update** (the holder's correction of a standing wish) — is served through the REST API (`/steerwishes`) and the `steerwish_*` MCP tools, with validation at the door and the full event history on every read.
 
-The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — is in active development, the project's current research rung; see [Open Research](open_research.md). What stays stable is the record's contract above.
+The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — has flown end-to-end: a wish landed and held its band through a live run. The full drift arc — hold, world moves, the holder corrects, re-land — is the demonstration now being closed out; see [Open Research](open_research.md). What stays stable is the record's contract above.
 
 ---
 
