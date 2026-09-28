@@ -1,5 +1,5 @@
 ---
-description: "godon Steerwish concept — a declared wish with coordinates: one or more claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is the demonstration now closing out."
+description: "godon Steerwish concept — intent made keepable: declared claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is the demonstration now closing out."
 ---
 
 <!--
@@ -23,9 +23,11 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Steerwish
 
-A **steerwish** is a declared wish with coordinates: one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A wish holds a chosen state — one that may sit at an optimum, but need not. It asks for conditions to keep, not scores to push upward. Wishes are declared, never invented by the engine: a holder — human or AI mind — states the outcomes; the engine's work starts from that statement.
+A **steerwish** is intent made keepable: a holder — human or AI mind — states a chosen point for a live system, and the engine holds it there. The intent is declared, never invented by the engine; the engine's work starts from that statement.
 
-Holding a chosen state within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
+A wish carries one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A chosen point may sit at an optimum, but need not: a steerwish asks for conditions to keep, not scores to push upward.
+
+Holding a chosen point within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
 
 The connectome is what a wish is held on — the outcome must resolve to a measured entry in the map ([Connectome](concept_connectome.md)).
 
