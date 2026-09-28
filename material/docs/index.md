@@ -46,6 +46,8 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 - :fontawesome-solid-flask: **Causation, not correlation** — Real counterfactuals through experimentation, not inference from observation.
 - :fontawesome-solid-cube: **No upfront modeling** — The system's model emerges from its own response to pressure. The live system is the model.
 - :fontawesome-solid-microchip: **Systemtender agents** — Safe, guarded, rollback-capable. Probe and tend in production.
+- :fontawesome-solid-circle-nodes: **The connectome** — the measured wiring map: nodes, directed edges, response curves with honest error bars. Partial by design; ask it and it predicts, touch it and it verifies.
+- :fontawesome-solid-wand-magic-sparkles: **Steerwishes** — declared promises with coordinates: a named measured value brought into its band and held. A chosen state, not a maximum.
 - :fontawesome-solid-cogs: **Co-pilot validation** — Human and LLM intuition tested against reality — kept if better, discarded if not.
 - :fontawesome-solid-shield-halved: **Isolation certification** — The same signal that finds coupling can prove absence.
 
