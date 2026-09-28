@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Steerwish
 
-A **steerwish** is a declared wish with coordinates: one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A wish is a chosen state, not a maximum — it asks for conditions to keep, not scores to push upward. Wishes are declared, never invented by the engine: a holder — human or AI mind — states the outcomes; the engine's work starts from that statement.
+A **steerwish** is a declared wish with coordinates: one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A wish is a chosen state — it may sit at an optimum, but it need not: it asks for conditions to keep, not scores to push upward. Wishes are declared, never invented by the engine: a holder — human or AI mind — states the outcomes; the engine's work starts from that statement.
 
 Holding a chosen state within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
 
