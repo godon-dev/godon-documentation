@@ -25,7 +25,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 A **steerwish** is intent made keepable: a holder — human or AI mind — states a chosen point for a live system, and the engine holds it there. The intent is declared, never invented by the engine; the engine's work starts from that statement.
 
-A wish carries one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A chosen point may sit at an optimum, but need not: a steerwish asks for conditions to keep, not scores to push upward.
+A wish carries one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A chosen point may sit at an optimum, but need not: a steerwish asks for conditions to keep, not scores to push.
 
 Holding a chosen point within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
 
@@ -35,7 +35,7 @@ The connectome is what a wish is held on — the outcome must resolve to a measu
 
 The declaration is a durable, withdrawable record — the safety device for everything that acts on it. Validation happens at the door: a malformed wish is rejected before any planning.
 
-Closing is equally explicit. A closed wish binds nothing — history, not law. On close, the serving side releases its setting back to neutral.
+Closing is equally explicit. A closed wish binds nothing — history, not law. On close, the serving side releases its setting back to neutral — the un-steered baseline.
 
 A standing wish the world has moved beyond is neither silently abandoned nor silently rewritten. The holder decides: close it, or **correct** it in place — the same wish re-aimed to new terms, stamped with the previous band, identity and trail intact. Correcting, not replacing, is the primitive: a replacement wish for the same intent loses the trail.
 
@@ -71,7 +71,7 @@ declared ──▶ planned ──▶ acted ──▶ landed
 
 The events — `declared`, `planned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `closed` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range").
 
-Judging is in/out of band only. The target inside the band is receipt and reporting — not a grade, not a maximization score.
+Judging is in/out of band only. The target inside the band is for receipts and reporting — not a grade, not a score to optimize.
 
 ### What Ships Today
 
