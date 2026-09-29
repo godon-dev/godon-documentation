@@ -1,5 +1,5 @@
 ---
-description: "godon Steerwish concept — intent made keepable: declared claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is the demonstration now closing out."
+description: "godon Steerwish concept — intent made keepable: declared claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is in development."
 ---
 
 <!--
@@ -35,7 +35,7 @@ The connectome is what a wish is held on — the outcome must resolve to a measu
 
 The declaration is a durable, withdrawable record — the safety device for everything that acts on it. Validation happens at the door: a malformed wish is rejected before any planning.
 
-Closing is equally explicit. A closed wish binds nothing — history, not law. On close, the serving side releases its setting back to neutral.
+Closing is equally explicit. A closed wish binds nothing — history, not law. On close, the serving side releases its setting back to neutral — the un-steered baseline.
 
 A standing wish the world has moved beyond is neither silently abandoned nor silently rewritten. The holder decides: close it, or **correct** it in place — the same wish re-aimed to new terms, stamped with the previous band, identity and trail intact. Correcting, not replacing, is the primitive: a replacement wish for the same intent loses the trail.
 
@@ -71,13 +71,13 @@ declared ──▶ planned ──▶ acted ──▶ landed
 
 The events — `declared`, `planned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `closed` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range").
 
-Judging is in/out of band only. The target inside the band is receipt and reporting — not a grade, not a maximization score.
+Judging is in/out of band only. The target inside the band is for receipts and reporting — not a grade, not a score to maximize.
 
 ### What Ships Today
 
 The record and the serving loop are live. The surface — declare, list, get, close, and **update** (the holder's correction of a standing wish) — is served through the REST API (`/steerwishes`) and the `steerwish_*` MCP tools, with validation at the door and the full event history on every read.
 
-The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — has flown end-to-end: a wish landed and held its band through a live run. The full drift arc — hold, world moves, the holder corrects, re-land — is the demonstration now being closed out; see [Open Research](open_research.md). What stays stable is the record's contract above.
+The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — has run end-to-end: a wish landed and held its band through a live run. The full drift arc — hold, world moves, the holder corrects, re-land — is a known limit, not the destination; more in development — see [Open Research](open_research.md). What stays stable is the record's contract above.
 
 ---
 
