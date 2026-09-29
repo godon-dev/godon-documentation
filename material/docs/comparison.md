@@ -27,9 +27,9 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 Every tool below finds settings. None of them keeps one.
 
-Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a room but cannot refuse, keeps no record of why it acts, and re-learns from scratch when the room drifts.
+Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a model of its environment but cannot refuse, keeps no record of why it acts, and re-learns from scratch when that environment drifts.
 
-Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a steerwish, and the engine serves that intent. A wish holds chosen values on chosen axes: one or several measured outcomes, each kept in its band, under terms that respect the rest of the system. It measures the room, plans against its measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several steerwishes can live on one complex system — kept together where the room allows, collisions surfaced where it does not. Keeping is priced: the trials it costs are counted, not hidden.
+Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a steerwish, and the engine serves that intent. A wish holds chosen values on chosen axes: one or several measured outcomes, each kept in its band, under terms that respect the rest of the system. It measures, plans against the measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several steerwishes can live on one complex system — kept together where that is possible, collisions surfaced where it is not. Keeping is priced: the trials it costs are counted, not hidden.
 
 Finding is well served by the tools below; several are excellent at it. Keeping — declared intent, held continuously on a measured map, honestly refused, visibly priced — none of them offers. That conjunction is godon's category.
 
@@ -58,16 +58,6 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
-
-## Overview
-
-| Category | Tools |
-|----------|-------|
-| **Optimization Libraries** | Optuna, Hyperopt, Nevergrad, Scikit-Optimize |
-| **ML Frameworks** | Ray Tune, Ax/BoTorch, Weights & Biases |
-| **Infrastructure Platforms** | Akamas, StormForge, Turbonomic |
-| **AIOps / Observability** | Datadog, Dynatrace, New Relic |
-| **Kubernetes Autoscaling** | KEDA, HPA/VPA, Predictive HPA |
 
 ## Optimization Libraries
 
