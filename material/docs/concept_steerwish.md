@@ -1,5 +1,5 @@
 ---
-description: "godon Steerwish concept — intent made keepable: declared claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is in development."
+description: "godon Steerwish concept — intent made keepable: declared claims (named measured values with bands) under terms, brought into their bands and held. Record and serving loop are live — declare, list, get, close, update; the full drift arc is the demonstration now closing out."
 ---
 
 <!--
@@ -25,7 +25,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 A **steerwish** is intent made keepable: a holder — human or AI mind — states a chosen point for a live system, and the engine holds it there. The intent is declared, never invented by the engine; the engine's work starts from that statement.
 
-A wish carries one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A chosen point may sit at an optimum, but need not: a steerwish asks for conditions to keep, not scores to push upward.
+A wish carries one or more **claims** — each a named measured value to be brought into its band and held there — under optional **terms**. A chosen point may sit at an optimum, but need not: a steerwish asks for conditions to keep, not scores to push.
 
 Holding a chosen point within bounds is an old idea — thermostats keep temperature, SLOs keep latency, control loops keep setpoints. What we know of no open counterpart for is the conjunction: the band is declared on a measured map rather than an assumed model; the keeping runs continuously against a drifting system; an unkeepable wish is refused by name rather than silently degraded; and the keeping is priced, visibly, in trials. The declarer is a holder — human or AI mind; what never happens is the serving layer inventing its own intents. Fragments of this live in control, in optimization, in observability. The whole is the steerwish.
 
@@ -71,13 +71,13 @@ declared ──▶ planned ──▶ acted ──▶ landed
 
 The events — `declared`, `planned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `closed` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range").
 
-Judging is in/out of band only. The target inside the band is for receipts and reporting — not a grade, not a score to maximize.
+Judging is in/out of band only. The target inside the band is for receipts and reporting — not a grade, not a score to optimize.
 
 ### What Ships Today
 
 The record and the serving loop are live. The surface — declare, list, get, close, and **update** (the holder's correction of a standing wish) — is served through the REST API (`/steerwishes`) and the `steerwish_*` MCP tools, with validation at the door and the full event history on every read.
 
-The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — has run end-to-end: a wish landed and held its band through a live run. The full drift arc — hold, world moves, the holder corrects, re-land — is a known limit, not the destination; more in development — see [Open Research](open_research.md). What stays stable is the record's contract above.
+The serving loop — the map planning the input setting, acting on it, judging against the band, and re-acting within budget as the system drifts — has flown end-to-end: a wish landed and held its band through a live run. The full drift arc — hold, world moves, the holder corrects, re-land — is the demonstration now being closed out; see [Open Research](open_research.md). What stays stable is the record's contract above.
 
 ---
 
