@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Configuration Guide
 
-Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **steerwish declaration** is JSON, declared at runtime — what a holder asks the system to keep.
+Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **steerwish declaration** is made at runtime — what a holder asks the system to keep.
 
 Systemtender configuration is YAML with three concepts only: **objectives** (what to optimize), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group characterizes and optimizes concurrently.
 
@@ -120,22 +120,20 @@ Safety limits with automatic response (fail trial, rollback, or skip target) are
 
 ### The Shape of a Steerwish Declaration
 
-Steering is declared at runtime, not written into a config file: a steerwish is a JSON payload sent to the REST API (`/steerwishes`) or the `steerwish_declare` MCP tool. The grammar is a conjunction — one wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored.
+Steering is declared at runtime, not written into a config file: a steerwish is a payload sent to the REST API (`/steerwishes`) or the `steerwish_declare` MCP tool. The grammar is a conjunction — one wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored.
 
-```json
-{
-  "claims": [
-    { "outcome": "chainend.shift",
-      "band": { "lo": -0.14, "hi": -0.06, "target": -0.10 } }
-  ],
-  "terms": [
-    { "outcome": "chainend.offset",
-      "band": { "lo": -0.02, "hi": 0.02 } }
-  ],
-  "limits": { "exclude": ["param_2"], "maxChange": 0.5 },
-  "budget": 2,
-  "regime": "standing"
-}
+```yaml
+claims:                        # the aims — N >= 1
+  - outcome: chainend.shift
+    band: {lo: -0.14, hi: -0.06, target: -0.10}
+terms:                         # the protected readings — M >= 0
+  - outcome: chainend.offset
+    band: {lo: -0.02, hi: 0.02}
+limits:
+  exclude: [param_2]
+  maxChange: 0.5
+budget: 2
+regime: standing
 ```
 
 #### `claims` vs `terms`
