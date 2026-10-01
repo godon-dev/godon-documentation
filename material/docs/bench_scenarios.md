@@ -46,6 +46,8 @@ The configurable synthetic coupling bench. Any topology: node count, per-node pa
 
 **Detection sweep scenarios**: `scenario-generic-chain4` (4-node chain, topology recovery), `scenario-generic-pair`, `scenario-generic-noisy`, `scenario-generic-nonlinear`.
 
+**Steering scenario**: `scenario-wish-stack` — three coupled nodes built for steerwish declarations: corridors that couple the aims and the protected readings, so both claims and terms bind. Runs via a single `bench-wish-stack.yml` dispatch.
+
 Sweep results (linear coupling, noise σ=0.02): detection floor between 0.1 and 0.2 coupling strength; measurement error under 5%; **zero false positives** across all control cells; shape-agnostic at adequate coupling — saturation, threshold, and polynomial shapes all detected at strength 0.7. Honest boundary: at noise σ=0.10 with coupling 0.5, the signal sits permanently below the detection threshold — an SNR limit, not a budget limit.
 
 ### Microgrid

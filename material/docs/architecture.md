@@ -1,5 +1,5 @@
 ---
-description: "godon architecture — distributed system design with control plane, storage layer, execution layer. Optimization loop, technology choices, failure modes, and scaling."
+description: "godon architecture — distributed system design with control plane, storage layer, execution layer. Optimization loop, characterization loop, steering loop, technology choices, failure modes, and scaling."
 ---
 
 <!--
@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Architecture
 
-godon is a distributed system for live system optimization and coupling discovery. It coordinates autonomous optimization agents (systemtenders) with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
+godon is a distributed system for tending live systems: it measures the coupling structure of the system it runs on, and it steers that system toward operating points a holder chooses. It coordinates autonomous agents (systemtenders) — optimization, and the serving of declared steerwishes — with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
 
 ---
 
@@ -84,6 +84,10 @@ The external interface for managing optimization runs.
 
 The API is stateless — it delegates to Windmill for orchestration.
 
+#### MCP Server
+
+The agent-facing external interface beside the REST API ([MCP Interface](mcp.md)): management and steering tools proxy the godon API; the map-reading tools query the causal service directly, so LLM clients see the same measured structure the engine holds.
+
 #### Windmill
 
 Workflow orchestration engine that schedules and executes godon jobs.
@@ -97,6 +101,10 @@ Workflow orchestration engine that schedules and executes godon jobs.
 
 Windmill provides the execution backbone without godon needing to implement scheduling logic.
 
+#### Controller
+
+Lifecycle logic between the API and the workers, executed as Windmill scripts: validation of steerwish declarations and corrections at the door (the grammar is checked before any planning; a refusal names its binding constraint), systemtender coordination, and cleanup cascades.
+
 #### Godon Causal
 
 The measurement computation service. Systemtenders push parameters and observe objectives; causal owns everything computed FROM those trials:
@@ -109,7 +117,7 @@ The measurement computation service. Systemtenders push parameters and observe o
 | Persistence | Curves survive restarts (write-through + replay) and follow systemtender lifecycle (purge cascade) |
 | Graph artifact | The measured coupling structure, exportable as a versioned artifact |
 
-Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` and `/predict/multihop`, `/graph` and `/artifact` (the measured coupling map, exportable), `/walk-view/{sender}`, `/impact/{systemtender_id}`, `/causes/{systemtender_id}`.
+Rust service, port 8091. Key endpoints: `/detect/{sender}/{receiver}`, `/characterize` (probe results in, shift/delta/convergence out), `/curves`, `/predict` and `/predict/multihop`, `/graph` and `/artifact` (the measured coupling map, exportable), `/impact/{systemtender_id}`, `/causes/{systemtender_id}`.
 
 #### Godon Observer
 
@@ -243,6 +251,28 @@ Systemtenders in the same interference group coordinate through DB-backed leases
 
 The walk is deterministic (farthest-point level order: midpoint, extremes, quarters), so coverage is a contract — no level is skipped while the walk runs, and re-measurement within bars blends instead of accumulating noise.
 
+### Steering Loop (the action half)
+
+Basic steering is live — the loop that turns a declared steerwish into a held state on the live system:
+
+```
+  Holder:  declare a wish — claims (readings to keep in bands), optional
+           terms (protected readings), limits, budget
+  Door:    validate before any planning — a malformed or unkeepable wish
+           is refused by name
+  Plan:    the measured map compiles the claims into an input setting;
+           inputs shared between claims are reconciled, terms bound the move
+  Serve:   a systemtender applies the setting and holds it
+  Judge:   every claim and term read against its band — one verdict, the
+           conjunction; a miss is stamped with its evidence
+  Drift:   the reading leaves band — the wish re-acts within budget, or
+           the holder corrects the terms in place
+  Close:   the wish ends — the serving systemtender releases its setting
+           back to neutral
+```
+
+The declaration is a durable, withdrawable record — the safety device for everything that acts on it ([Steerwish](concept_steerwish.md)). Serving rides the same machinery as optimization: same guardrails, same effectuation channels, no special permissions.
+
 ---
 
 ### Technology Choices
@@ -329,5 +359,6 @@ godon is deployed via Helm chart to Kubernetes.
 ### See Also
 
 - [Core Concepts](concept_systemtender.md) — Systemtender, Effectuator, Reconnaissance, Guardrails
+- [Steerwish](concept_steerwish.md) — the steering loop's intent surface
 - [Configuration Guide](config_guide.md) — How to configure optimization runs
 - [Setup](setup.md) — Installation instructions
