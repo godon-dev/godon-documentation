@@ -1,11 +1,11 @@
 ---
-description: "godon science references — the published work the method rests on: evolutionary-algorithm foundations, probe-block design, CFAR detection, block-oriented composition, fair sharing, and cybernetics."
+description: "godon science references — the published work the method rests on and the neighbors it is positioned against: evolutionary-algorithm foundations, probe-block design, CFAR detection, causal framing, block-oriented composition, fair sharing, cybernetics, and the passive-inference neighbors."
 ---
 
 # Science References 
 -------------
 
-Each entry is work the method demonstrably rests on. Neighbors the papers position against are named in the papers' related-work sections, not here.
+Each entry is work the papers name — lineage the method rests on, and the neighbors they position against. The comparisons and measured boundaries live in the papers; the [publications page](publications.md) carries them.
 
 ## Core Concepts & Proof of Concept
 
@@ -75,12 +75,38 @@ Each entry is work the method demonstrably rests on. Neighbors the papers positi
 
     Coates, Hero, Nowak and Yu, 2002. Active probing that selects its measurements adaptively. Both share godon's active-probing philosophy; the difference is that the probers are the coupled nodes themselves, not a central observer.
 
+## Causal Framing
+
+!!! quote "[14] [Causality: Models, Reasoning, and Inference](https://doi.org/10.1017/CBO9780511803161)"
+
+    Pearl, 2009. The what-if framework for interventions — confounding, do-calculus, counterfactuals. Separating coupling from confounded co-movement is the detection work's core problem, and it is this problem statement carried into a new setting: the experimenters are the coupled nodes themselves. The papers run parallel to the causal hierarchy, not on it.
+
 ## Cybernetics Roots
 
-!!! quote "[14] [Cybernetics: Or Control and Communication in the Animal and the Machine](https://doi.org/10.7551/mitpress/11810.001.0001)"
+!!! quote "[15] [Cybernetics: Or Control and Communication in the Animal and the Machine](https://doi.org/10.7551/mitpress/11810.001.0001)"
 
     Wiener, 1948. Perturbing a coupled system and observing its response to discover hidden structure is, at its root, cybernetics — the study of control and communication in coupled systems.
 
-!!! quote "[15] [An Introduction to Cybernetics](https://doi.org/10.5962/bhl.title.5851)"
+!!! quote "[16] [An Introduction to Cybernetics](https://doi.org/10.5962/bhl.title.5851)"
 
     Ashby, 1956. The law of requisite variety: a controller must model the complexity of the environment it acts on. The connectome is that model, measured empirically rather than specified analytically.
+
+## Named Neighbors
+
+The papers position godon against these; the entries say what each is, the papers measure where each stops.
+
+!!! quote "[17] System Identification: Theory for the User"
+
+    Ljung, 1999 (Prentice Hall). System identification: the mature neighbor for the quiet single-owner case — one owner, a model structure specified a priori, a system that can be paused.
+
+!!! quote "[18] [Detecting Causality in Complex Ecosystems](https://doi.org/10.1126/science.1227079)"
+
+    Sugihara, May, Ye, Hsieh, Deyle and Fogarty, 2012. Convergent cross-mapping: coupling inferred from time series. The detection paper measures where passive methods stop separating coupling from co-movement while the system itself is exploring.
+
+!!! quote "[19] [Detecting and quantifying causal associations in large nonlinear time series datasets](https://doi.org/10.1126/sciadv.aau4996)"
+
+    Runge, Nowack, Kretschmer, Flaxman and Sejdinovic, 2019. Causal association quantification for nonlinear time series — passive, like convergent cross-mapping, and measured against the same boundary in the detection paper.
+
+!!! quote "[20] [Neural Relational Inference for Interacting Systems](https://proceedings.mlr.press/v80/kipf18a.html)"
+
+    Kipf, Fetaya, Wang, Welling and Zemel, 2018 (ICML). Interaction graphs learned from trajectories; operates passively — the contrast is measured in the detection paper.
