@@ -270,6 +270,23 @@ The `/detect` response reports per-channel rising/falling edges with confidence;
 
 For the planted topology above, expect: `param_1` of the sender showing a saturation-shaped curve on the receiver's `objective_0`, `param_0`/`param_2` flat (they carry no weight), and `objective_1` flat (the edge feeds channel 0 only). Curves keyed the other direction (node-2 as sender) stay flat — nothing is planted that way.
 
+The same map through the API — the `/connectome` family, no causal port-forward needed (the API relays):
+
+```bash
+# The live connectome: every node and characterized edge currently believed in
+curl -s http://127.0.0.3:9090/connectome | jq .
+
+# Ask the map: if the sender pushes, what shifts? Reads never touch the system
+cat > /tmp/predict.json <<EOF
+{"sender_id": "${SYSTEMTENDER_1_UUID}", "impulse_scale": 1.0}
+EOF
+curl -s -X POST http://127.0.0.3:9090/connectome/predict \
+  -H 'content-type: application/json' \
+  -d @/tmp/predict.json | jq .
+```
+
+Predictions are linearized from the measured curves — one prediction per measured path from the sender, and an ask outside the measured range is refused rather than extrapolated. The same ask walks whole measured chains via `/connectome/predict/multihop`. This is the same measured map the steerwish planner compiles against in step 6: the map that predicts is the map that steers.
+
 ### Step 6: Declare a Steerwish
 
 The map is measured — now use it. A steerwish declares a chosen state; the door validates it, the measured map plans the input setting, a systemtender serves it, and the judge reads the outcome against its band.
