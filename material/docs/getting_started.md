@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Getting Started
 
-Everything in this walkthrough runs on **your machine**: your cluster, your bench simulator, your agents. No godon-dev credentials, no CI. When it's done you will have planted a coupling edge into a simulator with known ground truth, let two autonomous optimizers discover and measure it through the shared substrate, and read the measured response curves back out.
+Everything in this walkthrough runs on **your machine**: your cluster, your bench simulator, your agents. No godon-dev credentials, no CI. When it's done you will have planted a coupling edge into a simulator with known ground truth, let two autonomous optimizers discover and measure it through the shared substrate, read the measured response curves back out, and declared a steerwish that the engine planned, served, and held.
 
 Budget **45-90 minutes**, most of it waiting while the agents work.
 
@@ -270,13 +270,64 @@ The `/detect` response reports per-channel rising/falling edges with confidence;
 
 For the planted topology above, expect: `param_1` of the sender showing a saturation-shaped curve on the receiver's `objective_0`, `param_0`/`param_2` flat (they carry no weight), and `objective_1` flat (the edge feeds channel 0 only). Curves keyed the other direction (node-2 as sender) stay flat — nothing is planted that way.
 
-### Step 6: Verify with No Coupling
+### Step 6: Declare a Steerwish
+
+The map is measured — now use it. A steerwish declares a chosen state; the door validates it, the measured map plans the input setting, a systemtender serves it, and the judge reads the outcome against its band.
+
+First read the receiver's current value — the wish keeps what you have, it does not invent a target:
+
+```bash
+curl -s http://${BENCH_IP}:8090/node-2/metrics/json | jq .
+```
+
+Cut the band around the reading you just saw (example assumes `objective_0` reads `0.42` — substitute yours; a width of ±0.05 is generous at this noise level):
+
+```bash
+cat > /tmp/wish.json <<EOF
+{
+  "claims": [
+    { "outcome": "${SYSTEMTENDER_2_UUID}/objective_0",
+      "band": { "lo": 0.37, "hi": 0.47, "target": 0.42 } }
+  ]
+}
+EOF
+
+WISH_ID=$(curl -s -X POST http://127.0.0.3:9090/steerwishes \
+  -H 'content-type: application/json' \
+  -d @/tmp/wish.json | jq -r .id)
+echo "wish: ${WISH_ID}"
+```
+
+Watch it live:
+
+```bash
+curl -s http://127.0.0.3:9090/steerwishes | jq '.[] | {id, state}'
+
+curl -s http://127.0.0.3:9090/steerwishes/${WISH_ID} | jq '{state, events: [.events[] | {type, at}]}'
+```
+
+The wish moves `declared → planned → acted`: the door validates the grammar before any planning, the map compiles the claim into an input setting (the measured map decides which input serves the claim), and the assigned systemtender applies it and holds. Every judge verdict is the conjunction — each claim read against its band, with its evidence in the event history. A wish that cannot be kept is refused by name, never silently degraded.
+
+One timing rule: the map needs measured curves on the path before it can plan — declaring before they exist is refused with the reason. If you ran ahead, wait for step 5's curves and declare again.
+
+When done, close it — the serving systemtender releases its setting back to neutral:
+
+```bash
+curl -s -X POST http://127.0.0.3:9090/steerwishes/${WISH_ID}/close | jq '{state}'
+```
+
+The payload grammar — multiple claims under terms, limits, budget — is documented in the [Configuration Guide](config_guide.md#the-shape-of-a-steerwish-declaration); the record's lifecycle in [Steerwish](concept_steerwish.md).
+
+### Step 7: Verify with No Coupling
 
 Run the same walkthrough with the edge strength set to `0.0` in `topology.yaml` (or a topology without edges). Expect flat curves everywhere and no detections — the honest blank. Zero false positives across the sweep is a core validated property of the method.
 
-### Step 7: Clean Up
+### Step 8: Clean Up
 
 ```bash
+# Close the wish if you have not already — it binds nothing once closed
+curl -s -X POST http://127.0.0.3:9090/steerwishes/${WISH_ID}/close > /dev/null
+
 # Purge the systemtenders — their measured curves and observation rows are removed with them
 $CLI $API systemtender purge --force --id=${SYSTEMTENDER_1_UUID}
 $CLI $API systemtender purge --force --id=${SYSTEMTENDER_2_UUID}
@@ -290,6 +341,8 @@ docker rm -f bench-generic
 ### Understanding the Protocol
 
 The method is the **impulse protocol**: non-destructive perturbation within guardrail bounds, ABA block design (push → pause → compare), and CFAR detection with adaptive thresholds — the same statistical family as radar and sonar. Receiver exploration noise — the dominant interference signal blocker — is eliminated by the receiver holding still during measurement rather than by stronger statistics.
+
+That is the perception half. The action half is the steerwish you declared in step 6: the same measured map, planning an input setting and holding a chosen state against drift — [Steerwish](concept_steerwish.md).
 
 Full methodology and validation: [Interference Detection](concept_interference_detection.md).
 
@@ -307,5 +360,6 @@ The topology file is the experiment design:
 ### Next Steps
 
 - [Interference Detection](concept_interference_detection.md) — the methodology and its validation boundaries
+- [Steerwish](concept_steerwish.md) — the declaration surface this walkthrough touched, in full
 - [Architecture](architecture.md) — the causal service and the components around it
 - [Bench Scenarios](bench_scenarios.md) — the scenario library
