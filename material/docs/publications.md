@@ -74,4 +74,4 @@ Work produced by the godon project.
 
 - [Interference Detection](concept_interference_detection.md) — the method as implemented in the engine
 - [Detection Capabilities](detection_capabilities.md) — the validated boundary map in brief
-- [References](references.md) — external work godon builds on
+- [References](references.md) — work the papers name: lineage the method rests on, and the neighbors it is positioned against
