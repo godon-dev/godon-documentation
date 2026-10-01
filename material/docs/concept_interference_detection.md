@@ -228,7 +228,7 @@ Detection is the entry point; each deeper layer has its own page:
 - **Response curves** — the edge's measured shape, with uncertainty bars and priced stopping: [Characterization](characterization.md)
 - **Topology recovery** — pairwise measurements assemble the coupling graph (validated on chain topologies): [Detection Capabilities](detection_capabilities.md)
 - **Composition** — measured edges compose to predict multi-hop response (validated additive and nonlinear, to a measured horizon): [Characterization](characterization.md)
-- **Coupling-aware behavior** — agents adapting to known coupling; the tending direction, not yet built: [Open Research](open_research.md)
+- **Coupling-aware behavior** — steering against the measured map; basic level live, the hardening rungs open: [Open Research](open_research.md)
 
 ### Further Reading
 
