@@ -4,7 +4,9 @@ description: "godon Systemtender concept — pluggable optimization driver coord
 
 ## Systemtender
 
-A **systemtender** is the pluggable optimization driver in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Systemtenders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.
+A **systemtender** is the pluggable agent in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Systemtenders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.
+
+They also serve [steerwishes](concept_steerwish.md): when a wish is planned against the measured map, a systemtender applies the planned setting and holds it — and when the wish closes, it releases the setting back to neutral. Serving rides the same machinery as optimization: same guardrails, same effectuation channels, no special permissions.
 
 ### Core Responsibilities
 
