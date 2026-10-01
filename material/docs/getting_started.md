@@ -270,13 +270,33 @@ The `/detect` response reports per-channel rising/falling edges with confidence;
 
 For the planted topology above, expect: `param_1` of the sender showing a saturation-shaped curve on the receiver's `objective_0`, `param_0`/`param_2` flat (they carry no weight), and `objective_1` flat (the edge feeds channel 0 only). Curves keyed the other direction (node-2 as sender) stay flat — nothing is planted that way.
 
-The same map through the API — the `/connectome` family, no causal port-forward needed (the API relays):
+The same map through the API — the `/connectome` family, no causal port-forward needed (the API relays). Small examples, one concern each:
+
+**Query it.** The live connectome — every node and characterized edge currently believed in:
 
 ```bash
-# The live connectome: every node and characterized edge currently believed in
-curl -s http://127.0.0.3:9090/connectome | jq .
+curl -s http://127.0.0.3:9090/connectome | jq '{built_at, nodes: (.nodes | length)}'
+```
 
-# Ask the map: if the sender pushes, what shifts? Reads never touch the system
+**Interpret it.** The edges are the measured coupling. Each detected edge says: this sender's push shifts that receiver's channel, with what confidence, over what noise floor:
+
+```bash
+curl -s http://127.0.0.3:9090/connectome | \
+  jq '.edges[] | select(.detected) | {sender_id, receiver_id, channel, confidence, noise_floor}'
+```
+
+For the planted topology, expect exactly one detected edge — your node-1 → node-2 coupling — and its confidence against the noise floor tells you how firmly the engine believes it.
+
+**Export it.** The artifact is the map persisted at last build — complete at build time, the citable object ([Connectome](concept_connectome.md)):
+
+```bash
+curl -s http://127.0.0.3:9090/connectome/artifact > /tmp/connectome.json
+jq '{built_at, edges: (.edges | length), curves: (.curves | length)}' /tmp/connectome.json
+```
+
+**Ask it — one hop.** If the sender pushes, what shifts? Reads never touch the system:
+
+```bash
 cat > /tmp/predict.json <<EOF
 {"sender_id": "${SYSTEMTENDER_1_UUID}", "impulse_scale": 1.0}
 EOF
@@ -285,7 +305,15 @@ curl -s -X POST http://127.0.0.3:9090/connectome/predict \
   -d @/tmp/predict.json | jq .
 ```
 
-Predictions are linearized from the measured curves — one prediction per measured path from the sender, and an ask outside the measured range is refused rather than extrapolated. The same ask walks whole measured chains via `/connectome/predict/multihop`. This is the same measured map the steerwish planner compiles against in step 6: the map that predicts is the map that steers.
+One prediction per measured path from the sender; an ask outside the measured range is refused rather than extrapolated.
+
+**Ask it — chains.** The same ask walks whole measured chains — `/connectome/predict/multihop` with the same body — composing the measured pieces to the far end.
+
+**Scout a wish from it.** The prediction names the shift a push causes — wish for values the map says are reachable: read the current value (step 6 does), predict where it can go (above), and cut the band around a value the map can reach. Two honest caveats: predictions are linearized from the measured curves, and the map scouts — the judge settles. The wish's verdicts come from live readings, never from the prediction.
+
+Two more reads in the family: `/connectome/impact/{systemtender_id}` — what a systemtender's probing has moved across the map — and `/connectome/causes/{systemtender_id}` — the measured causes upstream of its nodes.
+
+This is the same measured map the steerwish planner compiles against in step 6: the map that predicts is the map that steers.
 
 ### Step 6: Declare a Steerwish
 
@@ -297,7 +325,7 @@ First read the receiver's current value — the wish keeps what you have, it doe
 curl -s http://${BENCH_IP}:8090/node-2/metrics/json | jq .
 ```
 
-Cut the band around the reading you just saw (example assumes `objective_0` reads `0.42` — substitute yours; a width of ±0.05 is generous at this noise level):
+Cut the band around the reading you just saw (example assumes `objective_0` reads `0.42` — substitute yours; a width of ±0.05 is generous at this noise level). Want a different value than today's? Scout it first — step 5's predict shows where the reading can go; bands the map can reach are the ones that land.
 
 ```bash
 cat > /tmp/wish.json <<EOF
