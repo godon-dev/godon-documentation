@@ -48,7 +48,7 @@ A wish carries one or more **claims**; each claim names one measured value and t
 | **outcome** | Plain name of the measured value — must resolve to exactly one entry in the connectome's outcome registry |
 | **band** | `lo` / `hi` / `target` — the acceptable band, in the outcome's own measurement units |
 
-The remaining fields are the **terms** — the fences around how the wish may be served, not what is kept:
+The remaining fields govern how the wish may be served, not what is kept:
 
 | Field | Meaning |
 |-------|---------|
