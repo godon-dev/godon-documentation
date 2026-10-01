@@ -30,7 +30,7 @@ The measured map — curves with per-point bars, topology, priced gaps — is an
 
 **Live Systems Tending**
 
-Detection, curves, and composition are the perception half. The action half — agents adapting to known coupling, joint moves toward chosen targets, simulate-before-execute — is the project's direction and not yet built. One receipt exists: a quiet-bench chain steered to a target at its far end (target −0.100, landed −0.1038 ± 0.038). If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and the loop is the open problem.
+Detection, curves, and composition are the perception half. The action half ships: basic steering, live end to end — a declared steerwish is planned against the measured map, acted, judged against its bands, and held; multi-outcome wishes with terms are declared and served; the holder corrects a standing wish in place ([Steerwish](concept_steerwish.md)). The open ends are hardening and coexistence: the full multi-outcome shape has flown and concluded with an exact verdict but no landed receipt yet, and many wishes on one system — kept together where possible, collisions surfaced where not — is the next rung. If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and these are the open problems.
 
 **Statistics of Priced Stopping**
 
@@ -90,4 +90,6 @@ The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.2196
 | [godon-charts](https://github.com/godon-dev/godon-charts) | Helm charts for Kubernetes deployment |
 | [godon-robots](https://github.com/godon-dev/godon-robots) | Systemtender engine — optimization and characterization agents |
 | [godon-controller](https://github.com/godon-dev/godon-controller) | Lifecycle logic — systemtender coordination, cleanup cascades |
+| [godon-cli](https://github.com/godon-dev/godon-cli) | Command-line client for the control API |
+| [godon-test-infra](https://github.com/godon-dev/godon-test-infra) | Test infrastructure |
 | [godon-documentation](https://github.com/godon-dev/godon-documentation) | Documentation site and source |

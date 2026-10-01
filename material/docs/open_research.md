@@ -45,7 +45,7 @@ Drift slower than the detection window is handled (local reference windows, drif
 
 ### Prediction-Driven Rescan (the maintenance loop)
 
-A frozen measured map enables prediction: "if node A moves to X, node D responds by Y." When prediction fails, the map is stale — and the error localizes WHERE structure changed. Rescan the neighborhood, diff against the frozen map. The prediction error is the compass: it points toward ignorance; probe where it's most wrong. Designed, prototyped in analysis, not yet an engine loop.
+A frozen measured map enables prediction: "if node A moves to X, node D responds by Y." When prediction fails, the map is stale — and the error localizes WHERE structure changed. Rescan the neighborhood, diff against the frozen map. The prediction error is the compass: it points toward ignorance; probe where it's most wrong. The first rung is live in the engine: failed prediction triggers the re-measure walk, and the neighborhood refreshes. Open: ranking rescans by prediction error across the whole map, and fan-out from a localized miss.
 
 ### Multi-Cadence Coupling Spectroscopy
 
@@ -55,9 +55,9 @@ The coupling structure revealed at one probe cadence is one view: slow probes se
 
 The protocol's own parameters (probe amplitude, block lengths, walk depth, convergence threshold) are tunable against measurement outcomes. The system optimizing its own sensing strategy — choosing experiments by expected information — is a natural, unsolved layer. The current walk is deliberately deterministic; adaptive experiment selection is a rung above it.
 
-### From Detection to Steering
+### Hardening the Steering
 
-The measured map's consumer loop — agents adapting to known coupling, coordinated moves toward chosen targets — is the project's direction and not yet built. With composition closed to its measured horizon (above), the open problems in order are joint action under coupling, then destination-directed steering through the measured map. Each rung gates the next; none is assumed.
+Basic steering is live: a declared steerwish is planned against the measured map, acted, judged against its bands, and held while the world drifts; claims that share an input are reconciled at plan time, and the holder corrects a standing wish in place. The open rungs, in order: the landed receipt for the full multi-outcome shape — it has flown end to end and concluded with an exact verdict, one line short of the band — and then many wishes coexisting on one system, kept together where possible, collisions surfaced where not. Each rung gates the next; none is assumed.
 
 ### Further Reading
 

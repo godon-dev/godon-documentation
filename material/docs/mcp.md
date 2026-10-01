@@ -34,7 +34,7 @@ godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compa
 | **Port** | 3001 |
 | **Endpoint** | `http://<host>:3001/mcp` — or `http://<host>:3001/sse` for legacy SSE clients |
 
-Management and steering tools proxy the godon API, so the systemtender, credential, target, and steerwish surfaces mirror the REST API. The connectome tools read the causal map service directly — the same map the REST `/connectome` family relays — so an LLM sees exactly what the system currently believes.
+Management and steering tools proxy the godon API. The credential, target, and steerwish families track the REST API one-to-one; the systemtender family does so except for config updates, which are REST-only today — never papered over, stated per family. The connectome tools read the causal map service directly — the same map the REST `/connectome` family relays — so an LLM sees exactly what the system currently believes.
 
 ### Available Tools
 
@@ -72,9 +72,11 @@ Management and steering tools proxy the godon API, so the systemtender, credenti
 | Tool | Description |
 |------|-------------|
 | `steerwish_list` | List all declared steerwishes with their derived lifecycle state (declared, planned, refused, acted, landed, missed, re_opened, closed) |
-| `steerwish_declare` | Declare a steerwish: a named measured outcome to bring into a band and hold. The map plans the input setting; a refusal names its binding constraint. Omitted budget means upkeep indefinitely; only the standing regime exists today |
+| `steerwish_declare` | Declare a steerwish: claims (the aims) and optional terms (the protected readings — the price the wish pays). One verdict: kept = every claim in band and every term honored. The grammar is validated before any planning; a refusal names its binding constraint. Omitted budget means upkeep indefinitely |
 | `steerwish_get` | Get one steerwish with its full event history |
 | `steerwish_close` | Close a steerwish and release the hold (idempotent) |
+| `steerwish_update` | Correct a steerwish: the holder restates the claims (and terms) on the same identity; the previous band and the reason are stamped into the trail, then it re-plans. Works on living and unheld wishes |
+| `steerwish_delete` | Purge a steerwish: closes it first (releasing the held setting), then removes the record and its event history. Forgetting, not stopping |
 
 #### The map (connectome)
 
