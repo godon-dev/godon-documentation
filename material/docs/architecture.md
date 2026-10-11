@@ -335,7 +335,7 @@ godon is deployed via Helm chart to Kubernetes.
 | Target system unreachable | Trial fails | Marked failed, algorithm learns to avoid |
 
 **Crash safety:**
-- Systemtender workers have no timeout and no budget — they end by walk-complete (the walk has nothing left to probe), the stop flag, or crash
+- Systemtender workers end when the characterization is complete, when a stop is requested, or on crash
 - Optuna stores trial state in Archive DB — restart resumes from last known state
 - No half-applied configs — effectuation is idempotent
 
@@ -350,7 +350,7 @@ godon is deployed via Helm chart to Kubernetes.
 | Metadata DB | Vertical | Single PostgreSQL instance |
 | Archive DB | Horizontal | YugabyteDB distributes across nodes |
 
-**Worker scaling:** one tender is one walker — one dial, one writer. Multiple tenders share the Archive DB and bank their trials as shared ground.
+**Worker scaling:** each systemtender runs a single worker. Multiple systemtenders share the Archive DB, where all trials are stored.
 
 ---
 
