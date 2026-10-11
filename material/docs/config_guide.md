@@ -47,15 +47,6 @@ settings:                       # parameter search space
       constraints:
         - {step: 20.0, lower: 0.0, upper: 100.0}
 
-run:
-  parallel: 1
-  completion_criteria:
-    iterations: {min: 10, max: 500}
-    timing: {end: "75m"}
-
-cooperation:
-  active: false
-
 interference_detection:         # characterization group membership
   group: bench-characterization
   mode: active
@@ -99,6 +90,16 @@ observations:                   # read but NOT optimized — detection channels
 #### `settings` — the search space
 
 Each parameter carries constraints. `step` sets the grid resolution; the characterization walk derives its level set from lower/upper (and refines between grid points when curves stay unresolved).
+
+#### How a run ends
+
+There is no `run` section and no `cooperation` section — worker fan-out and trial sharing left the tender config with the optimizer era (2026-10-11, hard cutover; the create and update door refuses both sections, as it refuses any budget key). A tender ends the way its work ends:
+
+- **walk-complete** — the characterization walk has nothing left to probe (every parameter converged or refinement depth spent); the tender lets itself out and finishes
+- **stop** — the controller's stop flag: graceful, the current trial completes, then the tender finishes
+- **crash**
+
+There is no trial count and no wall clock. Absence of budget keys means exactly this natural exit; a bounded run is bounded through the stop door, not a config number.
 
 #### `interference_detection` — characterization
 
