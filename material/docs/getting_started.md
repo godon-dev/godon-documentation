@@ -146,15 +146,6 @@ settings:                       # parameter search space
       constraints:
         - {step: 20.0, lower: 0.0, upper: 100.0}
 
-run:
-  parallel: 1
-  completion_criteria:
-    iterations: {min: 10, max: 500}
-    timing: {end: "75m"}
-
-cooperation:
-  active: false
-
 interference_detection:         # shared group name = these agents measure each other
   group: bench-characterization
   mode: active

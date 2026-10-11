@@ -331,11 +331,11 @@ godon is deployed via Helm chart to Kubernetes.
 | API pod dies | No new requests | Kubernetes restarts, stateless |
 | Worker dies | In-flight trial lost | Optuna DB enables resume, algorithm continues |
 | Metadata DB down | No new systemtenders | Existing systemtenders continue (state already dispatched) |
-| Archive DB down | No cooperation, no persistence | Systemtenders continue locally, no cross-learning |
+| Archive DB down | No trial persistence | Systemtenders continue locally, no cross-learning |
 | Target system unreachable | Trial fails | Marked failed, algorithm learns to avoid |
 
 **Crash safety:**
-- Systemtender workers have no timeout — they run until completion or crash
+- Systemtender workers have no timeout and no budget — they end by walk-complete (the walk has nothing left to probe), the stop flag, or crash
 - Optuna stores trial state in Archive DB — restart resumes from last known state
 - No half-applied configs — effectuation is idempotent
 
@@ -350,9 +350,7 @@ godon is deployed via Helm chart to Kubernetes.
 | Metadata DB | Vertical | Single PostgreSQL instance |
 | Archive DB | Horizontal | YugabyteDB distributes across nodes |
 
-**Cooperation scaling:**
-- Multiple systemtenders share Archive DB
-- Each learns from others' trials
+**Worker scaling:** one tender is one walker — one dial, one writer. Multiple tenders share the Archive DB and bank their trials as shared ground.
 
 ---
 
