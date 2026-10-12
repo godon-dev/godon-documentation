@@ -1,39 +1,39 @@
 ---
-description: "godon Systemtender concept — pluggable optimization driver coordinating algorithms, effectuation, and reconnaissance. Worker collaboration, guardrails, rollback, and cooperation."
+description: "godon Systemtender concept — the agent that tends a live system: walking its dials, holding for peers, serving wishes, under guardrails with rollback."
 ---
 
 ## Systemtender
 
-A **systemtender** is the pluggable agent in godon — the active component that propels algorithms, effectuation, and reconnaissance forward. Systemtenders run meta-heuristic searches against live systems, driving the cycle of applying configurations and observing results.
+A **systemtender** is the pluggable agent in godon — the active component that propels effectuation and reconnaissance forward. Systemtenders walk live systems' parameters, driving the cycle of applying configurations and observing results.
 
-They also serve [steerwishes](concept_steerwish.md): when a wish is planned against the measured map, a systemtender applies the planned setting and holds it — and when the wish closes, it releases the setting back to neutral. Serving rides the same machinery as optimization: same guardrails, same effectuation channels, no special permissions.
+They also serve [steerwishes](concept_steerwish.md): when a wish is planned against the measured map, a systemtender applies the planned setting and holds it — and when the wish closes, it releases the setting back to neutral. Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
 
 ### Core Responsibilities
 
 A systemtender coordinates three concerns:
 
 ```
-                    ┌─────────────┐
-                    │   Systemtender   │
-                    │  (Driver)   │
-                    └─────────────┘
-                          │
-          ┌───────────────┼───────────────┐
-          │               │               │
+                    ┌──────────────────────────────┐
+                    │   Systemtender               │
+                    │     (agent)                  │
+                    └──────────────────────────────┘
+                                                   │
+          ┌───────────────┼────────────────────────┐
+          │               │                        │
           ▼               ▼               ▼
     ┌──────────┐    ┌──────────┐    ┌──────────────┐
-    │ Algorithm│    │Effectuate│    │Reconnoiter   │
-    │ (Search) │    │ (Apply)  │    │ (Observe)    │
+    │   Walk   │    │Effectuate│    │Reconnoiter   │
+    │ (Engine) │    │ (Apply)  │    │ (Observe)    │
     └──────────┘    └──────────┘    └──────────────┘
 ```
 
 | Concern | Role | Examples |
 |---------|------|----------|
-| **Algorithm** | What search strategy to use | TPE, NSGA-II, QMC, Random |
+| **Walk** | Which parameter and level to probe next | Coverage walk, notebook policy |
 | **Effectuation** | How to apply configurations | SSH, HTTP, Kubernetes API |
 | **Reconnaissance** | How to observe results | Prometheus, custom metrics |
 
-The systemtender plugs these together into a coherent optimization loop.
+The systemtender plugs these together into a coherent trial loop.
 
 ---
 
@@ -42,47 +42,37 @@ The systemtender plugs these together into a coherent optimization loop.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                                                              │
-│    ┌──────────┐    ┌──────────────┐    ┌──────────────┐     │
-│    │  Sample  │───▶│  Effectuate  │───▶│  Reconnoiter │     │
-│    │          │    │              │    │              │     │
-│    │ Algorithm│    │  Effectuator │    │   Observer   │     │
-│    └──────────┘    └──────────────┘    └──────────────┘     │
+│    ┌──────────┐    ┌──────────────┐    ┌──────────────┐      │
+│    │  Decide  │───▶│  Effectuate  │───▶│  Reconnoiter │      │
+│    │          │    │              │    │              │      │
+│    │   Walk   │    │  Effectuator │    │   Observer   │      │
+│    └──────────┘    └──────────────┘    └──────────────┘      │
 │          ▲                                   │               │
 │          │                                   ▼               │
-│          │            ┌──────────────────────────────┐      │
-│          └────────────│       Fitness Update         │      │
-│                       │                              │──────┼──▶ Share Trial
-│                       └──────────────────────────────┘      │   (optional)
+│          │           ┌──────────────────────────────┐        │
+│          └───────────│        Trial Record          │        │
+│                      │     (told to the ledger)     │        │
+│                      └──────────────────────────────┘        │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
 
 Each iteration:
 
-1. **Sample** — Algorithm suggests next configuration to try
+1. **Decide** — the coordinator picks the next trial: a walk level, a hold, a park
 2. **Effectuate** — Apply configuration to target system
 3. **Reconnoiter** — Observe system behavior, collect metrics
-4. **Fitness Update** — Score the trial, inform algorithm for next sample
+4. **Record** — Tell the trial to the ledger; the measured ground grows
 
 ---
 
 ### Systemtender as Coordination Hub
 
-The systemtender doesn't implement algorithms, effectuation, or reconnaissance directly — it **coordinates** pluggable components:
+The systemtender doesn't implement the walk, effectuation, or reconnaissance directly — it **coordinates** pluggable components:
 
-#### Pluggable Algorithms
+#### The Walk
 
-Systemtenders can use different search strategies:
-
-| Sampler | Use Case |
-|---------|----------|
-| TPE | Single-objective, sample-efficient search |
-| NSGA-II | Multi-objective optimization (2-3 objectives) |
-| NSGA-III | Multi-objective optimization (4+ objectives) |
-| QMC | High-dimensional spaces |
-| Random | Baseline, initial exploration |
-
-The algorithm is a plugin — swap it without changing effectuation or reconnaissance.
+Which parameter to probe, and at which level, is the engine's own decision — the adaptive walk. The notebook policy reads the causal service's banked curves and probes the highest-priced unresolved gap; a dial retires only when its curve is converged and every remaining gap is priced below the local measurement bar — and drift un-retires it. A geometric farthest-point ladder exists as the explicit offline fallback.
 
 #### Pluggable Effectuation
 
@@ -94,7 +84,7 @@ How configurations reach the target system:
 | HTTP/REST | APIs, services |
 | Kubernetes API | Pods, deployments, configmaps |
 
-The effectuator is a plugin — same algorithm can tune different targets.
+The effectuator is a plugin — the same walk can tend different targets.
 #### Pluggable Reconnaissance
 
 How the systemtender observes results:
@@ -106,40 +96,6 @@ How the systemtender observes results:
 | HTTP endpoints | Health checks, stats |
 
 The observer is a plugin — measure what matters for your objective.
-
----
-
-### Worker Collaboration
-
-Systemtenders can run with multiple parallel workers:
-```
-                    ┌─────────────┐
-                    │  Controller │
-                    │   (API)     │
-                    └─────────────┘
-                          │
-          ┌───────────────┼───────────────┼───────────────┐
-          │               │               │
-          ▼               ▼               ▼
-    ┌──────────┐    ┌──────────┐    ┌──────────┐
-    │ Worker 1 │    │ Worker 2 │    │ Worker 3 │
-    └──────────┘    └──────────┘    └──────────┘
-          │               │               │
-          └───────────────┴───────────────┘
-                          │
-                    Shared Trial History
-```
-
-**How collaboration works:**
-- Workers share a common trial history
-- Each worker samples from the algorithm, avoiding redundant evaluations
-- The algorithm learns from all workers' trials
-- Controller coordinates worker lifecycle (start, stop, delete)
-
-**Benefits:**
-- Faster convergence through parallel evaluation
-- Better coverage of the search space
-- Resilience: other workers continue if one fails
 
 ---
 
@@ -156,7 +112,7 @@ created ──▶ active ──┐
 
 | State | Meaning |
 |-------|---------|
-| `active` | Running optimization loop |
+| `active` | Running trial loop |
 | `stopped` | Gracefully paused, workers finished current trials |
 | `error` | Unrecoverable failure occurred |
 | `deleted` | Removed from system |
@@ -170,55 +126,54 @@ In the godon architecture, systemtenders sit between the control plane and the t
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Control Plane                          │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
-│  │ Controller  │    │   API       │    │  Scheduler  │     │
-│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐      │
+│  │ Controller  │    │     API     │    │  Scheduler  │      │
+│  └─────────────┘    └─────────────┘    └─────────────┘      │
 └─────────────────────────────────────────────────────────────┘
-                          │
+                                                              │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Systemtender                               │
-│  ┌──────────┐    ┌──────────────┐    ┌──────────────┐      │
-│  │ Algorithm│◀──▶│ Coordinator  │◀──▶│   Workers    │      │
-│  └──────────┘    └──────────────┘    └──────────────┘      │
+│                        Systemtender                         │
+│                                                             │
+│     ┌──────────┐          ┌──────────────┐                  │
+│     │   Walk   │◀────────▶│ Coordinator  │                  │
+│     │  (engine)│          │ (room/lease) │                  │
+│     └──────────┘          └──────────────┘                  │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
-                          │
-          ┌───────────────┴───────────────┐
+          │                                                   │
           ▼                               ▼
-┌─────────────────┐               ┌─────────────────┐
-│   Effectuation  │               │  Reconnaissance │
-│   (Apply)       │               │  (Observe)      │
-└─────────────────┘               └─────────────────┘
-          │                               │
-          └───────────────┬───────────────┘
+┌─────────────────┐               ┌───────────────────────────┐
+│   Effectuation  │               │  Reconnaissance           │
+│    (apply)      │               │    (observe)              │
+└─────────────────┘               └───────────────────────────┘
+          │                                                   │
+          └───────────────┬───────────────────────────────────┘
                           ▼
-                   ┌─────────────┐
-                   │   Target    │
-                   │   System    │
-                   └─────────────┘
+                   ┌──────────────────────────────────────────┐
+                   │    Target                                │
+                   │    System                                │
+                   └──────────────────────────────────────────┘
 ```
 
 ---
 
 ### Guardrails
-Guardrails are **safety limits** that protect production systems during optimization. Unlike objectives (which we optimize), guardrails are binary constraints that must not be exceeded.
+Guardrails are **safety limits** that protect production systems while trials run. Unlike objectives (which are measured), guardrails are binary constraints that must not be exceeded.
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Trial Execution                         │
-│                                                              │
-│    Parameters ──▶ Effectuate ──▶ Reconnoiter ──▶ Check      │
-│                                                      │       │
-│                                         ┌────────────┴───┐   │
-│                                         │   Guardrails?   │   │
-│                                         └────────────┬───┘   │
-│                                                      │       │
-│                              ┌───────────────────────┼─────┐ │
-│                              ▼                       ▼     │ │
-│                         Violated                  OK       │ │
-│                            │                        │       │ │
-│                            ▼                        ▼       │ │
-│                    Mark FAILED            Accept trial       │ │
-│                    Trigger rollback       Update best        │ │
+│                      Trial Execution                        │
+│                                                             │
+│   Settings ──▶ Effectuate ──▶ Reconnoiter ──▶ Guardrails?   │
+│                                                │            │
+│                          ┌─────────────────────┴────┐       │
+│                          ▼                          ▼       │
+│                     Violated                        OK      │
+│                          │                           │      │
+│                          ▼                           ▼      │
+│                   Mark FAILED                Accept trial   │
+│                   Trigger rollback          Record values   │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 **How guardrails work:**
@@ -228,47 +183,48 @@ Guardrails are **safety limits** that protect production systems during optimiza
 | **Configure** | Define hard limits for critical metrics (e.g., `cpu_usage < 90%`) |
 | **Check** | After each reconnaissance, compare collected metrics against limits |
 | **Violated** | Mark trial as failed, increment failure counter, potentially trigger rollback |
-| **OK** | Accept trial results, continue optimization |
+| **OK** | Accept trial results, continue trials |
 **Guardrails vs Objectives:**
 
 | Aspect | Objectives | Guardrails |
 |--------|------------|------------|
-| **Purpose** | What to optimize | What to avoid |
+| **Purpose** | What is measured | What to avoid |
 | **Example** | Minimize latency | CPU must not exceed 90% |
-| **Behavior** | Guides search direction | Binary pass/fail |
-| **Failure** | Suboptimal result | Trial rejected |
+| **Behavior** | Recorded per trial, banked as measured ground | Binary pass/fail |
+| **Failure** | — | Trial rejected |
 
 ---
 
 ### Rollback
 When consecutive guardrail violations occur, systemtenders can automatically **rollback** to a known-good configuration.
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Rollback Flow                             │
+┌──────────────────────────────────────────────────────────────┐
+│                      Rollback Flow                           │
 │                                                              │
-│  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED   │
+│  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED     │
 │      │                │                       │              │
 │      ▼                ▼                       ▼              │
-│  last_good         failures=1             failures=2        │
-│  = params_1                                   │              │
-│                                               ▼              │
-│                                    ┌──────────────────┐      │
-│                                    │ Threshold hit?   │      │
-│                                    │ (e.g., 3)        │      │
-│                                    └────────┬─────────┘      │
-│                                             │                │
-│                              ┌──────────────┴──────────┐    │
-│                              ▼                         ▼    │
-│                            Yes                        No    │
-│                              │                         │    │
-│                              ▼                         │    │
-│                    Apply last_good params              │    │
-│                    Reset failure counter               │    │
-│                              │                         │    │
-│                              └────────────┬────────────┘    │
-│                                           ▼                  │
-│                                    Continue trials            │
-└─────────────────────────────────────────────────────────────┘
+│  last_good         failures=1             failures=2         │
+│  = params_1                   │                              │
+│                               ▼                              │
+│                    ┌───────────────────────┐                 │
+│                    │     Threshold hit?    │                 │
+│                    │      (e.g., 3)        │                 │
+│                    └───────────┬───────────┘                 │
+│                                │                             │
+│                 ┌──────────────┴──────────────┐              │
+│                 ▼                             ▼              │
+│                Yes                            No             │
+│                 │                              │             │
+│                 ▼                              ▼             │
+│      Apply last_good params          Continue trials         │
+│      Reset failure counter                    │              │
+│                 │                              │             │
+│                 └──────────────┬───────────────┘             │
+│                                ▼                             │
+│             after-policy: continue / pause / stop            │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
 ```
 **Rollback strategies:**
 
@@ -294,93 +250,13 @@ rollback_strategies:
 ```
 ---
 
-### Worker Cooperation
-Multiple workers can collaborate by **sharing successful trials** across the optimization process.
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                      Shared Trial History                            │
-│                    (YugabyteDB / PostgreSQL)                         │
-└──────────────────────────────┬──────────────────────────────────────┘
-                               │
-           ┌───────────────────┼───────────────────┐
-           │                   │                   │
-           ▼                   ▼                   ▼
-     ┌──────────┐        ┌──────────┐        ┌──────────┐
-     │ Systemtender A│        │ Systemtender B│        │ Systemtender C│
-     │ Worker 1 │        │ Worker 1 │        │ Worker 1 │
-     └──────────┘        └──────────┘        └──────────┘
-           │                   │                   │
-           │  Shares trial #5  │                   │
-           ├──────────────────▶│                   │
-           │                   │  Shares trial #12 │
-           │                   ├──────────────────▶│
-           │                   │                   │
-           │         All systemtenders learn from shared trials          │
-           └───────────────────────────────────────────────────────────────┘
-```
-**Sharing strategies:**
-
-| Strategy | What gets shared | Benefit |
-|----------|------------------|---------|
-| `probabilistic` | Random trials with probability P | Simple, fast convergence |
-| `best` | Top percentile performers | Focus on good solutions |
-| `worst` | Bottom percentile performers | Learn what to avoid |
-| `extremes` | Both best and worst | Diverse learning signal |
-**How it works:**
-1. Worker completes a successful trial
-2. Strategy determines if trial should be shared
-3. If yes, trial is added to cooperating studies via shared database
-4. Other workers' algorithms learn from shared trials
-5. Faster convergence through collective intelligence
----
-
-### Algorithm Diversity
-When running multiple parallel workers, systemtenders can assign **different algorithms** to each worker for better search space coverage.
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Parallel Workers                          │
-│                                                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
-│  │  Worker 1   │  │  Worker 2   │  │  Worker 3   │         │
-│  │   TPE       │  │  NSGA-II    │  │  Random     │         │
-│  └─────────────┘  └─────────────┘  └─────────────┘         │
-│        │                │                │                   │
-│        └────────────────┴────────────────┘                   │
-│                         │                                    │
-│                         ▼                                    │
-│              ┌─────────────────────┐                        │
-│              │  Shared Trial Store │                        │
-│              │  (cross-pollination)│                        │
-│              └─────────────────────┘                        │
-│                                                              │
-│  Each sampler explores differently, sharing discoveries      │
-└─────────────────────────────────────────────────────────────┘
-```
-**Assigned samplers:**
-
-| Workers | Samplers assigned |
-|---------|-------------------|
-| 1 | TPE (default) |
-| 2 | TPE, NSGA-II |
-| 3 | TPE, NSGA-II, Random |
-| 4 | TPE, NSGA-II, Random, NSGA-III |
-| 5+ | TPE, NSGA-II, Random, NSGA-III, QMC |
-**Benefits:**
-- **Diverse exploration**: Different algorithms search differently
-- **Robustness**: If one algorithm gets stuck, others continue
-- **Cross-pollination**: Workers share findings via cooperation
-- **Hyperheuristic potential**: Future automatic algorithm selection
----
-
 ### Summary
 | Aspect | What it means |
 |--------|---------------|
-| **Driver role** | Systemtender drives algorithm, effectuation, and reconnaissance forward |
-| **Pluggable** | Swap algorithms, effectors, and observers independently |
+| **Agent role** | Systemtender drives the walk, effectuation, and reconnaissance forward |
+| **Pluggable** | Swap effectors and observers independently; the walk is the engine's own |
 | **Guardrails** | Safety limits that reject trials exceeding thresholds |
 | **Rollback** | Automatic restoration to known-good state after failures |
-| **Cooperation** | Workers share successful trials for faster convergence |
-| **Diversity** | Parallel workers use different algorithms for better coverage |
 | **Managed** | Lifecycle controlled via API with graceful shutdown |
 
 ---

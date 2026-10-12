@@ -21,7 +21,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **steerwish declaration** is made at runtime — what a holder asks the system to keep.
 
-Systemtender configuration is YAML with three concepts only: **objectives** (what to optimize), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group characterizes and optimizes concurrently.
+Systemtender configuration is YAML with three concepts only: **objectives** (the readings trials are judged on), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group walks and holds concurrently.
 
 ---
 
@@ -65,7 +65,7 @@ reconnaissance:                 # how this systemtender reads its target
   http:
     url: "http://bench-generic:8090/node-1"
 
-objectives:                     # what the optimizer optimizes
+objectives:                     # the readings trials are judged on
   - name: objective_0
     direction: maximize
     reconnaissance:
@@ -75,7 +75,7 @@ objectives:                     # what the optimizer optimizes
       samples: 3
       aggregation: median
 
-observations:                   # read but NOT optimized — detection channels
+observations:                   # recorded but NOT judged — detection channels
   - name: objective_1
     reconnaissance:
       service: http
@@ -105,7 +105,7 @@ Any systemtenders sharing a `group` characterize each other. `convergence_thresh
 
 #### `objectives` vs `observations`
 
-The separation is deliberate and load-bearing: objectives feed the optimizer's search; observations are collected per trial but never optimized — the detector reads both. A channel you suspect is coupled but don't want an agent chasing should be an observation, not an objective.
+The separation is deliberate and load-bearing: objectives carry each trial's judged values; observations are recorded per trial and never judged — the detector reads both. A channel you suspect is coupled but don't want driving trial outcomes should be an observation, not an objective.
 
 #### `reconnaissance`
 
@@ -113,7 +113,7 @@ How a systemtender reads its target: HTTP endpoints (per-service `path`/`key`, s
 
 #### Guardrails
 
-Safety limits with automatic response (fail trial, rollback, or skip target) are configured per strain and effectuator — see [Guardrails](concept_guardrails.md). The impulse protocol's pushes stay inside the same guardrails as ordinary optimization trials: same knobs, same bounds, no special permissions.
+Safety limits with automatic response (fail trial, rollback, or skip target) are configured per strain and effectuator — see [Guardrails](concept_guardrails.md). The impulse protocol's pushes stay inside the same guardrails as ordinary trials: same knobs, same bounds, no special permissions.
 
 ---
 

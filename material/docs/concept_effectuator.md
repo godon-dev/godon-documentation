@@ -25,24 +25,24 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 An **effectuator** applies configurations to target systems — it's the bridge between abstract parameters and real-world changes. Effectuators take a parameter set and make it happen.
 
-### Role in the Optimization Loop
+### Role in the Trial Loop
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Optimization Loop                         │
+┌──────────────────────────────────────────────────────────────┐
+│                       Trial Loop                             │
 │                                                              │
-│    Algorithm ──▶ Effectuator ──▶ Target System              │
-│    (suggest)      (apply)         (changed)                 │
+│    Settings ──▶ Effectuator ──▶ Target System                │
+│    (the walk)     (apply)         (changed)                  │
 │                                                              │
 │                                         │                    │
 │                                         ▼                    │
-│                                   Reconnaissance            │
-│                                     (observe)               │
+│                                   Reconnaissance             │
+│                                     (observe)                │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
-The effectuator is responsible for making the algorithm's suggestions real.
+The effectuator is responsible for making the walk's chosen settings real.
 
 ---
 
@@ -51,16 +51,16 @@ The effectuator is responsible for making the algorithm's suggestions real.
 All effectuators implement the same contract:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                     Effectuator                              │
 │                                                              │
-│  Input:  { param_a: 0.5, param_b: "foo", ... }             │
+│  Input:  { param_a: 0.5, param_b: "foo", ... }               │
 │                                                              │
-│  Action: Apply configuration to target                      │
+│  Action: Apply configuration to target                       │
 │                                                              │
 │  Output: Success | Error                                     │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 | Phase | Responsibility |
@@ -129,16 +129,16 @@ engine change.
 Effectuators should be **idempotent** — applying the same configuration twice has the same result as applying it once.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    Idempotent Apply                          │
 │                                                              │
-│  Apply {pool_size: 10} ──▶ Success                          │
-│  Apply {pool_size: 10} ──▶ Success (no-op)                  │
-│  Apply {pool_size: 10} ──▶ Success (no-op)                  │
+│  Apply {pool_size: 10} ──▶ Success                           │
+│  Apply {pool_size: 10} ──▶ Success (no-op)                   │
+│  Apply {pool_size: 10} ──▶ Success (no-op)                   │
 │                                                              │
-│  Same result regardless of how many times applied           │
+│  Same result regardless of how many times applied            │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 **Why it matters:**
@@ -151,15 +151,15 @@ Effectuators should be **idempotent** — applying the same configuration twice 
 ### Effectuation Timing
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Effectuation Timeline                        │
+┌──────────────────────────────────────────────────────────────────┐
+│                    Effectuation Timeline                         │
 │                                                                  │
-│  Start ──▶ Connect ──▶ Apply ──▶ Propagate ──▶ Steady ──▶ End  │
-│    │          │          │           │           │              │
-│    0s        1s         3s         10s         30s            │
+│  Start ──▶ Connect ──▶ Apply ──▶ Propagate ──▶ Steady ──▶ End    │
+│    │          │          │           │           │               │
+│    0s        1s         3s         10s         30s               │
 │                                                                  │
-│  Propagation delay: changes take time to reach full effect     │
-└─────────────────────────────────────────────────────────────────┘
+│  Propagation delay: changes take time to reach full effect       │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 **Critical:** Reconnaissance samples only after a stabilization wait

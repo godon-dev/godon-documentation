@@ -1,5 +1,5 @@
 ---
-description: "godon Guardrails concept — hard safety limits protecting production systems during optimization. Numeric hard limits, consecutive-violation rollback, strategies."
+description: "godon Guardrails concept — hard safety limits protecting production systems while trials run. Numeric hard limits, consecutive-violation rollback, strategies."
 ---
 
 <!--
@@ -23,15 +23,15 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Guardrails
 
-**Guardrails** are safety limits that protect production systems during optimization. Unlike objectives which guide the search, guardrails enforce hard limits — trials that violate them are rejected.
+**Guardrails** are safety limits that protect production systems while trials run. Unlike objectives which are measured, guardrails enforce hard limits — trials that violate them are rejected.
 
 ### Guardrails vs Objectives
 
 | Aspect | Objective | Guardrail |
 |--------|-----------|-----------|
-| **Purpose** | What to optimize | What to avoid exceeding |
-| **Behavior** | Continuous guidance | Binary pass/fail |
-| **Violation** | Suboptimal result | Trial rejected |
+| **Purpose** | What is measured | What to avoid exceeding |
+| **Behavior** | Measured per trial | Binary pass/fail |
+| **Violation** | — | Trial rejected |
 | **Example** | Minimize latency | Temperature must stay < 40 |
 
 Objectives say "make this better." Guardrails say "don't break this."
@@ -42,21 +42,18 @@ Objectives say "make this better." Guardrails say "don't break this."
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Trial Execution                         │
-│                                                              │
-│    Parameters ──▶ Effectuate ──▶ Reconnoiter ──▶ Check      │
-│                                                      │       │
-│                                         ┌────────────┴───┐   │
-│                                         │   Guardrails?   │   │
-│                                         └────────────┬───┘   │
-│                                                      │       │
-│                              ┌───────────────────────┼─────┐ │
-│                              ▼                       ▼     │ │
-│                         Violated                  OK       │ │
-│                            │                        │       │ │
-│                            ▼                        ▼       │ │
-│                    Mark FAILED            Accept trial       │ │
-│                    Count failure          Update best        │ │
+│                      Trial Execution                        │
+│                                                             │
+│   Settings ──▶ Effectuate ──▶ Reconnoiter ──▶ Guardrails?   │
+│                                                │            │
+│                          ┌─────────────────────┴────┐       │
+│                          ▼                          ▼       │
+│                     Violated                        OK      │
+│                          │                           │      │
+│                          ▼                           ▼      │
+│                   Mark FAILED                Accept trial   │
+│                   Trigger rollback          Record values   │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -83,7 +80,7 @@ guardrails:
 
 Plain by design: a number, not an expression. A metric that cannot be read or evaluates to infinity counts as a violation — the safe direction is the default.
 
-The same limits bound the impulse protocol's probe pushes: characterization pushes stay inside the same guardrails as ordinary optimization trials. Same knobs, same bounds, no special permissions.
+The same limits bound the impulse protocol's probe pushes: characterization pushes stay inside the same guardrails as ordinary trials. Same knobs, same bounds, no special permissions.
 
 ---
 
@@ -110,31 +107,33 @@ Any fail → trial rejected.
 A violating trial is marked failed and the failure is counted. Consecutive failures trip the rollback:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Rollback Flow                            │
+┌──────────────────────────────────────────────────────────────┐
+│                      Rollback Flow                           │
 │                                                              │
-│  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED   │
+│  Trial 1: OK ──▶ Trial 2: VIOLATED ──▶ Trial 3: VIOLATED     │
 │      │                │                       │              │
 │      ▼                ▼                       ▼              │
-│  last_good         failures=1             failures=2        │
-│  = params_1                                   │              │
-│                                               ▼              │
-│                                    ┌──────────────────┐      │
-│                                    │ Threshold hit?   │      │
-│                                    │ (e.g., 10)       │      │
-│                                    └────────┬─────────┘      │
-│                                             │                │
-│                              ┌──────────────┴──────────┐    │
-│                              ▼                         ▼    │
-│                            Yes                        No    │
-│                              │                         │    │
-│                              ▼                         ▼    │
-│                    Apply last_good params       Continue     │
-│                    Reset failure counter                    │
-│                              │                              │
-│                              ▼                              │
-│                       After-policy: continue / pause / stop │
-└─────────────────────────────────────────────────────────────┘
+│  last_good         failures=1             failures=2         │
+│  = params_1                   │                              │
+│                               ▼                              │
+│                    ┌───────────────────────┐                 │
+│                    │     Threshold hit?    │                 │
+│                    │      (e.g., 3)        │                 │
+│                    └───────────┬───────────┘                 │
+│                                │                             │
+│                 ┌──────────────┴──────────────┐              │
+│                 ▼                             ▼              │
+│                Yes                            No             │
+│                 │                              │             │
+│                 ▼                              ▼             │
+│      Apply last_good params          Continue trials         │
+│      Reset failure counter                    │              │
+│                 │                              │             │
+│                 └──────────────┬───────────────┘             │
+│                                ▼                             │
+│             after-policy: continue / pause / stop            │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ```yaml
@@ -164,7 +163,7 @@ rollback_strategies:
 
 ### Guardrails in Multi-Objective Optimization
 
-Guardrails constrain the Pareto front: trials that violate a guardrail are excluded from it. The effective front is the unguarded front cut at the limit — tradeoffs beyond the boundary are invisible to the optimizer, by design.
+Guardrails constrain the Pareto front: trials that violate a guardrail are excluded from it. The effective front is the unguarded front cut at the limit — tradeoffs beyond the boundary are invisible to the front, by design.
 
 ---
 
@@ -176,7 +175,7 @@ Guardrails constrain the Pareto front: trials that violate a guardrail are exclu
 | Start conservative | Loosen after proven safe |
 | Monitor guardrail hit rate | Too many hits = search space issue |
 
-**Too tight:** Algorithm can't explore, all trials fail.
+**Too tight:** The walk can't probe, all trials fail.
 
 **Too loose:** Risk of production incidents.
 
@@ -186,7 +185,7 @@ Guardrails constrain the Pareto front: trials that violate a guardrail are exclu
 
 | Aspect | What it means |
 |--------|---------------|
-| **Purpose** | Protect systems during optimization |
+| **Purpose** | Protect systems while trials run |
 | **Shape** | Named metric + numeric hard limit |
 | **Behavior** | Binary pass/fail, all must pass |
 | **Violation** | Trial rejected; consecutive failures roll back |

@@ -39,7 +39,7 @@ The ABA structure is built into every point: the shift is only counted when it a
 
 Systemtenders in a shared interference group take turns through DB-backed leases. One is the sender; the others hold still.
 
-- **The walk is deterministic and complete by contract.** Levels are visited in farthest-point order — midpoint, then extremes, then quarters — a low-discrepancy sequence computed, not sampled. No level is skipped while the walk runs; smartness only accelerates (early retirement of converged parameters), it never licenses gaps.
+- **The walk is adaptive, and coverage is priced by contract.** The notebook policy picks the next (parameter, level) from the banked curves — the highest-priced unresolved gap first; the policy is deterministic given the map, adaptive through measurement (a geometric farthest-point ladder exists as the explicit offline fallback). No dial retires while any remaining gap is priced above its local measurement bar: smartness only accelerates, it never licenses ignorance.
 - **Every listener is measured at once.** One sender's walk measures the response curves of *all* holding receivers simultaneously — in a three-agent chain run, a single walk produced all 36 curves, of which exactly the three planted coupling paths were non-flat.
 - **Re-measurement blends.** A repeat probe within bars tightens the existing point (inverse-variance blend); beyond bars the point relocates and the curve is flagged as drifted.
 - **Dead ground is cheap.** A parameter with no coupling retires after ~3 flat probes; a full curve on a 100-level grid cost 6-9 probes in validated runs. The budget goes to structure, not silence.
@@ -75,7 +75,7 @@ Measured edges are only useful if they compose. On a chain topology (node-1 —0
 - **Prediction (out-of-sample):** levels never probed before, predicted from the composed map, then measured: 0.13σ and 0.35σ deviation.
 - **Steering (the loop's first closing):** given a target value at the chain's end, the measured map was inverted to a sender parameter, the parameter applied, and the result measured: target −0.100, landed −0.1038 ± 0.038.
 
-Scope, stated plainly: the chain results above are on the quiet bench (no opposing optimizers acting during the act), with additive-linear coupling physics, one seed per scenario.
+Scope, stated plainly: the chain results above are on the quiet bench (no opposing probes acting during the act), with additive-linear coupling physics, one seed per scenario.
 
 Nonlinear composition is measured, not assumed. Curves chained through nonlinear switching elements and summed at a converging junction predict far-end response — judged by disjoint direct walks against error bars propagated from each piece: 95 of 97 referee points across four chain seeds, a junction, and a live threshold relay, with the propagated bars validated as honest metrology. The horizon is measured too: roughly two nonlinear hops at σ=0.02, beyond which the far end falls below the detection floor and composing the pieces is the only remaining door. Full campaign: [From Curves to Cascades](publications.md); what remains open: [Open Research](open_research.md).
 

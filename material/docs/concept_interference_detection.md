@@ -1,5 +1,5 @@
 ---
-description: "godon Interference Detection — autonomous discovery of coupling between independent optimizers through active probing and CFAR detection."
+description: "godon Interference Detection — autonomous discovery of coupling between independent systemtenders through active probing and CFAR detection."
 ---
 
 <!--
@@ -25,33 +25,31 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 The system answers a knock. The answer is a measurement.
 
-Autonomous optimizers sharing a substrate corrupt each other through channels nobody configured and nobody monitors. Interference detection makes those channels visible — not by watching the systems, but by having the agents already embedded in the substrate perturb it, in turn, within guardrails, and read who answers.
+Autonomous systemtenders sharing a substrate corrupt each other through channels nobody configured and nobody monitors. Interference detection makes those channels visible — not by watching the systems, but by having the agents already embedded in the substrate perturb it, in turn, within guardrails, and read who answers.
 
 This document follows the benches: the generic bench (nodes, parameters, planted edges — the same one [Getting Started](getting_started.md) runs) and the greenhouse bench (deeply nonlinear, the channel class that broke every passive method). Numbers quoted are measured engine output, not illustrations.
 
 ### The Problem
 
-A group of autonomous optimizers, each locked to its own system — and substrates between the systems that belong to none of them. Two nets, same shape — one physical, one logical:
+A group of autonomous systemtenders, each locked to its own system — and substrates between the systems that belong to none of them. Two nets, same shape — one physical, one logical:
 
 **The physical net** — the greenhouse bench's own coupling channels:
 
 ```
-┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
-│ Systemtender A  (node-1)     │   │ Systemtender B  (node-2)     │   │ Systemtender C  (node-3)     │
-│ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
-│ wants   growth_rate     │   │ wants   growth_rate     │   │ wants   growth_rate     │
-└───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
-             │ tunes                       │ tunes                       │ tunes
-             ▼                             ▼                             ▼
-     ┌──────────────┐              ┌──────────────┐              ┌──────────────┐
-     │ Greenhouse A │              │ Greenhouse B │              │ Greenhouse C │
-     └──────┬───────┘              └──────┬───────┘              └──────┬───────┘
-             │                             │                             │
-             ╞═════════shared wall═════════╡                             │
-             │                             │                             │
-             │                             ╞════════air exchange═════════╡
-             │                                                           │
-             ╞════════shared water tank════╪═════════════════════════════╡
+┌───────────────────────────┐   ┌───────────────────────────┐   ┌───────────────────────────┐
+│ Systemtender A  (node-1)  │   │ Systemtender B  (node-2)  │   │ Systemtender C  (node-3)  │
+│ pushes p0 · p1 · p2       │   │ pushes p0 · p1 · p2       │   │ pushes p0 · p1 · p2       │
+│ wants   growth_rate       │   │ wants   growth_rate       │   │ wants   growth_rate       │
+└─────────────┬─────────────┘   └─────────────┬─────────────┘   └─────────────┬─────────────┘
+              │ tunes                         │ tunes                         │ tunes
+              ▼                               ▼                               ▼
+      ┌──────────────┐                ┌──────────────┐                ┌──────────────┐
+      │ Greenhouse A │                │ Greenhouse B │                │ Greenhouse C │
+      └───────┬──────┘                └───────┬──────┘                └───────┬──────┘
+              │                               │                               │
+              ╞══════════shared wall══════════╡
+                                              ╞═════════air exchange══════════╡
+              ╞═══════════════════════════════╪shared water tank══════════════╡
 ```
 
 Not illustrations — the validation tables at the end of this page detect through exactly these channels.
@@ -59,37 +57,35 @@ Not illustrations — the validation tables at the end of this page detect throu
 **The logical net** — the same shape without physics:
 
 ```
-┌─────────────────────────┐   ┌─────────────────────────┐   ┌─────────────────────────┐
-│ Systemtender A  (node-1)     │   │ Systemtender B  (node-2)     │   │ Systemtender C  (node-3)     │
-│ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │   │ pushes p0 · p1 · p2     │
-│ wants   latency         │   │ wants   cost            │   │ wants   uptime          │
-└───────────┬─────────────┘   └───────────┬─────────────┘   └───────────┬─────────────┘
-             │ tunes                       │ tunes                       │ tunes
-             ▼                             ▼                             ▼
-       ┌───────────┐                 ┌───────────┐                 ┌───────────┐
-       │ Service A  │                │ Service B  │                │ Service C  │
-       └─────┬─────┘                 └─────┬─────┘                 └─────┬─────┘
-             │                             │                             │
-             ╞═══════shared database═══════╡                             │
-             │                             │                             │
-             │                             ╞════════message queue════════╡
-             │                                                           │
-             ╞═══════════shared schema═════╪═════════════════════════════╡
+┌───────────────────────────┐   ┌───────────────────────────┐   ┌───────────────────────────┐
+│ Systemtender A  (node-1)  │   │ Systemtender B  (node-2)  │   │ Systemtender C  (node-3)  │
+│ pushes p0 · p1 · p2       │   │ pushes p0 · p1 · p2       │   │ pushes p0 · p1 · p2       │
+│ wants   latency           │   │ wants   cost              │   │ wants   uptime            │
+└─────────────┬─────────────┘   └─────────────┬─────────────┘   └─────────────┬─────────────┘
+              │ tunes                         │ tunes                         │ tunes
+              ▼                               ▼                               ▼
+      ┌──────────────┐                ┌──────────────┐                ┌──────────────┐
+      │  Service A   │                │  Service B   │                │  Service C   │
+      └───────┬──────┘                └───────┬──────┘                └───────┬──────┘
+              │                               │                               │
+              ╞════════shared database════════╡
+                                              ╞═════════message queue═════════╡
+              ╞═══════════════════════════════╪shared schema══════════════════╡
 ```
 
 Each systemtender tunes its own parameters against its own objective, reading only its own system's outputs. Influence crosses through substrates that appear in **no one's** configuration, **nor** anyone's telemetry. The net — physical or logical — is real in every reading and absent from every diagram.
 
 That it works across kinds is not an edge case; it is the point. The protocol contains no physics: it needs parameters it can push, objectives it can read, and turns it can take. What sits between can be wall, wire, or schema. And both kinds are validated territory — the greenhouse's channels are physical; the generic bench's edges are pure mathematics (saturation and threshold transforms, no physics at all), and detection holds across the entire sweep on both.
 
-On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the systemtenders optimizing those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's optimizer receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, convergence corrupted, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
+On the generic bench this net is planted deliberately: nodes, parameters, edges, shapes, noise — the topology file *is* the ground truth, and the systemtenders tending those nodes know none of it. On the greenhouse bench it is physical: when A raises its heating, heat conducts through the shared wall and moves B's temperature. When A opens its vents, the air exchange carries CO2 and humidity to its neighbor. When A irrigates, the shared water tank drops and everyone's scarcity factor moves. B's tender receives each change as unexplained objective movement and does the only thing available to it: attributes the shift to its own parameters. Trials wasted chasing ghosts, every measurement quietly wrong. The coupling exists physically, in every reading — and in no model.
 
 ### Why Passive Detection Fails
 
-The obvious move is statistics: watch both optimizers' metrics, look for correlation. It fails structurally, not implementationally.
+The obvious move is statistics: watch both systemtenders' metrics, look for correlation. It fails structurally, not implementationally.
 
-While a receiver optimizes, its own search moves its objectives — trial by trial, deliberately. That self-inflicted variance sits roughly 500× above any coupling signal in passive data. Every passive estimator in the toolbox was tried on this channel class — cross-correlation, Granger causality, mutual information, transfer entropy, convergent cross mapping — with the same outcome: you cannot subtract a conversation you never heard. The noise is not in the sensor. The noise *is* the listener, thinking.
+While a receiver walks, its own probes move its objectives — trial by trial, deliberately. That self-inflicted variance sits roughly 500× above any coupling signal in passive data. Every passive estimator in the toolbox was tried on this channel class — cross-correlation, Granger causality, mutual information, transfer entropy, convergent cross mapping — with the same outcome: you cannot subtract a conversation you never heard. The noise is not in the sensor. The noise *is* the listener, thinking.
 
-An earlier attempt made each optimizer broadcast a faint continuous tone (a watermark) and listened for it downstream with spectral methods. It worked on linear channels and died on the greenhouse: six cascaded transforms — thermal inertia, multiplicative growth, dead zones, phase-dependent sensitivity — ate the frequency content until the SNR was ≈ 0.002. The lesson was not a better detector. It was that the signal has to be created at the scale of the channel, not the scale of the sensor.
+An earlier attempt broadcast a faint continuous tone (a watermark) and listened for it downstream with spectral methods. It worked on linear channels and died on the greenhouse: six cascaded transforms — thermal inertia, multiplicative growth, dead zones, phase-dependent sensitivity — ate the frequency content until the SNR was ≈ 0.002. The lesson was not a better detector. It was that the signal has to be created at the scale of the channel, not the scale of the sensor.
 
 ### The Method: Knock, Listen, Repeat
 
@@ -97,11 +93,11 @@ The protocol is what any engineer does to an unknown system: perturb it, watch w
 
 **Turn-taking.** Systemtenders in a shared group pass a lease — fencing tokens, one sender at a time, crash recovery via heartbeat staleness. One speaks; the others hold at neutral. Not politeness: a listener shifting in their chair is indistinguishable from an answer. Holding still deletes the 500× self-noise; what remains is the substrate's own voice.
 
-**Scheduled pushes.** The sender walks one parameter through scheduled probe levels — midpoint, extremes, quarters; a deterministic order that visits every level by contract. Each push stays inside the same guardrails as ordinary optimization trials. Non-destructive by construction, not by hope.
+**Scheduled pushes.** The sender walks one parameter through probe levels chosen from the measured map — the highest-priced unresolved gap first; a dial retires only when every remaining gap is priced below its measurement bar. Each push stays inside the same guardrails as ordinary trials. Non-destructive by construction, not by hope.
 
 **Blocks, not blips.** Every level gets a push block and a pause block of N trials each; the comparison is between block medians, not single samples.
 
-The sender's cycle: `OPTIMIZE → PROBE_PUSH → PROBE_PAUSE → DONE → COOLDOWN`, receivers `HOLD` throughout. Roles rotate; both directions get measured.
+The sender's cycle: `IDLE → PROBE_PUSH → PROBE_PAUSE → DONE → COOLDOWN`, receivers `HOLD` throughout. Roles rotate; both directions get measured.
 
 ### The Dynamics
 
@@ -177,17 +173,17 @@ MAD is the median absolute deviation of the receiver's own neutral-hold window; 
 
 One hygiene rule carries a hard-won invariant: only the receivers' observation rows enter the reference window. Sender self-reads poison the median (a real defect once, caught by live checks, fixed by a lease-phase write gate plus receiver-rows-only SQL — pinned by tests).
 
-### Objectives Are Optimized; Observations Are Watched
+### Objectives Are Measured; Observations Are Watched
 
-Detection channels are explicitly separate from optimization targets:
+Detection channels are explicitly separate from the trial's judged readings:
 
 | Section | Purpose | Example |
 |---|---|---|
-| `objectives` | What the optimizer optimizes | growth_rate, energy |
-| `observations` | Collected per trial, never optimized — extra detector channels | max_temp, humidity |
+| `objectives` | The readings trials are judged on | growth_rate, energy |
+| `observations` | Collected per trial, never judged — extra detector channels | max_temp, humidity |
 | `guardrails` | Hard safety limits | max_temp (hard_limit 40) |
 
-The detector reads objectives and observations alike; the optimizer only chases the former. A channel you suspect is coupled but do not want an agent chasing belongs in `observations`.
+The detector reads objectives and observations alike. A channel you suspect is coupled but do not want driving trial outcomes belongs in `observations`.
 
 ### Validation
 

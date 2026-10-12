@@ -23,23 +23,23 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Reconnaissance
 
-**Reconnaissance** observes the target system after effectuation — collecting metrics, checking health, and gathering the data needed to evaluate fitness. It's the eyes of the optimization loop.
+**Reconnaissance** observes the target system after effectuation — collecting metrics, checking health, and gathering the data needed to judge each trial. It's the eyes of the trial loop.
 
-### Role in the Optimization Loop
+### Role in the Trial Loop
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Optimization Loop                         │
+┌──────────────────────────────────────────────────────────────┐
+│                       Trial Loop                             │
 │                                                              │
-│    Effectuator ──▶ Target System ──▶ Reconnaissance        │
-│    (apply)          (changed)        (observe)              │
+│    Effectuator ──▶ Target System ──▶ Reconnaissance          │
+│    (apply)          (changed)        (observe)               │
 │                                                              │
 │                                           │                  │
 │                                           ▼                  │
-│                                      Metrics &              │
-│                                      Observations           │
+│                                      Metrics &               │
+│                                      Observations            │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 Reconnaissance answers: "What happened after we made that change?"
@@ -49,16 +49,16 @@ Reconnaissance answers: "What happened after we made that change?"
 ### Reconnaissance Interface
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                     Reconnaissance                           │
 │                                                              │
-│  Input:  Trial context (what was applied)                   │
+│  Input:  Trial context (what was applied)                    │
 │                                                              │
-│  Action: Collect observations from target                   │
+│  Action: Collect observations from target                    │
 │                                                              │
-│  Output: { metric_a: 123.4, metric_b: 42.0, ... }          │
+│  Output: { metric_a: 123.4, metric_b: 42.0, ... }            │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 | Phase | Responsibility |
@@ -116,18 +116,18 @@ Use for: cloud-native systems, Kubernetes, microservices.
 ### Timing and Sampling
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────────┐
 │                    Reconnaissance Timeline                       │
 │                                                                  │
-│  Effectuation        Stabilization      Sampling                │
-│       │               ├────────┤        ● ● ●                   │
-│       │               │        │        │                       │
-│       ▼               ▼        ▼        ▼                       │
-│  ─────●───────────────●────────●────────●──────────────────▶    │
-│       │                                                  trials │
-│                                                              │
-│  Wait for the change to land, then take N samples             │
-└─────────────────────────────────────────────────────────────────┘
+│  Effectuation        Stabilization      Sampling                 │
+│       │               ├────────┤        ● ● ●                    │
+│       │               │        │        │                        │
+│       ▼               ▼        ▼        ▼                        │
+│  ─────●───────────────●────────●────────●──────────────────▶     │
+│       │                                                  trials  │
+│                                                                  │
+│  Wait for the change to land, then take N samples                │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 | Parameter | Purpose |
@@ -165,18 +165,18 @@ Every objective and every observation is its own reconnaissance block —
 one target read through as many channels as you care to name:
 
 ```yaml
-objectives:                     # optimized
+objectives:                     # measured, judged per trial
   - name: objective_0
     direction: maximize
     reconnaissance: {service: http, path: /metrics/json, key: objective_0, samples: 3, aggregation: median}
 
-observations:                   # read, never optimized — detection channels
+observations:                   # recorded, never judged — detection channels
   - name: objective_1
     reconnaissance: {service: http, path: /metrics/json, key: objective_1, samples: 3, aggregation: median}
 ```
 
-Observations feed the detector, not the optimizer — a channel you
-suspect is coupled but don't want an agent chasing belongs here.
+Observations feed the detector, not the trial's values — a channel you
+suspect is coupled but don't want driving trial outcomes belongs here.
 
 ---
 
@@ -198,15 +198,15 @@ The safe direction is the default: absence is a failure, not a zero.
 Real metrics have noise:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    Noisy Observations                        │
 │                                                              │
-│  True value: 50ms                                           │
-│  Observed:   [48, 52, 47, 55, 49, 51, 48, 53, ...]         │
+│  True value: 50ms                                            │
+│  Observed:   [48, 52, 47, 55, 49, 51, 48, 53, ...]           │
 │                                                              │
-│  Aggregation smooths noise for fitness evaluation           │
+│  Aggregation smooths noise for fitness evaluation            │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 **Mitigation strategies:**
@@ -253,5 +253,5 @@ Objective: minimize latency  ──▶  fitness = 45
 
 - [Effectuator](concept_effectuator.md) — What reconnaissance observes
 - [Guardrails](concept_guardrails.md) — Check reconnaissance data against limits
-- [Systemtender](concept_systemtender.md) — Orchestrates the optimization loop
+- [Systemtender](concept_systemtender.md) — Orchestrates the trial loop
 - [Configuration Guide](config_guide.md) — The shipped config, end to end

@@ -88,7 +88,7 @@ The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.2196
 | [godon](https://github.com/godon-dev/godon) | Core — workflows, bench scenarios, papers |
 | [godon-images](https://github.com/godon-dev/godon-images) | Container images — api, causal, observer, cli, seeder, mcp, benches |
 | [godon-charts](https://github.com/godon-dev/godon-charts) | Helm charts for Kubernetes deployment |
-| [godon-robots](https://github.com/godon-dev/godon-robots) | Systemtender engine — optimization and characterization agents |
+| [godon-robots](https://github.com/godon-dev/godon-robots) | Systemtender engine — walking and characterization agents |
 | [godon-controller](https://github.com/godon-dev/godon-controller) | Lifecycle logic — systemtender coordination, cleanup cascades |
 | [godon-cli](https://github.com/godon-dev/godon-cli) | Command-line client for the control API |
 | [godon-test-infra](https://github.com/godon-dev/godon-test-infra) | Test infrastructure |
