@@ -36,27 +36,27 @@ Finding is well served by the tools below; several are excellent at it. Keeping 
 Godon is a self-hosted engine that discerns hidden system structure through active perturbation, and tends what it finds toward better operating points.
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────────┐
 │                         GODON                                    │
-│  ┌─────────────────────────────────────────────────────────┐    │
+│  ┌─────────────────────────────────────────────────────────┐     │
 │  │              Discernment Layer                           │    │
 │  │  Coupling detection  │  Topology discovery               │    │
 │  │  Active perturbation │  Isolation certification          │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────────┐    │
+│  └─────────────────────────────────────────────────────────┘     │
+│  ┌─────────────────────────────────────────────────────────┐     │
 │  │                    Tending Layer                         │    │
 │  │  Live system steering  │  Guardrails  │  Rollback        │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────────┐    │
+│  └─────────────────────────────────────────────────────────┘     │
+│  ┌─────────────────────────────────────────────────────────┐     │
 │  │                    Plumbing Layer                        │    │
-│  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │    │
+│  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │     │
 │  │  Trial coordination              │  Worker management    │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │              Algorithm Core                              │    │
-│  │  (TPE, NSGA-II/III, QMC  →  custom samplers, ML)        │    │
-│  └─────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────┘
+│  └─────────────────────────────────────────────────────────┘     │
+│  ┌─────────────────────────────────────────────────────────┐     │
+│  │                  Walk Engine                             │    │
+│  │  Coverage walks → response curves → refinement          │     │
+│  └─────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ## Optimization Libraries
@@ -66,9 +66,10 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | Dimension | Godon | Optuna |
 |-----------|-------|--------|
 | **What it provides** | Complete engine (discern + tend) | Algorithm library |
+| **Model** | Measured response curves per edge, composed, persistent | Fitted surrogate, per-study |
 | **Plumbing - Effectuation** | Built-in (SSH, HTTP) | None — you build it |
 | **Plumbing - Reconnaissance** | Built-in (Prometheus, HTTP) | None — you build it |
-| **Plumbing - Coordination** | Controller API, trial sharing | Study management only |
+| **Plumbing - Coordination** | Controller API, lease coordination | Study management only |
 | **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Hard limits with automatic response | No |
 | **Ops Safety - Rollback** | Previous/best/baseline restoration | No |
@@ -85,7 +86,7 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | **Ops Safety - Guardrails** | Yes | No |
 | **Ops Safety - Rollback** | Yes | No |
 | **Multi-objective** | Yes | No |
-| **Algorithm** | TPE, NSGA-II/III, QMC, Random | TPE, Random, Atpe |
+| **Algorithm** | Adaptive walk | TPE, Random, Atpe |
 | **API** | REST + CLI | Python only |
 | **Status** | Active | Maintenance mode |
 
@@ -98,7 +99,7 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 | **Coupling Detection** | Active perturbation, topology discovery | None |
 | **Ops Safety - Guardrails** | Yes | No |
 | **Ops Safety - Rollback** | Yes | No |
-| **Algorithms** | TPE, NSGA-II/III, QMC | Derivative-free (Evolution, Bandits) |
+| **Algorithms** | Adaptive walk | Derivative-free (Evolution, Bandits) |
 | **Multi-objective** | Yes | Yes |
 | **Domain** | Live systems + generic | Generic functions |
 | **Deployment** | Kubernetes | Python library |
@@ -122,7 +123,7 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 
 | Aspect | Godon | Ax |
 |--------|-------|-----|
-| Algorithm | Multi-strategy (TPE, NSGA, QMC) | Bayesian optimization |
+| Algorithm | Adaptive walk | Bayesian optimization |
 | Coupling Detection | Yes — multi-agent interference topology | None |
 | Live System Integration | Native | Manual |
 | Constraints | Guardrails + Rollback | Parameter constraints |
@@ -240,8 +241,6 @@ Godon can discern interference between HPA and VPA decisions, and tend autoscale
 | **Guardrails** | Yes | No | No | Limited | Yes | Limited | No |
 | **Rollback** | Yes | No | No | No | Yes | No | No |
 | **Multi-objective** | Yes | Yes | Yes | Yes | Yes | Yes | N/A |
-| **Algorithm Diversity** | Yes | Manual | Manual | Manual | Yes | Unknown | N/A |
-| **Worker Cooperation** | Yes | No | No | No | Unknown | Unknown | N/A |
 | **Open Source** | Yes | Yes | Yes | Partial | No | No | No |
 | **Self-hosted** | Yes | N/A | Yes | Yes | No | No | No |
 

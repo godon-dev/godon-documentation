@@ -42,9 +42,9 @@ Management and steering tools proxy the godon API. The credential, target, and s
 
 | Tool | Description |
 |------|-------------|
-| `systemtender_list` | List all optimization systemtenders with their current status (active, stopped, error) |
+| `systemtender_list` | List all systemtenders with their current status (active, stopped, error) |
 | `systemtender_get` | Get a systemtender's full configuration, status, and creation time |
-| `systemtender_create` | Create and start a new optimization systemtender (name + godon v0.3 config) |
+| `systemtender_create` | Create and start a new systemtender (name + godon v0.3 config) |
 | `systemtender_stop` | Gracefully stop a running systemtender — workers finish their current trial |
 | `systemtender_start` | Resume a stopped systemtender, continuing from its trial history |
 | `systemtender_delete` | Delete a systemtender and all its data; `force=true` cancels running workers immediately |
@@ -62,7 +62,7 @@ Management and steering tools proxy the godon API. The credential, target, and s
 
 | Tool | Description |
 |------|-------------|
-| `target_list` | List all registered target systems that systemtenders optimize against |
+| `target_list` | List all registered target systems that systemtenders tend |
 | `target_create` | Register a target system: SSH server or HTTP API |
 | `target_get` | Get details of a specific target system |
 | `target_delete` | Delete a registered target system |
@@ -162,10 +162,10 @@ const tools = await client.listTools();
 
 ### Example Usage
 
-Once connected, an LLM can create and manage optimization runs directly. For example, to create a TCP tuning systemtender:
+Once connected, an LLM can create and manage systemtenders directly. For example, to create a TCP tuning systemtender:
 
 ```
-Create a systemtender named "tcp-tuning" that optimizes net.ipv4.tcp_rmem
+Create a systemtender named "tcp-tuning" that walks net.ipv4.tcp_rmem
 between 4096 and 6291456 targeting host 10.0.0.5, measuring RTT as the objective.
 ```
 

@@ -41,7 +41,7 @@ Curves exist only where probed. The connectome is an honest map of what has been
 The distinction is deliberate: the live map grows with every probe; the artifact freezes a build of it for citation and comparison.
 
 ```
-┌──────────────────────────────────────────────────────────────┐
+┌───────────────────────────────────────────────────────────────┐
 │                    Building and Asking                        │
 │                                                               │
 │   probe ──▶ measure ──▶ live connectome ──▶ artifact          │
@@ -49,7 +49,7 @@ The distinction is deliberate: the live map grows with every probe; the artifact
 │                                                               │
 │   predict / impact / causes ──▶ answers, never touches        │
 │                                the running system             │
-└──────────────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────────────┘
 ```
 
 ### What an Edge Carries

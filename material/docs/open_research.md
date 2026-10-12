@@ -53,7 +53,7 @@ The coupling structure revealed at one probe cadence is one view: slow probes se
 
 ### Meta-Optimization of Sensing
 
-The protocol's own parameters (probe amplitude, block lengths, walk depth, convergence threshold) are tunable against measurement outcomes. The system optimizing its own sensing strategy — choosing experiments by expected information — is a natural, unsolved layer. The current walk is deliberately deterministic; adaptive experiment selection is a rung above it.
+The protocol's own parameters (probe amplitude, block lengths, walk depth, convergence threshold) are tunable against measurement outcomes. The current adaptive walk steers by measured ground (banked curves, unresolved gaps); choosing experiments by expected information value — the sensing strategy optimizing itself — is the natural, unsolved layer above that.
 
 ### Hardening the Steering
 

@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Getting Started
 
-Everything in this walkthrough runs on **your machine**: your cluster, your bench simulator, your agents. No godon-dev credentials, no CI. When it's done you will have planted a coupling edge into a simulator with known ground truth, let two autonomous optimizers discover and measure it through the shared substrate, read the measured response curves back out, and declared a steerwish that the engine planned, served, and held.
+Everything in this walkthrough runs on **your machine**: your cluster, your bench simulator, your agents. No godon-dev credentials, no CI. When it's done you will have planted a coupling edge into a simulator with known ground truth, let two autonomous systemtenders discover and measure it through the shared substrate, read the measured response curves back out, and declared a steerwish that the engine planned, served, and held.
 
 Budget **45-90 minutes**, most of it waiting while the agents work.
 
@@ -30,7 +30,7 @@ A running godon stack. If you haven't set it up yet, see [Setup](setup.md). You'
 - Docker (for the bench simulator and the godon CLI)
 - `jq` and `curl`
 
-The walkthrough uses the **generic bench** — a configurable synthetic coupling simulator with known ground truth. You plant the coupling (topology, strength, shape, noise), the engine discovers it, and you compare. Two autonomous optimizers run against two coupled bench nodes; each one discovers the other through the shared substrate.
+The walkthrough uses the **generic bench** — a configurable synthetic coupling simulator with known ground truth. You plant the coupling (topology, strength, shape, noise), the engine discovers it, and you compare. Two autonomous systemtenders run against two coupled bench nodes; each one discovers the other through the shared substrate.
 
 ### Step 1: Start the Bench Simulator
 
@@ -99,7 +99,7 @@ curl -s http://127.0.0.3:9090/health
 
 ### Step 3: Create Targets and Systemtenders
 
-Two kinds of object make an agent run: a **target** (the HTTP endpoint it optimizes) and a **systemtender config** (its parameter space, objectives, and characterization group). You write both yourself — four small files.
+Two kinds of object make an agent run: a **target** (the HTTP endpoint it tends) and a **systemtender config** (its parameter space, objectives, and characterization group). You write both yourself — four small files.
 
 The targets just point at the bench nodes you started in step 1:
 
@@ -123,7 +123,7 @@ spec:
 EOF
 ```
 
-The systemtender config is where the experiment lives. Three parts matter: the **search space** (`settings` — three parameters on a 0-100 grid), the **objectives vs observations split** (`objective_0` is optimized, `objective_1` is only watched — the detector reads both), and the **`interference_detection` group** — any two systemtenders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.
+The systemtender config is where the experiment lives. Three parts matter: the **parameter space** (`settings` — three parameters on a 0-100 grid), the **objectives vs observations split** (`objective_0` is judged, `objective_1` is only watched — the detector reads both), and the **`interference_detection` group** — any two systemtenders sharing a group name begin coordinating: turn-taking, probing, measuring their coupling.
 
 ```bash
 cat > systemtender-1.yml <<EOF
@@ -171,7 +171,7 @@ objectives:
       samples: 3
       aggregation: median
 
-observations:                   # read but NOT optimized — an extra detection channel
+observations:                   # recorded but NOT judged — an extra detection channel
   - name: objective_1
     reconnaissance:
       service: http
@@ -225,10 +225,10 @@ echo "sender: ${SYSTEMTENDER_1_UUID}, receiver: ${SYSTEMTENDER_2_UUID}"
 
 ### Step 4: What the Systemtenders Are Doing
 
-Each systemtender is an optimization agent. Beyond optimizing, they coordinate through lease-based turn-taking to characterize their coupling:
+Each systemtender is a walking agent. Between walks, they coordinate through lease-based turn-taking to characterize their coupling:
 
 1. One systemtender acquires the sender role, the other holds still (receiver).
-2. The sender runs a **coverage walk** — pushing one parameter at a time across its levels (midpoint, extremes, quarters — a deterministic, complete exploration order).
+2. The sender runs an **adaptive walk** — pushing one parameter at a time through its levels, chosen from the measured map: the highest-priced unresolved gap next, until every dial's remaining ignorance is priced below its measurement bar.
 3. For every push, the causal service measures the receiver's objective shift between push and pause windows, with an uncertainty bar from the raw sample scatter.
 4. Re-measurements within bars blend (the point tightens); beyond bars relocate and flag drift.
 5. A parameter retires when it is converged **and** every remaining gap in its response curve is priced below the local measurement bar — remaining ignorance cheaper than one more probe.

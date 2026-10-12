@@ -1,5 +1,5 @@
 ---
-description: "godon architecture — distributed system design with control plane, storage layer, execution layer. Optimization loop, characterization loop, steering loop, technology choices, failure modes, and scaling."
+description: "godon architecture — distributed system design with control plane, storage layer, execution layer. Trial loop, the walk, the steering loop, technology choices, failure modes, and scaling."
 ---
 
 <!--
@@ -23,48 +23,50 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Architecture
 
-godon is a distributed system for tending live systems: it measures the coupling structure of the system it runs on, and it steers that system toward operating points a holder chooses. It coordinates autonomous agents (systemtenders) — optimization, and the serving of declared steerwishes — with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
+godon is a distributed system for tending live systems: it measures the coupling structure of the system it runs on, and it steers that system toward operating points a holder chooses. It coordinates autonomous agents (systemtenders) — walking the system's dials, and serving declared steerwishes — with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
 
 ---
 
 ### High-Level Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           Control Plane                                  │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                  │
-│  │  Godon API  │───▶│  Windmill   │───▶│   Workers   │                  │
-│  │  (extern)   │    │ (scheduler) │    │ (execute)   │                  │
-│  └─────────────┘    └─────────────┘    └─────────────┘                  │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           Storage Layer                                  │
-│  ┌──────────────────┐              ┌──────────────────┐                 │
-│  │   Metadata DB    │              │    Archive DB    │                 │
-│  │   (PostgreSQL)   │              │   (YugabyteDB)   │                 │
-│  │                  │              │                  │                 │
-│  │  Component state │              │  Trial history   │                 │
-│  │  Job tracking    │              │  Cooperation     │                 │
-│  └──────────────────┘              └──────────────────┘                 │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         Execution Layer                                  │
-│                                                                          │
-│    ┌──────────┐         ┌──────────────┐         ┌──────────────┐       │
-│    │ Systemtender  │────────▶│  Effectuator │────────▶│    Target    │       │
-│    │ (driver) │         │   (apply)    │         │   System     │       │
-│    └──────────┘         └──────────────┘         └──────────────┘       │
-│         │                                                │               │
-│         │                                                ▼               │
-│         │         ┌──────────────┐         ┌──────────────┐             │
-│         └─────────│Reconnaissance│◀────────│   Metrics    │             │
-│                   │  (observe)   │         │   Sources    │             │
-│                   └──────────────┘         └──────────────┘             │
-└─────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────┐
+│                               Control Plane                                │
+│                                                                            │
+│    ┌─────────────┐       ┌─────────────┐       ┌─────────────┐             │
+│    │  Godon API  │─────▶ │  Windmill   │─────▶ │   Workers   │             │
+│    │  (extern)   │       │ (scheduler) │       │  (execute)  │             │
+│    └─────────────┘       └─────────────┘       └─────────────┘             │
+└────────────────────────────────────────────────────────────────────────────┘
+                                                                             │
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                               Storage Layer                                │
+│                                                                            │
+│      ┌──────────────────┐                  ┌──────────────────┐            │
+│      │   Metadata DB    │                  │    Archive DB    │            │
+│      │   (PostgreSQL)   │                  │   (YugabyteDB)   │            │
+│      │                  │                  │                  │            │
+│      │  Component state │                  │  Trial history   │            │
+│      │  Job tracking    │                  │  Leases, wishes  │            │
+│      └──────────────────┘                  └──────────────────┘            │
+└────────────────────────────────────────────────────────────────────────────┘
+                                                                             │
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                              Execution Layer                               │
+│                                                                            │
+│    ┌─────────────┐       ┌──────────────┐        ┌──────────────┐          │
+│    │ Systemtender│──────▶│  Effectuator │───────▶│    Target    │          │
+│    │   (tender)  │       │   (apply)    │        │    System    │          │
+│    └─────────────┘       └──────────────┘        └──────────────┘          │
+│          │                                           │                     │
+│          │                                           ▼                     │
+│          │            ┌──────────────┐       ┌──────────────┐              │
+│          └───────────▶│Reconnaissance│◀──────│   Metrics    │              │
+│                       │  (observe)   │       │   Sources    │              │
+│                       └──────────────┘       └──────────────┘              │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -73,13 +75,13 @@ godon is a distributed system for tending live systems: it measures the coupling
 
 #### Godon API
 
-The external interface for managing optimization runs.
+The external interface for managing systemtenders.
 
 | Responsibility | Description |
 |----------------|-------------|
 | Systemtender lifecycle | Create, start, stop, delete systemtenders |
 | Status queries | Check systemtender and trial status |
-| Configuration | Submit optimization configs |
+| Configuration | Submit systemtender configs |
 | Results | Retrieve best configurations |
 
 The API is stateless — it delegates to Windmill for orchestration.
@@ -129,8 +131,9 @@ Workers are organized by job type:
 
 | Group | Timeout | Purpose |
 |-------|---------|---------|
-| **controller** | Short (configurable) | Fast operations: preflight, systemtender create, status checks |
-| **systemtender** | None by design — crash recovery via the Optuna DB | Long-running optimization loops |
+| **controller-fast** | 60s | Controller verbs and reads: preflight, status, stop, the wish door |
+| **controller-slow** | 600s | Controller executors: create table builds, delete quiesce |
+| **systemtender** | None by design — crash recovery via the Optuna DB | Long-running trial loops |
 | **default** | Default | General operations, dependency resolution |
 
 Replica counts are deployment values, not architecture — they live in the chart's `values.yaml`.
@@ -154,13 +157,12 @@ PostgreSQL is sufficient here — moderate write volume, strong consistency need
 
 #### Archive DB (YugabyteDB)
 
-Stores trial history for optimization and cooperation.
+Stores the systemtenders' shared trial history.
 
 | Data | Purpose |
 |------|---------|
-| Trial records | Parameters, metrics, fitness |
-| Pareto fronts | Best configurations found |
-| Cooperation data | Shared trials between systemtenders |
+| Trial records | Parameters, metrics, values |
+| Pareto fronts | Best trials found |
 
 **Why YugabyteDB:**
 - **Horizontal scalability** — Many concurrent systemtenders writing trials
@@ -181,62 +183,40 @@ Pushes to Prometheus Push Gateway for aggregation.
 
 ---
 
-### Optimization Loop
+### Trial Loop
 
 The core cycle that each systemtender worker executes:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│                        Systemtender Worker Loop                                   │
-│                                                                              │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌──────────┐  │
-│  │   Sample   │───▶│  Effectuate │───▶│Reconnoiter │───▶│  Update  │  │
-│  │  (algorithm)│    │ (apply)     │    │ (observe)  │    │ (fitness) │  │
-│  └─────────────┘    └─────────────┘    └─────────────┘    └──────────┘  │
-│         │                  │                  │                  │           │
-│         │                  ▼                  │                  │           │
-│         │         ┌──────────────────────────────────┐        │           │
-│         │         │         Target System              │        │           │
-│         │         │  ┌────────┐  ┌────────────┐     │        │           │
-│         └─────────▶│  SSH   │  │ Kubernetes │─────▶        │           │
-│                   │  HTTP   │  │   API      │     │        │           │
-│                   └────────┘  └────────────┘     │        │           │
-│                                            │                  │           │
-│                                            ▼                  │           │
-│                              ┌──────────────────────────┐        │           │
-│                              │   Prometheus / Metrics    │        │           │
-│                              └────────────┬─────────────┘        │           │
-│                                           │                                │           │
-│                                           ▼                                │           │
-│                              ┌──────────────────────────┐        │           │
-│                              │  Guardrails? Fitness?    │        │           │
-│                              └────────────┬─────────────┘        │           │
-│                                           │                                │           │
-│                              ┌────────────┴─────────────┐        │           │
-│                              ▼                           ▼        │           │
-│                         ┌──────────┐              ┌──────────┐  │           │
-│                         │  Share   │              │  Next    │  │           │
-│                         │  (opt)   │              │  Sample  │  │           │
-│                         └──────────┘              └──────────┘  │           │
-│                                                                              │
+│                          Systemtender Trial Loop                         │
+│                                                                          │
+│   ┌──────────┐      ┌───────────┐      ┌───────────┐      ┌──────────┐   │
+│   │  Decide  │─────▶│ Effectuate│─────▶│Reconnoiter│─────▶│   Tell   │   │
+│   │  (walk)  │      │  (apply)  │      │ (observe) │      │ (ledger) │   │
+│   └──────────┘      └───────────┘      └───────────┘      └──────────┘   │
+│        │                                                        │        │
+│        │           config applied, metrics read                 │        │
+│        │                                                        │        │
+│        └────────────────── next trial ◀─────────────────────────┘        │
+│                                                                          │
 └──────────────────────────────────────────────────────────────────────────┘
 ```
 
 | Phase | Action | Duration |
 |-------|--------|----------|
-| **Sample** | Algorithm suggests next parameters | Milliseconds |
+| **Decide** | Coordinator picks the next trial — a walk level, a hold, a park | Milliseconds |
 | **Effectuate** | Apply config to target system | Seconds to minutes |
 | **Reconnoiter** | Wait for steady state, collect metrics | Seconds |
-| **Update** | Check guardrails, compute fitness, update algorithm | Milliseconds |
-| **Communicate** (optional) | Publish trial to Archive DB for cooperation | Milliseconds |
+| **Tell** | Check guardrails, record the trial's values in the ledger | Milliseconds |
 
 **Key properties:**
 - Effectuation is idempotent — safe to retry
 - Reconnaissance waits for steady state before collecting
 - Guardrail violations short-circuit the loop, mark trial failed
-- Archive DB write is async, doesn't block next sample
+- Every trial is told to the ledger; curves and fronts read from it
 
-### Characterization Loop (concurrent with optimization)
+### The Walk (characterization)
 
 Systemtenders in the same interference group coordinate through DB-backed leases (turn-taking: one sender, the rest hold):
 
@@ -249,7 +229,7 @@ Systemtenders in the same interference group coordinate through DB-backed leases
   Retirement: converged AND every gap priced below the local bar
 ```
 
-The walk is deterministic (farthest-point level order: midpoint, extremes, quarters), so coverage is a contract — no level is skipped while the walk runs, and re-measurement within bars blends instead of accumulating noise.
+The adaptive walk steers by the measured map: the notebook policy picks the next (parameter, level) — the highest-priced unresolved gap in the banked curves — and a dial retires only when converged with every remaining gap priced below its local measurement bar. Re-measurement within bars blends instead of accumulating noise.
 
 ### Steering Loop (the action half)
 
@@ -271,7 +251,7 @@ Basic steering is live — the loop that turns a declared steerwish into a held 
            back to neutral
 ```
 
-The declaration is a durable, withdrawable record — the safety device for everything that acts on it ([Steerwish](concept_steerwish.md)). Serving rides the same machinery as optimization: same guardrails, same effectuation channels, no special permissions.
+The declaration is a durable, withdrawable record — the safety device for everything that acts on it ([Steerwish](concept_steerwish.md)). Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
 
 ---
 
@@ -281,14 +261,14 @@ The declaration is a durable, withdrawable record — the safety device for ever
 |------------|------|-----|
 | **Windmill** | Workflow orchestration | Most mature and best performing open source workflow engine, abstracts Kubernetes complexity |
 | **PostgreSQL** | Metadata storage | Reliable, well-understood, sufficient for component state |
-| **YugabyteDB** | Trial archive | PostgreSQL-compatible, horizontally scalable, enables cooperation |
+| **YugabyteDB** | Trial archive | PostgreSQL-compatible, horizontally scalable, shared by the whole group |
 | **Kubernetes** | Deployment platform | Container orchestration, Helm for config, standard in cloud-native |
 | **Prometheus** | Metrics | Industry standard, Push Gateway for batch job metrics |
 
 **Design principles:**
 
 - **Open source stack** — Built entirely on open source components, no vendor lock-in
-- **Separate concerns** — Metadata (operational) vs Archive (optimization) have different scaling needs
+- **Separate concerns** — Metadata (operational) vs Archive (trials) have different scaling needs
 - **PostgreSQL ecosystem** — Both databases speak PostgreSQL, reducing cognitive load
 - **Kubernetes-native** — Helm charts, Pod Disruption Budgets, standard deployment patterns
 
@@ -299,20 +279,20 @@ The declaration is a durable, withdrawable record — the safety device for ever
 godon is deployed via Helm chart to Kubernetes.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────────────┐
 │                    Kubernetes Cluster                        │
 │                                                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
-│  │  godon-api  │  │  windmill   │  │  workers    │          │
-│  │  (pod)      │  │  (pods)     │  │  (pods)     │          │
-│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐           │
+│  │  godon-api  │  │  windmill   │  │  workers    │           │
+│  │  (pod)      │  │  (pods)     │  │  (pods)     │           │
+│  └─────────────┘  └─────────────┘  └─────────────┘           │
 │                                                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
-│  │ metadata-db │  │ archive-db  │  │ pushgateway │          │
-│  │ (postgres)  │  │ (yugabyte)  │  │ (prometheus)│          │
-│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐           │
+│  │ metadata-db │  │ archive-db  │  │ pushgateway │           │
+│  │ (postgres)  │  │ (yugabyte)  │  │ (prometheus)│           │
+│  └─────────────┘  └─────────────┘  └─────────────┘           │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────────────┘
 ```
 
 **Deployment characteristics:**
@@ -329,10 +309,10 @@ godon is deployed via Helm chart to Kubernetes.
 | Failure | Impact | Recovery |
 |---------|--------|----------|
 | API pod dies | No new requests | Kubernetes restarts, stateless |
-| Worker dies | In-flight trial lost | Optuna DB enables resume, algorithm continues |
+| Worker dies | In-flight trial lost | Optuna DB enables resume, the walk continues |
 | Metadata DB down | No new systemtenders | Existing systemtenders continue (state already dispatched) |
-| Archive DB down | No trial persistence | Systemtenders continue locally, no cross-learning |
-| Target system unreachable | Trial fails | Marked failed, algorithm learns to avoid |
+| Archive DB down | Ledger and lease coordination unavailable | Worker exits; resumes from the ledger on recovery |
+| Target system unreachable | Trial fails | Marked failed, counted toward rollback |
 
 **Crash safety:**
 - Systemtender workers end when the characterization is complete, when a stop is requested, or on crash
@@ -358,5 +338,5 @@ godon is deployed via Helm chart to Kubernetes.
 
 - [Core Concepts](concept_systemtender.md) — Systemtender, Effectuator, Reconnaissance, Guardrails
 - [Steerwish](concept_steerwish.md) — the steering loop's intent surface
-- [Configuration Guide](config_guide.md) — How to configure optimization runs
+- [Configuration Guide](config_guide.md) — How to configure systemtenders
 - [Setup](setup.md) — Installation instructions
