@@ -54,6 +54,19 @@ ignorance = jump × width / range
 
 and retirement requires it below the local measurement bar — remaining uncertainty cheaper than one more probe. In the deepest validated run (a 9-level tent curve, every point within 0.55σ of planted truth), the walk retired by price with three shape-honest gaps still open on the steep flank, each priced below its local bar. The bracket between measured points is part of the artifact: it says where the edge could still be, and what that uncertainty costs.
 
+## The Local Walk — Ambience Entries
+
+The same walk machinery measures a second, smaller object. An **ambience entry** is one parameter's own effect on its own reading, probed inside a small window around its current resting value while every other parameter holds still — the points are `(level, shift, bar)` like any curve, and the standing configuration the entry was measured at (the [ambience](concept_connectome.md#two-kinds-of-ground)) is part of its name.
+
+The discipline is unchanged, only fenced:
+
+- **One parameter moves**, inside the window; everything else freezes. Attribution never relaxes.
+- **Priced stopping applies inside the fence** — the same gap pricing picks the next probe, and the walk stops when the window's gaps price out, not when the window is full.
+- **The window starts small** (an eighth of the parameter's span around the resting value) and grows only when the readings at its edge price for more.
+- **Entries age and are re-walked** by the engine's own schedule: when a coverage walk prices out, the map names the local ground that is missing or stale, and the same machinery fills it.
+
+Whole-range knowledge and local knowledge are kept apart on purpose: the map reads them as separate surfaces and never blends them.
+
 ## Calibration Against Planted Truth
 
 On the generic bench the ground truth is known, so calibration is exact comparison:
@@ -92,6 +105,7 @@ Curves persist across service restarts and are removed with their systemtender's
 
 ## See Also
 
+- [Connectome](concept_connectome.md) — holds both kinds of ground
 - [Interference Detection](concept_interference_detection.md) — the detection method underneath
 - [Detection Capabilities](detection_capabilities.md) — the validated boundary map
 - [Open Research](open_research.md) — what is deliberately not claimed yet

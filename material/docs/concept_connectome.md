@@ -56,6 +56,31 @@ The distinction is deliberate: the live map grows with every probe; the artifact
 
 Per edge, the connectome holds **response curves**: probe levels with measured shifts and honest error bars (`/connectome/curves`). A curve is the coupling's measured shape — not a coefficient asserted by a model, and not more precise than the noise floor allows.
 
+### Two Kinds of Ground
+
+The map holds two measured scopes and never blends them.
+
+**Response curves** — cross-effects across a parameter's whole range, measured in the default climate ([Characterization](characterization.md)).
+
+**Ambience entries** — local ground. The **ambience** is where the system stands: the resting value of every parameter, everywhere, at one moment. Every measurement is taken in an ambience, and because parameters interfere, the same move can produce different responses in different ambiences — a number without its ambience is a number of unknown validity. An entry is one parameter's own effect on its own reading, measured in a small window around its current resting value (every other parameter frozen), with the ambience as part of the entry's name: points `(level, shift, bar)` like any curve, an address like no curve had.
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│              Two kinds of measured ground                       │
+│                                                                │
+│   curve:   0 ──────────── resting ──────────────────────── 100 │
+│                     (whole range, default climate)             │
+│                                                                │
+│   entry:              ┌─ window ─┐                             │
+│   0 ──────────────────┤ ▫ ▫ ▫ ▫  ├────────────────────── 100   │
+│                        └──────────┘                             │
+│                     (around the resting value,                 │
+│                      at one named ambience)                    │
+└────────────────────────────────────────────────────────────────┘
+```
+
+The window is an interval because wishes ask interval questions — a band of readings can only be judged reachable over a span of parameter positions. Entries age (the world drifts even when nothing moves) and are re-walked by the engine's own schedule; a wish may commission that earlier, never replace it. The scopes answer different questions and compose with nothing: a curve says what a parameter does in general; an entry says what it does from where the system stands, precisely, with bars.
+
 ### Asking the Connectome
 
 Reads never touch the system — the map answers; the running system is not disturbed.
@@ -71,7 +96,7 @@ Refusal instead of extrapolation: an ask outside the measured range is refused �
 
 ### How It Connects
 
-[Interference detection](concept_interference_detection.md) finds candidate coupling; characterization walks measure the curves; the connectome accumulates both. [Systemtenders](concept_systemtender.md) produce it by probing under [guardrails](concept_guardrails.md) — and [wishes](concept_wish.md) are served on it: a hold keeps a declared outcome at map coordinates; a commissioned walk searches a region of them.
+[Interference detection](concept_interference_detection.md) finds candidate coupling; characterization walks measure the curves and the ambience entries; the connectome accumulates all of it. [Systemtenders](concept_systemtender.md) produce it by probing under [guardrails](concept_guardrails.md) — and [wishes](concept_wish.md) are served on it: a hold keeps a declared outcome at map coordinates; a commissioned walk searches a region of them.
 
 ### Surface
 
@@ -82,7 +107,7 @@ The connectome is readable through the REST API's `/connectome` family (relayed 
 ### See Also
 
 - [Interference Detection](concept_interference_detection.md) — Finds the candidate edges
-- [Characterization](characterization.md) — The walks that measure the curves
+- [Characterization](characterization.md) — The walks that measure the curves and entries
 - [Systemtender](concept_systemtender.md) — Produces the map by probing
 - [Guardrails](concept_guardrails.md) — Every probe is bounded
 - [Wish](concept_wish.md) — Holds and walks, declared on the map
