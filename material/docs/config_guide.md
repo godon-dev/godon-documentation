@@ -119,9 +119,14 @@ Safety limits with automatic response (fail trial, rollback, or skip target) are
 
 ### The Shape of a Wish Declaration
 
-Steering is declared at runtime, not written into a config file: a wish is a payload sent to the REST API (`/wishes`) or the `wish_declare` MCP tool. The payload states its type; this section covers the hold's grammar — one wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored. The walk's grammar, a commissioned seek, is covered in [Wish](concept_wish.md).
+Wishes are declared at runtime, not written into a config file: a wish is a payload sent to the REST API (`/wishes`) or the `wish_declare` MCP tool. The payload states its type — steer (the hold) or seek (the walk), each with its own shape below.
+
+#### Steer — the hold's shape
+
+One wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored.
 
 ```yaml
+type: steer
 claims:                        # the aims — N >= 1
   - outcome: chainend.shift
     band: {lo: -0.14, hi: -0.06, target: -0.10}
@@ -145,7 +150,22 @@ Claims and terms share one shape — a named measured value plus a band — and 
 - `budget` — the re-act allowance after drift events; omitted means upkeep indefinitely
 - `regime` — the closing rule; `standing` today (held until closed)
 
-An unkeepable wish is refused by name before anything acts. A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Wish](concept_wish.md).
+An unkeepable wish is refused by name before anything acts.
+
+#### Seek — the walk's shape
+
+A commissioned search: the region to walk, and either a criterion with a budget (`find_best`) or neither (`cover_now`, which walks to extend coverage and carries no budget). Semantics and lifecycle in [Wish](concept_wish.md).
+
+```yaml
+type: seek
+form: find_best               # or cover_now — no criterion, no budget
+region:
+  chainend.push: [-0.4, 0.4]  # the dials to walk, each [lo, hi]
+criterion:
+  outcome: chainend.shift     # what counts: the reading
+  direction: minimize         # ... and the direction
+budget: 12                    # measured trials the walk may spend
+``` A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Wish](concept_wish.md).
 
 ---
 
