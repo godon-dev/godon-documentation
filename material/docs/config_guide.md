@@ -19,7 +19,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Configuration Guide
 
-Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **steerwish declaration** is made at runtime — what a holder asks the system to keep.
+Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **wish declaration** is made at runtime — what a holder asks the system to keep, or to search.
 
 Systemtender configuration is YAML with three concepts only: **objectives** (the readings trials are judged on), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group walks and holds concurrently.
 
@@ -117,9 +117,9 @@ Safety limits with automatic response (fail trial, rollback, or skip target) are
 
 ---
 
-### The Shape of a Steerwish Declaration
+### The Shape of a Wish Declaration
 
-Steering is declared at runtime, not written into a config file: a steerwish is a payload sent to the REST API (`/steerwishes`) or the `steerwish_declare` MCP tool. The grammar is a conjunction — one wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored.
+Steering is declared at runtime, not written into a config file: a wish is a payload sent to the REST API (`/wishes`) or the `wish_declare` MCP tool. The payload states its type; this section covers the hold's grammar — one wish = one or more **claims** and optional **terms**, one verdict. Kept means every claim in its band and every term honored. The walk's grammar, a commissioned seek, is covered in [Wish](concept_wish.md).
 
 ```yaml
 claims:                        # the aims — N >= 1
@@ -137,7 +137,7 @@ regime: standing
 
 #### `claims` vs `terms`
 
-Claims and terms share one shape — a named measured value plus a band — and mirror the objectives/observations split above: claims are what the wish keeps; terms are protected readings it must never push out of band while keeping them. A broken term is a miss with the same standing as a broken claim. Bands carry the outcome's own measurement units — the reading, never a movement. The `target` inside a band is for receipts and reporting, never judged.
+Claims and terms share one shape — a named measured value plus a band — and mirror the objectives/observations split above: claims are what the wish keeps; terms are protected readings it must never push out of band while keeping them. A broken term is a miss with the same standing as a broken claim. Bands carry the outcome's own measurement units — the reading, never a movement. The `target` inside a band is for evidence and reporting, never judged.
 
 #### The serving fields
 
@@ -145,20 +145,20 @@ Claims and terms share one shape — a named measured value plus a band — and 
 - `budget` — the re-act allowance after drift events; omitted means upkeep indefinitely
 - `regime` — the closing rule; `standing` today (held until closed)
 
-An unkeepable wish is refused by name before anything acts. A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Steerwish](concept_steerwish.md).
+An unkeepable wish is refused by name before anything acts. A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Wish](concept_wish.md).
 
 ---
 
 ### Working Examples
 
 Runnable, maintained examples live in the scenario library:
-[`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) in the godon repository — each scenario ships systemtender configs, target definitions, and the planted ground truth. The characterization scenarios are the reference implementations for the config above. For steerwish declarations, [`examples/bench/scenario-wish-stack/`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-wish-stack) is the reference — a bench whose corridors couple the aims and the protected readings, so both claims and terms bind.
+[`examples/bench/`](https://github.com/godon-dev/godon/tree/main/examples/bench) in the godon repository — each scenario ships systemtender configs, target definitions, and the planted ground truth. The characterization scenarios are the reference implementations for the config above. For wish declarations, [`examples/bench/scenario-wish-stack/`](https://github.com/godon-dev/godon/tree/main/examples/bench/scenario-wish-stack) is the reference — a bench whose corridors couple the aims and the protected readings, so both claims and terms bind.
 
 ---
 
 ### See Also
 
 - [Systemtender](concept_systemtender.md) — how configurations are executed
-- [Steerwish](concept_steerwish.md) — what a declaration triggers, and its lifecycle
+- [Wish](concept_wish.md) — what a declaration triggers, and its lifecycle
 - [Interference Detection](concept_interference_detection.md) — what the interference section triggers
 - [Getting Started](getting_started.md) — a full walkthrough against the generic bench

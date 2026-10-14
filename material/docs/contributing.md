@@ -30,7 +30,7 @@ The measured map — curves with per-point bars, topology, priced gaps — is an
 
 **Live Systems Tending**
 
-Detection, curves, and composition are the perception half. The action half ships: basic steering, live end to end — a declared steerwish is planned against the measured map, acted, judged against its bands, and held; multi-outcome wishes with terms are declared and served; the holder corrects a standing wish in place ([Steerwish](concept_steerwish.md)). The open ends are hardening and coexistence: the full multi-outcome shape has flown and concluded with an exact verdict but no landed receipt yet, and many wishes on one system — kept together where possible, collisions surfaced where not — is the next rung. If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and these are the open problems.
+Detection, curves, and composition are the perception half. The action half ships: basic steering, live end to end — a declared wish is planned against the measured map, acted, judged against its bands, and held; multi-outcome wishes with terms are declared and served; a commissioned walk searches a region under a budget and returns the best found with its bars and its spend; the holder corrects a standing wish in place ([Wish](concept_wish.md)). The open ends are hardening and coexistence: the full multi-outcome shape has flown and concluded with an exact verdict but no landed receipt yet, and many wishes on one system — kept together where possible, collisions surfaced where not — is the next rung. If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and these are the open problems.
 
 **Statistics of Priced Stopping**
 

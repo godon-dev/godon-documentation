@@ -57,7 +57,7 @@ The protocol's own parameters (probe amplitude, block lengths, walk depth, conve
 
 ### Hardening the Steering
 
-Basic steering is live: a declared steerwish is planned against the measured map, acted, judged against its bands, and held while the world drifts; claims that share an input are reconciled at plan time, and the holder corrects a standing wish in place. The open rungs, in order: the landed receipt for the full multi-outcome shape — it has flown end to end and concluded with an exact verdict, one line short of the band — and then many wishes coexisting on one system, kept together where possible, collisions surfaced where not. Each rung gates the next; none is assumed.
+Basic steering is live: a declared wish is planned against the measured map, acted, judged against its bands, and held while the world drifts; claims that share an input are reconciled at plan time, and the holder corrects a standing wish in place. The open rungs, in order: the landed receipt for the full multi-outcome shape — it has flown end to end and concluded with an exact verdict, one line short of the band — and then many wishes coexisting on one system, kept together where possible, collisions surfaced where not. Each rung gates the next; none is assumed.
 
 ### Further Reading
 
