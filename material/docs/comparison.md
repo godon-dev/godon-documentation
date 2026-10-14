@@ -29,7 +29,7 @@ Every tool below finds settings. None of them keeps one.
 
 Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a model of its environment but cannot refuse, keeps no record of why it acts, and re-learns from scratch when that environment drifts.
 
-Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a steerwish, and the engine serves that intent. A wish holds chosen values on chosen axes: one or several measured outcomes, each kept in its band, under terms that respect the rest of the system. It measures, plans against the measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several steerwishes can live on one complex system — kept together where that is possible, collisions surfaced where it is not. Keeping is priced: the trials it costs are counted, not hidden.
+Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a wish, and the engine serves that intent. A wish is typed: a hold keeps chosen values on chosen axes — one or several measured outcomes, each kept in its band, under terms that respect the rest of the system; a commissioned walk searches a region of dials under a budget and returns the best found with its error bars and the trials spent. It measures, plans against the measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several wishes can live on one complex system — kept together where that is possible, collisions surfaced where it is not. Keeping is priced: the trials it costs are counted, not hidden.
 
 Finding is well served by the tools below; several are excellent at it. Keeping — declared intent, held continuously on a measured map, honestly refused, visibly priced — none of them offers. That conjunction is godon's category.
 
@@ -230,7 +230,7 @@ Godon can discern interference between HPA and VPA decisions, and tend autoscale
 
 | Feature | Godon | Optuna | Ray Tune | Ax | Akamas | StormForge | Datadog |
 |---------|-------|--------|----------|-----|--------|------------|---------|
-| **Holds declared intents (steerwishes)** | **Yes** | No | No | No | No | No | No |
+| **Holds declared intents (wishes)** | **Yes** | No | No | No | No | No | No |
 | **Refusal with named reason** | **Yes** | No | No | No | No | No | No |
 | **Measured map (connectome)** | **Yes** | No | No | No | No | No | No |
 | **Coupling Detection** | **Yes** | No | No | No | No | No | No |

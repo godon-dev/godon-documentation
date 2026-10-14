@@ -63,7 +63,7 @@ nav:
             - Guardrails: concept_guardrails.md
             - Interference_Detection: concept_interference_detection.md
             - Connectome: concept_connectome.md
-            - Steerwish: concept_steerwish.md
+            - Wish: concept_wish.md
           - Development:
             - Bench_Scenarios: bench_scenarios.md
             - Detection_Capabilities: detection_capabilities.md

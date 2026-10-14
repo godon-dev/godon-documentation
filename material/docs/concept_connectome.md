@@ -71,7 +71,7 @@ Refusal instead of extrapolation: an ask outside the measured range is refused �
 
 ### How It Connects
 
-[Interference detection](concept_interference_detection.md) finds candidate coupling; characterization walks measure the curves; the connectome accumulates both. [Systemtenders](concept_systemtender.md) produce it by probing under [guardrails](concept_guardrails.md) — and [steerwishes](concept_steerwish.md) are held on it: a wish is a declared outcome with coordinates in the map.
+[Interference detection](concept_interference_detection.md) finds candidate coupling; characterization walks measure the curves; the connectome accumulates both. [Systemtenders](concept_systemtender.md) produce it by probing under [guardrails](concept_guardrails.md) — and [wishes](concept_wish.md) are served on it: a hold keeps a declared outcome at map coordinates; a commissioned walk searches a region of them.
 
 ### Surface
 
@@ -85,4 +85,4 @@ The connectome is readable through the REST API's `/connectome` family (relayed 
 - [Characterization](characterization.md) — The walks that measure the curves
 - [Systemtender](concept_systemtender.md) — Produces the map by probing
 - [Guardrails](concept_guardrails.md) — Every probe is bounded
-- [Steerwish](concept_steerwish.md) — Outcomes held on the map
+- [Wish](concept_wish.md) — Holds and walks, declared on the map

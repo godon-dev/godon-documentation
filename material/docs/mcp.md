@@ -1,5 +1,5 @@
 ---
-description: "godon MCP interface — connect any MCP-compatible LLM client to manage systemtenders, targets, credentials, and steerwishes, and read the live causal map, via the Model Context Protocol."
+description: "godon MCP interface — connect any MCP-compatible LLM client to manage systemtenders, targets, credentials, and wishes, and read the live causal map, via the Model Context Protocol."
 ---
 
 <!--
@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## MCP Interface
 
-godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compatible client — Claude Desktop, Claude Code, opencode, or any MCP SDK — can connect and manage systemtenders, targets, credentials, and steerwishes, and read the live causal map directly.
+godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compatible client — Claude Desktop, Claude Code, opencode, or any MCP SDK — can connect and manage systemtenders, targets, credentials, and wishes, and read the live causal map directly.
 
 ### Overview
 
@@ -34,7 +34,7 @@ godon ships an MCP server (`godon-mcp`) as part of the Helm chart. Any MCP-compa
 | **Port** | 3001 |
 | **Endpoint** | `http://<host>:3001/mcp` — or `http://<host>:3001/sse` for legacy SSE clients |
 
-Management and steering tools proxy the godon API. The credential, target, and steerwish families track the REST API one-to-one; the systemtender family does so except for config updates, which are REST-only today — never papered over, stated per family. The connectome tools read the causal map service directly — the same map the REST `/connectome` family relays — so an LLM sees exactly what the system currently believes.
+Management and steering tools proxy the godon API. The credential, target, and wish families track the REST API one-to-one; the systemtender family does so except for config updates, which are REST-only today — never papered over, stated per family. The connectome tools read the causal map service directly — the same map the REST `/connectome` family relays — so an LLM sees exactly what the system currently believes.
 
 ### Available Tools
 
@@ -67,16 +67,16 @@ Management and steering tools proxy the godon API. The credential, target, and s
 | `target_get` | Get details of a specific target system |
 | `target_delete` | Delete a registered target system |
 
-#### Steerwishes
+#### Wishes
 
 | Tool | Description |
 |------|-------------|
-| `steerwish_list` | List all declared steerwishes with their derived lifecycle state (declared, planned, refused, acted, landed, missed, re_opened, closed) |
-| `steerwish_declare` | Declare a steerwish: claims (the aims) and optional terms (the protected readings — the price the wish pays). One verdict: kept = every claim in band and every term honored. The grammar is validated before any planning; a refusal names its binding constraint. Omitted budget means upkeep indefinitely |
-| `steerwish_get` | Get one steerwish with its full event history |
-| `steerwish_close` | Close a steerwish and release the hold (idempotent) |
-| `steerwish_update` | Correct a steerwish: the holder restates the claims (and terms) on the same identity; the previous band and the reason are stamped into the trail, then it re-plans. Works on living and unheld wishes |
-| `steerwish_delete` | Purge a steerwish: closes it first (releasing the held setting), then removes the record and its event history. Forgetting, not stopping |
+| `wish_list` | List all declared wishes with their derived lifecycle state (declared, planned, assigned, refused, acted, landed, missed, re_opened, corrected, returned, closed, plan_error) |
+| `wish_declare` | Declare a wish. Steer: claims (the aims) and optional terms (the protected readings — the price the wish pays); one verdict, kept = every claim in band and every term honored; omitted budget means upkeep indefinitely. Seek: a commissioned walk — find_best searches a region under a budget and returns the best found with its error bars and spend; cover_now walks to extend coverage. The grammar is validated before any planning; a refusal names its binding constraint |
+| `wish_get` | Get one wish with its full event history |
+| `wish_close` | Close a wish and release the hold (idempotent) |
+| `wish_update` | Correct a wish: the holder restates the claims (and terms) on the same identity; the previous band and the reason are stamped into the trail, then it re-plans. Works on living and unheld wishes |
+| `wish_delete` | Purge a wish: closes it first (releasing the held setting), then removes the record and its event history. Forgetting, not stopping |
 
 #### The map (connectome)
 
@@ -166,10 +166,10 @@ Once connected, an LLM can create and manage systemtenders directly. For example
 
 ```
 Create a systemtender named "tcp-tuning" that walks net.ipv4.tcp_rmem
-between 4096 and 6291456 targeting host 10.0.0.5, measuring RTT as the objective.
+between 4096 and 6291456 targeting host 10.0.0.5, measuring how RTT responds.
 ```
 
-The LLM translates this into a `systemtender_create` tool call with the appropriate godon v0.3 configuration.
+The LLM translates this into a `systemtender_create` tool call with the appropriate configuration.
 
 To hold an outcome in its band, declare the wish in plain terms:
 
@@ -178,7 +178,16 @@ Keep chainend.shift between -0.05 and 0.05, upkeep indefinitely, and never move
 any input further than 20 percent from its neutral point.
 ```
 
-The LLM translates this into a `steerwish_declare` call: an outcome from the map's outcome registry, a band, optional limits. Planning the input setting is the map's job; a refusal names its binding constraint. A standing wish is held until closed.
+The LLM translates this into a `wish_declare` call with type steer: an outcome from the map's outcome registry, a band, optional limits. Planning the input setting is the map's job; a refusal names its binding constraint. A standing wish is held until closed.
+
+To commission a walk, the same door:
+
+```
+Find the chainend.push setting that minimizes chainend.shift, and spend at
+most 12 measured trials doing it.
+```
+
+The LLM translates this into a `wish_declare` call with type seek, form find_best, the region, the criterion, and the budget. The walk returns the best found with its error bars and the trials spent; if the map already answers the question, the refusal carries the reading.
 
 And to ask what the system actually believes:
 

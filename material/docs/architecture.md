@@ -23,7 +23,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 ## Architecture
 
-godon is a distributed system for tending live systems: it measures the coupling structure of the system it runs on, and it steers that system toward operating points a holder chooses. It coordinates autonomous agents (systemtenders) — walking the system's dials, and serving declared steerwishes — with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' shared trial data.
+godon is a distributed system for tending live systems: it measures the coupling structure of the system it runs on, and it steers that system toward operating points a holder chooses. It coordinates autonomous agents (systemtenders) — walking the system's dials, and serving declared wishes — with real-world effectuation and observation, and a causal service that computes coupling detection and response-curve characterization from the agents' measured trials.
 
 ---
 
@@ -105,7 +105,7 @@ Windmill provides the execution backbone without godon needing to implement sche
 
 #### Controller
 
-Lifecycle logic between the API and the workers, executed as Windmill scripts: validation of steerwish declarations and corrections at the door (the grammar is checked before any planning; a refusal names its binding constraint), systemtender coordination, and cleanup cascades.
+Lifecycle logic between the API and the workers, executed as Windmill scripts: validation of wish declarations and corrections (the grammar is checked before any planning; a refusal names its binding constraint), systemtender coordination, and cleanup cascades.
 
 #### Godon Causal
 
@@ -233,7 +233,7 @@ The adaptive walk steers by the measured map: the notebook policy picks the next
 
 ### Steering Loop (the action half)
 
-Basic steering is live — the loop that turns a declared steerwish into a held state on the live system:
+Basic steering is live — the loop that turns a declared wish into a held state on the live system:
 
 ```
   Holder:  declare a wish — claims (readings to keep in bands), optional
@@ -251,7 +251,7 @@ Basic steering is live — the loop that turns a declared steerwish into a held 
            back to neutral
 ```
 
-The declaration is a durable, withdrawable record — the safety device for everything that acts on it ([Steerwish](concept_steerwish.md)). Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
+The declaration is a durable, withdrawable record — the safety device for everything that acts on it ([Wish](concept_wish.md)). Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
 
 ---
 
@@ -337,6 +337,6 @@ godon is deployed via Helm chart to Kubernetes.
 ### See Also
 
 - [Core Concepts](concept_systemtender.md) — Systemtender, Effectuator, Reconnaissance, Guardrails
-- [Steerwish](concept_steerwish.md) — the steering loop's intent surface
+- [Wish](concept_wish.md) — the steering loop's intent surface
 - [Configuration Guide](config_guide.md) — How to configure systemtenders
 - [Setup](setup.md) — Installation instructions

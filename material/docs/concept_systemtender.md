@@ -6,7 +6,7 @@ description: "godon Systemtender concept — the agent that tends a live system:
 
 A **systemtender** is the pluggable agent in godon — the active component that propels effectuation and reconnaissance forward. Systemtenders walk live systems' parameters, driving the cycle of applying configurations and observing results.
 
-They also serve [steerwishes](concept_steerwish.md): when a wish is planned against the measured map, a systemtender applies the planned setting and holds it — and when the wish closes, it releases the setting back to neutral. Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
+They also serve [wishes](concept_wish.md): when a hold is planned against the measured map, a systemtender applies the planned setting and keeps it — and when the wish closes, it releases the setting back to neutral. A commissioned walk runs on the same machinery: the tender walks the declared region, spends its budget, and banks the return. Serving rides the same machinery as the walk: same guardrails, same effectuation channels, no special permissions.
 
 ### Core Responsibilities
 
@@ -113,11 +113,11 @@ created ──▶ active ──┐
 | State | Meaning |
 |-------|---------|
 | `active` | Running trial loop |
-| `stopped` | Gracefully paused, workers finished current trials |
+| `stopped` | Gracefully paused; the current trial finishes |
 | `error` | Unrecoverable failure occurred |
 | `deleted` | Removed from system |
 
-**Graceful shutdown:** When stopped, workers complete their current trials before terminating. This prevents half-applied configurations.
+**Graceful shutdown:** When stopped, the current trial completes before the tender stops. This prevents half-applied configurations.
 
 ---
 

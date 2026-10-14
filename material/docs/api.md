@@ -1,5 +1,5 @@
 ---
-description: "godon API reference — OpenAPI specification for systemtender management endpoints. Create, start, stop, and monitor systemtenders."
+description: "godon API reference — the OpenAPI specification, served live: systemtenders, credentials, targets, and wishes."
 hide:
   - toc
   - navigation

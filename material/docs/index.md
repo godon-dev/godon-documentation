@@ -47,7 +47,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 - :fontawesome-solid-cube: **No upfront modeling** — The system's model emerges from its own response to pressure. The live system is the model.
 - :fontawesome-solid-microchip: **Systemtender agents** — Safe, guarded, rollback-capable. Probe and tend in production.
 - :fontawesome-solid-circle-nodes: **The connectome** — the measured wiring map: nodes, directed edges, response curves with honest error bars. Partial by design; ask it and it predicts, touch it and it verifies.
-- :fontawesome-solid-wand-magic-sparkles: **Steerwishes** — Intent made keepable: hold this chosen point in a live system. Declared by a holder — human or AI mind. Kept against drift, refused by name when unkeepable.
+- :fontawesome-solid-wand-magic-sparkles: **Wishes** — Intent made keepable: hold a chosen point in a live system, or commission a measured walk over a region under a budget. Declared by a holder — human or AI mind. Kept against drift, refused by name when unkeepable; a walk returns the best found with its bars and its spend.
 - :fontawesome-solid-cogs: **Co-pilot validation** — Human and LLM intuition tested against reality — kept if better, discarded if not.
 - :fontawesome-solid-shield-halved: **Isolation certification** — The same signal that finds coupling can prove absence.
 
