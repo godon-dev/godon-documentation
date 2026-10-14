@@ -30,7 +30,7 @@ A wish states its **type**, and each type has its own section below:
 - **[Steer — the Hold](#steer-the-hold)** — keeps chosen outcomes in their bands, under terms
 - **[Seek — the Walk](#seek-the-walk)** — commissions a measured search over a region of dials, under a budget
 
-The connectome is what a wish is served on — a steer claim must resolve to a measured entry in the map ([Connectome](concept_connectome.md)); a seek's criterion names a reading the map knows. And when the map already answers a seek's question, the wish is refused with the reading inside the refusal — the refusal is the answer.
+The connectome is what a wish is served on — a steer claim must resolve to a measured entry in the map ([Connectome](concept_connectome.md)); a seek's criterion names a reading the map knows; a wish on a systemtender's own reading is answered from the [local ground](concept_connectome.md#two-kinds-of-ground) at the current ambience. And when the map already answers a seek's question, the wish is refused with the reading inside the refusal — the refusal is the answer.
 
 ### The Record Is the Safety Device
 
@@ -107,7 +107,7 @@ seek:   declared ──▶ planned ──▶ assigned ──▶ returned
             └──▶ plan_error
 ```
 
-The events — `declared`, `planned`, `assigned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `returned`, `closed`, `plan_error` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range"). `plan_error` marks a planning failure on either grammar; the reason rides the event.
+The events — `declared`, `planned`, `assigned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `returned`, `closed`, `plan_error` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range"). A wish naming a reading the map has not measured is refused with what *is* measurable — an answer, never an error. And a wish on a systemtender's own reading consults the [ambience entry](concept_connectome.md#two-kinds-of-ground) at the current ambience: outside the entry's measured window it is refused with its numbers ("at this ambience the measured span is [a, b]; your band asks [c, d]"); when the standing configuration has moved, the ground is re-measured first. `plan_error` marks a planning failure on either grammar; the reason rides the event.
 
 ### What Ships Today
 
