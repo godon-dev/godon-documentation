@@ -121,6 +121,19 @@ created ──▶ active ──┐
 
 ---
 
+### The Instruments
+
+The worker's state carries named facts, not more status words: one
+status word, and beside it the field-sets — `strategies_run` (which
+strategies have run), `wish` (the held wish's summary), `seek_spend`
+(the commissioned walk's bill against its budget). They are stamped
+into the tender's own state row on every state refresh and ride every
+read of `GET /systemtenders/{id}` as `instruments` — present once the
+worker has stamped, `null` before. Windmill's job state keeps its own
+copy for its own face; the API field is the door's.
+
+---
+
 ### Where Systemtenders Fit
 In the godon architecture, systemtenders sit between the control plane and the target systems:
 ```

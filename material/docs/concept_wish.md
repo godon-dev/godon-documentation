@@ -127,6 +127,13 @@ its band, its setting, and since when. Nothing is displaced; the holder
 re-declares to coexist (retarget, widen a band, or release the other
 wish), and the engine never chooses between wishes.
 
+The standing picture of all of it is one read: `GET /positions` answers
+every active wish's place on the dials, derived fresh on every read and
+never stored — three row kinds and no more: `held` (a hold's level and
+bands), `measuring` (a search's walked window), `orphaned` (a dead
+holder's history). It is the same consult the planner runs, shown as it
+stands.
+
 ### What Ships Today
 
 The record and the serving loop are live. The surface — declare, list, get, close, and **update** (the holder's correction of a standing wish) — is served through the REST API (`/wishes`) and the `wish_*` MCP tools, with validation at declaration and the full event history on every read. Both grammars are served: holds planned against the measured map, acted, judged against their bands; commissioned walks executing find_best and cover_now over their regions, their returns mirrored into the event trail. The seek walk's live end-to-end validation is the current work.
