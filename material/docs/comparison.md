@@ -27,7 +27,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 Every tool below finds settings. None of them keeps one.
 
-Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a model of its environment but cannot refuse, keeps no record of why it acts, and re-learns from scratch when that environment drifts.
+Optimizers (Optuna, Ray Tune, Ax, Akamas, StormForge) push scores: they search, report a best configuration, and stop. Autoscalers (KEDA, HPA/VPA) hold setpoints on assumed models — the degenerate case of keeping: one axis, one dial, no terms. Observability (Datadog, Dynatrace) watches and alerts. Model-based RL learns a model of its environment but cannot refuse, keeps no record of why it acts, and re-learns from scratch when that environment drifts.
 
 Godon keeps — and the steering is intent-driven: a holder — human or AI mind — declares a wish, and the engine serves that intent. A wish is typed: a hold keeps chosen values on chosen axes — one or several measured outcomes, each kept in its band, under terms that respect the rest of the system; a commissioned walk searches a region of dials under a budget and returns the best found with its error bars and the trials spent. It measures, plans against the measured map, holds while the world drifts, and refuses by name when a promise cannot be kept. Several wishes can live on one complex system — kept together where that is possible, collisions surfaced where it is not. Keeping is priced: the trials it costs are counted, not hidden.
 
