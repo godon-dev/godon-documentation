@@ -25,7 +25,18 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 A **wish** is intent made keepable: a holder — human or AI mind — states what they want from a live system, and the engine serves that statement. The intent is declared, never invented by the engine; the engine's work starts from that declaration.
 
-A wish states its **type**, and each type has its own section below:
+A wish states its **type**, and each type has its own section below. Two
+further options may ride any declaration, both optional with defaults:
+
+- **answer** — `now` or `later` (the default): when the reachability
+  consult answers. `later` returns the declare as soon as the wish
+  stands; the answers — a plan, or a refusal with its numbers — arrive
+  as events and surface in the wish's status. `now` waits: the consult
+  answers in the same breath, inside the declare response.
+- **standard** — `all` or `best`: what counts as the wish being kept.
+  `all` (the default for holds) means one kept state: every claim in
+  band and every term respected. `best` (the default for walks) means
+  the best of several candidates counts.
 
 - **[Steer — the Hold](#steer-the-hold)** — keeps chosen outcomes in their bands, under terms
 - **[Seek — the Walk](#seek-the-walk)** — commissions a measured search over a region of dials, under a budget
@@ -67,7 +78,7 @@ The remaining fields are the fences around how the wish may be served, not what 
 
 #### The Verdict
 
-One judge rules the whole conjunction, claims first, then terms: every claim inside its band, every term respected. A broken term counts as a miss. What cannot be kept is refused — by name, never silently.
+One judge rules the whole conjunction, claims first, then terms: every claim inside its band, every term respected. A broken term counts as a miss. What cannot be kept is refused — by name, never silently. A multi-claim wish may be served by several systemtenders jointly — each holds exactly the dials its plan names — with the one conjunction as the only verdict.
 
 Judging is in/out of band only. The target inside the band is for evidence and reporting — not a grade, not a score to optimize.
 
@@ -107,7 +118,14 @@ seek:   declared ──▶ planned ──▶ assigned ──▶ returned
             └──▶ plan_error
 ```
 
-The events — `declared`, `planned`, `assigned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `returned`, `closed`, `plan_error` — are the truth: the full history is kept, and the state is derived from it on read, never stored. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range"). A wish naming a reading the map has not measured is refused with what *is* measurable — an answer, never an error. And a wish on a systemtender's own reading consults the [ambience entry](concept_connectome.md#two-kinds-of-ground) at the current ambience: outside the entry's measured window it is refused with its numbers ("at this ambience the measured span is [a, b]; your band asks [c, d]"); when the standing configuration has moved, the ground is re-measured first. `plan_error` marks a planning failure on either grammar; the reason rides the event.
+The events — `declared`, `planned`, `assigned`, `refused`, `acted`, `landed`, `missed`, `re_opened`, `corrected`, `returned`, `closed`, `plan_error` — are the truth: the full history is kept, and the state is derived from it on read, never stored. A standing refusal — the latest event a refusal, no serve since — reads as the state `unservable`, with the refusal's reason standing beside it. Each event may carry its evidence; a refusal names its binding constraint ("target outside measured range"). A wish naming a reading the map has not measured is refused with what *is* measurable — an answer, never an error. And a wish on a systemtender's own reading consults the [ambience entry](concept_connectome.md#two-kinds-of-ground) at the current ambience: outside the entry's measured window it is refused with its numbers ("at this ambience the measured span is [a, b]; your band asks [c, d]"); when the standing configuration has moved, the ground is re-measured first. `plan_error` marks a planning failure on either grammar; the reason rides the event.
+
+Wishes coexist by asking, not by winning: every plan is checked against
+what other active wishes hold, and a plan that would push a held band
+out of range is refused — `position_conflict`, naming the other wish,
+its band, its setting, and since when. Nothing is displaced; the holder
+re-declares to coexist (retarget, widen a band, or release the other
+wish), and the engine never chooses between wishes.
 
 ### What Ships Today
 

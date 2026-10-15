@@ -71,8 +71,8 @@ Management and steering tools proxy the godon API. The credential, target, and w
 
 | Tool | Description |
 |------|-------------|
-| `wish_list` | List all declared wishes with their derived lifecycle state (declared, planned, assigned, refused, acted, landed, missed, re_opened, corrected, returned, closed, plan_error) |
-| `wish_declare` | Declare a wish. Steer: claims (the aims) and optional terms (the protected readings — the price the wish pays); one verdict, kept = every claim in band and every term honored; omitted budget means upkeep indefinitely. Seek: a commissioned walk — find_best searches a region under a budget and returns the best found with its error bars and spend; cover_now walks to extend coverage. The grammar is validated before any planning; a refusal names its binding constraint |
+| `wish_list` | List all declared wishes with their derived lifecycle state (declared, planned, assigned, unservable — a standing refusal —, acted, landed, missed, re_opened, corrected, returned, closed, plan_error) |
+| `wish_declare` | Declare a wish. Steer: claims (the aims) and optional terms (the protected readings — the price the wish pays); one verdict, kept = every claim in band and every term honored; omitted budget means upkeep indefinitely. Seek: a commissioned walk — find_best searches a region under a budget and returns the best found with its error bars and spend; cover_now walks to extend coverage. The grammar is validated before any planning; a refusal names its binding constraint. Two declaration options, both optional: answer (now = the consult answers in the same breath; later = the default, answers surface as events and in status) and standard (all = the hold default, one kept state; best = the walk default, the best candidate counts) |
 | `wish_get` | Get one wish with its full event history |
 | `wish_close` | Close a wish and release the hold (idempotent) |
 | `wish_update` | Correct a wish: the holder restates the claims (and terms) on the same identity; the previous band and the reason are stamped into the trail, then it re-plans. Works on living and unheld wishes |
