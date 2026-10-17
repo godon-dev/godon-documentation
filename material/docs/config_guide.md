@@ -21,7 +21,7 @@ along with this godon. If not, see <http://www.gnu.org/licenses/>.
 
 Two surfaces carry intent into a running godon. The **systemtender config** is YAML — what a tender measures and moves. A **wish declaration** is made at runtime — what a holder asks the system to keep, or to search.
 
-Systemtender configuration is YAML with three concepts only: **objectives** (the readings trials are judged on), **guardrails** (safety), and **observations** (extra channels to read). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group walks and holds concurrently.
+Systemtender configuration is YAML with four concepts: **objectives** (the readings trials are judged on), **guardrails** (safety), **observations** (extra channels to read), and **effectuation** (the registered targets its acts land on). Parameters live under `settings` with per-parameter constraints. Interference characterization is a section, not a mode — every systemtender in a group walks and holds concurrently.
 
 ---
 
@@ -81,6 +81,9 @@ observations:                   # recorded but NOT judged — detection channels
       service: http
       path: /metrics/json
       key: objective_1
+
+effectuation:                   # where its acts land
+  targetRefs: [generic-node-1]  # registered targets, by name or ID
 ```
 
 ---
@@ -111,6 +114,10 @@ The separation is deliberate and load-bearing: objectives carry each trial's jud
 
 How a systemtender reads its target: HTTP endpoints (per-service `path`/`key`, sampling, aggregation), or Prometheus queries. See [Reconnaissance](concept_reconnaissance.md).
 
+#### `effectuation` and the targets catalog
+
+A systemtender's acts land on targets from the targets catalog. Targets are registered at runtime — REST `POST /targets` or the `target_create` MCP tool — with a `name`, a `targetType` (`ssh` or `http`), and a `spec` (`ssh` carries an `address`, `http` carries a `url`). The config names them in `effectuation.targetRefs`, by name or ID; a config with no reference is refused at validation, before anything runs. What an act does once it lands is the [Effectuator](concept_effectuator.md)'s story.
+
 #### Guardrails
 
 Safety limits with automatic response (fail trial, rollback, or skip target) are configured per strain and effectuator — see [Guardrails](concept_guardrails.md). The impulse protocol's pushes stay inside the same guardrails as ordinary trials: same knobs, same bounds, no special permissions.
@@ -119,7 +126,7 @@ Safety limits with automatic response (fail trial, rollback, or skip target) are
 
 ### The Shape of a Wish Declaration
 
-Wishes are declared at runtime, not written into a config file: a wish is a payload sent to the REST API (`/wishes`) or the `wish_declare` MCP tool. The payload states its type — steer (the hold) or seek (the walk), each with its own shape below.
+Wishes are declared at runtime, not written into a config file: a wish is a payload sent to the REST API (`/wishes`) or the `wish_declare` MCP tool. The payload states its type — steer (the hold) or seek (the walk), each with its own shape below. Both types also carry two family options: `answer` (`now` or `later`, default `later` — when the reachability consult answers) and `standard` (`all` or `best` — one kept state, or the best of several; holds default `all`, walks default `best`).
 
 #### Steer — the hold's shape
 
@@ -160,12 +167,18 @@ A commissioned search: the region to walk, and either a criterion with a budget 
 type: seek
 form: find_best               # or cover_now — no criterion, no budget
 region:
-  chainend.push: [-0.4, 0.4]  # the dials to walk, each [lo, hi]
+  chainend.push: [-0.4, 0.4]  # the dials to walk, each [lo, hi]...
+  chainend.gain: [1, 8, true] # ...or [lo, hi, is_int] — whole numbers only
 criterion:
   outcome: chainend.shift     # what counts: the reading
   direction: minimize         # ... and the direction
 budget: 12                    # measured trials the walk may spend
-``` A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Wish](concept_wish.md).
+candidates: 2                 # measured launch points — counted in the budget
+```
+
+The walk is served, not aimed: the region's dials are a registered systemtender's own parameters, and the plan names the serving systemtender — a declaration never picks one itself.
+
+A declared wish is a durable, withdrawable record — lifecycle, event history, and the holder's correction of a standing wish are covered in [Wish](concept_wish.md).
 
 ---
 
