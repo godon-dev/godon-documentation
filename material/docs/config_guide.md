@@ -174,6 +174,8 @@ criterion:
   direction: minimize         # ... and the direction
 budget: 12                    # measured trials the walk may spend
 candidates: 2                 # measured launch points — counted in the budget
+answer: later                 # family option, both types — 'now' answers in the same breath
+standard: best                # family option, both types — walks default to best
 ```
 
 The walk is served, not aimed: the region's dials are a registered systemtender's own parameters, and the plan names the serving systemtender — a declaration never picks one itself.
