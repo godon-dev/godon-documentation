@@ -34,11 +34,11 @@ godon is a distributed system for tending live systems: it measures the coupling
 │                               Control Plane                                │
 │                                                                            │
 │    ┌─────────────┐       ┌─────────────┐       ┌─────────────┐             │
-│    │  Godon API  │─────▶ │  Windmill   │─────▶ │   Workers   │             │
+│    │  Godon API  │──────▶│  Windmill   │──────▶│   Workers   │             │
 │    │  (extern)   │       │ (scheduler) │       │  (execute)  │             │
 │    └─────────────┘       └─────────────┘       └─────────────┘             │
 └────────────────────────────────────────────────────────────────────────────┘
-                                                                             │
+                                      │
                                       ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
 │                               Storage Layer                                │
@@ -51,7 +51,7 @@ godon is a distributed system for tending live systems: it measures the coupling
 │      │  Job tracking    │                  │  Leases, wishes  │            │
 │      └──────────────────┘                  └──────────────────┘            │
 └────────────────────────────────────────────────────────────────────────────┘
-                                                                             │
+                                      │
                                       ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
 │                              Execution Layer                               │
