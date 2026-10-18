@@ -20,11 +20,11 @@ A systemtender coordinates three concerns:
                                                    │
           ┌───────────────┼────────────────────────┐
           │               │                        │
-          ▼               ▼               ▼
-    ┌──────────┐    ┌──────────┐    ┌──────────────┐
-    │   Walk   │    │Effectuate│    │Reconnoiter   │
-    │ (Engine) │    │ (Apply)  │    │ (Observe)    │
-    └──────────┘    └──────────┘    └──────────────┘
+          ▼               ▼                        ▼
+    ┌──────────┐    ┌──────────┐           ┌──────────────┐
+    │   Walk   │    │Effectuate│           │Reconnoiter   │
+    │ (Engine) │    │ (Apply)  │           │ (Observe)    │
+    └──────────┘    └──────────┘           └──────────────┘
 ```
 
 | Concern | Role | Examples |
@@ -143,7 +143,7 @@ In the godon architecture, systemtenders sit between the control plane and the t
 │  │ Controller  │    │     API     │    │  Scheduler  │      │
 │  └─────────────┘    └─────────────┘    └─────────────┘      │
 └─────────────────────────────────────────────────────────────┘
-                                                              │
+                          │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                        Systemtender                         │
@@ -154,7 +154,7 @@ In the godon architecture, systemtenders sit between the control plane and the t
 │     └──────────┘          └──────────────┘                  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
-          │                                                   │
+          │                               │
           ▼                               ▼
 ┌─────────────────┐               ┌───────────────────────────┐
 │   Effectuation  │               │  Reconnaissance           │
