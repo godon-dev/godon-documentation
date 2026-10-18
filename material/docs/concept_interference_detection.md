@@ -147,7 +147,7 @@ Turn-taking does not mean pairwise tedium. One sender's walk measures **every** 
         substrate 1      ▼      edge 0.7
                     ┌────────┐
                     │   C    │   answers: one-hop curve — 9 levels
-                    └───┬────┘
+                    └────┬───┘
         substrate 2      ▼      edge 0.5
                     ┌────────┐
                     │   B    │   answers: two-hop curve — the same
