@@ -66,14 +66,14 @@ The map holds two measured scopes and never blends them.
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│              Two kinds of measured ground                       │
+│              Two kinds of measured ground                      │
 │                                                                │
 │   curve:   0 ──────────── resting ──────────────────────── 100 │
 │                     (whole range, default climate)             │
 │                                                                │
 │   entry:              ┌─ window ─┐                             │
 │   0 ──────────────────┤ ▫ ▫ ▫ ▫  ├────────────────────── 100   │
-│                        └──────────┘                             │
+│                       └──────────┘                             │
 │                     (around the resting value,                 │
 │                      at one named ambience)                    │
 └────────────────────────────────────────────────────────────────┘

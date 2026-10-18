@@ -39,21 +39,21 @@ Godon is a self-hosted engine that discerns hidden system structure through acti
 ┌──────────────────────────────────────────────────────────────────┐
 │                         GODON                                    │
 │  ┌─────────────────────────────────────────────────────────┐     │
-│  │              Discernment Layer                           │    │
-│  │  Coupling detection  │  Topology discovery               │    │
-│  │  Active perturbation │  Isolation certification          │    │
+│  │              Discernment Layer                          │     │
+│  │  Coupling detection  │  Topology discovery              │     │
+│  │  Active perturbation │  Isolation certification         │     │
 │  └─────────────────────────────────────────────────────────┘     │
 │  ┌─────────────────────────────────────────────────────────┐     │
-│  │                    Tending Layer                         │    │
-│  │  Live system steering  │  Guardrails  │  Rollback        │    │
+│  │                    Tending Layer                        │     │
+│  │  Live system steering  │  Guardrails  │  Rollback       │     │
 │  └─────────────────────────────────────────────────────────┘     │
 │  ┌─────────────────────────────────────────────────────────┐     │
-│  │                    Plumbing Layer                        │    │
+│  │                    Plumbing Layer                       │     │
 │  │  Effectuation (SSH, HTTP, APIs)  │  Reconnaissance      │     │
-│  │  Trial coordination              │  Worker management    │    │
+│  │  Trial coordination              │  Worker management   │     │
 │  └─────────────────────────────────────────────────────────┘     │
 │  ┌─────────────────────────────────────────────────────────┐     │
-│  │                  Walk Engine                             │    │
+│  │                  Walk Engine                            │     │
 │  │  Coverage walks → response curves → refinement          │     │
 │  └─────────────────────────────────────────────────────────┘     │
 └──────────────────────────────────────────────────────────────────┘
