@@ -8,6 +8,8 @@ authors:
 
 # From Systems Engineering to Systems Cultivation
 
+*Revised October 2026 — the sections on where the work stands now state what has since shipped. The argument is unchanged.*
+
 We spent decades treating the systems we build like bridges. Design them, configure them, deploy them, monitor them. The artifact stays still. The work is done.
 
 But your systems don't stay still anymore.
@@ -63,9 +65,9 @@ godon's approach is pragmatic and model-free. It doesn't assume the structure of
 
 Each detection reveals one edge in a coupling graph. Systemtender A's signal reaches systemtender B. That's one connection you didn't know existed.
 
-This is proven on linear coupling channels. The microgrid bench demonstrates reliable detection at statistical significance (p < 0.001) across coupling strengths from 0.1 to 0.9. The method is concrete, reproducible, and runs continuously without interrupting optimization.
+This is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls, and the boundaries of the method are published as a measured map ([The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956)). The method is concrete, reproducible, and runs continuously without interrupting optimization.
 
-Whether this scales to reveal the full topology of complex coupled systems — that's an open question. But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.
+Whether this scales to the full topology of complex coupled systems now has a measured answer: curves compose through nonlinear paths to a horizon of about two nonlinear hops, and beyond it composing the measured pieces is the only remaining door ([From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439)). But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.
 
 ## What Comes Next
 
@@ -75,7 +77,7 @@ Perception is the prerequisite. Once you can detect interference, several direct
 - **Topology mapping** — with multiple agents, pairwise detections form a graph of who affects whom.
 - **Coordination** — once interference is detected and measured, agents can adapt. Not by stopping, but by accounting for each other.
 
-These are sequential. Detection before measurement. Measurement before coordination. Each builds on the last.
+These are sequential. Detection before measurement. Measurement before coordination. Each builds on the last. As of the October 2026 revision: the first is done and published ([From Edges to Curves](https://doi.org/10.5281/zenodo.22127166)); the second is done — the engine keeps the [connectome](https://godon-dev.github.io/godon-documentation/concept_connectome/), a durable map with a citable artifact; the third has begun ([wishes](https://godon-dev.github.io/godon-documentation/concept_wish/)). What stands open at any given moment is kept on the [open research](https://godon-dev.github.io/godon-documentation/open_research/) page, not here.
 
 ## The Cultivation Thesis
 
@@ -88,7 +90,3 @@ That's what godon is building.
 ---
 
 *This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
-
-> **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
-
-> **Update (Sept 2026):** the perception layer has since been validated well beyond linear channels — detection and curve measurement across coupling shapes and noise regimes, and measured curves composing through nonlinear paths to predict far-end response to a measured horizon ([publications](https://godon-dev.github.io/godon-documentation/publications/)).
