@@ -10,6 +10,8 @@ description: "Each detection reveals one edge in a coupling graph. Accumulated e
 
 # How Live Systems Reveal Their Own Structure — Transitive Topology Discovery
 
+*Revised October 2026 — the sections on where the work stands now state what has since shipped. The argument is unchanged.*
+
 When godon detects interference between two optimization agents, it reveals one edge. Systemtender A's guarded pushes shift systemtender B's objectives. That's one coupling path — one connection you didn't know existed.
 
 A single edge is useful. It tells you these two agents interfere. You can act on that — adjust parameters, add constraints, isolate them.
@@ -50,11 +52,11 @@ This has several advantages:
 
 ## Where It Stands
 
-The mechanism is proven for single edges on linear coupling channels. Detection is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls. When systemtender A's push reaches systemtender B, we can detect it with high confidence.
+The mechanism is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls, and the boundaries of the method are published as a measured map ([The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956)). When systemtender A's push reaches systemtender B, we detect it — and measure it: the characterized edge carries a fitted response curve with honest error bars ([From Edges to Curves](https://doi.org/10.5281/zenodo.22127166)).
 
-Scaling to full topology assembly — automatically constructing the complete coupling graph from pairwise detections across multiple agents — is the next step. This is an open question. The mechanism works for one edge. The assembly of many edges into a coherent topology requires accumulation over time, consistent detection across all pairs, and methods to handle indirect coupling (distinguishing A → B from A → C → B).
+Topology assembly is no longer the next step — it exists. The engine keeps the [connectome](https://godon-dev.github.io/godon-documentation/concept_connectome/): every node and every characterized edge it currently believes in, accumulated across campaigns, durable, exportable as a certified artifact. The map this post argues for is now the engine's kept object.
 
-These are engineering challenges, not theoretical barriers. The detection works. The graph assembly is tractable. But it's not built yet.
+What remains open — and what has closed since — is kept where it can stay current: the [open research](https://godon-dev.github.io/godon-documentation/open_research/) page.
 
 ## Why It Matters
 
@@ -66,9 +68,7 @@ If you're running five, or ten, or fifty — pairwise detection isn't enough. Yo
 
 The topology is knowledge about the system itself — independent of any single optimization campaign. It describes the hidden structure that affects every agent operating on the system.
 
-Today, this knowledge is ephemeral. Each optimization campaign learns something about the system's coupling dynamics and then discards it. The next campaign starts from scratch. The knowledge dies with every run.
-
-It doesn't have to. The topology — once discovered — is durable. It changes slowly because the physical and logical coupling paths change slowly. Shared memory bandwidth doesn't rearrange itself overnight. Thermal coupling between subsystems persists across software updates.
+This knowledge is no longer ephemeral. The connectome persists: each campaign banks its measured edges in the map, and the next starts from where the last one left off. The topology — once discovered — is durable. It changes slowly because the physical and logical coupling paths change slowly. Shared memory bandwidth doesn't rearrange itself overnight. Thermal coupling between subsystems persists across software updates.
 
 Each detection refines the graph. Each campaign adds edges. The topology accumulates. Over time, the map becomes more complete than any single campaign could produce.
 
@@ -89,7 +89,3 @@ That's the core thesis of godon. Not detection for its own sake, but detection a
 ---
 
 *This is the third in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
-
-> **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
-
-> **Update (Sept 2026):** measured curves now compose — through nonlinear switching elements and converging junctions, far-end response predicted within propagated error bars, to a measured horizon of about two nonlinear hops ([From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439)). What this post leaves open still stands: full graph assembly, and separating direct from transitive edges.

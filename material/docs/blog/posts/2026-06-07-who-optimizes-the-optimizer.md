@@ -10,6 +10,8 @@ description: "The same optimization framework that tunes live systems could tune
 
 # Who Optimizes the Optimizer?
 
+*Revised October 2026 — the sections on where the work stands now state what has since shipped. The argument is unchanged.*
+
 godon optimizes live systems. An operator defines objectives, the systemtender explores parameter space, the observer collects results. Over many trials, the system converges on better configuration.
 
 But godon itself is a system with parameters. Detection sensitivity, probe configuration, observation windows, guardrail thresholds, systemtender meta-configuration. These parameters determine how well godon works. Who tunes them?
@@ -52,23 +54,13 @@ If detection parameters can self-tune, several things become possible:
 
 ## Where It Actually Stands
 
-Honesty: none of this is built. Detection parameters are static configuration. Guardrail thresholds are static. Systemtender meta-configuration is set once per campaign. The framework that could optimize these parameters exists — it's the same framework that optimizes infrastructure — but it hasn't been pointed at itself yet.
+Honesty, revised: one rung of this is built. The rest is not. The walk is adaptive — it steers by measured ground, banked curves and unresolved gaps deciding where it probes next — and reconnaissance is a pluggable organ in the trial loop. Self-tuned parameters, calibration scenarios, and objective function definitions do not exist yet.
 
-What exists:
-- Detection works with parameters determined through experimentation and synthesis, proven on benches (p < 0.001 across coupling strengths 0.1 to 0.9)
-- The optimization framework is general enough to handle arbitrary parameter spaces
-- The components have identifiable parameters and measurable outcomes
-
-What doesn't exist:
-- Automatic parameter discovery — making godon's own parameters available as optimization targets
-- Calibration infrastructure — known coupling scenarios to test against during self-tuning
-- Objective function definitions — what exactly to optimize for each component (accuracy? speed? false positive rate? all three as a Pareto front?)
-
-These are engineering challenges. The concept is sound. The machinery exists. But shipping it requires work that hasn't been done yet.
+The frontier itself has been rephrased since this was written: not the optimizer pointed at itself, but the sensing strategy choosing its experiments by expected information value. Where that frontier stands now is kept on the [open research](https://godon-dev.github.io/godon-documentation/open_research/) page. The argument lives in this essay; the current state lives there.
 
 ## The Broader Direction
 
-Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then systemtender meta-configuration (trial budgets, convergence criteria, reconnaissance sampling), then probe design.
+Meta-optimization isn't limited to detection. It's a direction: any component in the godon stack that has tunable parameters and measurable outcomes is a candidate. Detection first, because the parameters are well-defined and the outcomes are measurable. Then guardrails, then systemtender meta-configuration (trial budgets, convergence criteria), then probe design.
 
 Eventually: coordination parameters. When multiple systemtenders need to account for each other, the coordination strategy itself has tunable parameters — how aggressively to decouple, how much to share, when to yield. These could be optimized by the same framework.
 
@@ -85,5 +77,3 @@ godon optimizing godon.
 ---
 
 *This is the fourth in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
-
-> **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.
