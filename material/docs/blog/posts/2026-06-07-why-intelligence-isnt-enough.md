@@ -90,5 +90,3 @@ Intelligence reasons about what is. Detection reveals what wasn't visible. You n
 ---
 
 *This is the second in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
-
-> **Update (Aug 2026):** the watermark mechanism described in this post was retired — godon now detects coupling with the impulse protocol (guarded pushes, held receivers, CFAR). The argument of this post is unchanged.

@@ -9,3 +9,5 @@ tags:
 # Blog
 
 Articles on living systems, interference detection, and the future of optimization.
+
+<!-- material/tags -->
