@@ -39,8 +39,7 @@ markdown_extensions:
   - meta
 plugins:
   - social
-  - tags:
-      tags_file: blog/index.md
+  - tags
   - blog:
       blog_dir: blog
       post_dir: blog/posts
