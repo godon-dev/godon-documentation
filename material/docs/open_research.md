@@ -51,6 +51,10 @@ A frozen measured map enables prediction: "if node A moves to X, node D responds
 
 The coupling structure revealed at one probe cadence is one view: slow probes see steady-state thermal coupling, fast probes see electrical/capacitive coupling. Different cadences excite different mechanisms; each yields a different graph. When one cadence suffices (dominant mechanism) the single map is honest; multiple concurrent mechanisms need multi-cadence probing, and detecting that need — via prediction error — is itself open.
 
+### The Broader Family
+
+The impulse protocol may be one instance of a broader family: mechanisms that turn unavoidable operation into identification. Its carrier is the agents' own exploration (guarded push, held receiver, CFAR). Further carriers already run — one sender walk measuring all listeners, prediction failures localizing what gets re-measured — and cadence is an open dimension above. Two candidates, not built: coded push patterns (distinct signatures per sender, paths separable — aimed at the diamond problem and the serialization limit) and steering-as-experiment (a served wish as carrier, evidence only through reconciliation). The governor rung is experiment selection by expected information value. The family line: each new carrier unlocks the same chain where the first instance cannot reach.
+
 ### Meta-Optimization of Sensing
 
 The protocol's own parameters are tunable against measurement outcomes: probe design (amplitude, block lengths, pause spacing, walk depth), detection parameters (observation window, significance threshold, permutation count, sampling rate), observer sensitivity, guardrail thresholds, systemtender meta-configuration (trial budget, parallelism, completion criteria). The walk itself is already adaptive — it steers by measured ground, banked curves and unresolved gaps deciding where it probes next — and reconnaissance is a pluggable organ in the trial loop. Self-tuned parameters, calibration scenarios, and objective definitions do not exist yet.
