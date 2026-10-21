@@ -53,7 +53,9 @@ The coupling structure revealed at one probe cadence is one view: slow probes se
 
 ### Meta-Optimization of Sensing
 
-The protocol's own parameters (probe amplitude, block lengths, walk depth, convergence threshold) are tunable against measurement outcomes. The current adaptive walk steers by measured ground (banked curves, unresolved gaps); choosing experiments by expected information value — the sensing strategy optimizing itself — is the natural, unsolved layer above that.
+The protocol's own parameters are tunable against measurement outcomes: probe design (amplitude, block lengths, pause spacing, walk depth), detection parameters (observation window, significance threshold, permutation count, sampling rate), observer sensitivity, guardrail thresholds, systemtender meta-configuration (trial budget, parallelism, completion criteria). The walk itself is already adaptive — it steers by measured ground, banked curves and unresolved gaps deciding where it probes next — and reconnaissance is a pluggable organ in the trial loop. Self-tuned parameters, calibration scenarios, and objective definitions do not exist yet.
+
+Choosing experiments by expected information value — the sensing strategy choosing its own experiments — is the natural, unsolved layer above that. Prediction error is the compass, the same one the maintenance loop runs on: it points toward ignorance; probe where the map is most wrong. The order of attack follows definability: detection first (parameters well-defined, outcomes measurable), then guardrails, then systemtender meta-configuration, then probe design. Coordination parameters — how aggressively systemtenders decouple, how much they share, when they yield — sit above all of it and are not started.
 
 ### Hardening the Steering
 
