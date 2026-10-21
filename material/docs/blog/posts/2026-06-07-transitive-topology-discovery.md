@@ -10,9 +10,9 @@ description: "Each detection reveals one edge in a coupling graph. Accumulated e
 
 # How Live Systems Reveal Their Own Structure — Transitive Topology Discovery
 
-*Revised October 2026 — the sections on where the work stands now state what has since shipped. The argument is unchanged.*
+*Revised October 2026 — the sections on where the work stands now state what has since shipped, and the wording follows the engine's current terms: tending, not optimizing. The argument is unchanged.*
 
-When godon detects interference between two optimization agents, it reveals one edge. Systemtender A's guarded pushes shift systemtender B's objectives. That's one coupling path — one connection you didn't know existed.
+When godon detects interference between two systemtenders, it reveals one edge. Systemtender A's guarded pushes shift systemtender B's objectives. That's one coupling path — one connection you didn't know existed.
 
 A single edge is useful. It tells you these two agents interfere. You can act on that — adjust parameters, add constraints, isolate them.
 
@@ -22,11 +22,11 @@ But a single edge is also a fragment of something larger. A topology.
 
 ## From Edges to Graphs
 
-Consider a system with multiple autonomous agents. A resource optimizer on one subsystem. A thermal controller on another. A throughput optimizer on the shared bus. A quality controller on the output.
+Consider a system with multiple autonomous agents. A resource agent on one subsystem. A thermal controller on another. A throughput agent on the shared bus. A quality controller on the output.
 
 Pairwise detection between any two of them reveals whether they're coupled. Run detection across all pairs and you get a graph — who affects whom, through which coupling paths.
 
-This graph wasn't designed. Nobody drew it. Nobody specified "optimizer A couples to optimizer C through shared memory bandwidth." It emerged from the system's dynamics — the shared state, the parameter interactions, the coupling channels that exist because the subsystems share physical or logical resources.
+This graph wasn't designed. Nobody drew it. Nobody specified "agent A couples to agent C through shared memory bandwidth." It emerged from the system's dynamics — the shared state, the parameter interactions, the coupling channels that exist because the subsystems share physical or logical resources.
 
 The topology is a property of the system itself. godon doesn't create it. It reveals it. One edge at a time.
 
@@ -60,13 +60,13 @@ What remains open — and what has closed since — is kept where it can stay cu
 
 ## Why It Matters
 
-If you're running two optimization agents on a system, detecting interference between them is sufficient. You know they conflict. You act on it.
+If you're running two autonomous agents on a system, detecting interference between them is sufficient. You know they conflict. You act on it.
 
 If you're running five, or ten, or fifty — pairwise detection isn't enough. You need the graph. You need to know which agents form clusters of mutual interference, which are isolated, and where the critical coupling paths are. The topology tells you where to focus your decoupling efforts, where coordination would have the most impact, and where the system is most fragile.
 
 ## The Topology as Data
 
-The topology is knowledge about the system itself — independent of any single optimization campaign. It describes the hidden structure that affects every agent operating on the system.
+The topology is knowledge about the system itself — independent of any single campaign. It describes the hidden structure that affects every agent operating on the system.
 
 This knowledge is no longer ephemeral. The connectome persists: each campaign banks its measured edges in the map, and the next starts from where the last one left off. The topology — once discovered — is durable. It changes slowly because the physical and logical coupling paths change slowly. Shared memory bandwidth doesn't rearrange itself overnight. Thermal coupling between subsystems persists across software updates.
 
@@ -74,7 +74,7 @@ Each detection refines the graph. Each campaign adds edges. The topology accumul
 
 This accumulated topology is a dataset in its own right. It can be shared across teams, across deployments, across organizations running similar systems. The topology of coupling in one microgrid informs expectations about another. The interference patterns in one cluster reveal likely coupling paths in a similar configuration.
 
-The map is the product. Not the optimization results — those are specific to a campaign. The topology is structural knowledge about how the system actually behaves.
+The map is the product. Not the campaign results — those belong to a single run. The topology is structural knowledge about how the system actually behaves.
 
 ## The Deeper Implication
 
@@ -88,4 +88,4 @@ That's the core thesis of godon. Not detection for its own sake, but detection a
 
 ---
 
-*This is the third in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
+*This is the third in a series of articles on living systems, interference detection, and the future of tending. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*

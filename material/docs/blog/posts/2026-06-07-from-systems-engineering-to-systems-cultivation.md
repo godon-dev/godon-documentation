@@ -8,7 +8,7 @@ authors:
 
 # From Systems Engineering to Systems Cultivation
 
-*Revised October 2026 — the sections on where the work stands now state what has since shipped. The argument is unchanged.*
+*Revised October 2026 — the sections on where the work stands now state what has since shipped, and the wording follows the engine's current terms: tending, not optimizing. The argument is unchanged.*
 
 We spent decades treating the systems we build like bridges. Design them, configure them, deploy them, monitor them. The artifact stays still. The work is done.
 
@@ -16,11 +16,11 @@ But your systems don't stay still anymore.
 
 ## Something Changed
 
-Somewhere along the way, the systems we manage acquired a heartbeat. Optimization algorithms explore parameter space continuously. Control loops adjust settings in real time. AI agents suggest and apply changes autonomously. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it operates on.
+Somewhere along the way, the systems we manage acquired a heartbeat. Search agents explore parameter space continuously. Control loops adjust settings in real time. AI agents suggest and apply changes autonomously. Each of these is an autonomous actor, pursuing its own objectives, modifying the system it operates on.
 
 Individually, each is useful. Together, they share something none of them account for: the system itself.
 
-When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality optimizer downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power optimizer on one subsystem shifts the operating point of another through shared thermal budgets.
+When two autonomous agents act on the same system, they interfere. They couple. They create cross-talk — unintended influence through shared state. Not maliciously. Not through bugs. Through coupling paths that nobody designed and nobody monitors. A process controller adjusting temperature affects yield for the quality controller downstream. A resource allocator scaling capacity changes the noise floor for a concurrent parameter search. A power controller on one subsystem shifts the operating point of another through shared thermal budgets.
 
 This interference is invisible. Your monitoring sees the symptoms — degraded performance, oscillating behavior, unexplained variance. It cannot tell you why.
 
@@ -41,13 +41,13 @@ There is a class of configuration that is alive. It needs to move, adapt, respon
 Today, these alive parameters are managed in one of two ways:
 
 1. **Manually** — someone notices degradation, investigates, adjusts the value. Repeat forever.
-2. **Autonomously** — an optimizer, controller, or agent adjusts them automatically.
+2. **Autonomously** — a search agent, controller, or bot adjusts them automatically.
 
 Both approaches share a blind spot: neither accounts for interference from other agents acting on the same system.
 
 The manual approach can't see it because the interference doesn't show up in dashboards — it shows up as subtle coupling between agents that no single view connects.
 
-The autonomous approach can't see it because each agent optimizes its own objective function in isolation. One controller doesn't know the other exists. The other doesn't know its decisions create side effects that degrade the first's results.
+The autonomous approach can't see it because each agent pursues its own objective in isolation. One controller doesn't know the other exists. The other doesn't know its decisions create side effects that degrade the first's results.
 
 ## You Can't Engineer a Garden
 
@@ -61,11 +61,11 @@ Cultivation requires something engineering doesn't: **perception of the living s
 
 ## The First Step Is Perception
 
-godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one optimizer apply a guarded push to parameters it already controls while the other holds still. If the second optimizer's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.
+godon's approach is pragmatic and model-free. It doesn't assume the structure of your system. It doesn't require a digital twin, a simulation, or a first-principles model. It works by having one systemtender apply a guarded push to parameters it already controls while the other holds still. If the second systemtender's objectives shift in response — and recover when the push releases — you've detected a coupling path. One agent's actions are reaching the other through shared state.
 
 Each detection reveals one edge in a coupling graph. Systemtender A's signal reaches systemtender B. That's one connection you didn't know existed.
 
-This is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls, and the boundaries of the method are published as a measured map ([The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956)). The method is concrete, reproducible, and runs continuously without interrupting optimization.
+This is validated across coupling shapes — linear, deeply nonlinear cascaded, slowly drifting — with zero false positives on uncoupled controls, and the boundaries of the method are published as a measured map ([The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956)). The method is concrete, reproducible, and runs continuously without interrupting the walk.
 
 Whether this scales to the full topology of complex coupled systems now has a measured answer: curves compose through nonlinear paths to a horizon of about two nonlinear hops, and beyond it composing the measured pieces is the only remaining door ([From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439)). But the first step is clear: you cannot cultivate what you cannot perceive. And perception doesn't require a model. It requires a signal and an observer.
 
@@ -89,4 +89,4 @@ That's what godon is building.
 
 ---
 
-*This is the first in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
+*This is the first in a series of articles on living systems, interference detection, and the future of tending. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*

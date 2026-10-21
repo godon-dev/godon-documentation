@@ -1,5 +1,5 @@
 ---
-description: "Articles on living systems, interference detection, and the future of optimization."
+description: "Articles on living systems, interference detection, and the future of tending."
 tags:
   - essay
   - technical
@@ -8,6 +8,6 @@ tags:
 
 # Blog
 
-Articles on living systems, interference detection, and the future of optimization.
+Articles on living systems, interference detection, and the future of tending.
 
 <!-- material/tags -->
