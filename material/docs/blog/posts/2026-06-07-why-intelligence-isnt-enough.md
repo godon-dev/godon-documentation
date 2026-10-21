@@ -9,13 +9,15 @@ description: "No observer — human, AI, or biological — can detect coupling t
 
 # Why Intelligence Isn't Enough
 
+*Revised October 2026 — the wording follows the engine's current terms: tending, not optimizing. The argument is unchanged.*
+
 Every approach to understanding a complex system faces the same constraint: you have to interact with it. You can't deduce coupling topology from logs. You can't reason your way to interference from dashboards. You have to touch the system and observe what responds.
 
 This is true regardless of how smart the observer is.
 
 ## The Perception Gap
 
-Consider two optimization agents running on the same system. One adjusts resource allocation. The other tunes processing parameters. They share state they don't know about — shared memory, shared thermal budgets, shared power paths. One agent's decisions affect the other's results. Neither knows.
+Consider two autonomous agents running on the same system. One adjusts resource allocation. The other tunes processing parameters. They share state they don't know about — shared memory, shared thermal budgets, shared power paths. One agent's decisions affect the other's results. Neither knows.
 
 Your monitoring sees the symptoms: degraded performance, oscillating behavior, unexplained variance. It tells you something is wrong. It cannot tell you why, because the coupling doesn't appear in any metric. It exists in the dynamics between agents, not in the agents themselves.
 
@@ -60,7 +62,7 @@ An LLM writing heuristics on the fly still needs to deploy them, collect data, a
 
 Here's the insight that makes godon work: the exploration is already happening.
 
-The systemtender is an optimization algorithm — a structured search through parameter space. It runs trials, evaluates fitness, and biases future trials toward better outcomes. It doesn't understand the system it's searching. It doesn't need to. It just searches, guided by feedback.
+The systemtender is an autonomous agent — a structured walk through parameter space. It runs trials, evaluates fitness, and biases future trials toward better outcomes. It doesn't understand the system it's searching. It doesn't need to. It just searches, guided by feedback.
 
 The strain — the systemtender's configuration for a specific domain — carries structural knowledge: which parameters exist, what types they are, what ranges are valid. It knows the shape of the parameter space but not the dynamics of the system. The search itself is blind.
 
@@ -77,7 +79,7 @@ godon doesn't compete with AI. It provides what AI needs but can't generate itse
 
 The trajectory is clear: as LLMs become stronger, they become better at using detection results. But they still can't generate the detection signal. That requires a probe in the system. The guarded push is the probe.
 
-What could compete with godon is not a smarter observer but a different detection approach — a different way to embed and recover signals in optimization trails. That's the honest competitive landscape: detection method versus detection method.
+What could compete with godon is not a smarter observer but a different detection approach — a different way to embed and recover signals in the agents' exploration trails. That's the honest competitive landscape: detection method versus detection method.
 
 ## Making the Signal Exist
 
@@ -89,4 +91,4 @@ Intelligence reasons about what is. Detection reveals what wasn't visible. You n
 
 ---
 
-*This is the second in a series of articles on living systems, interference detection, and the future of optimization. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
+*This is the second in a series of articles on living systems, interference detection, and the future of tending. [godon](https://github.com/godon-dev/godon) is an open-source live systems tending and causal discernment engine.*
