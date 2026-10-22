@@ -17,17 +17,29 @@ Every operator of a complicated system lives with one quiet question: what affec
 
 <!-- more -->
 
+## The Territory
+
 One such relation is a nuisance. At population scale it is a condition. Millions of autonomous actors now share their mediums, coupled through everything they touch. Every part has an owner. The whole has none.
 
 What they form is a territory made of relations. Its terrain is neither steel nor silicon but interaction itself: settings in motion, pressing on other settings in motion. Some of the couplings ride physics: heat through a shared wall, voltage on a shared bus. Others ride nothing heavier than structure: a shared schema, a queue, a chain of transforms that exists only in code. Halt the actors and the territory goes dormant; the terrain was the interacting, not the ground. The territory carries no boundaries of its own — carve it anywhere and it continues — so its boundaries are drawn by people, per question: this power unit, this network, this floor. A map of one extent can share edges with a map of its neighbor, or none. The overlaps are chosen, because the territory itself chooses nothing.
 
+## The Survey
+
 The work, then, starts with a declaration and proceeds like a survey. Someone draws an extent around the part they intend to tend. Then comes a measurement no amount of watching could replace: one agent pushes — deliberately, within bounds it already respects — while its neighbor holds still, and everyone watches what moves. Push, release, compare. If the neighbor's objective shifts and recovers, a coupling path exists — wall, wire, or schema between them, the method does not care which. Run to depth, the probe does more than detect the path; it measures the path's shape: a response curve with error bars, and the bars are themselves measured, not decorative ([From Edges to Curves](https://doi.org/10.5281/zenodo.22127166)).
+
+## The Noise Floor
 
 Probing is not a preference; it is forced. Anything gathered while the agents merely run is dominated by their own trial-and-error noise, roughly five hundred times stronger than any coupling signal inside it. The engine's history keeps the honest number: an early attempt broadcast a faint continuous tone and listened for it downstream, and after six cascaded transforms the signal-to-noise ratio was 0.002. The lesson is the method's proverb: the signal has to be created at the scale of the channel, not the scale of the sensor. The concept pages carry the full story; the outcome is a method validated across linear, deeply nonlinear, and slowly drifting coupling, zero false positives on uncoupled controls, and limits published as a measured map rather than a promise ([The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956)). And measured curves compose — through nonlinear paths, to a horizon of about two hops; beyond it, composing the pieces is the only remaining door ([From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439)).
 
+## Four Old Disciplines
+
 There is a strange comfort in where the method comes from. Its block structure — push, pause, compare — was invented for farm fields, where an agronomist had to isolate one treatment's effect from the endless variation of soil. Its detector, the part that refuses to cry wolf, comes from radar and sonar, where a known return must be found in noise nobody can model. Its guardrails come from control theory. Its drawn extents come from cartography. Four old disciplines that never needed each other, assembled now around a territory none of them ever had: one whose inhabitants are the terrain.
 
+## The Living Map
+
 Each measured edge is banked into a wiring map — the [connectome](https://godon-dev.github.io/godon-documentation/concept_connectome/) — that persists across campaigns, so every survey begins where the last one ended. The map is candid about its gaps: an absent edge means not yet probed, or too weak to measure, and the map does not claim to know which. And the map ages by nature, not by neglect — its terrain is parameter spaces, and parameter spaces keep changing; drift is not weather on the territory, it is the territory's substance moving. So the map is built to age: it predicts — if this node moves, that one answers — and when a prediction fails, the failure localizes the change and the neighborhood is measured again. A map that keeps itself honest by failing.
+
+## The Practice
 
 None of the measuring is for its own sake. An operator's intent — hold this throughput, keep this latency inside its band — can be planned against the measured map, applied, held while the world drifts, corrected in place when the bands are brushed. Holding intent inside a moving territory deserves its own essay. It is the next one.
 
