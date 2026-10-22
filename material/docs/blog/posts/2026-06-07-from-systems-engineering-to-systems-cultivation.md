@@ -4,12 +4,12 @@ tags:
   - essay
 authors:
   - matthias-tafelmeier
-description: "Autonomous agents coupled through shared media — physical and structural — form a territory whose terrain is what the actors do to one another. Surveyed extent by extent: a power unit, a network, a floor, at overlaps the operators choose."
+description: "Every territory is made of a medium, and the practice grows around the medium — ground had the cadastre, water the chart, spectrum its allocations, load the grid. This territory is made of relations: autonomous actors coupled through shared media, surveyed extent by extent, the precision local, the overlaps chosen."
 ---
 
 # A Territory Made of Relations
 
-*Rewritten October 2026. The original essay told this shift as engineering giving way to cultivation, under a garden metaphor; both retired. The argument here is new; the numbers are the same.*
+*Rewritten October 2026. The original garden framing retired first; an interim version carried a gallery of near-miss analogies. This one runs a single line instead — every territory is made of a medium, and this medium is relations. The numbers are the same earned ones.*
 
 On a floor that runs software, things adjust themselves. A cooling controller follows a temperature. A scheduler rebalances load. A search agent tries parameter values one after another and keeps what works. None of these actors was placed with the others in mind, and they share their mediums anyway: memory bandwidth, heat, power — and, one layer up, structure itself — schemas, queues, the values one service assumes about another. When the scheduler's move shifts the cooling controller's readings, the controller acts on a cause it cannot name.
 
@@ -17,23 +17,23 @@ Every operator of a complicated system lives with one quiet question: what affec
 
 <!-- more -->
 
-## The Territory
-
 One such relation is a nuisance. At population scale it is a condition. Millions of autonomous actors now share their mediums, coupled through everything they touch. Every part has an owner. The whole has none.
 
-What they form is a territory made of relations. Its terrain is neither steel nor silicon but interaction itself: settings in motion, pressing on other settings in motion. Some of the couplings ride physics: heat through a shared wall, voltage on a shared bus. Others ride nothing heavier than structure: a shared schema, a queue, a chain of transforms that exists only in code. Halt the actors and the territory goes dormant; the terrain was the interacting, not the ground. The territory carries no boundaries of its own — carve it anywhere and it continues — so its boundaries are drawn by people, per question: this power unit, this network, this floor. A map of one extent can share edges with a map of its neighbor, or none. The overlaps are chosen, because the territory itself chooses nothing.
+## What Territories Are Made Of
 
-## One Face Each
+The reach for an old word is sound, because this is not the first territory people have had to hold and map. Every territory is made of a medium, and the practice grows around the medium.
 
-Maps follow territories, so the reach for an existing word is sound — and every word that gets close earned its face honestly. The cadastral map holds the declared extent: parcels drawn by people, meaningful because everyone agrees to them. The nautical chart holds the self-correcting map: centuries of mariners' reports revising the survey, a ship grounding where the chart said clear water bringing the resurvey of a whole neighborhood. The agricultural field holds the honest experiment: block designs invented to isolate one treatment's effect from the endless variation of soil. Radar and sonar hold the detector: a known return found in noise nobody can model, without crying wolf. Control theory holds the guardrail: action that stays inside bounds the actor already respects. And the power grid holds the precedent of ownerless senses — after blackouts whose investigation reports named the blindness, it grew wide-area measurement for a whole no one owns.
+The oldest are made of ground. The cadastral map holds parcels declared by people, parcels that hold still because the ground does; the same ground taught the honest experiment — block designs, invented on farm fields to isolate one treatment's effect from the endless variation of soil. Territories made of water carry the nautical chart, a map of the bottom corrected for centuries by the mariners' own reports: a ship grounding where the chart said clear water brings the resurvey of a whole neighborhood. The radio spectrum was the first invisible territory, and its operators gave the language its word for the weather of a shared medium: interference. Their descendants built the detector that finds a known return in noise nobody can model. And the electrical grid — a territory made of load — grew wide-area measurement for a body no one owns, after blackouts whose investigation reports named the blindness.
 
-Each face is real, and each stops at a named edge. The cadastral parcels sit on ground that never moves; this terrain is nothing but movement. The chart corrects a map of a bottom — it never measured what the mariners do to each other. The field had one owner, and nothing inside it adjusts itself. The control loop couples one controller to one plant, a pairing someone designed; the couplings here were designed by no one. The grid's wiring was drawn before its sensors ever watched: it observes a body it was handed, and discovery was never asked of it. And the older words for the thing itself — a body, a garden — carry skin and hosts and single owners the territory does not have.
+Each medium taught one move, and each practice stops where its medium stops. Ground holds still; its parcels and its blocks presume a terrain that waits between surveys — this one moves when the actors move. The chart's bottom stays put; it never measured what the mariners do to each other. The spectrum's boundaries are administered — frequencies are allocated, so no one had to discover who couples to whom; the shared media here, heat and buses and schemas, are assigned by no one. And the grid's wiring was drawn before its sensors ever watched: it observes a body it was handed, and discovery was never asked of it.
 
-No one holds the conjunction: discovered coupling between autonomous actors, at extents that change with the question — because until now there was no such territory to map, and maps follow territories. What each word truly owned, the practice took: the declared extent, the self-correcting map, the honest block, the detector, the guardrail, the ownerless senses. What each presumed, it left behind. The words are not wrong; they are one face wide. The practice is the seam.
+No medium's practice ever needed to discover coupling between autonomous actors, at extents that change with the question — because until now no territory was made of its actors' mutual influence. Maps follow territories. This one is made of relations: settings in motion pressing on other settings in motion, through wall, wire, or schema. Halt the actors and the territory goes dormant; the medium was the interacting itself. What each practice truly owned, this one took — the declared extent and the honest block from the ground, the self-correcting map from the water, the detector from the spectrum, the ownerless senses from the load. The old words are not wrong; each was built for another medium. The practice is the seam.
 
 ## The Survey
 
-The work, then, starts with a declaration and proceeds like a survey. Someone draws an extent around the part they intend to tend. Then comes a measurement no amount of watching could replace: one agent pushes — deliberately, within bounds it already respects — while its neighbor holds still, and everyone watches what moves. Push, release, compare. If the neighbor's objective shifts and recovers, a coupling path exists — wall, wire, or schema between them, the method does not care which. Run to depth, the probe does more than detect the path; it measures the path's shape: a response curve with error bars, and the bars are themselves measured, not decorative ([From Edges to Curves](https://doi.org/10.5281/zenodo.22127166)).
+The work starts the way work on any territory starts: with a declaration. Someone draws an extent around the part they intend to tend — a power unit, a network, a floor — as small as the question at hand, overlapping its neighbors or not, as the operators configure. The extent is a province, not a fragment: worked at full depth, and never under obligation to join a wider map. Precision lives in the province.
+
+Then comes a measurement no amount of watching could replace: one agent pushes — deliberately, within bounds it already respects — while its neighbor holds still, and everyone watches what moves. Push, release, compare. If the neighbor's objective shifts and recovers, a coupling path exists — wall, wire, or schema between them, the method does not care which. Run to depth, the probe does more than detect the path; it measures its shape: a response curve with error bars, and the bars are themselves measured, not decorative ([From Edges to Curves](https://doi.org/10.5281/zenodo.22127166)).
 
 ## The Noise Floor
 
@@ -47,7 +47,7 @@ Each measured edge is banked into a wiring map — the [connectome](https://godo
 
 None of the measuring is for its own sake. An operator's intent — hold this throughput, keep this latency inside its band — can be planned against the measured map, applied, held while the world drifts, corrected in place when the bands are brushed. Holding intent inside a moving territory deserves its own essay. It is the next one.
 
-Engineering finished its work at its layers. Identity, boundaries, policies — designed, verified, standing. What kept moving underneath was never going to be finished, because it is not that kind of thing. It is tended. The territory is made of relations; the relations can be measured; the map answers for itself, one failed prediction at a time.
+Engineering finished its work at its layers. Identity, boundaries, policies — designed, verified, standing. What kept moving underneath was never going to be finished, because it is not that kind of thing. It is tended. Ground got the cadastre, water the chart, spectrum its allocations, load the grid; relations get the survey, the map, and the held intent. The territory is made of relations; the relations can be measured; the map answers for itself, one failed prediction at a time.
 
 ---
 
