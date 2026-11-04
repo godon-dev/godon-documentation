@@ -18,7 +18,7 @@ Every new coupling channel type extends the boundary map. See [Bench Scenarios](
 
 **The Composition Horizon**
 
-Nonlinear composition is measured: curves chain through nonlinear switching elements and sum at converging junctions to predict far-end response, with the propagated error bars validated as honest metrology — published as [From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439). The open end is the horizon: about two nonlinear hops at noise σ=0.02, beyond which the far end falls below the detection floor. If you work in nonlinear system identification, uncertainty propagation, or error-in-variables methods — extending that horizon is the open end of the composition story.
+Nonlinear composition is measured: curves chain through nonlinear switching elements and sum at converging junctions to predict far-end response, with the propagated error bars validated as honest metrology — published as From Curves to Cascades. The open end is the horizon: about two nonlinear hops at noise σ=0.02, beyond which the far end falls below the detection floor. If you work in nonlinear system identification, uncertainty propagation, or error-in-variables methods — extending that horizon is the open end of the composition story.
 
 **Response Dynamics**
 
@@ -30,7 +30,7 @@ The measured map — curves with per-point bars, topology, priced gaps — is an
 
 **Live Systems Tending**
 
-Detection, curves, and composition are the perception half. The action half ships: basic steering, live end to end — a declared wish is planned against the measured map, acted, judged against its bands, and held; multi-outcome wishes with terms are declared and served; a commissioned walk searches a region under a budget and returns the best found with its bars and its spend; the holder corrects a standing wish in place ([Wish](concept_wish.md)). The open ends are hardening and coexistence: the full multi-outcome shape has flown and concluded with an exact verdict but no landed receipt yet, and many wishes on one system — kept together where possible, collisions surfaced where not — is the next rung. If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and these are the open problems.
+Detection, curves, and composition are the perception half. The action half ships, and its first campaign is published: basic steering, live end to end — a declared wish is planned against the measured map, acted, judged against its bands, and held; multi-outcome wishes with terms are declared, served, and judged live; a promise beyond the measured range is refused by name, with nothing actuated; a held line survives a declared drift event, the map re-measuring what moved and the reading re-landing; and the price of keeping is read between what luck alone keeps and what perfect hindsight could have kept. A commissioned walk searches a region under a budget and returns the best found with its bars and its spend, and the holder corrects a standing wish in place ([Wish](concept_wish.md)). The open ends are density and coexistence: the full multi-outcome conjunction has not landed every line at once — one dense map away — and many wishes on one system, kept together where possible, collisions surfaced where not, is the next rung. If you work in control under coupling, multi-agent coordination, or scheduling, the measured map is the substrate and these are the open problems.
 
 **Statistics of Priced Stopping**
 
@@ -72,7 +72,7 @@ godon is an empirical instrument for complex coupled systems — benches with pl
 
 **Attack the stopping rule.** Curve retirement uses a deliberately simple information-price argument (remaining ignorance = gap jump × width, vs the local measurement bar). The tests and data to attack it are public; a rigorous replacement would harden every measurement the engine makes.
 
-The method reference: [The Impulse Protocol](https://doi.org/10.5281/zenodo.21962956) (Zenodo DOI) — the protocol, its validation, and its honest boundaries.
+The method reference: The Impulse Protocol — the protocol, its validation, and its honest boundaries; see [Publications](publications.md).
 
 ### How to Contribute
 
