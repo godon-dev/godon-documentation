@@ -68,6 +68,25 @@ Work produced by the godon project.
     DOI: [10.5281/zenodo.22401439](https://doi.org/10.5281/zenodo.22401439) ·
     [Zenodo](https://zenodo.org/records/22401439)
 
+!!! quote "[The Steerwish: Intent Kept on Live Systems](https://doi.org/10.5281/zenodo.23948170)"
+
+    Intent, made keepable: a promise to a live system — keep this
+    reading inside this band — declared by its holder, kept against
+    drift, and refused, not faked, when the measured range says no.
+    Four claims, each carried by receipts from a live measurement
+    campaign: the map steers a multi-line promise through measured
+    couplings, its lines judged live and held, repeated across seed
+    runs with the boundary stated as measured — a limit of map
+    density, not of principle; a target beyond the measured range is
+    declined by name with zero actuation; a declared drift event is
+    survived end to end — the misses stamp, the map re-opens, the
+    reading re-lands; and a three-flight envelope prices the keeping
+    between what luck alone keeps and what perfect hindsight could
+    have kept.
+
+    DOI: [10.5281/zenodo.23948170](https://doi.org/10.5281/zenodo.23948170) ·
+    [Zenodo](https://zenodo.org/records/23948170)
+
 ---
 
 ## See Also

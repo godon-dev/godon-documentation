@@ -25,7 +25,7 @@ What is genuinely open, honestly bounded. The solved problems moved to [Detectio
 
 The method-choice question is closed. Passive statistics (FFT, mutual information, transfer entropy, Granger, CCM) failed on this problem class for a structural reason: the receiver's own exploration noise sits ~500× above any coupling signal in passive data. The shipped answer is the **impulse protocol** — deliberate, guarded pushes with the receiver holding still, detected by CFAR — validated across coupling shapes including deeply nonlinear cascaded channels and slow drift, zero false positives on controls, with a published boundary map. Passive methods remain interesting only as accelerators (ranking candidates for probe prioritization at scale).
 
-Composition is closed to a measured horizon. Nonlinear composition — curves chained through nonlinear switching elements and summed at converging junctions — predicts far-end response within error bars propagated from each piece: 95 of 97 referee points across four chain seeds, a junction, and a live threshold relay, with the propagated bars validated as honest metrology. The bench capability that did not exist (nonlinearity in the edge itself) shipped with the campaign. Published as [From Curves to Cascades](https://doi.org/10.5281/zenodo.22401439).
+Composition is closed to a measured horizon. Nonlinear composition — curves chained through nonlinear switching elements and summed at converging junctions — predicts far-end response within error bars propagated from each piece: 95 of 97 referee points across four chain seeds, a junction, and a live threshold relay, with the propagated bars validated as honest metrology. The bench capability that did not exist (nonlinearity in the edge itself) shipped with the campaign. Published as From Curves to Cascades.
 
 ### Beyond the Composition Horizon
 
@@ -63,7 +63,7 @@ Choosing experiments by expected information value — the sensing strategy choo
 
 ### Hardening the Steering
 
-Basic steering is live: a declared wish is planned against the measured map, acted, judged against its bands, and held while the world drifts; claims that share an input are reconciled at plan time, and the holder corrects a standing wish in place. The open rungs, in order: the landed receipt for the full multi-outcome shape — it has flown end to end and concluded with an exact verdict, one line short of the band — and then many wishes coexisting on one system, kept together where possible, collisions surfaced where not. Each rung gates the next; none is assumed.
+Basic steering is live, and its first campaign is published: a declared wish is planned against the measured map, acted, judged against its bands, and held while the world drifts; claims that share an input are reconciled at plan time, and the holder corrects a standing wish in place. The published receipts (The Steerwish) cover the multi-outcome promise judged line by line, refusal beyond the measured range declined by name with zero actuation, the drift arc survived end to end, and the price of a four-hour hold read between what luck alone keeps and what perfect hindsight could have kept. The open rungs, in order: the landed receipt for the full conjunction — every line of the multi-outcome shape in band at once, one dense map away — and then many wishes coexisting on one system, kept together where possible, collisions surfaced where not. Each rung gates the next; none is assumed.
 
 ### Further Reading
 
