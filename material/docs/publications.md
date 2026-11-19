@@ -38,7 +38,7 @@ Work produced by the godon project.
     DOI: [10.5281/zenodo.21962956](https://doi.org/10.5281/zenodo.21962956) ·
     [Zenodo](https://zenodo.org/records/21962956)
 
-!!! quote "[From Edges to Curves: Calibration of Autonomous Coupling Characterization in Live Systems](https://doi.org/10.5281/zenodo.22127166)"
+!!! quote "[From Edges to Curves: Calibration of Autonomous Coupling Characterization in Live Systems](https://doi.org/10.5281/zenodo.22127165)"
 
     The calibration of the characterization walk: measured response
     curves per coupling edge, with error bars validated against
@@ -49,8 +49,8 @@ Work produced by the godon project.
     sentinels; the working envelope and the refusal conditions
     measured, not asserted.
 
-    DOI: [10.5281/zenodo.22127166](https://doi.org/10.5281/zenodo.22127166) ·
-    [Zenodo](https://zenodo.org/records/22127166)
+    DOI: [10.5281/zenodo.22127165](https://doi.org/10.5281/zenodo.22127165) ·
+    [Zenodo](https://zenodo.org/records/22127165)
 
 !!! quote "[From Curves to Cascades: Composed Coupling Prediction Among Autonomous Agents](https://doi.org/10.5281/zenodo.22401439)"
 
@@ -68,7 +68,7 @@ Work produced by the godon project.
     DOI: [10.5281/zenodo.22401439](https://doi.org/10.5281/zenodo.22401439) ·
     [Zenodo](https://zenodo.org/records/22401439)
 
-!!! quote "[The Steerwish: Intent Kept on Live Systems](https://doi.org/10.5281/zenodo.23948170)"
+!!! quote "[The Steerwish: Intent Kept on Live Systems](https://doi.org/10.5281/zenodo.23948169)"
 
     Intent, made keepable: a promise to a live system — keep this
     reading inside this band — declared by its holder, kept against
@@ -84,8 +84,8 @@ Work produced by the godon project.
     between what luck alone keeps and what perfect hindsight could
     have kept.
 
-    DOI: [10.5281/zenodo.23948170](https://doi.org/10.5281/zenodo.23948170) ·
-    [Zenodo](https://zenodo.org/records/23948170)
+    DOI: [10.5281/zenodo.23948169](https://doi.org/10.5281/zenodo.23948169) ·
+    [Zenodo](https://zenodo.org/records/23948169)
 
 ---
 
